@@ -5,10 +5,12 @@ import (
 	"flag"
 )
 
+const defaultFilePath = "config/development/sau.toml"
+
 func main() {
 	configPath := flag.String(
 		"config",
-		"",
+		defaultFilePath,
 		"Путь к файлу с конфигурациями",
 	)
 	flag.Parse()

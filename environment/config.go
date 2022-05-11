@@ -4,7 +4,7 @@ import "github.com/BurntSushi/toml"
 
 type Config struct {
 	filePath string
-	listen   string
+	Listen   string
 }
 
 func NewConfig(filePath string) Config {

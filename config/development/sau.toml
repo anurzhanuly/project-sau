@@ -1,5 +1,5 @@
-listen = "0.0.0.0:8080"
+Listen = "0.0.0.0:8080"
 
 [database]
-server = ""
-port = ""
+Server = ""
+Port = ""
