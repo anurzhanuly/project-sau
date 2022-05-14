@@ -28,10 +28,15 @@ func Run() {
 
 	container := di.NewDi(config)
 	nethttp.Handle("/", http.Router(config.Debug, container))
+	nethttp.HandleFunc("/health", health)
 
 	server.Init(config)
 
 	if err = nethttp.ListenAndServe(config.Listen, nil); err != nil {
 		fmt.Println("Error while running server...")
 	}
+}
+
+func health(w nethttp.ResponseWriter, _ *nethttp.Request) {
+	w.WriteHeader(200)
 }
