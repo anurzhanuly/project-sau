@@ -13,17 +13,9 @@ import (
 const defaultConfigPath = "config/development/sau.toml"
 
 func Run() {
-	configPath := flag.String(
-		"config",
-		defaultConfigPath,
-		"Путь до файла с конфигами проекта",
-	)
-	flag.Parse()
-
-	config := environment.NewConfig(*configPath)
-	err := config.Init()
+	config, err := getConfig()
 	if err != nil {
-		return
+		fmt.Println("Error while running server...")
 	}
 
 	container := di.NewDi(config)
@@ -35,6 +27,23 @@ func Run() {
 	if err = nethttp.ListenAndServe(config.Listen, nil); err != nil {
 		fmt.Println("Error while running server...")
 	}
+}
+
+func getConfig() (environment.Config, error) {
+	configPath := flag.String(
+		"config",
+		defaultConfigPath,
+		"Путь до файла с конфигами проекта",
+	)
+	flag.Parse()
+
+	config := environment.NewConfig(*configPath)
+	err := config.Init()
+	if err != nil {
+		return config, err
+	}
+
+	return config, nil
 }
 
 func health(w nethttp.ResponseWriter, _ *nethttp.Request) {
