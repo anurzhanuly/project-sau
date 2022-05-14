@@ -6,6 +6,7 @@ import (
 	"anurzhanuly/project-sau/app/server"
 	"anurzhanuly/project-sau/environment"
 	"flag"
+	"fmt"
 	nethttp "net/http"
 )
 
@@ -29,4 +30,8 @@ func Run() {
 	nethttp.Handle("/", http.Router(config.Debug, container))
 
 	server.Init(config)
+
+	if err = nethttp.ListenAndServe(config.Listen, nil); err != nil {
+		fmt.Println("Error while running server...")
+	}
 }
