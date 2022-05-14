@@ -15,7 +15,7 @@ const defaultConfigPath = "config/development/sau.toml"
 func Run() {
 	config, err := getConfig()
 	if err != nil {
-		fmt.Println("Error while running server...")
+		fmt.Println("Ошибка при инициализации конфигов сервера")
 	}
 
 	container := di.NewDi(config)
@@ -25,7 +25,7 @@ func Run() {
 	server.Init(config)
 
 	if err = nethttp.ListenAndServe(config.Listen, nil); err != nil {
-		fmt.Println("Error while running server...")
+		fmt.Println("Ошибка при запуске http сервера")
 	}
 }
 
