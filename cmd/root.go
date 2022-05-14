@@ -1,9 +1,11 @@
 package cmd
 
 import (
-	"anurzhanuly/project-sau/cmd/server"
+	"anurzhanuly/project-sau/app/di"
+	"anurzhanuly/project-sau/app/server"
 	"anurzhanuly/project-sau/environment"
 	"flag"
+	"net/http"
 )
 
 const defaultConfigPath = "config/development/sau.toml"
@@ -21,6 +23,9 @@ func Run() {
 	if err != nil {
 		return
 	}
+
+	container := di.NewDi(config)
+	http.Handle("/")
 
 	server.Init(config)
 }
