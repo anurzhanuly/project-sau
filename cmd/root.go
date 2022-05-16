@@ -48,4 +48,8 @@ func getConfig() (environment.Config, error) {
 
 func health(w nethttp.ResponseWriter, _ *nethttp.Request) {
 	w.WriteHeader(200)
+	_, err := w.Write([]byte("Сервер жив!"))
+	if err != nil {
+		return
+	}
 }
