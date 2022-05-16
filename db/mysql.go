@@ -1,6 +1,10 @@
 package db
 
-import "database/sql"
+import (
+	"database/sql"
+	"fmt"
+	"github.com/go-sql-driver/mysql"
+)
 
 type Options struct {
 	Host     string
@@ -10,5 +14,25 @@ type Options struct {
 	Database string
 }
 
-func GetConnection() *sql.DB {
+func GetConnection(options Options) (*sql.DB, error) {
+	cfg := mysql.Config{
+		User:   options.User,
+		Passwd: options.Password,
+		Net:    "tcp",
+		Addr:   fmt.Sprintf("%s:%d", options.Host, options.Port),
+		DBName: options.Database,
+	}
+
+	var err error
+	db, err := sql.Open("mysql", cfg.FormatDSN())
+	if err != nil {
+		return nil, err
+	}
+
+	pingErr := db.Ping()
+	if pingErr != nil {
+		return nil, pingErr
+	}
+
+	return db, err
 }
