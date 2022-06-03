@@ -2,7 +2,6 @@ package di
 
 import (
 	"anurzhanuly/project-sau/db/mongoDB"
-	"anurzhanuly/project-sau/db/mysql"
 	"anurzhanuly/project-sau/environment"
 	"database/sql"
 	"go.mongodb.org/mongo-driver/mongo"
@@ -24,10 +23,10 @@ func (di *DI) Init() {
 
 func (di *DI) initDb() {
 	var err error
-	di.MySql, err = mysql.GetConnection(di.Config.Database.MySQL)
-	if err != nil {
-		panic(err)
-	}
+	//di.MySql, err = mysql.GetConnection(di.Config.Database.MySQL)
+	//if err != nil {
+	//	panic(err)
+	//}
 
 	di.MongoDB, err = mongoDB.GetConnection(di.Config.Database.MongoDB)
 	if err != nil {
