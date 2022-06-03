@@ -2,5 +2,15 @@ Listen = "0.0.0.0:8080"
 Debug = true
 
 [database]
-Server = ""
-Port = ""
+    [database.MongoDB]
+        User = "saubolkz"
+        Password = "1Nxow6yFyvxHeyN3"
+        Host = "cluster0.nvdhx.mongodb.net"
+        DNS = "mongodb+srv://saubolkz:1Nxow6yFyvxHeyN3@cluster0.nvdhx.mongodb.net/?retryWrites=true&w=majority"
+
+    [database.MySQL]
+        User = "root"
+        Password = "Project_mysql#65"
+        Host = "localhost"
+        Port = "3306"
+        Database = "test"

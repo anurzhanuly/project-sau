@@ -1,7 +1,7 @@
 package di
 
 import (
-	"anurzhanuly/project-sau/db"
+	"anurzhanuly/project-sau/db/mysql"
 	"anurzhanuly/project-sau/environment"
 	"database/sql"
 )
@@ -15,10 +15,10 @@ func NewDi(config environment.Config) (di DI) {
 	return DI{Config: config}
 }
 
-func (di *DI) initDI() {
+func (di *DI) Init() {
 	di.initDb()
 }
 
 func (di *DI) initDb() {
-	di.MySql = db.GetConnection()
+	di.MySql, _ = mysql.GetConnection(di.Config.MySqlOptions)
 }
