@@ -1,15 +1,15 @@
 package environment
 
 import (
-	"anurzhanuly/project-sau/db/mysql"
+	"anurzhanuly/project-sau/db"
 	"github.com/BurntSushi/toml"
 )
 
 type Config struct {
-	filePath     string
-	Listen       string
-	Debug        bool
-	MySqlOptions mysql.Options
+	filePath string
+	Listen   string
+	Debug    bool
+	Database db.Options
 }
 
 func NewConfig(filePath string) Config {

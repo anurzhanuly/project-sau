@@ -1,14 +1,17 @@
 package di
 
 import (
+	"anurzhanuly/project-sau/db/mongoDB"
 	"anurzhanuly/project-sau/db/mysql"
 	"anurzhanuly/project-sau/environment"
 	"database/sql"
+	"go.mongodb.org/mongo-driver/mongo"
 )
 
 type DI struct {
-	Config environment.Config
-	MySql  *sql.DB
+	Config  environment.Config
+	MySql   *sql.DB
+	MongoDB *mongo.Client
 }
 
 func NewDi(config environment.Config) (di DI) {
@@ -20,5 +23,14 @@ func (di *DI) Init() {
 }
 
 func (di *DI) initDb() {
-	di.MySql, _ = mysql.GetConnection(di.Config.MySqlOptions)
+	var err error
+	di.MySql, err = mysql.GetConnection(di.Config.Database.MySQL)
+	if err != nil {
+		panic(err)
+	}
+
+	di.MongoDB, err = mongoDB.GetConnection(di.Config.Database.MongoDB)
+	if err != nil {
+		panic(err)
+	}
 }

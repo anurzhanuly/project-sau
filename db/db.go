@@ -1,11 +1,11 @@
 package db
 
 import (
-	"anurzhanuly/project-sau/db/mongo"
+	"anurzhanuly/project-sau/db/mongoDB"
 	"anurzhanuly/project-sau/db/mysql"
 )
 
 type Options struct {
-	mongoOptions mongo.Options
-	mysqlOptions mysql.Options
+	MongoDB mongoDB.Options
+	MySQL   mysql.Options
 }
