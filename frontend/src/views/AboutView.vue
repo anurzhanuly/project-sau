@@ -3,33 +3,47 @@
     <h1>Админка</h1>
     <section class="container">
       <label class="label" for="title">
-        Title: <input class="input" id="title" type="text">
+        <p><b>Title:</b></p>
+        <textarea name="Title" id="" cols="30" rows="10" v-model="titleValue"></textarea>
       </label>
-      <button class="btn">Добавить</button>
     </section>
     <section class="container">
       <label class="label" for="title">
-        Descr: <input class="input" id="title" type="text">
+        <p><b>Description:</b></p>
+        <textarea name="Descr" id="" cols="30" rows="10" v-model="descrValue"></textarea>
       </label>
-      <button class="btn">Добавить</button>
     </section>
     <section class="container">
       <label class="label" for="title">
-        NextId: <input class="input" id="title" type="text">
+        <p><b>NextQuest:</b></p>
+        <textarea name="Quest" id="" cols="30" rows="10" v-model="questValue"></textarea>
       </label>
-      <button class="btn">Добавить</button>
     </section>
+    <button class="btn" @click="pushTitle">Добавить</button>
   </div>
 </template>
+
+<script>
+export default {
+  data() {
+    return {
+      titleValue: '',
+      descrValue: '',
+      questValue: '',
+    };
+  },
+  methods: {
+    pushTitle() {
+      console.log(this.titleValue, this.descrValue, this.questValue);
+    },
+  },
+};
+</script>
 
 <style scoped>
   .about {
     margin: 0 auto;
     max-width: 1200px;
-  }
-
-  .label {
-    margin-right: 30px;
   }
 
   .input {
@@ -40,7 +54,7 @@
   .container {
     margin-bottom: 40px;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
   }
 
@@ -62,7 +76,6 @@
     outline: none;
     background: #fff;
     transition: all 0.22s;
-    margin-left: 60px;
     height: 70px;
   }
 
