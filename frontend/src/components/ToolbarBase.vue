@@ -1,11 +1,12 @@
 <template>
     <header class="header">
         <router-link to="/">
-            <img class="logo" src="../assets/logo.png" alt="logo">
+            <div class="logo"></div>
         </router-link>
         <nav>
-            <router-link to="/test">Test</router-link> |
-            <router-link to="/admin">Админка</router-link>
+            <router-link to="/test">
+                <button class="btn">Пройти тест</button>
+            </router-link>
         </nav>
     </header>
     <router-view/>
@@ -20,15 +21,33 @@ export default {
 <style scoped>
     .header {
         display: flex;
-        justify-content: space-around;
+        justify-content: space-between;
         height: 80px;
         max-width: 1200px;
-        margin: 20px auto;
+        margin: 40px auto 0;
         align-items: center;
+        padding: 0 30px;
     }
 
     .logo {
-        height: 80px;
-        width: 100%;
+        background-image: url("../assets/logo.svg");
+        background-position: 50%;
+        background-repeat: no-repeat;
+        background-size: contain;
+        height: 60px;
+        width: 200px;
+    }
+
+    .btn {
+        margin: 20px 0;
+        padding: 12px 23px;
+        background-color: #1ac98e;
+        border: none;
+        color: #fff;
+        border-radius: 5px;
+        cursor: pointer;
+        text-align: center;
+        font-weight: 700;
+        font-size: 14px;
     }
 </style>
