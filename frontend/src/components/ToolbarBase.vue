@@ -17,14 +17,16 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
     .header {
         display: flex;
         justify-content: space-around;
         height: 80px;
         max-width: 1200px;
-        margin: 0 auto;
+        margin: 20px auto;
+        align-items: center;
     }
+
     .logo {
         height: 80px;
         width: 100%;
