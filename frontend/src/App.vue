@@ -1,16 +1,19 @@
 <template>
     <div class="wrapper">
         <ToolbarBase/>
-        <router-view/>
+        <main class="main"><router-view/></main>
+        <FooterBase/>
     </div>
 </template>
 
 <script>
 import ToolbarBase from '@/components/ToolbarBase.vue';
+import FooterBase from '@/components/FooterBase.vue';
 
 export default {
   components: {
     ToolbarBase,
+    FooterBase,
   },
 };
 </script>
@@ -33,5 +36,8 @@ export default {
     max-width: 1200px;
     padding: 0 30px;
     margin: 0 auto;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 </style>
