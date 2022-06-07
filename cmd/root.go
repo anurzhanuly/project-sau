@@ -19,6 +19,9 @@ func Run() {
 	}
 
 	container := di.NewDi(config)
+	container.Init()
+	defer container.Release()
+
 	nethttp.Handle("/", http.Router(config.Debug, container))
 	nethttp.HandleFunc("/health", health)
 

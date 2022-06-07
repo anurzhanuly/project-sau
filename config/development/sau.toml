@@ -3,9 +3,10 @@ Debug = true
 
 [database]
     [database.MongoDB]
-        User = "saubolkz"
+        Username = "saubolkz"
         Password = "1Nxow6yFyvxHeyN3"
         Host = "cluster0.nvdhx.mongodb.net"
+        Timeout = 2
 
     [database.MySQL]
         User = "root"

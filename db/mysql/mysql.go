@@ -8,7 +8,7 @@ import (
 
 type Options struct {
 	Host     string
-	Port     int
+	Port     string
 	User     string
 	Password string
 	Database string
