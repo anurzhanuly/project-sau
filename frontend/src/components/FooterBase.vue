@@ -3,9 +3,6 @@
         <router-link to="/">
             <div class="logo"></div>
         </router-link>
-        <router-link to="/test">
-            <button class="btn">Тест</button>
-        </router-link>
     </footer>
 </template>
 
@@ -31,18 +28,5 @@ export default {
     background-size: contain;
     height: 60px;
     width: 200px;
-}
-
-.btn {
-    margin: 20px 0;
-    padding: 12px 23px;
-    background-color: #1ac98e;
-    border: none;
-    color: #fff;
-    border-radius: 5px;
-    cursor: pointer;
-    text-align: center;
-    font-weight: 700;
-    font-size: 14px;
 }
 </style>
