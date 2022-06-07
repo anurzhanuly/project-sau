@@ -5,6 +5,12 @@ import (
 	"anurzhanuly/project-sau/app/http/handlers"
 	"anurzhanuly/project-sau/app/http/middleware"
 	"github.com/gin-gonic/gin"
+	"net/http"
+)
+
+const (
+	EntryPointRoute    = "./frontend/public/index.html"
+	EntryPointFilename = "index.html"
 )
 
 func Router(debug bool, di di.DI) *gin.Engine {
@@ -15,6 +21,13 @@ func Router(debug bool, di di.DI) *gin.Engine {
 	return router
 }
 
-func ConfigureRoutes(router gin.IRouter, di di.DI) {
+func ConfigureRoutes(router *gin.Engine, di di.DI) {
+	router.LoadHTMLGlob(EntryPointRoute)
+	router.GET("/", func(context *gin.Context) {
+		context.HTML(http.StatusOK, EntryPointFilename, gin.H{
+			"title": "AMAN SAU BOL KZ",
+		})
+	})
+
 	router.GET("/hello", middleware.ProvideDependency(handlers.Hello, di))
 }
