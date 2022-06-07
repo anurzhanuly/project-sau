@@ -23,7 +23,6 @@ func Run() {
 	defer container.Release()
 
 	nethttp.Handle("/", http.Router(config.Debug, container))
-	nethttp.HandleFunc("/health", health)
 
 	server.Init(config)
 
@@ -47,12 +46,4 @@ func getConfig() (environment.Config, error) {
 	}
 
 	return config, nil
-}
-
-func health(w nethttp.ResponseWriter, _ *nethttp.Request) {
-	w.WriteHeader(200)
-	_, err := w.Write([]byte("Сервер жив!"))
-	if err != nil {
-		return
-	}
 }
