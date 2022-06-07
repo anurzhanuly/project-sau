@@ -30,5 +30,5 @@ func ConfigureRoutes(router *gin.Engine, di di.DI) {
 	})
 
 	router.GET("/hello", middleware.ProvideDependency(handlers.Hello, di))
-	router.GET("/hello", middleware.ProvideDependency(handlers.Health, di))
+	router.GET("/health", middleware.ProvideDependency(handlers.Health, di))
 }
