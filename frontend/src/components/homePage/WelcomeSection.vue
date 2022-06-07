@@ -34,35 +34,30 @@ export default {
     color: #fff;
     z-index: 2;
     position: relative;
+    text-align: center;
+    padding: 50px 32px 0 32px;
 }
 
 .section-welcome .image-welcome {
     z-index: 1;
-    position: absolute;
-    background-image: url("../../assets/welcome.svg");
+    background-image: url("../../assets/welcome-small.svg");
+    height: 212px;
+    width: 304px;
     background-position: 50%;
     background-repeat: no-repeat;
     background-size: contain;
+    position: relative;
 }
 
-.section-welcome .section-content .section-header {
-    font-size: 35px;
-    line-height: 47px;
-    margin-bottom: 18px;
-}
-
-.section-welcome .section-content p {
+.text-large {
+  font-size: 15px;
   margin: 0 auto;
   padding: 0 25px;
   min-height: 75px;
 }
 
-.text-large {
-  font-size: 18px;
-}
-
 .btn {
-    margin: 20px 0;
+    margin: 30px 10px 0;
     padding: 12px 23px;
     background-color: #1ac98e;
     border: none;
@@ -74,13 +69,18 @@ export default {
     font-size: 14px;
 }
 
+.section-header {
+  margin-bottom: 18px;
+}
+
 @media (min-width: 480px) {
-    .section-welcome .section-content p {
+    .text-large {
         min-height: 0;
     }
 
     .section-welcome .image-welcome {
         bottom: 0;
+        margin: 0 auto;
     }
 }
 
@@ -115,7 +115,17 @@ export default {
         margin-bottom: 26px;
     }
 
-    .section-welcome .section-content p {
+    .section-welcome .image-welcome {
+        position: absolute;
+    }
+
+    .section-welcome .section-content .section-header {
+        font-size: 26px;
+        line-height: 34px;
+        margin-bottom: 18px;
+    }
+
+    .text-large {
         max-width: 315px;
         margin: 0;
         padding: 0;
@@ -142,6 +152,19 @@ export default {
         height: 584px;
         width: 685px;
         right: -50px;
+    }
+
+    .section-welcome .section-content .section-header {
+        font-size: 35px;
+        line-height: 47px;
+        margin-bottom: 18px;
+    }
+
+    .text-large {
+        font-size: 18px;
+        max-width: 315px;
+        margin: 0;
+        padding: 0;
     }
 }
 

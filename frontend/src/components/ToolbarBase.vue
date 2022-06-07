@@ -7,7 +7,6 @@
             <button class="btn">Тест</button>
         </router-link>
     </header>
-    <router-view/>
 </template>
 
 <script>
@@ -21,10 +20,7 @@ export default {
     display: flex;
     justify-content: space-between;
     height: 80px;
-    max-width: 1200px;
-    margin: 0 auto;
     align-items: center;
-    padding: 0 30px;
 }
 
 .logo {

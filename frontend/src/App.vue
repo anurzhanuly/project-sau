@@ -1,5 +1,8 @@
 <template>
-    <ToolbarBase/>
+    <div class="wrapper">
+        <ToolbarBase/>
+        <router-view/>
+    </div>
 </template>
 
 <script>
@@ -24,6 +27,9 @@ export default {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     color: #2c3e50;
+}
+
+.wrapper {
     max-width: 1200px;
     padding: 0 30px;
     margin: 0 auto;
