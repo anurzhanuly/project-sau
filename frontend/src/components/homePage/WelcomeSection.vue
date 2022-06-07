@@ -20,7 +20,6 @@ export default {
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .section-welcome {
     background-color: #1576d1;
@@ -40,6 +39,10 @@ export default {
 .section-welcome .image-welcome {
     z-index: 1;
     position: absolute;
+    background-image: url("../../assets/welcome.svg");
+    background-position: 50%;
+    background-repeat: no-repeat;
+    background-size: contain;
 }
 
 .section-welcome .section-content .section-header {
@@ -75,6 +78,10 @@ export default {
     .section-welcome .section-content p {
         min-height: 0;
     }
+
+    .section-welcome .image-welcome {
+        bottom: 0;
+    }
 }
 
 @media (min-width: 768px) {
@@ -100,7 +107,8 @@ export default {
     }
 
     .section-welcome .image-welcome {
-        right: -55px;
+        right: 40px;
+        left: auto;
     }
 
     .section-welcome .section-content .section-header {
@@ -130,10 +138,10 @@ export default {
     }
 
     .section-welcome .image-welcome {
-        background-image: url("../../assets/welcome.svg");
-        background-position: 50%;
-        background-repeat: no-repeat;
-        background-size: contain;
+        bottom: -45px;
+        height: 584px;
+        width: 685px;
+        right: -50px;
     }
 }
 
