@@ -1,14 +1,14 @@
 <template>
-    <header class="header">
+    <footer class="header">
         <router-link to="/">
             <div class="logo"></div>
         </router-link>
-    </header>
+    </footer>
 </template>
 
 <script>
 export default {
-  name: 'ToolbarBase',
+  name: 'FooterBase',
 };
 </script>
 
@@ -18,6 +18,7 @@ export default {
     justify-content: space-between;
     height: 80px;
     align-items: center;
+    margin-top: auto;
 }
 
 .logo {
