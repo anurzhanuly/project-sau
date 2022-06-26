@@ -7,5 +7,5 @@ import (
 )
 
 func Migrate(c *gin.Context, di *di.DI) {
-	nhs.Migrate()
+	nhs.Migrate(c, di)
 }

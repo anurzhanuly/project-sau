@@ -14,3 +14,5 @@ Debug = true
         Host = "localhost"
         Port = "3306"
         Database = "test"
+
+MigrationSource = "app/migration/nhs/data"
