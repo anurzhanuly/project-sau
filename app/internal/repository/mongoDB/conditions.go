@@ -1,0 +1,5 @@
+package mongoDB
+
+func NewConditions() {
+
+}
