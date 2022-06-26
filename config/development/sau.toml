@@ -16,3 +16,4 @@ Debug = true
         Database = "test"
 
 MigrationSource = "app/migration/nhs/data"
+QuestionnaireSource = "app/questionnaire/"
