@@ -6,11 +6,12 @@ import (
 )
 
 type Config struct {
-	filePath        string
-	Listen          string
-	Debug           bool
-	Database        db.Options
-	MigrationSource string
+	filePath            string
+	Listen              string
+	Debug               bool
+	Database            db.Options
+	MigrationSource     string
+	QuestionnaireSource string
 }
 
 func NewConfig(filePath string) Config {
