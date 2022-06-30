@@ -6,3 +6,7 @@ backend:
 	docker run --name=backend_sau -d \
 		-p 8080:8080 \
 		$(GOLANG_IMAGE)
+
+
+project:
+	docker-compose up
