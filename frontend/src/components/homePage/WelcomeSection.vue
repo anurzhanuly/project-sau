@@ -2,9 +2,10 @@
     <section class="section-welcome">
         <div class="section-content">
             <div class="section-center">
-                <h1 class="section-header">Что беспокоит вас<br> по поводу вашего здоровья?</h1>
-                <p class="text-large">Проверьте свои симптомы и узнайте, что может быть их причиной.
-                    Это быстро, бесплатно и анонимно.</p>
+                <h1 class="section-header">Что Вас беспокоит?</h1>
+                <p class="text-large">Проведите диагностику своих симптомов и узнайте,
+                    что может их вызывать. Быстро, бесплатно и анонимно.
+</p>
                 <router-link to="/test">
                     <button class="btn">Пройти тест</button>
                 </router-link>
@@ -57,7 +58,7 @@ export default {
 }
 
 .btn {
-    margin: 30px 10px 0;
+    margin-top: 30px;
     padding: 12px 23px;
     background-color: #1ac98e;
     border: none;
