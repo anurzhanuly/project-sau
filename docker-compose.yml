@@ -1,0 +1,15 @@
+version: '3'
+services:
+  backend:
+    image: anurzhanuly/project-sau:latest
+    ports:
+      - 3000:3000
+  frontend:
+    image: anurzhanuly/project-sau-frontend:latest
+    depends_on:
+      - backend
+    ports:
+      - 80:80
+
+volumes:
+  goinvest-volume:
