@@ -1,0 +1,16 @@
+FROM node:alpine
+
+RUN npm install -g http-server
+
+WORKDIR /code
+
+COPY ./frontend/package*.json ./
+
+RUN npm install
+
+COPY ./frontend .
+
+RUN npm run build
+EXPOSE 90
+
+CMD [ "http-server", "dist" ]
