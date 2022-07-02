@@ -2,18 +2,15 @@
     <div class="wrapper">
         <ToolbarBase/>
         <main class="main"><router-view/></main>
-        <FooterBase/>
     </div>
 </template>
 
 <script>
 import ToolbarBase from '@/components/ToolbarBase.vue';
-import FooterBase from '@/components/FooterBase.vue';
 
 export default {
   components: {
     ToolbarBase,
-    FooterBase,
   },
 };
 </script>

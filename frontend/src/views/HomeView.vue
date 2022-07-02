@@ -2,12 +2,14 @@
     <div>
         <WelcomeSection/>
         <InfoSection/>
+        <FooterBase/>
     </div>
 </template>
 
 <script>
 import WelcomeSection from '@/components/homePage/WelcomeSection.vue';
 import InfoSection from '@/components/homePage/InfoSection.vue';
+import FooterBase from '@/components/FooterBase.vue';
 import DataService from '../services/DataServices';
 
 export default {
@@ -15,6 +17,7 @@ export default {
   components: {
     WelcomeSection,
     InfoSection,
+    FooterBase,
   },
   data() {
     return {

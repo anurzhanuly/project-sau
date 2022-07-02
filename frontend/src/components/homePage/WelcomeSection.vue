@@ -4,8 +4,7 @@
             <div class="section-center">
                 <h1 class="section-header">Что Вас беспокоит?</h1>
                 <p class="text-large">Проведите диагностику своих симптомов и узнайте,
-                    что может их вызывать. Быстро, бесплатно и анонимно.
-</p>
+                    что может их вызывать. Быстро, бесплатно и анонимно.</p>
                 <router-link to="/test">
                     <button class="btn">Пройти тест</button>
                 </router-link>
