@@ -19,11 +19,23 @@
           {{ answer }}
         </label>
       </div>
+      <div v-if="questions[idx].inputType === 'number'">
+        <input
+          type="range"
+          :min="minValue"
+          :max="maxValue"
+          v-model="rangeValue"
+          class="input-range"
+        />
+      </div>
       <div
-        class="test-button"
+        class="test-controll"
         @click="nextQuestion"
         @keydown.enter="nextQuestion"
       >
+        <span v-if="questions[idx].inputType === 'number'" class="input-number">
+          {{ rangeValue }}
+        </span>
         <button class="btn">Следующий вопрос</button>
       </div>
     </div>
@@ -32,7 +44,7 @@
 
 <script setup>
 import mock from "../../services/mock";
-import { ref } from "vue";
+import { ref, watch } from "vue";
 
 const questions = ref(mock);
 const idx = ref(0);
@@ -40,6 +52,19 @@ const idx = ref(0);
 const nextQuestion = () => {
   idx.value += 1;
 };
+
+const minValue = ref(questions.value[idx.value].min);
+const maxValue = ref(questions.value[idx.value].max);
+const rangeValue = ref(Math.round(maxValue.value / 2));
+
+watch(idx, () => {
+  if (questions.value[idx.value].min) {
+    minValue.value = questions.value[idx.value].min;
+    maxValue.value = questions.value[idx.value].max;
+    rangeValue.value = Math.round(maxValue.value / 2);
+    console.log(minValue, maxValue);
+  }
+});
 </script>
 
 <style scoped>
@@ -80,14 +105,94 @@ const nextQuestion = () => {
   font-weight: 400;
 }
 
-.test-button {
+.test-controll {
   display: flex;
   justify-content: flex-end;
   margin-top: 20px;
+  align-items: center;
 }
 
 .btn {
-  width: 150px;
-  padding: 10px;
+  background-color: #ffffff;
+  border: 1px solid #222222;
+  border-radius: 8px;
+  box-sizing: border-box;
+  color: #222222;
+  cursor: pointer;
+  display: inline-block;
+  font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto,
+    "Helvetica Neue", sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 20px;
+  margin: 0;
+  outline: none;
+  padding: 13px 23px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  touch-action: manipulation;
+  transition: box-shadow 0.2s, -ms-transform 0.1s, -webkit-transform 0.1s,
+    transform 0.1s;
+  user-select: none;
+  -webkit-user-select: none;
+  width: auto;
+}
+
+.btn:focus-visible {
+  box-shadow: #222222 0 0 0 2px, rgba(255, 255, 255, 0.8) 0 0 0 4px;
+  transition: box-shadow 0.2s;
+}
+
+.btn:active {
+  background-color: #f7f7f7;
+  border-color: #000000;
+  transform: scale(0.96);
+}
+
+.btn:disabled {
+  border-color: #dddddd;
+  color: #dddddd;
+  cursor: not-allowed;
+  opacity: 1;
+}
+
+.input-number {
+  margin-right: auto;
+  font-size: 30px;
+  line-height: 34px;
+  text-align: center;
+  font-weight: 700;
+}
+
+.input-range {
+  -webkit-appearance: none;
+  width: 100%;
+  margin: 60px 0;
+  height: 15px;
+  border-radius: 5px;
+  background: #d3d3d3;
+  outline: none;
+  opacity: 0.7;
+  -webkit-transition: 0.2s;
+  transition: opacity 0.2s;
+}
+
+.input-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background: #04aa6d;
+  cursor: pointer;
+}
+
+.input-range::-moz-range-thumb {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background: #04aa6d;
+  cursor: pointer;
 }
 </style>
