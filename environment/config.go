@@ -1,7 +1,7 @@
 package environment
 
 import (
-	"anurzhanuly/project-sau/db"
+	"anurzhanuly/project-sau/database"
 	"github.com/BurntSushi/toml"
 )
 
@@ -9,7 +9,7 @@ type Config struct {
 	filePath            string
 	Listen              string
 	Debug               bool
-	Database            db.Options
+	Database            database.Options
 	MigrationSource     string
 	QuestionnaireSource string
 }

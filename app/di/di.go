@@ -1,7 +1,7 @@
 package di
 
 import (
-	"anurzhanuly/project-sau/db/mongodb"
+	"anurzhanuly/project-sau/database/mongodb"
 	"anurzhanuly/project-sau/environment"
 	"context"
 	"database/sql"
