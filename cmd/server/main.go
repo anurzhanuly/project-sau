@@ -1,9 +1,8 @@
-package cmd
+package server
 
 import (
 	"anurzhanuly/project-sau/app/di"
 	"anurzhanuly/project-sau/app/http"
-	"anurzhanuly/project-sau/app/server"
 	"anurzhanuly/project-sau/environment"
 	"flag"
 	"fmt"
@@ -12,7 +11,7 @@ import (
 
 const defaultConfigPath = "config/development/sau.toml"
 
-func Run() {
+func main() {
 	config, err := getConfig()
 	if err != nil {
 		fmt.Println("Ошибка при инициализации конфигов сервера")
@@ -23,8 +22,6 @@ func Run() {
 	defer container.Release()
 
 	nethttp.Handle("/", http.Router(config.Debug, container))
-
-	server.Init(config)
 
 	if err = nethttp.ListenAndServe(config.Listen, nil); err != nil {
 		fmt.Println("Ошибка при запуске http сервера")
