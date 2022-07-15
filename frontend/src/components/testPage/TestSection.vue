@@ -8,17 +8,19 @@
           :for="index"
           :key="index"
           class="label"
+          :class="{ checked: selectedAnswers.includes(answer) }"
         >
           <input
             :id="index"
-            type="radio"
+            type="checkbox"
             class="hidden"
-            :value="index"
-            @change="answered($event)"
+            :value="answer"
+            v-model="selectedAnswers"
           />
           {{ answer }}
         </label>
       </div>
+      <span>{{ selectedAnswers }}</span>
       <div v-if="questions[idx].inputType === 'number'">
         <input
           type="range"
@@ -29,7 +31,7 @@
         />
       </div>
       <div
-        class="test-controll"
+        class="test-control"
         @click="nextQuestion"
         @keydown.enter="nextQuestion"
       >
@@ -49,10 +51,6 @@ import { ref, watch } from "vue";
 const questions = ref(mock);
 const idx = ref(0);
 
-const nextQuestion = () => {
-  idx.value += 1;
-};
-
 const minValue = ref(questions.value[idx.value].min);
 const maxValue = ref(questions.value[idx.value].max);
 const rangeValue = ref(Math.round(maxValue.value / 2));
@@ -62,9 +60,22 @@ watch(idx, () => {
     minValue.value = questions.value[idx.value].min;
     maxValue.value = questions.value[idx.value].max;
     rangeValue.value = Math.round(maxValue.value / 2);
-    console.log(minValue, maxValue);
   }
 });
+
+const selectedAnswers = ref([]);
+
+const nextQuestion = () => {
+  idx.value += 1;
+  if (selectedAnswers.value.length && questions.value[idx.value].visibleIf) {
+    if (
+      !questions.value[idx.value].visibleIf.includes(selectedAnswers.value[0])
+    ) {
+      idx.value += 1;
+    }
+  }
+  selectedAnswers.value = [];
+};
 </script>
 
 <style scoped>
@@ -93,7 +104,12 @@ watch(idx, () => {
 }
 
 .hidden {
-  display: none;
+  visibility: hidden;
+  position: absolute;
+  right: 0;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
 }
 
 .label {
@@ -103,9 +119,15 @@ watch(idx, () => {
   margin-top: 10px;
   padding: 20px;
   font-weight: 400;
+  cursor: pointer;
 }
 
-.test-controll {
+.checked {
+  background: #4273de;
+  color: #fff;
+}
+
+.test-control {
   display: flex;
   justify-content: flex-end;
   margin-top: 20px;
