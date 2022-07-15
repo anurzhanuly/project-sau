@@ -2,7 +2,9 @@
   <section class="section-test">
     <div class="test-wrapper">
       <p class="test-title">{{ questions[idx]["title"] }}</p>
-      <div v-if="questions[idx].choices">
+      <div
+        v-if="questions[idx].choices && questions[idx].maxSelectedChoices > 1"
+      >
         <label
           v-for="(answer, index) in questions[idx].choices"
           :for="index"
@@ -13,6 +15,26 @@
           <input
             :id="index"
             type="checkbox"
+            class="hidden"
+            :value="answer"
+            v-model="selectedAnswers"
+          />
+          {{ answer }}
+        </label>
+      </div>
+      <div
+        v-if="questions[idx].choices && questions[idx].maxSelectedChoices === 1"
+      >
+        <label
+          v-for="(answer, index) in questions[idx].choices"
+          :for="index"
+          :key="index"
+          class="label"
+          :class="{ checked: selectedAnswers.includes(answer) }"
+        >
+          <input
+            :id="index"
+            type="radio"
             class="hidden"
             :value="answer"
             v-model="selectedAnswers"
@@ -123,7 +145,7 @@ const nextQuestion = () => {
 }
 
 .checked {
-  background: #4273de;
+  background: #689be7;
   color: #fff;
 }
 
@@ -206,7 +228,7 @@ const nextQuestion = () => {
   width: 25px;
   height: 25px;
   border-radius: 50%;
-  background: #04aa6d;
+  background: #689be7;
   cursor: pointer;
 }
 
@@ -214,7 +236,7 @@ const nextQuestion = () => {
   width: 25px;
   height: 25px;
   border-radius: 50%;
-  background: #04aa6d;
+  background: #689be7;
   cursor: pointer;
 }
 </style>
