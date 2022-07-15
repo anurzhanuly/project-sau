@@ -2,8 +2,8 @@ package server
 
 import (
 	"anurzhanuly/project-sau/app/di"
+	"anurzhanuly/project-sau/app/environment"
 	"anurzhanuly/project-sau/app/http"
-	"anurzhanuly/project-sau/environment"
 	"flag"
 	"fmt"
 	nethttp "net/http"

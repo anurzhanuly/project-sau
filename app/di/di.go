@@ -1,8 +1,8 @@
 package di
 
 import (
+	"anurzhanuly/project-sau/app/environment"
 	"anurzhanuly/project-sau/database/mongodb"
-	"anurzhanuly/project-sau/environment"
 	"context"
 	"database/sql"
 	"go.mongodb.org/mongo-driver/mongo"
