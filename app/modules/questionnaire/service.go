@@ -6,10 +6,23 @@ import (
 )
 
 type Service struct {
-	Model Questionnaire
+	Model   Questionnaire
+	Repo    Repository
+	Context *gin.Context
+	DI      *di.DI
 }
 
-func (s Service) DoAdd(c *gin.Context, di *di.DI) error {
+func NewService(ctx *gin.Context, di *di.DI) *Service {
+	repo := Repository{Mongo: *di.MongoDB}
+	return &Service{
+		Model:   Questionnaire{},
+		Repo:    repo,
+		DI:      di,
+		Context: ctx,
+	}
+}
+
+func (s Service) DoAdd() error {
 	var err error
 
 	return err
