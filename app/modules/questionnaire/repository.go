@@ -11,3 +11,9 @@ func FetchByName(name string) Questionnaire {
 
 	return result
 }
+
+func Add() error {
+	var err error
+
+	return err
+}
