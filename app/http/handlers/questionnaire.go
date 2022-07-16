@@ -9,15 +9,15 @@ import (
 
 //TODO: Надо бы вынести инициализацию сервиса модулей в middleware
 
-func ByName(c *gin.Context, di *di.DI) {
+func QuestionnaireByName(c *gin.Context, di *di.DI) {
 
 }
 
-func ById(c *gin.Context, di *di.DI) {
+func QuestionnaireById(c *gin.Context, di *di.DI) {
 
 }
 
-func Add(c *gin.Context, di *di.DI) {
+func QuestionnaireAdd(c *gin.Context, di *di.DI) {
 	service := questionnaire.NewService(c, di)
 
 	_, err := service.DoAdd()
