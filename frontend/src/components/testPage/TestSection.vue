@@ -10,14 +10,14 @@
           :for="index"
           :key="index"
           class="label"
-          :class="{ checked: selectedAnswers.includes(answer) }"
+          :class="{ checked: checked.includes(answer) }"
         >
           <input
             :id="index"
             type="checkbox"
             class="hidden"
             :value="answer"
-            v-model="selectedAnswers"
+            v-model="checked"
           />
           {{ answer }}
         </label>
@@ -30,14 +30,14 @@
           :for="index"
           :key="index"
           class="label"
-          :class="{ checked: selectedAnswers.includes(answer) }"
+          :class="{ checked: checked.includes(answer) }"
         >
           <input
             :id="index"
             type="radio"
             class="hidden"
             :value="answer"
-            v-model="selectedAnswers"
+            v-model="checked"
           />
           {{ answer }}
         </label>
@@ -85,18 +85,25 @@ watch(idx, () => {
   }
 });
 
+const checked = ref([]);
 const selectedAnswers = ref([]);
 
 const nextQuestion = () => {
+  selectedAnswers.value[idx.value] = { name: questions.value[idx.value].name };
+  if (questions.value[idx.value].choices) {
+    selectedAnswers.value[idx.value].answer = checked.value;
+  } else {
+    selectedAnswers.value[idx.value].answer = +rangeValue.value;
+  }
+
   idx.value += 1;
-  if (selectedAnswers.value.length && questions.value[idx.value].visibleIf) {
-    if (
-      !questions.value[idx.value].visibleIf.includes(selectedAnswers.value[0])
-    ) {
+  if (checked.value.length && questions.value[idx.value].visibleIf) {
+    if (!questions.value[idx.value].visibleIf.includes(checked.value[0])) {
       idx.value += 1;
     }
   }
-  selectedAnswers.value = [];
+
+  checked.value = [];
 };
 </script>
 
