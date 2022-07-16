@@ -18,3 +18,5 @@ MongoDatabaseName = "symptom"
 [collections]
     [collections.questionnaire]
         Name = "questionnaire"
+    [collections.diseases]
+        Name = "diseases"
