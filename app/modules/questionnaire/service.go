@@ -7,7 +7,7 @@ import (
 )
 
 type Service struct {
-	Model   Questionnaire
+	Model   *Questionnaire
 	Repo    Repository
 	Context *gin.Context
 	DI      *di.DI
@@ -18,7 +18,7 @@ func NewService(ctx *gin.Context, di *di.DI) *Service {
 	repo := Repository{Mongo: collection}
 
 	return &Service{
-		Model:   Questionnaire{},
+		Model:   &Questionnaire{},
 		Repo:    repo,
 		DI:      di,
 		Context: ctx,
@@ -28,6 +28,16 @@ func NewService(ctx *gin.Context, di *di.DI) *Service {
 func (s Service) DoAdd() (primitive.ObjectID, error) {
 	var err error
 	var id primitive.ObjectID
+
+	err = s.Context.BindJSON(s.Model)
+	if err != nil {
+		return [12]byte{}, err
+	}
+
+	id, err = s.Repo.Add(*s.Model)
+	if err != nil {
+		return [12]byte{}, err
+	}
 
 	return id, err
 }
