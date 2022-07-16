@@ -1,7 +1,7 @@
 package handlers
 
 import (
-	"anurzhanuly/project-sau/app/di"
+	"anurzhanuly/project-sau/backend/app/di"
 	"context"
 	"github.com/gin-gonic/gin"
 	"net/http"

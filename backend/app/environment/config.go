@@ -1,7 +1,7 @@
 package environment
 
 import (
-	"anurzhanuly/project-sau/database"
+	"anurzhanuly/project-sau/backend/database"
 	"github.com/BurntSushi/toml"
 )
 

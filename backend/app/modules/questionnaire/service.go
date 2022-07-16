@@ -1,7 +1,7 @@
 package questionnaire
 
 import (
-	"anurzhanuly/project-sau/app/di"
+	"anurzhanuly/project-sau/backend/app/di"
 	"github.com/gin-gonic/gin"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"strconv"

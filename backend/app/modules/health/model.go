@@ -1,6 +1,8 @@
 package health
 
-import "anurzhanuly/project-sau/app/modules/answers"
+import (
+	"anurzhanuly/project-sau/backend/app/modules/answers"
+)
 
 type Disease struct {
 	ID              int           `bson:"id" json:"id,omitempty"`

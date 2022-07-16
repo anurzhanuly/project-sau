@@ -1,9 +1,9 @@
 package handlers
 
 import (
-	"anurzhanuly/project-sau/app/di"
-	"anurzhanuly/project-sau/app/modules/answers"
-	"anurzhanuly/project-sau/app/modules/health"
+	"anurzhanuly/project-sau/backend/app/di"
+	"anurzhanuly/project-sau/backend/app/modules/answers"
+	"anurzhanuly/project-sau/backend/app/modules/health"
 	"github.com/gin-gonic/gin"
 )
 
