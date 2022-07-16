@@ -5,10 +5,10 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func QuestionnairesByName(c *gin.Context, di *di.DI) {
+func ByName(c *gin.Context, di *di.DI) {
 
 }
 
-func QuestionnairesById(c *gin.Context, di *di.DI) {
+func ById(c *gin.Context, di *di.DI) {
 
 }
