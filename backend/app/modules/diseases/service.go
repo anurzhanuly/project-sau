@@ -1,4 +1,4 @@
-package health
+package diseases
 
 import (
 	"anurzhanuly/project-sau/backend/app/di"
@@ -34,7 +34,10 @@ func (s Service) GetRecommendations(result *answers.Result) ([]string, error) {
 		return nil, err
 	}
 
-	diseases := s.Repo.getAllDiseases()
+	diseases, err := s.Repo.getAllDiseases()
+	if err != nil {
+		return recommendations, err
+	}
 
 	for _, disease := range diseases {
 		if disease.meetsCriteria(result) {

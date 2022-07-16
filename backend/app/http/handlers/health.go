@@ -3,7 +3,7 @@ package handlers
 import (
 	"anurzhanuly/project-sau/backend/app/di"
 	"anurzhanuly/project-sau/backend/app/modules/answers"
-	"anurzhanuly/project-sau/backend/app/modules/health"
+	"anurzhanuly/project-sau/backend/app/modules/diseases"
 	"github.com/gin-gonic/gin"
 )
 
@@ -11,7 +11,10 @@ import (
 
 func HealthGetRecommendation(c *gin.Context, di *di.DI) {
 	userAnswer := &answers.Result{}
-	service := health.NewService(c, di)
+	service := diseases.NewService(c, di)
 
-	service.GetRecommendations(userAnswer)
+	_, err := service.GetRecommendations(userAnswer)
+	if err != nil {
+		return
+	}
 }

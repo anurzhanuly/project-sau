@@ -1,4 +1,4 @@
-package health
+package diseases
 
 import (
 	"context"

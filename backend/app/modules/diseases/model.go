@@ -1,4 +1,4 @@
-package health
+package diseases
 
 import (
 	"anurzhanuly/project-sau/backend/app/modules/answers"
