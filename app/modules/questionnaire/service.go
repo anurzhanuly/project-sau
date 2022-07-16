@@ -3,6 +3,7 @@ package questionnaire
 import (
 	"anurzhanuly/project-sau/app/di"
 	"github.com/gin-gonic/gin"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
 type Service struct {
@@ -22,10 +23,11 @@ func NewService(ctx *gin.Context, di *di.DI) *Service {
 	}
 }
 
-func (s Service) DoAdd() error {
+func (s Service) DoAdd() (primitive.ObjectID, error) {
 	var err error
+	var id primitive.ObjectID
 
-	return err
+	return id, err
 }
 
 func (s Service) GetById() error {

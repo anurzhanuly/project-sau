@@ -1,5 +1,6 @@
 Listen = "0.0.0.0:8080"
 Debug = true
+MongoDatabaseName = "symptom"
 
 [database]
     [database.MongoDB]
@@ -7,7 +8,6 @@ Debug = true
         Password = "1Nxow6yFyvxHeyN3"
         Host = "cluster0.nvdhx.mongodb.net"
         Timeout = 2
-
     [database.MySQL]
         User = "root"
         Password = "Project_mysql#65"
@@ -15,5 +15,6 @@ Debug = true
         Port = "3306"
         Database = "test"
 
-MigrationSource = "app/migration/nhs/data"
-QuestionnaireSource = "app/questionnaire/"
+[collections]
+    [collections.questionnaire]
+        Name = "questionnaire"

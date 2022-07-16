@@ -6,12 +6,12 @@ import (
 )
 
 type Config struct {
-	filePath            string
-	Listen              string
-	Debug               bool
-	Database            database.Options
-	MigrationSource     string
-	QuestionnaireSource string
+	filePath          string
+	Listen            string
+	Debug             bool
+	Database          database.Options
+	Collections       Options
+	MongoDatabaseName string
 }
 
 func NewConfig(filePath string) Config {
