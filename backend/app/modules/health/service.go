@@ -14,7 +14,7 @@ type Service struct {
 }
 
 func NewService(ctx *gin.Context, di *di.DI) *Service {
-	collection := di.MongoDB.Database(di.Config.MongoDatabaseName).Collection(di.Config.Collections.Questionnaire.Name)
+	collection := di.MongoDB.Database(di.Config.MongoDatabaseName).Collection(di.Config.Collections.Diseases.Name)
 	repo := Repository{collection: collection}
 
 	return &Service{
