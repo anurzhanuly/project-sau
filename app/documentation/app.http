@@ -1,0 +1,7 @@
+### Добавляет json анкету в монгу
+POST http://{{host}}/{{add_route}}
+Content-Type: application/json
+
+{
+  "questionnaire": "content"
+}
