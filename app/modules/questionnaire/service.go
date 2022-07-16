@@ -1,18 +1,27 @@
 package questionnaire
 
-func DoAdd() error {
+import (
+	"anurzhanuly/project-sau/app/di"
+	"github.com/gin-gonic/gin"
+)
+
+type Service struct {
+	Model Questionnaire
+}
+
+func (s Service) DoAdd(c *gin.Context, di *di.DI) error {
 	var err error
 
 	return err
 }
 
-func GetById() error {
+func (s Service) GetById() error {
 	var err error
 
 	return err
 }
 
-func GetByName() error {
+func (s Service) GetByName() error {
 	var err error
 
 	return err
