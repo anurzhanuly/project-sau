@@ -1,14 +1,9 @@
-FROM node:latest AS builder
+FROM node:16 AS builder
 RUN npm install -g http-server
 WORKDIR /code
 COPY ./frontend/package*.json ./
 RUN npm install
 COPY ./frontend/ .
-RUN npm run dev
 
-FROM nginx:alpine
-RUN mkdir /app
-COPY --from=builder /code/dist /app
-COPY --from=builder ./code/nginx.conf /etc/nginx/nginx.conf
-EXPOSE 3001
-ENTRYPOINT ["nginx","-g","daemon off;"]
+EXPOSE 3030
+ENTRYPOINT ["npm", "run dev"]
