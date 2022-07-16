@@ -12,3 +12,7 @@ func ByName(c *gin.Context, di *di.DI) {
 func ById(c *gin.Context, di *di.DI) {
 
 }
+
+func Add(c *gin.Context, di *di.DI) {
+
+}

@@ -1,6 +1,6 @@
 package questionnaire
 
-func Add() error {
+func DoAdd() error {
 	var err error
 
 	return err
