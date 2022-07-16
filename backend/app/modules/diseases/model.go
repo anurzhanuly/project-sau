@@ -5,10 +5,10 @@ import (
 )
 
 type Disease struct {
-	ID              int           `bson:"id" json:"id,omitempty"`
-	Name            string        `bson:"name" json:"name,omitempty"`
-	Recommendations string        `bson:"recommendations" json:"recommendations,omitempty"`
-	Conditions      []interface{} `bson:"conditions" json:"conditions,omitempty"`
+	ID              int                      `bson:"id" json:"id,omitempty"`
+	Name            string                   `bson:"name" json:"name,omitempty"`
+	Recommendations string                   `bson:"recommendations" json:"recommendations,omitempty"`
+	Conditions      map[string][]interface{} `bson:"conditions" json:"conditions,omitempty"`
 }
 
 func (d Disease) meetsCriteria(answers *answers.Result) bool {
