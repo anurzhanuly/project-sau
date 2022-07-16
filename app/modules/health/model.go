@@ -1,4 +1,4 @@
-package diseases
+package health
 
 type Disease struct {
 	ID              int           `bson:"id" json:"id,omitempty"`

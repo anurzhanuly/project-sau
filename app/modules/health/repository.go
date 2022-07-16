@@ -1,4 +1,4 @@
-package diseases
+package health
 
 import "go.mongodb.org/mongo-driver/mongo"
 

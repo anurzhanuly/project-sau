@@ -1,4 +1,4 @@
-package diseases
+package health
 
 import (
 	"anurzhanuly/project-sau/app/di"

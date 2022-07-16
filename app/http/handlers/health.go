@@ -2,28 +2,11 @@ package handlers
 
 import (
 	"anurzhanuly/project-sau/app/di"
-	"context"
 	"github.com/gin-gonic/gin"
-	"net/http"
 )
 
-const (
-	MongoName     = "MongoDB"
-	SuccessStatus = "OK"
-)
+//TODO: Надо бы вынести инициализацию сервиса модулей в middleware
 
-func Health(c *gin.Context, di *di.DI) {
-	reply := gin.H{}
+func HealthGetRecommendation(c *gin.Context, di *di.DI) {
 
-	err := di.MongoDB.Ping(context.Background(), nil)
-	if err != nil {
-		reply[MongoName] = err.Error()
-		c.JSON(http.StatusOK, reply)
-
-		return
-	}
-
-	reply[MongoName] = SuccessStatus
-
-	c.JSON(http.StatusOK, reply)
 }
