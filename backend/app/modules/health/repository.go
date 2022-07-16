@@ -11,7 +11,7 @@ type Repository struct {
 	collection *mongo.Collection
 }
 
-func (r Repository) getDiseases() ([]Disease, error) {
+func (r Repository) getAllDiseases() ([]Disease, error) {
 	var diseases []Disease
 	var err error
 

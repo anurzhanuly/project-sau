@@ -34,7 +34,7 @@ func (s Service) GetRecommendations(result *answers.Result) ([]string, error) {
 		return nil, err
 	}
 
-	diseases := s.Repo.getDiseases()
+	diseases := s.Repo.getAllDiseases()
 
 	for _, disease := range diseases {
 		if disease.meetsCriteria(result) {
