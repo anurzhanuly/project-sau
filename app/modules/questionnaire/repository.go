@@ -1,12 +1,12 @@
 package questionnaire
 
-func GetQuestionnaireById(id int) Questionnaire {
+func FetchById(id int) Questionnaire {
 	var result Questionnaire
 
 	return result
 }
 
-func GetQuestionnaireByName(name string) Questionnaire {
+func FetchByName(name string) Questionnaire {
 	var result Questionnaire
 
 	return result

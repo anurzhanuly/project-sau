@@ -4,6 +4,7 @@ import (
 	"anurzhanuly/project-sau/app/di"
 	"anurzhanuly/project-sau/app/http/handlers"
 	"anurzhanuly/project-sau/app/http/middleware"
+	"anurzhanuly/project-sau/app/modules/questionnaire"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
@@ -30,6 +31,6 @@ func ConfigureRoutes(router *gin.Engine, di di.DI) {
 	})
 
 	router.GET("/health", middleware.ProvideDependency(handlers.Health, di))
-	router.GET("/questionnaires/:name", middleware.ProvideDependency(handlers.QuestionnairesByName, di))
-	router.GET("/questionnaires/:id", middleware.ProvideDependency(handlers.QuestionnairesById, di))
+	router.GET("/questionnaires/:name", middleware.ProvideDependency(questionnaire.QuestionnairesByName, di))
+	router.GET("/questionnaires/:id", middleware.ProvideDependency(questionnaire.QuestionnairesById, di))
 }

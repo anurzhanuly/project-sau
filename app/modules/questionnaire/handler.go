@@ -1,4 +1,4 @@
-package handlers
+package questionnaire
 
 import (
 	"anurzhanuly/project-sau/app/di"
