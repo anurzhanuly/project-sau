@@ -5,7 +5,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// TODO: Надо бы вынести инициализацию сервиса модулей в middleware
+//TODO: Надо бы вынести инициализацию сервиса модулей в middleware
 
 func ByName(c *gin.Context, di *di.DI) {
 
