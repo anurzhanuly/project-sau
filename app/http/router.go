@@ -32,5 +32,5 @@ func ConfigureRoutes(router *gin.Engine, di di.DI) {
 	router.GET("/health", middleware.ProvideDependency(handlers.Health, di))
 	router.GET("/questionnaire/:name", middleware.ProvideDependency(handlers.ByName, di))
 	router.GET("/questionnaire/id/:id", middleware.ProvideDependency(handlers.ById, di))
-	router.GET("/questionnaire/add", middleware.ProvideDependency(handlers.Add, di))
+	router.POST("/questionnaire/add", middleware.ProvideDependency(handlers.Add, di))
 }
