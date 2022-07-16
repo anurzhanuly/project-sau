@@ -8,7 +8,7 @@ import (
 )
 
 type Repository struct {
-	Collection *mongo.Collection
+	collection *mongo.Collection
 }
 
 func (r Repository) FetchById(id int) (Questionnaire, error) {
@@ -16,7 +16,7 @@ func (r Repository) FetchById(id int) (Questionnaire, error) {
 
 	cxt, _ := context.WithTimeout(context.Background(), 10*time.Second)
 
-	err := r.Collection.FindOne(cxt, Questionnaire{ID: id}).Decode(&result)
+	err := r.collection.FindOne(cxt, Questionnaire{ID: id}).Decode(&result)
 	if err != nil {
 		return result, err
 	}
@@ -36,7 +36,7 @@ func (r Repository) Add(model Questionnaire) (primitive.ObjectID, error) {
 
 	cxt, _ := context.WithTimeout(context.Background(), 10*time.Second)
 
-	result, err := r.Collection.InsertOne(cxt, model)
+	result, err := r.collection.InsertOne(cxt, model)
 	if err != nil {
 		return [12]byte{}, err
 	}
