@@ -11,10 +11,17 @@ type Repository struct {
 	Mongo *mongo.Collection
 }
 
-func (r Repository) FetchById(id int) Questionnaire {
+func (r Repository) FetchById(id int) (Questionnaire, error) {
 	var result Questionnaire
 
-	return result
+	cxt, _ := context.WithTimeout(context.Background(), 10*time.Second)
+
+	err := r.Mongo.FindOne(cxt, Questionnaire{ID: id}).Decode(&result)
+	if err != nil {
+		return result, err
+	}
+
+	return result, err
 }
 
 func (r Repository) FetchByName(name string) Questionnaire {

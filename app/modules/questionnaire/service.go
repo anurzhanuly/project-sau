@@ -4,6 +4,7 @@ import (
 	"anurzhanuly/project-sau/app/di"
 	"github.com/gin-gonic/gin"
 	"go.mongodb.org/mongo-driver/bson/primitive"
+	"strconv"
 )
 
 type Service struct {
@@ -42,10 +43,21 @@ func (s Service) DoAdd() (primitive.ObjectID, error) {
 	return id, err
 }
 
-func (s Service) GetById() error {
+func (s Service) GetById() (Questionnaire, error) {
 	var err error
+	var result Questionnaire
 
-	return err
+	id, err := strconv.Atoi(s.Context.Param("id"))
+	if err != nil {
+		return result, err
+	}
+
+	result, err = s.Repo.FetchById(id)
+	if err != nil {
+		return result, err
+	}
+
+	return result, err
 }
 
 func (s Service) GetByName() error {

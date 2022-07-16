@@ -28,3 +28,6 @@ Content-Type: application/json
     }
   }
 }
+
+### Запрос за опросником через ID
+GET http://{{host}}/{{get_by_id}}/1
