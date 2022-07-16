@@ -86,15 +86,26 @@ watch(idx, () => {
 });
 
 const checked = ref([]);
-const selectedAnswers = ref([]);
+const selectedAnswers = ref({});
+
+const collectAnswers = () => {
+  if (
+    questions.value[idx.value].choices &&
+    questions.value[idx.value].maxSelectedChoices === 1
+  ) {
+    selectedAnswers.value[idx.value + 1] = [checked.value];
+  } else if (
+    questions.value[idx.value].choices &&
+    questions.value[idx.value].maxSelectedChoices > 1
+  ) {
+    selectedAnswers.value[idx.value + 1] = [...checked.value];
+  } else {
+    selectedAnswers.value[idx.value + 1] = [+rangeValue.value];
+  }
+};
 
 const nextQuestion = () => {
-  selectedAnswers.value[idx.value] = { name: questions.value[idx.value].name };
-  if (questions.value[idx.value].choices) {
-    selectedAnswers.value[idx.value].answer = checked.value;
-  } else {
-    selectedAnswers.value[idx.value].answer = +rangeValue.value;
-  }
+  collectAnswers();
 
   idx.value += 1;
   if (checked.value.length && questions.value[idx.value].visibleIf) {
