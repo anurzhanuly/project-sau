@@ -105,12 +105,45 @@ const collectAnswers = () => {
   }
 };
 
+const checkVisible = () => {
+  const arrValues = questions.value[idx.value].visibleIf
+    .split(" ")
+    .map((el) => {
+      if (el.includes("{")) {
+        return +el.replace(/[\D]+/g, "");
+      }
+      if (el.includes("[")) {
+        return el.slice(2, el.length - 2);
+      }
+    })
+    .filter((el) => el);
+
+  const objValues = {};
+  let visibility = true;
+
+  for (let i = 0; i < arrValues.length; i++) {
+    if (Number.isInteger(arrValues[i])) {
+      objValues[arrValues[i]] = arrValues[i + 1];
+    }
+  }
+
+  for (let key in objValues) {
+    if (!selectedAnswers.value[key].includes(objValues[key])) {
+      visibility = false;
+    }
+  }
+
+  return visibility;
+};
+
 const nextQuestion = () => {
   collectAnswers();
 
   idx.value += 1;
-  if (checked.value.length && questions.value[idx.value].visibleIf) {
-    if (!questions.value[idx.value].visibleIf.includes(checked.value[0])) {
+  if (questions.value[idx.value].visibleIf) {
+    const isVisible = checkVisible();
+
+    if (!isVisible) {
       idx.value += 1;
       delete selectedAnswers.value[idx.value];
     }
