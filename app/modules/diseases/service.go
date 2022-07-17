@@ -3,6 +3,7 @@ package diseases
 import (
 	"anurzhanuly/project-sau/app/di"
 	"anurzhanuly/project-sau/app/modules/answers"
+	"encoding/json"
 	"github.com/gin-gonic/gin"
 )
 
@@ -64,4 +65,18 @@ func (s Service) AddDisease() error {
 	}
 
 	return err
+}
+
+func (s Service) GetAllDiseases() (string, error) {
+	var result []byte
+	var err error
+
+	diseases, err := s.repository.getAllDiseases()
+	if err != nil {
+		return "", err
+	}
+
+	result, err = json.Marshal(diseases)
+
+	return string(result), err
 }

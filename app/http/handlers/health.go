@@ -5,6 +5,7 @@ import (
 	"anurzhanuly/project-sau/app/modules/answers"
 	"anurzhanuly/project-sau/app/modules/diseases"
 	"github.com/gin-gonic/gin"
+	"net/http"
 )
 
 //TODO: Надо бы вынести инициализацию сервиса модулей в middleware
@@ -26,4 +27,17 @@ func AddDisease(c *gin.Context, di *di.DI) {
 	if err != nil {
 		return
 	}
+}
+
+func GetAllDiseases(c *gin.Context, di *di.DI) {
+	var result string
+	var err error
+	service := diseases.NewService(c, di)
+
+	result, err = service.GetAllDiseases()
+	if err != nil {
+		return
+	}
+
+	c.JSON(http.StatusOK, []byte(result))
 }
