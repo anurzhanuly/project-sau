@@ -75,13 +75,13 @@ const idx = ref(0);
 
 const minValue = ref(questions.value[idx.value].min);
 const maxValue = ref(questions.value[idx.value].max);
-const rangeValue = ref(Math.round(maxValue.value / 2));
+const rangeValue = ref(`${Math.round(maxValue.value / 2)}`);
 
 watch(idx, () => {
   if (questions.value[idx.value].min) {
     minValue.value = questions.value[idx.value].min;
     maxValue.value = questions.value[idx.value].max;
-    rangeValue.value = Math.round(maxValue.value / 2);
+    rangeValue.value = `${Math.round(maxValue.value / 2)}`;
   }
 });
 
@@ -100,7 +100,7 @@ const collectAnswers = () => {
   ) {
     selectedAnswers.value[idx.value + 1] = [...checked.value];
   } else {
-    selectedAnswers.value[idx.value + 1] = [+rangeValue.value];
+    selectedAnswers.value[idx.value + 1] = [rangeValue.value];
   }
 };
 
