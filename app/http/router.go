@@ -21,13 +21,6 @@ func Router(debug bool, di di.DI) *gin.Engine {
 }
 
 func ConfigureRoutes(router *gin.Engine, di di.DI) {
-	//router.LoadHTMLGlob(EntryPointRoute)
-	//router.GET("/", func(context *gin.Context) {
-	//	context.HTML(http.StatusOK, EntryPointFilename, gin.H{
-	//		"title": "AMAN SAU BOL KZ",
-	//	})
-	//})
-
 	router.GET("/_health", middleware.ProvideDependency(handlers.Health, di))
 	router.POST("/diseases/recommendations", middleware.ProvideDependency(handlers.HealthGetRecommendation, di))
 	router.POST("/diseases/add", middleware.ProvideDependency(handlers.AddDisease, di))
