@@ -1,0 +1,41 @@
+### Добавляет json анкету в монгу
+POST http://{{host}}/{{add_route}}
+Content-Type: application/json
+
+{"questionnaire":  {
+  "id": 1,
+  "name": "Sample",
+  "content": {
+    "glossary": {
+      "title": "example glossary",
+      "GlossDiv": {
+        "title": "S",
+        "GlossList": {
+          "GlossEntry": {
+            "ID": "SGML",
+            "SortAs": "SGML",
+            "GlossTerm": "Standard Generalized Markup Language",
+            "Acronym": "SGML",
+            "Abbrev": "ISO 8879:1986",
+            "GlossDef": {
+              "para": "A meta-markup language, used to create markup languages such as DocBook.",
+              "GlossSeeAlso": ["GML", "XML"]
+            },
+            "GlossSee": "markup"
+          }
+        }
+      }
+    }
+  }
+}
+}
+
+### Запрос за опросником через ID
+GET http://{{host}}/{{get_by_id}}/1
+
+
+###
+POST http://{{host}}{{get_recommendation}}
+Content-Type: application/json
+
+{"answers": {"1":[50],"2":["Мужской"],"3":[172],"4":[100],"5":["Да"],"6":["Диабет второго типа ","Онкология ","Имешическая болезнь сердца","Аутоиммунные заболевания"],"7":["Да"],"8":["Онкология ","Имешическая болезнь сердца","Повышенное давление (гипертензия)","Я не знаю или у них не было и нет хронических заболеваний"],"9":["Нет"],"11":["Да"],"12":["> 11.1"],"13":["Да"],"14":["115 - 155"],"15":["Не знаю "],"16":["Да"],"17":["> 12"],"18":["Нет"],"20":[[]],"21":["Да"],"22":["5 - 9"],"23":["В основном сидячий, малоподвижный "]}}

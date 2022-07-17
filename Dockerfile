@@ -4,7 +4,6 @@ WORKDIR /code
 COPY . .
 
 ENV GO111MODULE=on
-ENV GOFLAGS=-mod=vendor
 
 RUN go mod vendor
 RUN go get

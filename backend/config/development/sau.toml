@@ -1,0 +1,22 @@
+Listen = "0.0.0.0:8080"
+Debug = true
+MongoDatabaseName = "symptom"
+
+[database]
+    [database.MongoDB]
+        Username = "saubolkz"
+        Password = "1Nxow6yFyvxHeyN3"
+        Host = "cluster0.nvdhx.mongodb.net"
+        Timeout = 2
+    [database.MySQL]
+        User = "root"
+        Password = "Project_mysql#65"
+        Host = "localhost"
+        Port = "3306"
+        Database = "test"
+
+[collections]
+    [collections.questionnaire]
+        Name = "questionnaire"
+    [collections.diseases]
+        Name = "diseases"

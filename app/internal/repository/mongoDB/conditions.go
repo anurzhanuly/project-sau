@@ -1,5 +1,0 @@
-package mongoDB
-
-func NewConditions() {
-
-}
