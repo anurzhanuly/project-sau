@@ -1,8 +1,8 @@
 package handlers
 
 import (
-	"anurzhanuly/project-sau/backend/app/di"
-	"anurzhanuly/project-sau/backend/app/modules/questionnaire"
+	"anurzhanuly/project-sau/app/di"
+	"anurzhanuly/project-sau/app/modules/questionnaire"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )

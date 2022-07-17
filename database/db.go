@@ -1,8 +1,8 @@
 package database
 
 import (
-	"anurzhanuly/project-sau/backend/database/mongodb"
-	"anurzhanuly/project-sau/backend/database/mysql"
+	"anurzhanuly/project-sau/database/mongodb"
+	"anurzhanuly/project-sau/database/mysql"
 )
 
 type Options struct {

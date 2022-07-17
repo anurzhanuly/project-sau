@@ -1,7 +1,7 @@
 package diseases
 
 import (
-	"anurzhanuly/project-sau/backend/app/modules/answers"
+	"anurzhanuly/project-sau/app/modules/answers"
 )
 
 type Disease struct {

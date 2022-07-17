@@ -1,9 +1,9 @@
 package main
 
 import (
-	"anurzhanuly/project-sau/backend/app/di"
-	"anurzhanuly/project-sau/backend/app/environment"
-	"anurzhanuly/project-sau/backend/app/http"
+	"anurzhanuly/project-sau/app/di"
+	"anurzhanuly/project-sau/app/environment"
+	"anurzhanuly/project-sau/app/http"
 	"flag"
 	"fmt"
 	nethttp "net/http"

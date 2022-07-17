@@ -1,7 +1,7 @@
 package app
 
 import (
-	"anurzhanuly/project-sau/backend/app/environment"
+	"anurzhanuly/project-sau/app/environment"
 )
 
 type Init interface {

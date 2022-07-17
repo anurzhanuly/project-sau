@@ -1,8 +1,8 @@
 package environment
 
 import (
-	"anurzhanuly/project-sau/backend/app/environment/diseases"
-	"anurzhanuly/project-sau/backend/app/environment/questionnaire"
+	"anurzhanuly/project-sau/app/environment/diseases"
+	"anurzhanuly/project-sau/app/environment/questionnaire"
 )
 
 type Options struct {

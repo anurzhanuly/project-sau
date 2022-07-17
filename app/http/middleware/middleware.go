@@ -1,7 +1,7 @@
 package middleware
 
 import (
-	"anurzhanuly/project-sau/backend/app/di"
+	"anurzhanuly/project-sau/app/di"
 	"github.com/gin-gonic/gin"
 )
 

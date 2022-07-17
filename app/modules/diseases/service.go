@@ -1,8 +1,8 @@
 package diseases
 
 import (
-	"anurzhanuly/project-sau/backend/app/di"
-	"anurzhanuly/project-sau/backend/app/modules/answers"
+	"anurzhanuly/project-sau/app/di"
+	"anurzhanuly/project-sau/app/modules/answers"
 	"github.com/gin-gonic/gin"
 )
 
