@@ -27,11 +27,11 @@ func NewService(ctx *gin.Context, di *di.DI) *Service {
 }
 
 //GetRecommendations даёт рекомендации опираясь на ответы пользователя по заболеваниям
-func (s Service) GetRecommendations(result *answers.Result) ([]string, error) {
+func (s Service) GetRecommendations(userAnswer *answers.Result) ([]string, error) {
 	var err error
 	recommendations := make([]string, 5)
 
-	err = s.Context.BindJSON(result)
+	err = s.Context.BindJSON(userAnswer)
 	if err != nil {
 		return nil, err
 	}
@@ -42,7 +42,7 @@ func (s Service) GetRecommendations(result *answers.Result) ([]string, error) {
 	}
 
 	for _, disease := range diseases {
-		if disease.meetsCriteria(result) {
+		if disease.meetsCriteria(userAnswer) {
 			recommendations = append(recommendations, disease.Recommendations)
 		}
 	}
