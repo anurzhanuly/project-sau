@@ -22,5 +22,8 @@ func HealthGetRecommendation(c *gin.Context, di *di.DI) {
 func AddDisease(c *gin.Context, di *di.DI) {
 	service := diseases.NewService(c, di)
 
-	service.AddDisease()
+	err := service.AddDisease()
+	if err != nil {
+		return
+	}
 }
