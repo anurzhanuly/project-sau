@@ -45,3 +45,7 @@ POST http://{{host}}{{add_disease}}
 Content-Type: application/json
 
 {"name": "Кашель", "recommendations": "Встал, умылся, пошёл", "conditions": {"1":["50"],"2":["Мужской"],"3":["172"],"4":["100"],"5":["Да"],"6":["Диабет второго типа ","Онкология ","Имешическая болезнь сердца","Аутоиммунные заболевания"]}}
+
+### Получение всех заболевании
+GET http://{{host}}{{get_all_diseases}}
+Content-Type: application/json
