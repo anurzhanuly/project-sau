@@ -35,3 +35,18 @@ func (r Repository) getAllDiseases() ([]Disease, error) {
 
 	return diseases, err
 }
+
+func (r Repository) addDisease(model Disease) error {
+	var err error
+
+	cxt, _ := context.WithTimeout(context.Background(), 10*time.Second)
+
+	result, err := r.collection.InsertOne(cxt, model)
+	if err != nil {
+		return err
+	}
+
+	result = result
+
+	return err
+}
