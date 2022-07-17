@@ -7,10 +7,10 @@ import (
 )
 
 type Service struct {
-	Model   *Disease
-	Repo    Repository
-	Context *gin.Context
-	DI      *di.DI
+	model      *Disease
+	repository Repository
+	Context    *gin.Context
+	DI         *di.DI
 }
 
 func NewService(ctx *gin.Context, di *di.DI) *Service {
@@ -18,10 +18,10 @@ func NewService(ctx *gin.Context, di *di.DI) *Service {
 	repo := Repository{collection: collection}
 
 	return &Service{
-		Model:   &Disease{},
-		Repo:    repo,
-		DI:      di,
-		Context: ctx,
+		model:      &Disease{},
+		repository: repo,
+		DI:         di,
+		Context:    ctx,
 	}
 }
 
@@ -34,7 +34,7 @@ func (s Service) GetRecommendations(result *answers.Result) ([]string, error) {
 		return nil, err
 	}
 
-	diseases, err := s.Repo.getAllDiseases()
+	diseases, err := s.repository.getAllDiseases()
 	if err != nil {
 		return recommendations, err
 	}
@@ -46,4 +46,9 @@ func (s Service) GetRecommendations(result *answers.Result) ([]string, error) {
 	}
 
 	return recommendations, err
+}
+
+// AddDisease добавляет заболевание в монгу
+func (s Service) AddDisease() {
+
 }

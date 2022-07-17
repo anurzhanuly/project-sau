@@ -18,3 +18,9 @@ func HealthGetRecommendation(c *gin.Context, di *di.DI) {
 		return
 	}
 }
+
+func AddDisease(c *gin.Context, di *di.DI) {
+	service := diseases.NewService(c, di)
+
+	service.AddDisease()
+}
