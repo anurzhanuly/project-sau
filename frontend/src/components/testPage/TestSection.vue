@@ -52,15 +52,16 @@
           class="input-range"
         />
       </div>
-      <div
-        class="test-control"
-        @click="nextQuestion"
-        @keydown.enter="nextQuestion"
-      >
-        <span v-if="questions[idx].inputType === 'number'" class="input-number">
+      <div class="test-control">
+        <div v-if="questions[idx].inputType === 'number'" class="input-number">
           {{ rangeValue }}
-        </span>
-        <button class="btn">Следующий вопрос</button>
+        </div>
+        <div class="test-buttons">
+          <button class="btn prev-btn" @click="prevQuestion" v-if="idx > 0">
+            Предыдущий вопрос
+          </button>
+          <button class="btn" @click="nextQuestion">Следующий вопрос</button>
+        </div>
       </div>
     </div>
   </section>
@@ -111,10 +112,25 @@ const nextQuestion = () => {
   if (checked.value.length && questions.value[idx.value].visibleIf) {
     if (!questions.value[idx.value].visibleIf.includes(checked.value[0])) {
       idx.value += 1;
+      delete selectedAnswers.value[idx.value];
     }
   }
 
-  checked.value = [];
+  if (selectedAnswers.value[idx.value + 1]) {
+    checked.value = [...selectedAnswers.value[idx.value + 1]];
+  } else {
+    checked.value = [];
+  }
+};
+
+const prevQuestion = () => {
+  if (selectedAnswers.value[idx.value]) {
+    checked.value = [...selectedAnswers.value[idx.value]];
+    idx.value -= 1;
+  } else {
+    checked.value = [...selectedAnswers.value[idx.value - 1]];
+    idx.value -= 2;
+  }
 };
 </script>
 
@@ -167,11 +183,20 @@ const nextQuestion = () => {
   color: #fff;
 }
 
+.checked::before {
+  content: "✔";
+}
+
 .test-control {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+}
+
+.test-buttons {
   display: flex;
   justify-content: flex-end;
   margin-top: 20px;
-  align-items: center;
 }
 
 .btn {
@@ -219,8 +244,12 @@ const nextQuestion = () => {
   opacity: 1;
 }
 
-.input-number {
+.prev-btn {
   margin-right: auto;
+}
+
+.input-number {
+  margin-right: 0 auto;
   font-size: 30px;
   line-height: 34px;
   text-align: center;
