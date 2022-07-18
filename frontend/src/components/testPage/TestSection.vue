@@ -52,15 +52,16 @@
           class="input-range"
         />
       </div>
-      <div
-        class="test-control"
-        @click="nextQuestion"
-        @keydown.enter="nextQuestion"
-      >
-        <span v-if="questions[idx].inputType === 'number'" class="input-number">
+      <div class="test-control">
+        <div v-if="questions[idx].inputType === 'number'" class="input-number">
           {{ rangeValue }}
-        </span>
-        <button class="btn">Следующий вопрос</button>
+        </div>
+        <div class="test-buttons">
+          <button class="btn prev-btn" @click="prevQuestion" v-if="idx > 0">
+            Предыдущий вопрос
+          </button>
+          <button class="btn" @click="nextQuestion">Следующий вопрос</button>
+        </div>
       </div>
     </div>
   </section>
@@ -75,13 +76,13 @@ const idx = ref(0);
 
 const minValue = ref(questions.value[idx.value].min);
 const maxValue = ref(questions.value[idx.value].max);
-const rangeValue = ref(Math.round(maxValue.value / 2));
+const rangeValue = ref(`${Math.round(maxValue.value / 2)}`);
 
 watch(idx, () => {
   if (questions.value[idx.value].min) {
     minValue.value = questions.value[idx.value].min;
     maxValue.value = questions.value[idx.value].max;
-    rangeValue.value = Math.round(maxValue.value / 2);
+    rangeValue.value = `${Math.round(maxValue.value / 2)}`;
   }
 });
 
@@ -93,28 +94,82 @@ const collectAnswers = () => {
     questions.value[idx.value].choices &&
     questions.value[idx.value].maxSelectedChoices === 1
   ) {
-    selectedAnswers.value[idx.value + 1] = [checked.value];
+    selectedAnswers.value[idx.value + 1] = [checked.value].flat(Infinity);
   } else if (
     questions.value[idx.value].choices &&
     questions.value[idx.value].maxSelectedChoices > 1
   ) {
     selectedAnswers.value[idx.value + 1] = [...checked.value];
   } else {
-    selectedAnswers.value[idx.value + 1] = [+rangeValue.value];
+    selectedAnswers.value[idx.value + 1] = [rangeValue.value];
   }
+};
+
+const checkVisible = () => {
+  const arrValues = questions.value[idx.value].visibleIf
+    .split(" ")
+    .map((el) => {
+      if (el.includes("{")) {
+        return +el.replace(/[\D]+/g, "");
+      }
+      if (el.includes("[")) {
+        return el.slice(2, el.length - 2);
+      }
+    })
+    .filter((el) => el);
+
+  const objValues = {};
+  const arrVisibility = [];
+
+  for (let i = 0; i < arrValues.length; i++) {
+    if (Number.isInteger(arrValues[i])) {
+      objValues[arrValues[i]] = arrValues[i + 1];
+    }
+  }
+
+  for (let key in objValues) {
+    if (selectedAnswers.value[key].includes(objValues[key])) {
+      arrVisibility.push(true);
+    } else {
+      arrVisibility.push(false);
+    }
+  }
+
+  if (arrVisibility.includes(false)) {
+    return false;
+  }
+
+  return true;
 };
 
 const nextQuestion = () => {
   collectAnswers();
 
   idx.value += 1;
-  if (checked.value.length && questions.value[idx.value].visibleIf) {
-    if (!questions.value[idx.value].visibleIf.includes(checked.value[0])) {
+  if (questions.value[idx.value].visibleIf) {
+    const isVisible = checkVisible();
+
+    if (!isVisible) {
       idx.value += 1;
+      delete selectedAnswers.value[idx.value];
     }
   }
 
-  checked.value = [];
+  if (selectedAnswers.value[idx.value + 1]) {
+    checked.value = [...selectedAnswers.value[idx.value + 1]];
+  } else {
+    checked.value = [];
+  }
+};
+
+const prevQuestion = () => {
+  if (selectedAnswers.value[idx.value]) {
+    checked.value = [...selectedAnswers.value[idx.value]];
+    idx.value -= 1;
+  } else {
+    checked.value = [...selectedAnswers.value[idx.value - 1]];
+    idx.value -= 2;
+  }
 };
 </script>
 
@@ -167,11 +222,20 @@ const nextQuestion = () => {
   color: #fff;
 }
 
+.checked::before {
+  content: "✔";
+}
+
 .test-control {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+}
+
+.test-buttons {
   display: flex;
   justify-content: flex-end;
   margin-top: 20px;
-  align-items: center;
 }
 
 .btn {
@@ -219,8 +283,12 @@ const nextQuestion = () => {
   opacity: 1;
 }
 
-.input-number {
+.prev-btn {
   margin-right: auto;
+}
+
+.input-number {
+  margin-right: 0 auto;
   font-size: 30px;
   line-height: 34px;
   text-align: center;
