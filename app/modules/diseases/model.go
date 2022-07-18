@@ -12,10 +12,10 @@ type Disease struct {
 }
 
 type Conditions struct {
-	Value    string `bson:"value" json:"value"`
-	Type     string `bson:"type" json:"type"`
-	Compare  string `bson:"compare" json:"compare"`
-	Multiple bool   `bson:"multiple" json:"multiple"`
+	Value    []string `bson:"value" json:"value"`
+	Type     string   `bson:"type" json:"type"`
+	Compare  string   `bson:"compare" json:"compare"`
+	Multiple bool     `bson:"multiple" json:"multiple"`
 }
 
 func (d Disease) meetsCriteria(answers *answers.Result) bool {
