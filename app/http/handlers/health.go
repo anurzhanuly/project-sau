@@ -39,5 +39,8 @@ func GetAllDiseases(c *gin.Context, di *di.DI) {
 		return
 	}
 
-	c.JSON(http.StatusOK, []byte(result))
+	c.JSON(http.StatusOK, gin.H{
+		"status": http.StatusOK,
+		"result": result,
+	})
 }
