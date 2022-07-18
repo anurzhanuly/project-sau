@@ -94,7 +94,7 @@ const collectAnswers = () => {
     questions.value[idx.value].choices &&
     questions.value[idx.value].maxSelectedChoices === 1
   ) {
-    selectedAnswers.value[idx.value + 1] = [checked.value];
+    selectedAnswers.value[idx.value + 1] = [checked.value].flat(Infinity);
   } else if (
     questions.value[idx.value].choices &&
     questions.value[idx.value].maxSelectedChoices > 1
@@ -119,7 +119,7 @@ const checkVisible = () => {
     .filter((el) => el);
 
   const objValues = {};
-  let visibility = true;
+  const arrVisibility = [];
 
   for (let i = 0; i < arrValues.length; i++) {
     if (Number.isInteger(arrValues[i])) {
@@ -128,12 +128,18 @@ const checkVisible = () => {
   }
 
   for (let key in objValues) {
-    if (!selectedAnswers.value[key].includes(objValues[key])) {
-      visibility = false;
+    if (selectedAnswers.value[key].includes(objValues[key])) {
+      arrVisibility.push(true);
+    } else {
+      arrVisibility.push(false);
     }
   }
 
-  return visibility;
+  if (arrVisibility.includes(false)) {
+    return false;
+  }
+
+  return true;
 };
 
 const nextQuestion = () => {
