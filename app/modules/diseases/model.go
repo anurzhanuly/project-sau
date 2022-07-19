@@ -2,6 +2,7 @@ package diseases
 
 import (
 	"anurzhanuly/project-sau/app/modules/answers"
+	"reflect"
 )
 
 type Disease struct {
@@ -19,7 +20,21 @@ type Conditions struct {
 }
 
 func (d Disease) meetsCriteria(answers *answers.Result) bool {
-	var result bool
+	for key, userAnswer := range answers.Answers {
+		conditionValue, exists := d.Conditions[key]
 
-	return result
+		if exists {
+			if compare(userAnswer, conditionValue) {
+				continue
+			}
+		}
+
+		return false
+	}
+
+	return true
+}
+
+func compare(answer []string, conditions Conditions) bool {
+	return reflect.DeepEqual(answer, conditions.Value)
 }
