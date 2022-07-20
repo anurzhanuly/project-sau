@@ -60,7 +60,13 @@
           <button class="btn prev-btn" @click="prevQuestion" v-if="idx > 0">
             Предыдущий вопрос
           </button>
-          <button class="btn" @click="nextQuestion">Следующий вопрос</button>
+          <button
+            class="btn"
+            @click="nextQuestion"
+            :disabled="!checked.length && questions[idx].choices"
+          >
+            Следующий вопрос
+          </button>
         </div>
       </div>
     </div>
@@ -142,17 +148,24 @@ const checkVisible = () => {
   return true;
 };
 
+const test = () => {
+  const isVisible = checkVisible();
+
+  if (!isVisible) {
+    idx.value += 1;
+    delete selectedAnswers.value[idx.value];
+    if (questions.value[idx.value].visibleIf) {
+      test();
+    }
+  }
+};
+
 const nextQuestion = () => {
   collectAnswers();
 
   idx.value += 1;
   if (questions.value[idx.value].visibleIf) {
-    const isVisible = checkVisible();
-
-    if (!isVisible) {
-      idx.value += 1;
-      delete selectedAnswers.value[idx.value];
-    }
+    test();
   }
 
   if (selectedAnswers.value[idx.value + 1]) {
@@ -163,13 +176,11 @@ const nextQuestion = () => {
 };
 
 const prevQuestion = () => {
-  if (selectedAnswers.value[idx.value]) {
-    checked.value = [...selectedAnswers.value[idx.value]];
+  while (!selectedAnswers.value[idx.value]) {
     idx.value -= 1;
-  } else {
-    checked.value = [...selectedAnswers.value[idx.value - 1]];
-    idx.value -= 2;
   }
+  checked.value = [...selectedAnswers.value[idx.value]];
+  idx.value -= 1;
 };
 </script>
 
