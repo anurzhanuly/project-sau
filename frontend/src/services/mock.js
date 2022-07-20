@@ -168,7 +168,7 @@ const mock = [
   {
     type: "checkbox",
     name: "question17",
-    visibleIf: "{question15} = ['Да']",
+    visibleIf: "{question16} = ['Да']",
     title: "Вы знаете сколько в среднем в неделю вы употребляете алкоголь? ",
     description:
       "1 пиво 500 мл - 2 единицы, 1 стакан вина - 1 единица, 40 грамм водки - 1 единица",
@@ -185,7 +185,7 @@ const mock = [
   {
     type: "checkbox",
     name: "question19",
-    visibleIf: "{question17} = ['Да']",
+    visibleIf: "{question18} = ['Да']",
     title: "Сколько сигарет в день вы курите? ",
     choices: ["< 5", " 5 - 9", "10 - 19", "> 20"],
     maxSelectedChoices: 1,
@@ -193,7 +193,7 @@ const mock = [
   {
     type: "checkbox",
     name: "question20",
-    visibleIf: "{question17} = ['Да']",
+    visibleIf: "{question18} = ['Да']",
     title: "Сколько вы курите?",
     choices: ["< 1", "1 - 4", "5 - 9", "> 10"],
     maxSelectedChoices: 1,
@@ -208,7 +208,7 @@ const mock = [
   {
     type: "checkbox",
     name: "question22",
-    visibleIf: "{question20} = ['Да']",
+    visibleIf: "{question21} = ['Да']",
     title: "Как долго вы курили перед тем как бросить курить?",
     description: "В лет ",
     choices: ["< 1 года", "1 - 4", "5 - 9", "> 10"],
