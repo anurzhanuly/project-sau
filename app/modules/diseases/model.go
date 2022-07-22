@@ -7,8 +7,10 @@ import (
 
 type Disease struct {
 	ID              int                   `bson:"id" json:"id,omitempty"`
-	Name            string                `bson:"name" json:"name,omitempty"`
-	Recommendations string                `bson:"recommendations" json:"recommendations,omitempty"`
+	Name            string                `bson:"name" json:"name"`
+	Tests           []string              `bson:"tests" json:"tests"`
+	Recommendations []string              `bson:"recommendations" json:"recommendations"`
+	Importance      string                `bson:"importance" json:"importance"`
 	Conditions      map[string]Conditions `bson:"conditions" json:"conditions"`
 }
 
