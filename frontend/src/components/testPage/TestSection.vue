@@ -2,6 +2,7 @@
   <section class="section-test">
     <div class="test-wrapper">
       <p class="test-title">{{ questions[idx]["title"] }}</p>
+      <p class="test-description">{{ questions[idx]["description"] }}</p>
       <div
         v-if="questions[idx].choices && questions[idx].maxSelectedChoices > 1"
       >
@@ -206,7 +207,13 @@ const prevQuestion = () => {
   line-height: 34px;
   text-align: center;
   font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.test-description {
+  margin: 0 auto;
   margin-bottom: 30px;
+  color: #acb7c1;
 }
 
 .hidden {
