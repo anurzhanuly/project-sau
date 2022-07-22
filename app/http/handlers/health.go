@@ -14,10 +14,15 @@ func HealthGetRecommendation(c *gin.Context, di *di.DI) {
 	userAnswer := &answers.Result{}
 	service := diseases.NewService(c, di)
 
-	_, err := service.GetRecommendations(userAnswer)
+	recommendations, err := service.GetRecommendations(userAnswer)
 	if err != nil {
 		return
 	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"status":          http.StatusOK,
+		"recommendations": recommendations,
+	})
 }
 
 func AddDisease(c *gin.Context, di *di.DI) {
