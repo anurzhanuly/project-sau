@@ -151,7 +151,7 @@ const mock = [
   },
   {
     type: "checkbox",
-    name: "question25",
+    name: "question15",
     visibleIf: "{question2} = ['Мужской'] and {question13} = ['Да']",
     title: "Укажите свой уровень гемоглобина в крови",
     description: "В г/л (х10*9/л)",
@@ -160,15 +160,15 @@ const mock = [
   },
   {
     type: "checkbox",
-    name: "question15",
+    name: "question16",
     title: "Вы употребляете алкоголь? ",
     choices: ["Да", "Нет"],
     maxSelectedChoices: 1,
   },
   {
     type: "checkbox",
-    name: "question16",
-    visibleIf: "{question15} = ['Да']",
+    name: "question17",
+    visibleIf: "{question16} = ['Да']",
     title: "Вы знаете сколько в среднем в неделю вы употребляете алкоголь? ",
     description:
       "1 пиво 500 мл - 2 единицы, 1 стакан вина - 1 единица, 40 грамм водки - 1 единица",
@@ -177,38 +177,38 @@ const mock = [
   },
   {
     type: "checkbox",
-    name: "question17",
+    name: "question18",
     title: "Вы курите? ",
     choices: ["Да", "Нет"],
     maxSelectedChoices: 1,
   },
   {
     type: "checkbox",
-    name: "question18",
-    visibleIf: "{question17} = ['Да']",
+    name: "question19",
+    visibleIf: "{question18} = ['Да']",
     title: "Сколько сигарет в день вы курите? ",
     choices: ["< 5", " 5 - 9", "10 - 19", "> 20"],
     maxSelectedChoices: 1,
   },
   {
     type: "checkbox",
-    name: "question19",
-    visibleIf: "{question17} = ['Да']",
+    name: "question20",
+    visibleIf: "{question18} = ['Да']",
     title: "Сколько вы курите?",
     choices: ["< 1", "1 - 4", "5 - 9", "> 10"],
     maxSelectedChoices: 1,
   },
   {
     type: "checkbox",
-    name: "question20",
+    name: "question21",
     title: "Вы раньше курили на постоянной основе? ",
     choices: ["Да", "Нет"],
     maxSelectedChoices: 1,
   },
   {
     type: "checkbox",
-    name: "question21",
-    visibleIf: "{question20} = ['Да']",
+    name: "question22",
+    visibleIf: "{question21} = ['Да']",
     title: "Как долго вы курили перед тем как бросить курить?",
     description: "В лет ",
     choices: ["< 1 года", "1 - 4", "5 - 9", "> 10"],
@@ -216,7 +216,7 @@ const mock = [
   },
   {
     type: "checkbox",
-    name: "question22",
+    name: "question23",
     title: "Ваш уровень физической активности?",
     choices: [
       "Прогулка",
@@ -227,7 +227,7 @@ const mock = [
   },
   {
     type: "checkbox",
-    name: "question23",
+    name: "question24",
     title: "Ваш рацион питания? ",
     choices: [
       "Полезный (больше фруктов и овощей)",
@@ -237,7 +237,7 @@ const mock = [
   },
   {
     type: "checkbox",
-    name: "question24",
+    name: "question25",
     title: "У вас есть следующие общие жалобы? Отметьте которые есть ",
     choices: [
       "Усталость",
