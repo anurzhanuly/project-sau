@@ -65,9 +65,15 @@
             class="btn"
             @click="nextQuestion"
             :disabled="!checked.length && questions[idx].choices"
+            v-if="idx < questions.length - 1"
           >
             Следующий вопрос
           </button>
+          <RouterLink to="/result" v-else>
+            <button class="btn" @click="lastQuestion">
+              Показать результаты
+            </button>
+          </RouterLink>
         </div>
       </div>
     </div>
@@ -76,22 +82,21 @@
 
 <script setup>
 import mock from "../../services/mock";
-import { ref, watch } from "vue";
+import { RouterLink } from "vue-router";
+import { ref } from "vue";
 
 const questions = ref(mock);
 const idx = ref(0);
 
-const minValue = ref(questions.value[idx.value].min);
-const maxValue = ref(questions.value[idx.value].max);
+const minValue = ref(questions.value[0].min);
+const maxValue = ref(questions.value[0].max);
 const rangeValue = ref(`${Math.round(maxValue.value / 2)}`);
 
-watch(idx, () => {
-  if (questions.value[idx.value].min) {
-    minValue.value = questions.value[idx.value].min;
-    maxValue.value = questions.value[idx.value].max;
-    rangeValue.value = `${Math.round(maxValue.value / 2)}`;
-  }
-});
+const changeRangeValue = () => {
+  minValue.value = questions.value[idx.value].min;
+  maxValue.value = questions.value[idx.value].max;
+  rangeValue.value = `${Math.round(maxValue.value / 2)}`;
+};
 
 const checked = ref([]);
 const selectedAnswers = ref({});
@@ -165,6 +170,11 @@ const nextQuestion = () => {
   collectAnswers();
 
   idx.value += 1;
+
+  if (questions.value[idx.value].min) {
+    changeRangeValue();
+  }
+
   if (questions.value[idx.value].visibleIf) {
     test();
   }
@@ -182,6 +192,11 @@ const prevQuestion = () => {
   }
   checked.value = [...selectedAnswers.value[idx.value]];
   idx.value -= 1;
+};
+
+const lastQuestion = () => {
+  collectAnswers();
+  console.log(selectedAnswers.value[25])
 };
 </script>
 

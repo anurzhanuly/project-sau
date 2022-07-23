@@ -1,9 +1,7 @@
 <template>
-  <div>
-    <WelcomeSection />
-    <InfoSection />
-    <FooterBase />
-  </div>
+  <WelcomeSection />
+  <InfoSection />
+  <FooterBase />
 </template>
 
 <script setup>

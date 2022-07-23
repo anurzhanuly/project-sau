@@ -17,6 +17,7 @@
   padding: 50px 0 32px;
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 .footer__logo {
@@ -24,8 +25,8 @@
   background-position: 50%;
   background-repeat: no-repeat;
   background-size: contain;
-  height: 60px;
-  width: 60px;
+  height: 40px;
+  width: 40px;
 }
 
 @media (min-width: 992px) {
