@@ -1,4 +1,4 @@
-package comparator
+package products
 
 type Number struct {
 	UserAnswer       string
