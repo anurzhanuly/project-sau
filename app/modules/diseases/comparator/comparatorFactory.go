@@ -1,0 +1,5 @@
+package comparator
+
+func GetComparator() {
+
+}
