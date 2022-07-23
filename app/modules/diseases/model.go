@@ -22,13 +22,6 @@ type Conditions struct {
 	Multiple bool     `bson:"multiple" json:"multiple"`
 }
 
-type Recommendation struct {
-	Name            string   `bson:"name" json:"name"`
-	Tests           []string `bson:"tests" json:"tests"`
-	Recommendations []string `bson:"recommendations" json:"recommendations"`
-	Importance      string   `bson:"importance" json:"importance"`
-}
-
 func (d Disease) meetsCriteria(answers *answers.Result) bool {
 	for key, condition := range d.Conditions {
 		answer, keyExists := answers.Answers[key]
