@@ -43,7 +43,6 @@
           {{ answer }}
         </label>
       </div>
-      <span>{{ selectedAnswers }}</span>
       <div v-if="questions[idx].inputType === 'number'">
         <input
           type="range"

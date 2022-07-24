@@ -51,7 +51,7 @@
 
 <script setup>
 import pdfMake from "pdfmake";
-import pdfFonts from "pdfmake/build/vfs_fonts";
+import * as pdfFonts from "pdfmake/build/vfs_fonts";
 import htmlToPdfmake from "html-to-pdfmake";
 import logoJpg from "../../assets/base64/logo.js";
 
