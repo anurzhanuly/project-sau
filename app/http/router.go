@@ -10,11 +10,6 @@ import (
 	"time"
 )
 
-const (
-	EntryPointRoute    = "./frontend/deploy"
-	EntryPointFilename = "index.html"
-)
-
 func Router(debug bool, di di.DI) *gin.Engine {
 	router := gin.New()
 
@@ -34,7 +29,7 @@ func ConfigureRoutes(router *gin.Engine, di di.DI) {
 		ValidateHeaders: false,
 	}))
 
-	router.Use(static.Serve("/", static.LocalFile(EntryPointRoute, false)))
+	router.Use(static.Serve("/", static.LocalFile(di.Config.StaticPath, false)))
 	router.GET("/_health", middleware.ProvideDependency(handlers.Health, di))
 	router.POST("/diseases/recommendations", middleware.ProvideDependency(handlers.HealthGetRecommendation, di))
 	router.POST("/diseases/add", middleware.ProvideDependency(handlers.AddDisease, di))
