@@ -90,12 +90,12 @@ const idx = ref(0);
 
 const minValue = ref(questions.value[0].min);
 const maxValue = ref(questions.value[0].max);
-const rangeValue = ref(`${Math.round(maxValue.value / 2)}`);
+const rangeValue = ref(questions.value[0].defaultValue);
 
 const changeRangeValue = () => {
   minValue.value = questions.value[idx.value].min;
   maxValue.value = questions.value[idx.value].max;
-  rangeValue.value = `${Math.round(maxValue.value / 2)}`;
+  rangeValue.value = questions.value[idx.value].defaultValue;
 };
 
 const checked = ref([]);
@@ -196,7 +196,6 @@ const prevQuestion = () => {
 
 const lastQuestion = () => {
   collectAnswers();
-  console.log(selectedAnswers.value[25]);
 };
 </script>
 
