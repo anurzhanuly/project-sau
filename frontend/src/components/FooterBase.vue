@@ -17,15 +17,16 @@
   padding: 50px 0 32px;
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 .footer__logo {
-  background-image: url("../assets/mini-logo.png");
+  background-image: url("../assets/symptom.png");
   background-position: 50%;
   background-repeat: no-repeat;
   background-size: contain;
-  height: 60px;
-  width: 60px;
+  height: 40px;
+  width: 100px;
 }
 
 @media (min-width: 992px) {

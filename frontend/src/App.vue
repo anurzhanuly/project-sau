@@ -2,11 +2,13 @@
   <div class="wrapper">
     <ToolbarBase />
     <main class="main"><RouterView /></main>
+    <FooterBase />
   </div>
 </template>
 
 <script setup>
 import ToolbarBase from "@/components/ToolbarBase.vue";
+import FooterBase from "@/components/FooterBase.vue";
 import { RouterView } from "vue-router";
 </script>
 
@@ -16,9 +18,10 @@ import { RouterView } from "vue-router";
   padding: 0;
   box-sizing: border-box;
 }
-
+html,
 body {
   background-color: #f5f7f9;
+  height: 100%;
 }
 
 a {
@@ -40,5 +43,9 @@ a {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+}
+
+.main {
+  flex: 1 1 auto;
 }
 </style>
