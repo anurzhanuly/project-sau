@@ -7,6 +7,7 @@ import (
 
 type Config struct {
 	filePath          string
+	StaticPath        string
 	Listen            string
 	Debug             bool
 	Database          database.Options

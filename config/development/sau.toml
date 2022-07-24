@@ -1,6 +1,7 @@
 Listen = "0.0.0.0:8080"
 Debug = true
 MongoDatabaseName = "symptom"
+StaticPath = "./frontend/dist"
 
 [database]
     [database.MongoDB]
