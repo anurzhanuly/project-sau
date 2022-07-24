@@ -37,12 +37,18 @@ func (d Disease) meetsCriteria(answers *answers.Result) bool {
 }
 
 func isConditionMet(answer []string, conditions Conditions) bool {
-	if conditions.Multiple {
-		return reflect.DeepEqual(answer, conditions)
-	}
-
 	userValue := answer[0]
 	conditionValue := conditions.Value[0]
+
+	if conditions.Compare == "optional" && conditions.Type == "text" {
+		for _, value := range conditions.Value {
+			for _, answer := range answer {
+				if value == answer {
+					return true
+				}
+			}
+		}
+	}
 
 	if conditions.Compare == "greater" {
 		userInput, err := strconv.Atoi(userValue)
@@ -70,6 +76,10 @@ func isConditionMet(answer []string, conditions Conditions) bool {
 		}
 
 		return userInput < condition
+	}
+
+	if conditions.Multiple {
+		return reflect.DeepEqual(answer, conditions)
 	}
 
 	return userValue == conditionValue
