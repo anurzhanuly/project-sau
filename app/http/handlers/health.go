@@ -16,6 +16,8 @@ func HealthGetRecommendation(c *gin.Context, di *di.DI) {
 
 	recommendations, err := service.GetRecommendations(userAnswer)
 	if err != nil {
+		c.JSON(http.StatusInternalServerError, "Что-то полетело")
+
 		return
 	}
 
