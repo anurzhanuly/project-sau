@@ -21,12 +21,12 @@
 }
 
 .footer__logo {
-  background-image: url("../assets/mini-logo.png");
+  background-image: url("../assets/symptom.png");
   background-position: 50%;
   background-repeat: no-repeat;
   background-size: contain;
   height: 40px;
-  width: 40px;
+  width: 100px;
 }
 
 @media (min-width: 992px) {

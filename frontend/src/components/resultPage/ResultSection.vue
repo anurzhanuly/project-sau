@@ -1,9 +1,51 @@
 <template>
-  <section class="section-test">
-    <img :src="logoJpg" alt="adsdasdas" height="30" />
-    <p>{{ result.tests }}</p>
-    <p>{{ result.recommendations }}</p>
-    <button @click="printDocument()" class="btn">Скачать в пдф</button>
+  <section class="section-result">
+    <div class="result-header">
+      <h2>Результаты:</h2>
+      <button @click="printDocument()" class="btn">Открыть в pdf</button>
+    </div>
+    <div id="pdf">
+      <img
+        :src="logoJpg"
+        alt="logo"
+        height="30"
+        width="160"
+        style="margin-bottom: 40px"
+        class="hidden"
+      />
+      <div
+        v-for="(resultItem, index) in result.recommendations"
+        :key="index"
+        class="result-item"
+        style="margin-bottom: 30px"
+      >
+        <h3
+          style="
+            margin-bottom: 15px;
+            text-decoration: underline;
+            font-size: 20px;
+          "
+        >
+          {{ resultItem.name }}
+        </h3>
+        <strong style="margin-bottom: 7px">
+          Вам показаны следующие исследования:
+        </strong>
+        <ul style="margin: 0 0 10px 30px">
+          <li v-for="(item, index) in resultItem.tests" :key="index">
+            {{ item }}
+          </li>
+        </ul>
+        <strong style="margin-bottom: 7px"> Почему это важно:</strong>
+        <p style="margin-bottom: 10px">{{ resultItem.importance }}</p>
+        <strong style="margin-bottom: 7px">Так же рекомендуется:</strong>
+        <ul style="margin: 0 0 10px 30px">
+          <li v-for="(item, index) in resultItem.recommendations" :key="index">
+            {{ item }}
+          </li>
+        </ul>
+      </div>
+    </div>
   </section>
 </template>
 
@@ -25,34 +67,62 @@ const result = {
       importance:
         "Рак молочных желез - самый распространенный вид рака среди женщин. 1 из 8 женщин развеет это заболевание. Ранняя диагностика увеличивает выживаемость до 92%.",
     },
+    {
+      name: "Простуда",
+      tests: ["Маммография (каждые 2 года)", "УЗИ молочных желез"],
+      recommendations: [
+        "Самообследование молочной железы, Визуальный осмотр кожи и соска каждый месяц с 40 лет",
+        "Обследование молочной железы, Визуальный осмотр кожи и соска врачом терапевтом/ маммологом раз в два года с 40 лет",
+      ],
+      importance:
+        "Рак молочных желез - самый распространенный вид рака среди женщин. 1 из 8 женщин развеет это заболевание. Ранняя диагностика увеличивает выживаемость до 92%.",
+    },
   ],
   status: 200,
 };
 
 const printDocument = () => {
   //get table html
-  const pdfTable = document.querySelector(".section-test");
+  const pdfTable = document.getElementById("pdf");
   //html to pdf format
   const html = htmlToPdfmake(pdfTable.innerHTML, {
     imagesByReference: true,
   });
 
-  const documentDefinition = { content: html.content, images: html.images };
+  const documentDefinition = {
+    content: html.content,
+    images: html.images,
+  };
   pdfMake.vfs = pdfFonts.pdfMake.vfs;
   pdfMake.createPdf(documentDefinition).open();
 };
 </script>
 
 <style scoped>
-.section-test {
+.section-result {
   background-color: #fff;
   border-radius: 5px;
   width: 100%;
-  padding: 80px;
+  padding: 60px 80px 80px;
   margin: 40px auto;
   -webkit-box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
   -moz-box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
   box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
+}
+
+.result-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.result-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.hidden {
+  visibility: hidden;
 }
 
 .btn {
