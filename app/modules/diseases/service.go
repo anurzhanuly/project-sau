@@ -3,6 +3,7 @@ package diseases
 import (
 	"anurzhanuly/project-sau/app/di"
 	"anurzhanuly/project-sau/app/modules/answers"
+	"anurzhanuly/project-sau/app/modules/recommendations"
 	"encoding/json"
 	"github.com/gin-gonic/gin"
 )
@@ -27,34 +28,34 @@ func NewService(ctx *gin.Context, di *di.DI) *Service {
 }
 
 //GetRecommendations даёт рекомендации опираясь на ответы пользователя по заболеваниям
-func (s Service) GetRecommendations(userAnswer *answers.Result) ([]Recommendation, error) {
+func (s Service) GetRecommendations(userAnswer *answers.Result) ([]recommendations.Recommendation, error) {
 	var err error
-	var recommendations []Recommendation
+	var result []recommendations.Recommendation
 
 	err = s.Context.BindJSON(userAnswer)
 	if err != nil {
-		return recommendations, err
+		return result, err
 	}
 
 	diseases, err := s.repository.getAllDiseases()
 	if err != nil {
-		return recommendations, err
+		return result, err
 	}
 
 	for _, disease := range diseases {
 		if disease.meetsCriteria(userAnswer) {
-			recommendation := Recommendation{
+			recommendation := recommendations.Recommendation{
 				Name:            disease.Name,
 				Recommendations: disease.Recommendations,
 				Tests:           disease.Tests,
 				Importance:      disease.Importance,
 			}
 
-			recommendations = append(recommendations, recommendation)
+			result = append(result, recommendation)
 		}
 	}
 
-	return recommendations, err
+	return result, err
 }
 
 // AddDisease добавляет заболевание в монгу
