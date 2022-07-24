@@ -52,6 +52,7 @@
           class="input-range"
         />
       </div>
+      <span>{{ selectedAnswers }}</span>
       <div class="test-control">
         <div v-if="questions[idx].inputType === 'number'" class="input-number">
           {{ rangeValue }}
@@ -83,6 +84,7 @@
 import mock from "../../services/mock";
 import { RouterLink } from "vue-router";
 import { ref } from "vue";
+import axios from "axios";
 
 const questions = ref(mock);
 const idx = ref(0);
@@ -112,7 +114,7 @@ const collectAnswers = () => {
   ) {
     selectedAnswers.value[idx.value + 1] = [...checked.value];
   } else {
-    selectedAnswers.value[idx.value + 1] = [rangeValue.value];
+    selectedAnswers.value[idx.value + 1] = [`${rangeValue.value}`];
   }
 };
 
@@ -195,6 +197,17 @@ const prevQuestion = () => {
 
 const lastQuestion = () => {
   collectAnswers();
+
+  axios
+    .post("https://project-sau.herokuapp.com/diseases/recommendations", {
+      answers: selectedAnswers.value,
+    })
+    .then((response) => {
+      console.log(response);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 };
 </script>
 
