@@ -196,7 +196,7 @@ const prevQuestion = () => {
 
 const lastQuestion = () => {
   collectAnswers();
-  console.log(selectedAnswers.value[25])
+  console.log(selectedAnswers.value[25]);
 };
 </script>
 
