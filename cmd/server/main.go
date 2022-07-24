@@ -29,7 +29,7 @@ func main() {
 
 	nethttp.Handle("/", http.Router(config.Debug, container))
 
-	if err = nethttp.ListenAndServe(port, nil); err != nil {
+	if err = nethttp.ListenAndServe(":"+port, nil); err != nil {
 		fmt.Println("Ошибка при запуске http сервера")
 	}
 }
