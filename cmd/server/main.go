@@ -7,6 +7,7 @@ import (
 	"flag"
 	"fmt"
 	nethttp "net/http"
+	"os"
 )
 
 const defaultConfigPath = "config/development/sau.toml"
@@ -21,9 +22,14 @@ func main() {
 	container.Init()
 	defer container.Release()
 
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = config.Listen // Default port if not specified
+	}
+
 	nethttp.Handle("/", http.Router(config.Debug, container))
 
-	if err = nethttp.ListenAndServe(config.Listen, nil); err != nil {
+	if err = nethttp.ListenAndServe(port, nil); err != nil {
 		fmt.Println("Ошибка при запуске http сервера")
 	}
 }
