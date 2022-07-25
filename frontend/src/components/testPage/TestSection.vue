@@ -202,17 +202,6 @@ const lastQuestion = () => {
       answers: selectedAnswers.value,
     },
   });
-
-  // axios
-  //   .post("https://project-sau.herokuapp.com/diseases/recommendations", {
-  //     answers: selectedAnswers.value,
-  //   })
-  //   .then((response) => {
-  //     console.log(response);
-  //   })
-  //   .catch((error) => {
-  //     console.log(error);
-  //   });
 };
 </script>
 
