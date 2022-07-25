@@ -16,17 +16,8 @@
         class="result-item"
         style="margin-bottom: 30px"
       >
-        <h3
-          style="
-            margin-bottom: 15px;
-            text-decoration: underline;
-            font-size: 20px;
-          "
-        >
-          {{ resultItem.name }}
-        </h3>
         <strong style="margin-bottom: 7px">
-          Вам показаны следующие исследования:
+          Вам рекомендуются следующие исследования:
         </strong>
         <ul style="margin: 0 0 10px 30px">
           <li v-for="(item, index) in resultItem.tests" :key="index">
