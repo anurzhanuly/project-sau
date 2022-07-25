@@ -72,22 +72,14 @@ onMounted(() => {
         result.value = [
           {
             name: "Короче,нет ничего",
-            tests: [
-              "Проверка артериального давления",
-              "Анализ холестерина, липопротеинов высокой и низкой плотности, триглицеридов.",
-              "Уровень глюкозы в крови",
-            ],
-            recommendations: [
-              "Диабет является одной из основных причин ранней болезни и смерти.",
-            ],
-            importance:
-              "Обязательный национальный скрининг. Ишемическая болезнь сердца убивает больше любых других болезней.",
+            tests: [],
+            recommendations: [],
+            importance: "",
           },
         ];
       } else {
         result.value = response.data.recommendations;
       }
-      console.log(response);
     })
     .catch((error) => {
       console.log(error);
