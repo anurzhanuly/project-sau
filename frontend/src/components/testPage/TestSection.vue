@@ -83,10 +83,11 @@
 import mock from "../../services/mock";
 import { RouterLink } from "vue-router";
 import { ref } from "vue";
-import axios from "axios";
+import { useTestStore } from "../../stores/test.js";
 
 const questions = ref(mock);
 const idx = ref(0);
+const testStore = useTestStore();
 
 const minValue = ref(questions.value[0].min);
 const maxValue = ref(questions.value[0].max);
@@ -196,17 +197,22 @@ const prevQuestion = () => {
 
 const lastQuestion = () => {
   collectAnswers();
-
-  axios
-    .post("https://project-sau.herokuapp.com/diseases/recommendations", {
+  testStore.$patch({
+    resultAnswers: {
       answers: selectedAnswers.value,
-    })
-    .then((response) => {
-      console.log(response);
-    })
-    .catch((error) => {
-      console.log(error);
-    });
+    },
+  });
+
+  // axios
+  //   .post("https://project-sau.herokuapp.com/diseases/recommendations", {
+  //     answers: selectedAnswers.value,
+  //   })
+  //   .then((response) => {
+  //     console.log(response);
+  //   })
+  //   .catch((error) => {
+  //     console.log(error);
+  //   });
 };
 </script>
 

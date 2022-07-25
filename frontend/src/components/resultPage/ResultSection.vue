@@ -11,7 +11,7 @@
         class="hidden"
       />
       <div
-        v-for="(resultItem, index) in result.recommendations"
+        v-for="(resultItem, index) in result"
         :key="index"
         class="result-item"
         style="margin-bottom: 30px"
@@ -52,37 +52,50 @@ import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
 import htmlToPdfmake from "html-to-pdfmake";
 import logoJpg from "../../assets/base64/logo.js";
+import { useTestStore } from "../../stores/test.js";
+import axios from "axios";
+import { ref, onMounted } from "vue";
 
-const result = {
-  recommendations: [
-    {
-      name: "Рак молочных желез",
-      tests: ["Маммография (каждые 2 года)", "УЗИ молочных желез"],
-      recommendations: [
-        "Самообследование молочной железы, Визуальный осмотр кожи и соска каждый месяц с 40 лет",
-        "Обследование молочной железы, Визуальный осмотр кожи и соска врачом терапевтом/ маммологом раз в два года с 40 лет",
-      ],
-      importance:
-        "Рак молочных желез - самый распространенный вид рака среди женщин. 1 из 8 женщин развеет это заболевание. Ранняя диагностика увеличивает выживаемость до 92%.",
-    },
-    {
-      name: "Простуда",
-      tests: ["Маммография (каждые 2 года)", "УЗИ молочных желез"],
-      recommendations: [
-        "Самообследование молочной железы, Визуальный осмотр кожи и соска каждый месяц с 40 лет",
-        "Обследование молочной железы, Визуальный осмотр кожи и соска врачом терапевтом/ маммологом раз в два года с 40 лет",
-      ],
-      importance:
-        "Рак молочных желез - самый распространенный вид рака среди женщин. 1 из 8 женщин развеет это заболевание. Ранняя диагностика увеличивает выживаемость до 92%.",
-    },
-  ],
-  status: 200,
-};
+const testStore = useTestStore();
+const { resultAnswers } = testStore;
+
+const result = ref(null);
+
+onMounted(() => {
+  axios
+    .post(
+      "https://project-sau.herokuapp.com/diseases/recommendations",
+      resultAnswers
+    )
+    .then((response) => {
+      if (!response.data.recommendations) {
+        result.value = [
+          {
+            name: "Короче,нет ничего",
+            tests: [
+              "Проверка артериального давления",
+              "Анализ холестерина, липопротеинов высокой и низкой плотности, триглицеридов.",
+              "Уровень глюкозы в крови",
+            ],
+            recommendations: [
+              "Диабет является одной из основных причин ранней болезни и смерти.",
+            ],
+            importance:
+              "Обязательный национальный скрининг. Ишемическая болезнь сердца убивает больше любых других болезней.",
+          },
+        ];
+      } else {
+        result.value = response.data.recommendations;
+      }
+      console.log(response);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+});
 
 const printDocument = () => {
-  //get table html
   const pdfTable = document.getElementById("pdf");
-  //html to pdf format
   const html = htmlToPdfmake(pdfTable.innerHTML, {
     imagesByReference: true,
   });
