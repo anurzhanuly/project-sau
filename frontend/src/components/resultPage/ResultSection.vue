@@ -1,9 +1,6 @@
 <template>
   <section class="section-result">
-    <div class="result-header">
-      <h2>Результаты:</h2>
-      <button @click="printDocument()" class="btn">Открыть в pdf</button>
-    </div>
+    <h2 class="result-header">Результаты:</h2>
     <div id="pdf">
       <img
         :src="logoJpg"
@@ -46,6 +43,7 @@
         </ul>
       </div>
     </div>
+    <button @click="printDocument()" class="btn">Открыть в pdf</button>
   </section>
 </template>
 
@@ -111,9 +109,7 @@ const printDocument = () => {
 }
 
 .result-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  margin-bottom: 40px;
 }
 
 .result-item {
@@ -122,7 +118,7 @@ const printDocument = () => {
 }
 
 .hidden {
-  visibility: hidden;
+  display: none;
 }
 
 .btn {
@@ -168,5 +164,28 @@ const printDocument = () => {
   color: #dddddd;
   cursor: not-allowed;
   opacity: 1;
+}
+
+@media (max-width: 480px) {
+  .btn {
+    font-size: 14px;
+    line-height: 18px;
+    margin: 5px 0;
+  }
+
+  .section-result {
+    padding: 50px 30px;
+  }
+}
+
+@media (max-width: 768px) {
+  .test-title {
+    font-size: 22px;
+  }
+
+  .result-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 }
 </style>

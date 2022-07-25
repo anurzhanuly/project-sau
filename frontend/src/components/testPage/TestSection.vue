@@ -52,7 +52,6 @@
           class="input-range"
         />
       </div>
-      <span>{{ selectedAnswers }}</span>
       <div class="test-control">
         <div v-if="questions[idx].inputType === 'number'" class="input-number">
           {{ rangeValue }}
@@ -306,7 +305,7 @@ const lastQuestion = () => {
     transform 0.1s;
   user-select: none;
   -webkit-user-select: none;
-  width: auto;
+  width: 220px;
 }
 
 .btn:focus-visible {
@@ -368,5 +367,32 @@ const lastQuestion = () => {
   border-radius: 50%;
   background: #689be7;
   cursor: pointer;
+}
+
+@media (max-width: 480px) {
+  .btn {
+    font-size: 14px;
+    line-height: 18px;
+    margin: 5px 0;
+  }
+
+  .section-test {
+    padding: 50px 30px;
+  }
+}
+
+@media (max-width: 768px) {
+  .test-title {
+    font-size: 22px;
+  }
+
+  .btn {
+    margin: 5px 0;
+  }
+
+  .test-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
 }
 </style>
