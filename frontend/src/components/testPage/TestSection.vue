@@ -336,4 +336,41 @@ const prevQuestion = () => {
   background: #689be7;
   cursor: pointer;
 }
+
+/*media*/
+
+@media (max-width:666px) {
+  .btn {
+    margin: 0 10px;
+  }
+}
+
+@media (max-width:554px) {
+  .btn {
+    font-size: 14px;
+    line-height: 18px;
+    padding: 8px 15px;
+    margin: 0 10px;
+  }
+
+  .prev-btn {
+    margin-right: auto;
+  }
+
+
+  .section-test {
+    padding: 40px 10px 40px 10px;
+  }
+
+}
+
+@media (max-width:375px) {
+  .test-buttons {
+    flex-direction: column;
+  }
+
+  .btn {
+    margin: 5px 0;
+  }
+}
 </style>
