@@ -43,20 +43,20 @@
           {{ answer }}
         </label>
       </div>
-      <div
-        class="number-input-container"
-        v-if="questions[idx].inputType === 'number'"
-      >
-        <button class="button-decrement" @click="rangeValue -= 1"></button>
-        <div class="number-input">
-          <input
-            type="number"
-            :min="minValue"
-            :max="maxValue"
-            v-model="rangeValue"
-          />
+      <div v-if="questions[idx].inputType === 'number'">
+        <div class="number-input-container">
+          <button class="button-decrement" @click="rangeValue -= 1"></button>
+          <div class="number-input">
+            <input
+              type="number"
+              :min="minValue"
+              :max="maxValue"
+              v-model="rangeValue"
+            />
+          </div>
+          <button class="button-increment" @click="rangeValue += 1"></button>
         </div>
-        <button class="button-increment" @click="rangeValue += 1"></button>
+        <p class="input-help">Кликните на цифру для ручного ввода</p>
       </div>
     </div>
     <div class="test-buttons">
@@ -334,6 +334,15 @@ const lastQuestion = () => {
   flex-direction: row;
   background-color: #fcf9ed;
   overflow: hidden;
+}
+
+.input-help {
+  margin: 0 auto;
+  max-width: 400px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  color: #acb7c1;
 }
 
 input[type="number"] {
