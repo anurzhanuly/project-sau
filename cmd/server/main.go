@@ -11,7 +11,7 @@ import (
 )
 
 const defaultConfigPath = "config/development/sau.toml"
-const productionConfigPath = "config/development/sau.toml"
+const productionConfigPath = "config/production/production.toml"
 
 func main() {
 	var err error
