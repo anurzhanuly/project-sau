@@ -11,9 +11,19 @@ import (
 )
 
 const defaultConfigPath = "config/development/sau.toml"
+const productionConfigPath = "config/development/sau.toml"
 
 func main() {
-	config, err := getConfig()
+	var err error
+	var config environment.Config
+
+	port := os.Getenv("PORT")
+	if port == "" {
+		config, err = getConfig(defaultConfigPath)
+	} else {
+		config, err = getConfig(productionConfigPath)
+	}
+
 	if err != nil {
 		fmt.Println("Ошибка при инициализации конфигов сервера")
 	}
@@ -22,22 +32,17 @@ func main() {
 	container.Init()
 	defer container.Release()
 
-	port := os.Getenv("PORT")
-	if port == "" {
-		port = config.Listen
-	}
-
 	nethttp.Handle("/", http.Router(config.Debug, container))
 
-	if err = nethttp.ListenAndServe(":"+port, nil); err != nil {
+	if err = nethttp.ListenAndServe(config.Listen+port, nil); err != nil {
 		fmt.Println("Ошибка при запуске http сервера")
 	}
 }
 
-func getConfig() (environment.Config, error) {
+func getConfig(path string) (environment.Config, error) {
 	configPath := flag.String(
 		"config",
-		defaultConfigPath,
+		path,
 		"Путь до файла с конфигами проекта",
 	)
 	flag.Parse()
