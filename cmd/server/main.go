@@ -24,7 +24,7 @@ func main() {
 
 	port := os.Getenv("PORT")
 	if port == "" {
-		port = config.Listen // Default port if not specified
+		port = config.Listen
 	}
 
 	nethttp.Handle("/", http.Router(config.Debug, container))
