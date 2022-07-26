@@ -1,4 +1,5 @@
-Listen = "0.0.0.0:8080"
+IP = "0.0.0.0"
+Port = ":8080"
 Debug = true
 MongoDatabaseName = "symptom"
 StaticPath = "./frontend/dist"

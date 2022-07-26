@@ -17,13 +17,7 @@ func main() {
 	var err error
 	var config environment.Config
 
-	port := os.Getenv("PORT")
-	if port == "" {
-		config, err = getConfig(defaultConfigPath)
-	} else {
-		config, err = getConfig(productionConfigPath)
-	}
-
+	config, err = getConfig()
 	if err != nil {
 		fmt.Println("Ошибка при инициализации конфигов сервера")
 	}
@@ -34,12 +28,18 @@ func main() {
 
 	nethttp.Handle("/", http.Router(config.Debug, container))
 
-	if err = nethttp.ListenAndServe(config.Listen+port, nil); err != nil {
+	if err = nethttp.ListenAndServe(config.IP+config.Port, nil); err != nil {
 		fmt.Println("Ошибка при запуске http сервера")
 	}
 }
 
-func getConfig(path string) (environment.Config, error) {
+func getConfig() (environment.Config, error) {
+	path := defaultConfigPath
+	port := os.Getenv("PORT")
+	if port != "" {
+		path = productionConfigPath
+	}
+
 	configPath := flag.String(
 		"config",
 		path,
@@ -52,6 +52,8 @@ func getConfig(path string) (environment.Config, error) {
 	if err != nil {
 		return config, err
 	}
+
+	config.Port = port
 
 	return config, nil
 }

@@ -8,7 +8,8 @@ import (
 type Config struct {
 	filePath          string
 	StaticPath        string
-	Listen            string
+	IP                string
+	Port              string
 	Debug             bool
 	Database          database.Options
 	Collections       Options
