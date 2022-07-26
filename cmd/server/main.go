@@ -5,7 +5,7 @@ import (
 	"anurzhanuly/project-sau/app/environment"
 	"anurzhanuly/project-sau/app/http"
 	"flag"
-	"fmt"
+	log "github.com/sirupsen/logrus"
 	nethttp "net/http"
 	"os"
 )
@@ -13,13 +13,21 @@ import (
 const defaultConfigPath = "config/development/sau.toml"
 const productionConfigPath = "config/production/production.toml"
 
+func init() {
+	log.SetOutput(os.Stdout)
+	log.SetReportCaller(true)
+}
+
 func main() {
 	var err error
 	var config environment.Config
 
 	config, err = getConfig()
 	if err != nil {
-		fmt.Println("Ошибка при инициализации конфигов сервера")
+		log.WithFields(log.Fields{
+			"message": "Ошибка при инициализации конфигов",
+			"error":   err.Error(),
+		}).Error()
 	}
 
 	container := di.NewDi(config)
@@ -29,7 +37,10 @@ func main() {
 	nethttp.Handle("/", http.Router(config.Debug, container))
 
 	if err = nethttp.ListenAndServe(config.IP+config.Port, nil); err != nil {
-		fmt.Println("Ошибка при запуске http сервера")
+		log.WithFields(log.Fields{
+			"message": "Ошибка при запуске http сервера",
+			"error":   err.Error(),
+		}).Error()
 	}
 }
 
