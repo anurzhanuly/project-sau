@@ -43,38 +43,37 @@
           {{ answer }}
         </label>
       </div>
-      <div v-if="questions[idx].inputType === 'number'">
-        <input
-          type="range"
-          :min="minValue"
-          :max="maxValue"
-          v-model="rangeValue"
-          class="input-range"
-        />
-      </div>
-      <div class="test-control">
-        <div v-if="questions[idx].inputType === 'number'" class="input-number">
-          {{ rangeValue }}
+      <div
+        class="number-input-container"
+        v-if="questions[idx].inputType === 'number'"
+      >
+        <button class="button-decrement" @click="rangeValue -= 1"></button>
+        <div class="number-input">
+          <input
+            type="number"
+            :min="minValue"
+            :max="maxValue"
+            v-model="rangeValue"
+          />
         </div>
-        <div class="test-buttons">
-          <button class="btn prev-btn" @click="prevQuestion" v-if="idx > 0">
-            Предыдущий вопрос
-          </button>
-          <button
-            class="btn"
-            @click="nextQuestion"
-            :disabled="!checked.length && questions[idx].choices"
-            v-if="idx < questions.length - 1"
-          >
-            Следующий вопрос
-          </button>
-          <RouterLink to="/result" v-else>
-            <button class="btn" @click="lastQuestion">
-              Показать результаты
-            </button>
-          </RouterLink>
-        </div>
+        <button class="button-increment" @click="rangeValue += 1"></button>
       </div>
+    </div>
+    <div class="test-buttons">
+      <button class="btn prev-btn" @click="prevQuestion" v-if="idx > 0">
+        Предыдущий вопрос
+      </button>
+      <button
+        class="btn"
+        @click="nextQuestion"
+        :disabled="!checked.length && questions[idx].choices"
+        v-if="idx < questions.length - 1"
+      >
+        Следующий вопрос
+      </button>
+      <RouterLink to="/result" v-else>
+        <button class="btn" @click="lastQuestion">Показать результаты</button>
+      </RouterLink>
     </div>
   </section>
 </template>
@@ -192,6 +191,7 @@ const prevQuestion = () => {
     idx.value -= 1;
   }
   checked.value = [...selectedAnswers.value[idx.value]];
+  rangeValue.value = +selectedAnswers.value[idx.value][0];
   idx.value -= 1;
 };
 
@@ -264,16 +264,10 @@ const lastQuestion = () => {
   content: "✔";
 }
 
-.test-control {
-  display: flex;
-  flex-direction: column;
-  margin-top: 20px;
-}
-
 .test-buttons {
   display: flex;
   justify-content: flex-end;
-  margin-top: 20px;
+  margin-top: 40px;
 }
 
 .btn {
@@ -325,45 +319,135 @@ const lastQuestion = () => {
   margin-right: auto;
 }
 
-.input-number {
-  margin-right: 0 auto;
+.number-input-container {
+  max-width: 400px;
+  width: 100%;
+  height: 100px;
+  display: grid;
+  grid-template-columns: 48px auto 48px;
+  margin: 30px auto;
+}
+
+.number-input {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  background-color: #fcf9ed;
+  overflow: hidden;
+}
+
+input[type="number"] {
+  -webkit-appearance: none;
+  -webkit-border-radius: 0px;
+  -moz-appearance: none;
+  appearance: none;
+  position: relative;
+  width: 100%;
+  min-width: 100%;
+  background-color: #fcf9ed;
+  border: 1px solid #ede6d9;
+  border-left: 1px solid rgba(0, 0, 0, 0);
+  border-right: 1px solid rgba(0, 0, 0, 0);
+  border-radius: none;
   font-size: 30px;
   line-height: 34px;
   text-align: center;
   font-weight: 700;
+  transition: all 0.2s ease-out;
 }
 
-.input-range {
-  -webkit-appearance: none;
-  width: 100%;
-  margin: 60px 0;
-  height: 15px;
-  border-radius: 5px;
-  background: #d3d3d3;
+input[type="number"]:focus {
+  background-color: white;
+  border: 1px solid #9c7830;
   outline: none;
-  opacity: 0.7;
-  -webkit-transition: 0.2s;
-  transition: opacity 0.2s;
 }
 
-.input-range::-webkit-slider-thumb {
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
-  appearance: none;
-  width: 25px;
-  height: 25px;
-  border-radius: 50%;
-  background: #689be7;
-  cursor: pointer;
+  margin: 0;
 }
 
-.input-range::-moz-range-thumb {
-  width: 25px;
-  height: 25px;
-  border-radius: 50%;
-  background: #689be7;
-  cursor: pointer;
+input[type="number"] {
+  -moz-appearance: textfield;
 }
 
+button {
+  position: relative;
+  height: 100%;
+  margin-top: 32px;
+  padding: 12px 16px;
+  background-color: #fcf9ed;
+  border: 1px solid #ede6d9;
+  border-radius: none;
+  transition: all 0.1s ease-out;
+  cursor: pointer;
+  -webkit-appearance: none;
+  -webkit-transform: scale(1);
+  transform: scale(1);
+  margin: 0;
+}
+
+button:active,
+button:focus {
+  outline: none;
+}
+
+button::after {
+  content: "";
+  position: absolute;
+  opacity: 1;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  transition: inherit;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+button:disabled {
+  pointer-events: none;
+}
+
+button:disabled::after {
+  opacity: 0.25;
+}
+
+.button-decrement::after {
+  background-image: url("data:image/svg+xml,%3Csvg width='48' height='48' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M17 12H7' stroke='%23112C34' stroke-width='2' stroke-miterlimit='10' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E%0A");
+}
+
+.button-increment::after {
+  background-image: url("data:image/svg+xml,%3Csvg width='48' height='48' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12 7V17' stroke='%23112C34' stroke-width='2' stroke-miterlimit='10' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M17 12H7' stroke='%23112C34' stroke-width='2' stroke-miterlimit='10' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E%0A");
+}
+
+.button-decrement {
+  border-right: none;
+}
+
+.button-increment {
+  border-left: none;
+}
+
+@media (hover: hover) {
+  input[type="number"]:hover,
+  button:hover {
+    background-color: white;
+  }
+
+  button:active {
+    background-color: #fcf9ed;
+    transform: translateY(1px);
+  }
+}
+
+@media (hover: none) {
+  button:active {
+    background-color: white;
+    transform: translateY(1px);
+  }
+}
 @media (max-width: 480px) {
   .btn {
     font-size: 14px;
