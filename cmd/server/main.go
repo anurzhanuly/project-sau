@@ -10,9 +10,6 @@ import (
 	"os"
 )
 
-const defaultConfigPath = "environment/development/sau.toml"
-const productionConfigPath = "environment/production/production.toml"
-
 func init() {
 	log.SetOutput(os.Stdout)
 	log.SetReportCaller(true)
@@ -45,10 +42,10 @@ func main() {
 }
 
 func getConfig() (configurations.Pool, error) {
-	path := defaultConfigPath
+	path := configurations.DefaultConfigPath
 	port := os.Getenv("PORT")
 	if port != "" {
-		path = productionConfigPath
+		path = configurations.ProductionConfigPath
 	}
 
 	configPath := flag.String(

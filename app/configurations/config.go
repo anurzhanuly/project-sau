@@ -5,6 +5,11 @@ import (
 	"github.com/BurntSushi/toml"
 )
 
+const (
+	DefaultConfigPath    = "environment/development/sau.toml"
+	ProductionConfigPath = "environment/production/production.toml"
+)
+
 type Pool struct {
 	filePath          string
 	StaticPath        string
