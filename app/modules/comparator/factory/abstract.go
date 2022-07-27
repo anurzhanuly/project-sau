@@ -1,9 +1,15 @@
 package factory
 
-type Comparator interface {
-	getComparator()
+import "anurzhanuly/project-sau/app/modules/comparator/factory/products"
+
+type ComparatorFactory interface {
+	getComparator(valueType string) products.Comparator
 }
 
-func GetComparator() Comparator {
-	return Single{}
+func GetAnswersComparator(isMultiple bool) ComparatorFactory {
+	if isMultiple {
+		return Multi{}
+	} else {
+		return Single{}
+	}
 }
