@@ -1,8 +1,8 @@
 package main
 
 import (
+	"anurzhanuly/project-sau/app/configurations"
 	"anurzhanuly/project-sau/app/di"
-	"anurzhanuly/project-sau/app/environment"
 	"anurzhanuly/project-sau/app/http"
 	"flag"
 	log "github.com/sirupsen/logrus"
@@ -10,8 +10,8 @@ import (
 	"os"
 )
 
-const defaultConfigPath = "config/development/sau.toml"
-const productionConfigPath = "config/production/production.toml"
+const defaultConfigPath = "environment/development/sau.toml"
+const productionConfigPath = "environment/production/production.toml"
 
 func init() {
 	log.SetOutput(os.Stdout)
@@ -20,7 +20,7 @@ func init() {
 
 func main() {
 	var err error
-	var config environment.Config
+	var config configurations.Pool
 
 	config, err = getConfig()
 	if err != nil {
@@ -44,7 +44,7 @@ func main() {
 	}
 }
 
-func getConfig() (environment.Config, error) {
+func getConfig() (configurations.Pool, error) {
 	path := defaultConfigPath
 	port := os.Getenv("PORT")
 	if port != "" {
@@ -58,7 +58,7 @@ func getConfig() (environment.Config, error) {
 	)
 	flag.Parse()
 
-	config := environment.NewConfig(*configPath)
+	config := configurations.NewConfig(*configPath)
 	err := config.Init()
 	if err != nil {
 		return config, err

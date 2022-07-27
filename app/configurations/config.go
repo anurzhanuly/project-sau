@@ -1,11 +1,11 @@
-package environment
+package configurations
 
 import (
 	"anurzhanuly/project-sau/database"
 	"github.com/BurntSushi/toml"
 )
 
-type Config struct {
+type Pool struct {
 	filePath          string
 	StaticPath        string
 	IP                string
@@ -16,13 +16,13 @@ type Config struct {
 	MongoDatabaseName string
 }
 
-func NewConfig(filePath string) Config {
-	return Config{
+func NewConfig(filePath string) Pool {
+	return Pool{
 		filePath: filePath,
 	}
 }
 
-func (c *Config) Init() error {
+func (c *Pool) Init() error {
 	_, err := toml.DecodeFile(c.filePath, c)
 	return err
 }

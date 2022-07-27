@@ -1,7 +1,7 @@
 package di
 
 import (
-	"anurzhanuly/project-sau/app/environment"
+	"anurzhanuly/project-sau/app/configurations"
 	"anurzhanuly/project-sau/database/mongodb"
 	"context"
 	"database/sql"
@@ -9,12 +9,12 @@ import (
 )
 
 type DI struct {
-	Config  environment.Config
+	Config  configurations.Pool
 	MySql   *sql.DB
 	MongoDB *mongo.Client
 }
 
-func NewDi(config environment.Config) (di DI) {
+func NewDi(config configurations.Pool) (di DI) {
 	return DI{Config: config}
 }
 
@@ -24,7 +24,7 @@ func (di *DI) Init() {
 
 func (di *DI) initDb() {
 	var err error
-	//di.MySql, err = mysql.GetConnection(di.Config.Database.MySQL)
+	//di.MySql, err = mysql.GetConnection(di.Pool.Database.MySQL)
 	//if err != nil {
 	//	panic(err)
 	//}
