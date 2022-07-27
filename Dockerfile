@@ -4,10 +4,10 @@ WORKDIR /code
 COPY . .
 
 ENV GO111MODULE=on
+ENV CONFIG_PATH="config/production/production.toml"
 
-RUN go mod vendor
 RUN go get
-RUN go build -o project-sau .
+RUN go build -o project-sau ./cmd/server/main.go
 
 
 FROM alpine
