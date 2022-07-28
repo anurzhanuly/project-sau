@@ -5,6 +5,7 @@ import (
 	"anurzhanuly/project-sau/app/modules/answers"
 	"anurzhanuly/project-sau/app/modules/diseases"
 	"github.com/gin-gonic/gin"
+	"github.com/sirupsen/logrus"
 	"net/http"
 )
 
@@ -16,7 +17,15 @@ func HealthGetRecommendation(c *gin.Context, di *di.DI) {
 
 	recommendations, err := service.GetRecommendations(userAnswer)
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, "Что-то полетело")
+		c.JSON(
+			http.StatusInternalServerError,
+			"Произошла ошибка во время получения рекомендации по заболеваниям",
+		)
+
+		logrus.WithField(
+			"Ошибка при получении рекомендации",
+			logrus.Fields{"userAnswer": userAnswer},
+		).Fatal("Произошла ошибка во время получения рекомендации по заболеваниям")
 
 		return
 	}
