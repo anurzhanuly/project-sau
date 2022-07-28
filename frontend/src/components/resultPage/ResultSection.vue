@@ -1,9 +1,6 @@
 <template>
   <section class="section-result">
-    <div class="result-header">
-      <h2>Результаты:</h2>
-      <button @click="printDocument()" class="btn">Открыть в pdf</button>
-    </div>
+    <h2 class="result-header">Результаты:</h2>
     <div id="pdf">
       <img
         :src="logoJpg"
@@ -14,22 +11,13 @@
         class="hidden"
       />
       <div
-        v-for="(resultItem, index) in result.recommendations"
+        v-for="(resultItem, index) in result"
         :key="index"
         class="result-item"
         style="margin-bottom: 30px"
       >
-        <h3
-          style="
-            margin-bottom: 15px;
-            text-decoration: underline;
-            font-size: 20px;
-          "
-        >
-          {{ resultItem.name }}
-        </h3>
         <strong style="margin-bottom: 7px">
-          Вам показаны следующие исследования:
+          Вам рекомендуются следующие исследования:
         </strong>
         <ul style="margin: 0 0 10px 30px">
           <li v-for="(item, index) in resultItem.tests" :key="index">
@@ -46,45 +34,51 @@
         </ul>
       </div>
     </div>
+    <button @click="printDocument()" class="btn">Открыть в pdf</button>
   </section>
 </template>
 
 <script setup>
-import pdfMake from "pdfmake";
-import * as pdfFonts from "pdfmake/build/vfs_fonts";
+import pdfMake from "pdfmake/build/pdfmake";
+import pdfFonts from "pdfmake/build/vfs_fonts";
 import htmlToPdfmake from "html-to-pdfmake";
 import logoJpg from "../../assets/base64/logo.js";
+import { useTestStore } from "../../stores/test.js";
+import axios from "axios";
+import { ref, onMounted } from "vue";
 
-const result = {
-  recommendations: [
-    {
-      name: "Рак молочных желез",
-      tests: ["Маммография (каждые 2 года)", "УЗИ молочных желез"],
-      recommendations: [
-        "Самообследование молочной железы, Визуальный осмотр кожи и соска каждый месяц с 40 лет",
-        "Обследование молочной железы, Визуальный осмотр кожи и соска врачом терапевтом/ маммологом раз в два года с 40 лет",
-      ],
-      importance:
-        "Рак молочных желез - самый распространенный вид рака среди женщин. 1 из 8 женщин развеет это заболевание. Ранняя диагностика увеличивает выживаемость до 92%.",
-    },
-    {
-      name: "Простуда",
-      tests: ["Маммография (каждые 2 года)", "УЗИ молочных желез"],
-      recommendations: [
-        "Самообследование молочной железы, Визуальный осмотр кожи и соска каждый месяц с 40 лет",
-        "Обследование молочной железы, Визуальный осмотр кожи и соска врачом терапевтом/ маммологом раз в два года с 40 лет",
-      ],
-      importance:
-        "Рак молочных желез - самый распространенный вид рака среди женщин. 1 из 8 женщин развеет это заболевание. Ранняя диагностика увеличивает выживаемость до 92%.",
-    },
-  ],
-  status: 200,
-};
+const testStore = useTestStore();
+const { resultAnswers } = testStore;
+
+const result = ref(null);
+
+onMounted(() => {
+  axios
+    .post(
+      "https://project-sau.herokuapp.com/diseases/recommendations",
+      resultAnswers
+    )
+    .then((response) => {
+      if (!response.data.recommendations) {
+        result.value = [
+          {
+            name: "Короче,нет ничего",
+            tests: [],
+            recommendations: [],
+            importance: "",
+          },
+        ];
+      } else {
+        result.value = response.data.recommendations;
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+});
 
 const printDocument = () => {
-  //get table html
   const pdfTable = document.getElementById("pdf");
-  //html to pdf format
   const html = htmlToPdfmake(pdfTable.innerHTML, {
     imagesByReference: true,
   });
@@ -93,7 +87,7 @@ const printDocument = () => {
     content: html.content,
     images: html.images,
   };
-  pdfMake.vfs = pdfFonts.pdfMake.vfs;
+  pdfMake.vfs = pdfFonts;
   pdfMake.createPdf(documentDefinition).open();
 };
 </script>
@@ -111,9 +105,7 @@ const printDocument = () => {
 }
 
 .result-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  margin-bottom: 40px;
 }
 
 .result-item {
@@ -122,7 +114,7 @@ const printDocument = () => {
 }
 
 .hidden {
-  visibility: hidden;
+  display: none;
 }
 
 .btn {
@@ -168,5 +160,28 @@ const printDocument = () => {
   color: #dddddd;
   cursor: not-allowed;
   opacity: 1;
+}
+
+@media (max-width: 480px) {
+  .btn {
+    font-size: 14px;
+    line-height: 18px;
+    margin: 5px 0;
+  }
+
+  .section-result {
+    padding: 50px 30px;
+  }
+}
+
+@media (max-width: 768px) {
+  .test-title {
+    font-size: 22px;
+  }
+
+  .result-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 }
 </style>

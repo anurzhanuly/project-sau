@@ -29,6 +29,12 @@
   width: 100px;
 }
 
+@media (max-width: 480px) {
+  .footer__logo {
+    display: none;
+  }
+}
+
 @media (min-width: 992px) {
   .footer {
     border-top: 1px solid #dee3e8;
