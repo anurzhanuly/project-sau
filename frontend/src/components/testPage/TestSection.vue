@@ -45,18 +45,25 @@
       </div>
       <div v-if="questions[idx].inputType === 'number'">
         <div class="number-input-container">
-          <button class="button-decrement" @click="rangeValue -= 1"></button>
+          <button
+            class="button-decrement"
+            @click="inputValue > minValue ? (inputValue -= 1) : null"
+          ></button>
           <div class="number-input">
             <input
               type="number"
               :min="minValue"
               :max="maxValue"
-              v-model="rangeValue"
+              v-model="inputValue"
+              @change="validateInput()"
             />
           </div>
-          <button class="button-increment" @click="rangeValue += 1"></button>
+          <button
+            class="button-increment"
+            @click="inputValue < maxValue ? (inputValue += 1) : null"
+          ></button>
         </div>
-        <p class="input-help">Кликните на цифру для ручного ввода</p>
+        <p class="input-help">Нажмите на цифру для ручного ввода</p>
       </div>
     </div>
     <div class="test-buttons">
@@ -87,21 +94,31 @@ import { useTestStore } from "../../stores/test.js";
 const questions = ref(mock);
 const idx = ref(0);
 const testStore = useTestStore();
-
-const minValue = ref(questions.value[0].min);
-const maxValue = ref(questions.value[0].max);
-const rangeValue = ref(questions.value[0].defaultValue);
-
-const changeRangeValue = () => {
-  minValue.value = questions.value[idx.value].min;
-  maxValue.value = questions.value[idx.value].max;
-  rangeValue.value = questions.value[idx.value].defaultValue;
-};
-
 const checked = ref([]);
 const selectedAnswers = ref({});
+const minValue = ref(questions.value[0].min);
+const maxValue = ref(questions.value[0].max);
+const inputValue = ref(questions.value[0].defaultValue);
+const objValues = {};
+const arrVisibility = [];
+
+const changeInputValue = () => {
+  minValue.value = questions.value[idx.value].min;
+  maxValue.value = questions.value[idx.value].max;
+  inputValue.value = questions.value[idx.value].defaultValue;
+};
+
+const validateInput = () => {
+  if (inputValue.value > maxValue.value) {
+    inputValue.value = maxValue.value;
+  }
+  if (inputValue.value < minValue.value) {
+    inputValue.value = minValue.value;
+  }
+};
 
 const collectAnswers = () => {
+  validateInput();
   if (
     questions.value[idx.value].choices &&
     questions.value[idx.value].maxSelectedChoices === 1
@@ -113,7 +130,7 @@ const collectAnswers = () => {
   ) {
     selectedAnswers.value[idx.value + 1] = [...checked.value];
   } else {
-    selectedAnswers.value[idx.value + 1] = [`${rangeValue.value}`];
+    selectedAnswers.value[idx.value + 1] = [`${inputValue.value}`];
   }
 };
 
@@ -129,9 +146,6 @@ const checkVisible = () => {
       }
     })
     .filter((el) => el);
-
-  const objValues = {};
-  const arrVisibility = [];
 
   for (let i = 0; i < arrValues.length; i++) {
     if (Number.isInteger(arrValues[i])) {
@@ -172,7 +186,7 @@ const nextQuestion = () => {
   idx.value += 1;
 
   if (questions.value[idx.value].min) {
-    changeRangeValue();
+    changeInputValue();
   }
 
   if (questions.value[idx.value].visibleIf) {
@@ -191,7 +205,7 @@ const prevQuestion = () => {
     idx.value -= 1;
   }
   checked.value = [...selectedAnswers.value[idx.value]];
-  rangeValue.value = +selectedAnswers.value[idx.value][0];
+  inputValue.value = +selectedAnswers.value[idx.value][0];
   idx.value -= 1;
 };
 
