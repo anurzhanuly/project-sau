@@ -88,7 +88,7 @@
 <script setup>
 import mock from "../../services/mock";
 import { RouterLink } from "vue-router";
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import { useTestStore } from "../../stores/test.js";
 
 const questions = ref(mock);
@@ -101,6 +101,15 @@ const maxValue = ref(questions.value[0].max);
 const inputValue = ref(questions.value[0].defaultValue);
 const objValues = {};
 const arrVisibility = [];
+const width = ref(null);
+
+onMounted(() => {
+  const updateWidth = () => {
+    width.value = window.innerWidth;
+  };
+  window.addEventListener("resize", updateWidth);
+  updateWidth();
+});
 
 const changeInputValue = () => {
   minValue.value = questions.value[idx.value].min;
