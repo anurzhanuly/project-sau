@@ -46,7 +46,7 @@
       <div v-if="questions[idx].inputType === 'number'">
         <div class="number-input-container">
           <button
-            class="button-decrement"
+            class="button-decrement btn-input"
             @click="inputValue > minValue ? (inputValue -= 1) : null"
           ></button>
           <div class="number-input">
@@ -59,14 +59,14 @@
             />
           </div>
           <button
-            class="button-increment"
+            class="button-increment btn-input"
             @click="inputValue < maxValue ? (inputValue += 1) : null"
           ></button>
         </div>
         <p class="input-help">Нажмите на цифру для ручного ввода</p>
       </div>
     </div>
-    <div class="test-buttons">
+    <div class="test-buttons" v-if="width > 770">
       <button class="btn prev-btn" @click="prevQuestion" v-if="idx > 0">
         Предыдущий вопрос
       </button>
@@ -78,6 +78,22 @@
       >
         Следующий вопрос
       </button>
+      <RouterLink to="/result" v-else>
+        <button class="btn" @click="lastQuestion">Показать результаты</button>
+      </RouterLink>
+    </div>
+    <div class="test-buttons" v-else>
+      <button
+        class="arrow prev-btn"
+        @click="prevQuestion"
+        v-if="idx > 0"
+      ></button>
+      <button
+        class="arrow"
+        @click="nextQuestion"
+        :disabled="!checked.length && questions[idx].choices"
+        v-if="idx < questions.length - 1"
+      ></button>
       <RouterLink to="/result" v-else>
         <button class="btn" @click="lastQuestion">Показать результаты</button>
       </RouterLink>
@@ -342,6 +358,36 @@ const lastQuestion = () => {
   margin-right: auto;
 }
 
+.arrow {
+  display: inline-block;
+  width: 64px;
+  height: 64px;
+  border: 8px solid;
+  border-radius: 50%;
+  text-align: center;
+}
+
+.arrow:after {
+  content: "";
+  display: inline-block;
+  margin-top: 5px;
+  margin-left: -6px;
+  width: 22.4px;
+  height: 22.4px;
+  border-top: 8px solid;
+  border-right: 8px solid;
+  -moz-transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+.prev-btn.arrow:after {
+  margin-left: 10px;
+  -moz-transform: rotate(-135deg);
+  -webkit-transform: rotate(-135deg);
+  transform: rotate(-135deg);
+}
+
 .number-input-container {
   max-width: 400px;
   width: 100%;
@@ -404,7 +450,7 @@ input[type="number"] {
   -moz-appearance: textfield;
 }
 
-button {
+.btn-input {
   position: relative;
   height: 100%;
   margin-top: 32px;
@@ -420,12 +466,12 @@ button {
   margin: 0;
 }
 
-button:active,
-button:focus {
+.btn-input:active,
+.btn-input:focus {
   outline: none;
 }
 
-button::after {
+.btn-input::after {
   content: "";
   position: absolute;
   opacity: 1;
@@ -436,14 +482,6 @@ button::after {
   transition: inherit;
   background-position: center;
   background-repeat: no-repeat;
-}
-
-button:disabled {
-  pointer-events: none;
-}
-
-button:disabled::after {
-  opacity: 0.25;
 }
 
 .button-decrement::after {
@@ -464,18 +502,18 @@ button:disabled::after {
 
 @media (hover: hover) {
   input[type="number"]:hover,
-  button:hover {
+  .btn-input:hover {
     background-color: white;
   }
 
-  button:active {
+  .btn-input:active {
     background-color: #fcf9ed;
     transform: translateY(1px);
   }
 }
 
 @media (hover: none) {
-  button:active {
+  .btn-input:active {
     background-color: white;
     transform: translateY(1px);
   }
@@ -501,7 +539,7 @@ button:disabled::after {
     margin: 5px 0;
   }
 
-  .test-buttons {
+  .desktop-buttons {
     flex-direction: column;
     align-items: center;
   }
