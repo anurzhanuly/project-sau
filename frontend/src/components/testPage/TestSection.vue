@@ -362,9 +362,10 @@ const lastQuestion = () => {
   display: inline-block;
   width: 64px;
   height: 64px;
-  border: 8px solid;
+  border: 3px solid;
   border-radius: 50%;
   text-align: center;
+  background-color: #fff;
 }
 
 .arrow:after {
@@ -374,8 +375,8 @@ const lastQuestion = () => {
   margin-left: -6px;
   width: 22.4px;
   height: 22.4px;
-  border-top: 8px solid;
-  border-right: 8px solid;
+  border-top: 4px solid;
+  border-right: 4px solid;
   -moz-transform: rotate(45deg);
   -webkit-transform: rotate(45deg);
   transform: rotate(45deg);
