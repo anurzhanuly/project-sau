@@ -95,7 +95,7 @@
         v-if="idx < questions.length - 1"
       ></button>
       <RouterLink to="/result" v-else>
-        <button class="btn" @click="lastQuestion">Показать результаты</button>
+        <button class="btn mobile-btn" @click="lastQuestion">Результаты</button>
       </RouterLink>
     </div>
   </section>
@@ -356,6 +356,11 @@ const lastQuestion = () => {
 
 .prev-btn {
   margin-right: auto;
+}
+
+.mobile-btn {
+  width: 120px;
+  padding: 13px;
 }
 
 .arrow {
