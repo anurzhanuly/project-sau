@@ -35,7 +35,7 @@ const mock = [
     defaultValue: 70,
     inputType: "number",
     min: 20,
-    max: 220,
+    max: 200,
     step: 0,
   },
   {

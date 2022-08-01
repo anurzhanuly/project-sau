@@ -115,8 +115,6 @@ const selectedAnswers = ref({});
 const minValue = ref(questions.value[0].min);
 const maxValue = ref(questions.value[0].max);
 const inputValue = ref(questions.value[0].defaultValue);
-const objValues = {};
-const arrVisibility = [];
 const width = ref(null);
 
 onMounted(() => {
@@ -143,7 +141,6 @@ const validateInput = () => {
 };
 
 const collectAnswers = () => {
-  validateInput();
   if (
     questions.value[idx.value].choices &&
     questions.value[idx.value].maxSelectedChoices === 1
@@ -160,6 +157,9 @@ const collectAnswers = () => {
 };
 
 const checkVisible = () => {
+  const objValues = {};
+  const arrVisibility = [];
+
   const arrValues = questions.value[idx.value].visibleIf
     .split(" ")
     .map((el) => {
@@ -185,7 +185,7 @@ const checkVisible = () => {
       arrVisibility.push(false);
     }
   }
-
+  console.log(arrVisibility)
   if (arrVisibility.includes(false)) {
     return false;
   }
@@ -193,14 +193,14 @@ const checkVisible = () => {
   return true;
 };
 
-const test = () => {
+const skipQuestion = () => {
   const isVisible = checkVisible();
 
   if (!isVisible) {
     idx.value += 1;
     delete selectedAnswers.value[idx.value];
     if (questions.value[idx.value].visibleIf) {
-      test();
+      skipQuestion();
     }
   }
 };
@@ -215,7 +215,7 @@ const nextQuestion = () => {
   }
 
   if (questions.value[idx.value].visibleIf) {
-    test();
+    skipQuestion();
   }
 
   if (selectedAnswers.value[idx.value + 1]) {
