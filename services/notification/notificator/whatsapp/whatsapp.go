@@ -13,11 +13,6 @@ type Message struct {
 	Medium  string
 }
 
-type Options struct {
-	SID   string
-	Token string
-}
-
 func (m Message) Send(di di.DI) {
 	config := di.Config.Notificator.WhatsApp
 
