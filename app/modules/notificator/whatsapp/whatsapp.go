@@ -27,8 +27,8 @@ func (m Message) Send(di di.DI) {
 	})
 
 	params := &openapi.CreateMessageParams{}
-	params.SetTo("+77054423999")
-	params.SetFrom("+15017250604")
+	params.SetTo("whatsapp:+7775")
+	params.SetFrom("whatsapp:+14155238886")
 	params.SetBody("Hello from Go!")
 
 	resp, err := client.Api.CreateMessage(params)
