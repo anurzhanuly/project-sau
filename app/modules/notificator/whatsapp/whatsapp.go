@@ -6,6 +6,11 @@ type Message struct {
 	Medium  string
 }
 
+type Options struct {
+	SID   string
+	Token string
+}
+
 func (m Message) Send() {
 
 }

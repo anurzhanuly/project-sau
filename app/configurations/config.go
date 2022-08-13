@@ -1,6 +1,7 @@
 package configurations
 
 import (
+	"anurzhanuly/project-sau/app/modules/notificator"
 	"anurzhanuly/project-sau/database"
 	"github.com/BurntSushi/toml"
 )
@@ -19,6 +20,7 @@ type Pool struct {
 	Database          database.Options
 	Collections       Options
 	MongoDatabaseName string
+	Notificator       notificator.Options
 }
 
 func NewConfig(filePath string) Pool {
