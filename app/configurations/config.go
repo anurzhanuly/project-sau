@@ -1,8 +1,8 @@
 package configurations
 
 import (
-	"anurzhanuly/project-sau/app/modules/notificator"
 	"anurzhanuly/project-sau/database"
+	"anurzhanuly/project-sau/notificator"
 	"github.com/BurntSushi/toml"
 )
 

@@ -2,7 +2,7 @@ package notificator
 
 import (
 	"anurzhanuly/project-sau/app/di"
-	"anurzhanuly/project-sau/app/modules/notificator/whatsapp"
+	"anurzhanuly/project-sau/notificator/whatsapp"
 )
 
 type Sender interface {
