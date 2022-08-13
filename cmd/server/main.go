@@ -25,6 +25,8 @@ func main() {
 			"message": "Ошибка при инициализации конфигов",
 			"error":   err.Error(),
 		}).Error()
+
+		return
 	}
 
 	container := di.NewDi(config)
