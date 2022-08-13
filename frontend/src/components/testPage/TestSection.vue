@@ -1,8 +1,8 @@
 <template>
   <section class="section-test">
     <div class="test-wrapper">
-      <p class="test-title">{{ questions[idx]["title"] }}</p>
-      <p class="test-description">{{ questions[idx]["description"] }}</p>
+      <p class="test-title">{{ questions[idx]['title'] }}</p>
+      <p class="test-description">{{ questions[idx]['description'] }}</p>
       <div
         v-if="questions[idx].choices && questions[idx].maxSelectedChoices > 1"
       >
@@ -102,10 +102,10 @@
 </template>
 
 <script setup>
-import mock from "../../services/mock";
-import { RouterLink } from "vue-router";
-import { ref, onMounted } from "vue";
-import { useTestStore } from "../../stores/test.js";
+import mock from '../../services/mock';
+import { RouterLink } from 'vue-router';
+import { ref, onMounted } from 'vue';
+import { useTestStore } from '../../stores/test.js';
 
 const questions = ref(mock);
 const idx = ref(0);
@@ -121,7 +121,7 @@ onMounted(() => {
   const updateWidth = () => {
     width.value = window.innerWidth;
   };
-  window.addEventListener("resize", updateWidth);
+  window.addEventListener('resize', updateWidth);
   updateWidth();
 });
 
@@ -161,12 +161,12 @@ const checkVisible = () => {
   const arrVisibility = [];
 
   const arrValues = questions.value[idx.value].visibleIf
-    .split(" ")
+    .split(' ')
     .map((el) => {
-      if (el.includes("{")) {
-        return +el.replace(/[\D]+/g, "");
+      if (el.includes('{')) {
+        return +el.replace(/[\D]+/g, '');
       }
-      if (el.includes("[")) {
+      if (el.includes('[')) {
         return el.slice(2, el.length - 2);
       }
     })
@@ -185,7 +185,7 @@ const checkVisible = () => {
       arrVisibility.push(false);
     }
   }
-  console.log(arrVisibility)
+
   if (arrVisibility.includes(false)) {
     return false;
   }
@@ -238,8 +238,8 @@ const lastQuestion = () => {
   collectAnswers();
   testStore.$patch({
     resultAnswers: {
-      answers: selectedAnswers.value,
-    },
+      answers: selectedAnswers.value
+    }
   });
 };
 </script>
@@ -300,7 +300,7 @@ const lastQuestion = () => {
 }
 
 .checked::before {
-  content: "✔";
+  content: '✔';
 }
 
 .test-buttons {
@@ -318,7 +318,7 @@ const lastQuestion = () => {
   cursor: pointer;
   display: inline-block;
   font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto,
-    "Helvetica Neue", sans-serif;
+    'Helvetica Neue', sans-serif;
   font-size: 16px;
   font-weight: 600;
   line-height: 20px;
@@ -374,7 +374,7 @@ const lastQuestion = () => {
 }
 
 .arrow:after {
-  content: "";
+  content: '';
   display: inline-block;
   margin-top: 5px;
   margin-left: -6px;
@@ -420,7 +420,7 @@ const lastQuestion = () => {
   color: #acb7c1;
 }
 
-input[type="number"] {
+input[type='number'] {
   -webkit-appearance: none;
   -webkit-border-radius: 0px;
   -moz-appearance: none;
@@ -440,19 +440,19 @@ input[type="number"] {
   transition: all 0.2s ease-out;
 }
 
-input[type="number"]:focus {
+input[type='number']:focus {
   background-color: white;
   border: 1px solid #9c7830;
   outline: none;
 }
 
-input[type="number"]::-webkit-inner-spin-button,
-input[type="number"]::-webkit-outer-spin-button {
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
 
-input[type="number"] {
+input[type='number'] {
   -moz-appearance: textfield;
 }
 
@@ -478,7 +478,7 @@ input[type="number"] {
 }
 
 .btn-input::after {
-  content: "";
+  content: '';
   position: absolute;
   opacity: 1;
   top: 0;
@@ -507,7 +507,7 @@ input[type="number"] {
 }
 
 @media (hover: hover) {
-  input[type="number"]:hover,
+  input[type='number']:hover,
   .btn-input:hover {
     background-color: white;
   }

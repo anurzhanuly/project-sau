@@ -27,7 +27,7 @@
 }
 
 .image-book {
-  background-image: url("../../assets/info-icon.svg");
+  background-image: url('../../assets/info-icon.svg');
   background-position: 50%;
   background-repeat: no-repeat;
   background-size: contain;

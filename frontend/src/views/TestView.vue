@@ -3,5 +3,5 @@
 </template>
 
 <script setup>
-import TestSection from "@/components/testPage/TestSection.vue";
+import TestSection from '@/components/testPage/TestSection.vue';
 </script>

@@ -39,13 +39,13 @@
 </template>
 
 <script setup>
-import pdfMake from "pdfmake/build/pdfmake";
-import pdfFonts from "pdfmake/build/vfs_fonts";
-import htmlToPdfmake from "html-to-pdfmake";
-import logoJpg from "../../assets/base64/logo.js";
-import { useTestStore } from "../../stores/test.js";
-import axios from "axios";
-import { ref, onMounted } from "vue";
+import pdfMake from 'pdfmake/build/pdfmake';
+import pdfFonts from 'pdfmake/build/vfs_fonts';
+import htmlToPdfmake from 'html-to-pdfmake';
+import logoJpg from '../../assets/base64/logo.js';
+import { useTestStore } from '../../stores/test.js';
+import axios from 'axios';
+import { ref, onMounted } from 'vue';
 
 const testStore = useTestStore();
 const { resultAnswers } = testStore;
@@ -55,18 +55,18 @@ const result = ref(null);
 onMounted(() => {
   axios
     .post(
-      "https://project-sau.herokuapp.com/diseases/recommendations",
+      'https://project-sau.herokuapp.com/diseases/recommendations',
       resultAnswers
     )
     .then((response) => {
       if (!response.data.recommendations) {
         result.value = [
           {
-            name: "Короче,нет ничего",
+            name: 'Короче,нет ничего',
             tests: [],
             recommendations: [],
-            importance: "",
-          },
+            importance: ''
+          }
         ];
       } else {
         result.value = response.data.recommendations;
@@ -78,14 +78,14 @@ onMounted(() => {
 });
 
 const printDocument = () => {
-  const pdfTable = document.getElementById("pdf");
+  const pdfTable = document.getElementById('pdf');
   const html = htmlToPdfmake(pdfTable.innerHTML, {
-    imagesByReference: true,
+    imagesByReference: true
   });
 
   const documentDefinition = {
     content: html.content,
-    images: html.images,
+    images: html.images
   };
   pdfMake.vfs = pdfFonts;
   pdfMake.createPdf(documentDefinition).open();
@@ -126,7 +126,7 @@ const printDocument = () => {
   cursor: pointer;
   display: inline-block;
   font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto,
-    "Helvetica Neue", sans-serif;
+    'Helvetica Neue', sans-serif;
   font-size: 16px;
   font-weight: 600;
   line-height: 20px;
