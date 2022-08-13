@@ -1,15 +1,9 @@
-import { defineNuxtConfig } from 'nuxt'
-import ViteComponents from 'unplugin-vue-components/vite'
-import IconsResolver from 'unplugin-icons/resolver'
+import { defineNuxtConfig } from 'nuxt';
+import eslintPlugin from 'vite-plugin-eslint';
 
 export default defineNuxtConfig({
-  meta: {
-    title: 'A Better Nuxt 3 Starter',
-  },
   buildModules: [
-    'nuxt-windicss',
     '@pinia/nuxt',
-    'unplugin-icons/nuxt',
     '@vueuse/nuxt',
     [
       '@intlify/nuxt3',
@@ -22,18 +16,11 @@ export default defineNuxtConfig({
     ]
   ],
   windicss: {
-    analyze: true,
+    analyze: true
   },
   vite: {
     plugins: [
-      ViteComponents({
-        resolvers: [
-          IconsResolver({
-            componentPrefix: '',
-          }),
-        ],
-        dts: true,
-      }),
-    ],
-  },
-})
+      eslintPlugin()
+    ]
+  }
+});

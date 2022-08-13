@@ -1,5 +1,5 @@
-import { ref, Ref } from 'vue'
-import { defineStore } from 'pinia'
+import { ref, Ref } from 'vue';
+import { defineStore } from 'pinia';
 
 interface CounterState {
   n: number
@@ -12,8 +12,8 @@ export const useCounter = defineStore('counter', {
     myRef: ref('hello')
   }),
   actions: {
-    increment() {
-      this.n++
+    increment () {
+      this.n++;
     }
   }
-})
+});
