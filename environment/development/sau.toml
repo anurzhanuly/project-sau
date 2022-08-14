@@ -4,8 +4,8 @@ Debug = true
 MongoDatabaseName = "symptom"
 StaticPath = "./frontend/dist"
 
-[notificators]
-    [notificators.WhatsApp]
+[notificator]
+    [notificator.WhatsApp]
         SID = "AC42b9427f004ea29ac1311e68dbc47fb5"
         Token = "76581fcaedc70cce3fea2af38408080a"
 
