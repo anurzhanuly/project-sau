@@ -7,13 +7,13 @@ import (
 	openapi "github.com/twilio/twilio-go/rest/api/v2010"
 )
 
-type Message struct {
+type Notificator struct {
 	Content string
 	To      string
 	Medium  string
 }
 
-func (m Message) Send(di di.DI) {
+func (m Notificator) Send(di di.DI) {
 	config := di.Config.Notificator.WhatsApp
 
 	client := twilio.NewRestClientWithParams(twilio.ClientParams{
