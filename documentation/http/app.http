@@ -2,7 +2,7 @@
 POST http://{{host}}/notify
 Content-Type: application/json
 
-{"medium": "whatsapp", "to": "+77783693745", "message": "Hello, world"}
+{"medium": "whatsapp", "to": "+77783693745", "message": "Салам чертилы"}
 
 ### Запрос за опросником через ID
 GET http://{{host}}/{{get_by_id}}/1
