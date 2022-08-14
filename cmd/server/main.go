@@ -63,7 +63,9 @@ func getConfig() (configurations.Pool, error) {
 		return config, err
 	}
 
-	config.Port = port
+	if port != "" {
+		config.Port = port
+	}
 
 	return config, nil
 }
