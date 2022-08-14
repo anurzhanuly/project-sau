@@ -11,13 +11,24 @@ const (
 	Email    = "email"
 )
 
+type Content struct {
+	Medium  string `json:"medium"`
+	Message string `json:"message"`
+	To      string `json:"to"`
+	From    string `json:"from"`
+}
+
 type Sender interface {
 	Send(di di.DI)
 }
 
-func Get(notificator string) Sender {
-	if notificator == WhatsApp {
-		return &whatsapp.Notificator{}
+func Get(content Content) Sender {
+	if content.Medium == WhatsApp {
+		return &whatsapp.Notificator{
+			Message: content.Message,
+			To:      content.To,
+			From:    content.From,
+		}
 	}
 
 	return nil

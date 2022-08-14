@@ -8,9 +8,9 @@ import (
 )
 
 type Notificator struct {
-	Content string
+	Message string
 	To      string
-	Medium  string
+	From    string
 }
 
 func (m Notificator) Send(di di.DI) {
