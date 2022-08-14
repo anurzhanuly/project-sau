@@ -1,14 +1,10 @@
 <template>
   <header class="header">
-    <RouterLink to="/">
-      <div class="logo"></div>
-    </RouterLink>
+    <NuxtLink to="/">
+      <div class="logo" />
+    </NuxtLink>
   </header>
 </template>
-
-<script setup>
-import { RouterLink } from 'vue-router';
-</script>
 
 <style scoped>
 .header {
@@ -19,7 +15,7 @@ import { RouterLink } from 'vue-router';
 }
 
 .logo {
-  background-image: url('../assets/logo.png');
+  background-image: url('/img/logo.png');
   background-position: 50%;
   background-repeat: no-repeat;
   background-size: contain;
