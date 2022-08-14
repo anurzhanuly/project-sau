@@ -1,6 +1,8 @@
 <template>
   <div class="wrapper">
     <ToolbarBase />
+    <IndexWelcomeSection />
+    <IndexInfoSection />
     <FooterBase />
   </div>
 </template>
