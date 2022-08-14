@@ -22,7 +22,7 @@ func (m Notificator) Send(di di.DI) {
 	})
 
 	params := &openapi.CreateMessageParams{}
-	params.SetTo("whatsapp:+7775")
+	params.SetTo("whatsapp:+77783693745")
 	params.SetFrom("whatsapp:+14155238886")
 	params.SetBody("Hello from Go!")
 
