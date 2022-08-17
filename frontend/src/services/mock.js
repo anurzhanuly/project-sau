@@ -50,7 +50,7 @@ const mock = [
   {
     type: 'checkbox',
     name: 'question6',
-    visibleIf: '{question5} = [\'Да\']',
+    visibleIf: "{question5} = ['Да']",
     title: 'Отметьте какие хронические заболевания у вас есть или были',
     description: 'Отметьте текущие и прошлые хронические заболевания',
     choices: [
@@ -79,7 +79,7 @@ const mock = [
   {
     type: 'checkbox',
     name: 'question8',
-    visibleIf: '{question7} = [\'Да\']',
+    visibleIf: "{question7} = ['Да']",
     title: 'Отметьте какие есть или были у них хронические заболевания',
     choices: [
       'Повышенное давление (гипертензия)',
@@ -103,7 +103,7 @@ const mock = [
   {
     type: 'checkbox',
     name: 'question10',
-    visibleIf: '{question9} = [\'Да\']',
+    visibleIf: "{question9} = ['Да']",
     title: 'Укажите только ваше систолическое давление ',
     description: 'К примеру если у вас 120/80, укажите только 120 в 100-129',
     choices: [
@@ -128,7 +128,7 @@ const mock = [
   {
     type: 'checkbox',
     name: 'question12',
-    visibleIf: '{question11} = [\'Да\']',
+    visibleIf: "{question11} = ['Да']",
     title: 'Укажите ваш уровень глюкозы в крови ',
     description: 'В ммол/л',
     choices: ['< 7.8 ', '7.8 – 11.1', '> 11.1', 'Я не знаю '],
@@ -144,7 +144,7 @@ const mock = [
   {
     type: 'checkbox',
     name: 'question14',
-    visibleIf: '{question13} = [\'Да\'] and {question2} = [\'Женский\']',
+    visibleIf: "{question13} = ['Да'] and {question2} = ['Женский']",
     title: 'Укажите свой уровень гемоглобина в крови',
     description: 'В г/л (х10*9/л)',
     choices: ['< 115', '115 - 155', '> 155', 'Не знаю '],
@@ -153,7 +153,7 @@ const mock = [
   {
     type: 'checkbox',
     name: 'question15',
-    visibleIf: '{question2} = [\'Мужской\'] and {question13} = [\'Да\']',
+    visibleIf: "{question2} = ['Мужской'] and {question13} = ['Да']",
     title: 'Укажите свой уровень гемоглобина в крови',
     description: 'В г/л (х10*9/л)',
     choices: ['< 135', '135 - 180', '> 180', 'Не знаю '],
@@ -169,7 +169,7 @@ const mock = [
   {
     type: 'checkbox',
     name: 'question17',
-    visibleIf: '{question16} = [\'Да\']',
+    visibleIf: "{question16} = ['Да']",
     title: 'Вы знаете сколько в среднем в неделю вы употребляете алкоголь? ',
     description:
       '1 пиво 500 мл - 2 единицы, 1 стакан вина - 1 единица, 40 грамм водки - 1 единица',
@@ -190,7 +190,7 @@ const mock = [
   {
     type: 'checkbox',
     name: 'question19',
-    visibleIf: '{question18} = [\'Да\']',
+    visibleIf: "{question18} = ['Да']",
     title: 'Сколько сигарет в день вы курите? ',
     choices: ['< 5 штук', ' 5 - 9 штук', '10 - 19 штук', '> 20 штук'],
     maxSelectedChoices: 1
@@ -198,7 +198,7 @@ const mock = [
   {
     type: 'checkbox',
     name: 'question20',
-    visibleIf: '{question18} = [\'Да\']',
+    visibleIf: "{question18} = ['Да']",
     title: 'Сколько лет вы курите?',
     choices: ['< 1 года', '1 - 4 года', '5 - 9 лет', '10 - 14 лет', '> 15 лет'],
     maxSelectedChoices: 1
@@ -213,7 +213,7 @@ const mock = [
   {
     type: 'checkbox',
     name: 'question22',
-    visibleIf: '{question21} = [\'Да\']',
+    visibleIf: "{question21} = ['Да']",
     title: 'Сколько лет вы курили перед тем как бросить курить?',
     choices: [
       '< 1 года',
