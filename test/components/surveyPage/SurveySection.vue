@@ -112,12 +112,12 @@
 </template>
 
 <script setup>
-import mock from '../server/mock.js';
-import { useTestStore } from '../store/test.js';
+import mock from '../../server/mock.js';
+import { useSurveyStore } from '~~/store/surveyStore.js';
 
 const questions = ref(mock);
 const idx = ref(0);
-const testStore = useTestStore();
+const testStore = useSurveyStore();
 const checked = ref([]);
 const selectedAnswers = ref({});
 const minValue = ref(questions.value[0].min);

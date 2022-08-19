@@ -1,5 +1,5 @@
 <template>
   <div>
-    <TestSection />
+    <SurveySection />
   </div>
 </template>

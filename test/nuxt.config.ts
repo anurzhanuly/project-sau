@@ -33,5 +33,6 @@ export default defineNuxtConfig({
     plugins: [
       eslintPlugin()
     ]
-  }
+  },
+  buildDir: 'build'
 });
