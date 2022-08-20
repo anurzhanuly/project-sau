@@ -29,7 +29,7 @@
         </ul>
       </div>
     </div>
-    <button class="btn">
+    <button class="btn" :class="{hidden : isHidden}" @click="makePdf()">
       Открыть в pdf
     </button>
   </section>
@@ -37,36 +37,38 @@
 
 <script setup>
 import { useSurveyStore } from '~~/store/surveyStore.js';
+import postQuestions from '~~/api/result.js';
 
 const surveyStore = useSurveyStore();
 const { resultAnswers } = surveyStore;
 
 const result = ref(null);
+const isHidden = ref(false);
 
-onMounted(() => {
-  const postQuestions = async () => {
-    const response = await $fetch('https://project-sau.herokuapp.com/diseases/recommendations', {
-      method: 'post',
-      body: resultAnswers
-    });
+onMounted(async () => {
+  const response = await postQuestions(resultAnswers);
 
-    if (!response.recommendations) {
-      result.value = [
-        {
-          name: 'Короче,нет ничего',
-          tests: [],
-          recommendations: [],
-          importance: ''
-        }
-      ];
-    } else {
-      result.value = response.recommendations;
-    }
-    console.log(response);
-  };
-  postQuestions();
+  if (!response.recommendations) {
+    result.value = [
+      {
+        name: 'Короче,нет ничего',
+        tests: [],
+        recommendations: [],
+        importance: ''
+      }
+    ];
+  } else {
+    result.value = response.recommendations;
+  }
 });
 
+const makePdf = () => {
+  isHidden.value = true;
+  setTimeout(() => {
+    window.print();
+    isHidden.value = false;
+  }, 1);
+};
 </script>
 
 <style scoped>
@@ -88,7 +90,7 @@ onMounted(() => {
 .result-item {
   display: flex;
   flex-direction: column;
-  margin-bottom: 30px;
+  margin-bottom: 50px;
 }
 
 .result-title {
@@ -101,10 +103,6 @@ onMounted(() => {
 
 .result-text {
   margin-bottom: 10px;
-}
-
-.hidden {
-  display: none;
 }
 
 .btn {
@@ -150,6 +148,10 @@ onMounted(() => {
   color: #dddddd;
   cursor: not-allowed;
   opacity: 1;
+}
+
+.hidden {
+  display: none;
 }
 
 @media (max-width: 480px) {

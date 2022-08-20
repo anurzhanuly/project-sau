@@ -8,7 +8,7 @@ import { getContext, executeAsync } from "unctx";
 import "destr";
 import { createError as createError$1, sendRedirect } from "h3";
 import defu from "defu";
-import { ssrRenderAttrs, ssrRenderComponent, ssrRenderList, ssrInterpolate, ssrRenderAttr, ssrRenderClass, ssrIncludeBooleanAttr, ssrLooseContain, ssrLooseEqual, ssrRenderSuspense } from "@vue/server-renderer";
+import { ssrRenderAttrs, ssrRenderComponent, ssrRenderList, ssrInterpolate, ssrRenderClass, ssrRenderAttr, ssrIncludeBooleanAttr, ssrLooseContain, ssrLooseEqual, ssrRenderSuspense } from "@vue/server-renderer";
 import { CompileErrorCodes, createCompileError } from "@intlify/message-compiler";
 import { VueDevToolsLabels, VueDevToolsPlaceholders, VueDevToolsTimelineColors } from "@intlify/vue-devtools";
 var commonjsGlobal = typeof globalThis !== "undefined" ? globalThis : typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : {};
@@ -4634,27 +4634,28 @@ const useSurveyStore = defineStore({
     resultAnswers: {}
   })
 });
-const ResultSection_vue_vue_type_style_index_0_scoped_f8c37a10_lang = "";
+const ResultSection_vue_vue_type_style_index_0_scoped_cc0ad625_lang = "";
 const _sfc_main$4 = {
   __name: "ResultSection",
   __ssrInlineRender: true,
   setup(__props) {
     useSurveyStore();
     const result = vue_cjs_prod.ref(null);
+    const isHidden = vue_cjs_prod.ref(false);
     return (_ctx, _push, _parent, _attrs) => {
-      _push(`<section${ssrRenderAttrs(vue_cjs_prod.mergeProps({ class: "section-result" }, _attrs))} data-v-f8c37a10><h2 class="result-header" data-v-f8c37a10> \u0420\u0435\u0437\u0443\u043B\u044C\u0442\u0430\u0442\u044B: </h2><div data-v-f8c37a10><!--[-->`);
+      _push(`<section${ssrRenderAttrs(vue_cjs_prod.mergeProps({ class: "section-result" }, _attrs))} data-v-cc0ad625><h2 class="result-header" data-v-cc0ad625> \u0420\u0435\u0437\u0443\u043B\u044C\u0442\u0430\u0442\u044B: </h2><div data-v-cc0ad625><!--[-->`);
       ssrRenderList(result.value, (resultItem, index) => {
-        _push(`<div class="result-item" data-v-f8c37a10><strong class="result-title" data-v-f8c37a10> \u0412\u0430\u043C \u0440\u0435\u043A\u043E\u043C\u0435\u043D\u0434\u0443\u044E\u0442\u0441\u044F \u0441\u043B\u0435\u0434\u0443\u044E\u0449\u0438\u0435 \u0438\u0441\u0441\u043B\u0435\u0434\u043E\u0432\u0430\u043D\u0438\u044F: </strong><ul class="result-list" data-v-f8c37a10><!--[-->`);
+        _push(`<div class="result-item" data-v-cc0ad625><strong class="result-title" data-v-cc0ad625> \u0412\u0430\u043C \u0440\u0435\u043A\u043E\u043C\u0435\u043D\u0434\u0443\u044E\u0442\u0441\u044F \u0441\u043B\u0435\u0434\u0443\u044E\u0449\u0438\u0435 \u0438\u0441\u0441\u043B\u0435\u0434\u043E\u0432\u0430\u043D\u0438\u044F: </strong><ul class="result-list" data-v-cc0ad625><!--[-->`);
         ssrRenderList(resultItem.tests, (item, idx) => {
-          _push(`<li data-v-f8c37a10>${ssrInterpolate(item)}</li>`);
+          _push(`<li data-v-cc0ad625>${ssrInterpolate(item)}</li>`);
         });
-        _push(`<!--]--></ul><strong class="result-title" data-v-f8c37a10> \u041F\u043E\u0447\u0435\u043C\u0443 \u044D\u0442\u043E \u0432\u0430\u0436\u043D\u043E:</strong><p class="result-text" data-v-f8c37a10>${ssrInterpolate(resultItem.importance)}</p><strong class="result-title" data-v-f8c37a10>\u0422\u0430\u043A \u0436\u0435 \u0440\u0435\u043A\u043E\u043C\u0435\u043D\u0434\u0443\u0435\u0442\u0441\u044F:</strong><ul class="result-list" data-v-f8c37a10><!--[-->`);
+        _push(`<!--]--></ul><strong class="result-title" data-v-cc0ad625> \u041F\u043E\u0447\u0435\u043C\u0443 \u044D\u0442\u043E \u0432\u0430\u0436\u043D\u043E:</strong><p class="result-text" data-v-cc0ad625>${ssrInterpolate(resultItem.importance)}</p><strong class="result-title" data-v-cc0ad625>\u0422\u0430\u043A \u0436\u0435 \u0440\u0435\u043A\u043E\u043C\u0435\u043D\u0434\u0443\u0435\u0442\u0441\u044F:</strong><ul class="result-list" data-v-cc0ad625><!--[-->`);
         ssrRenderList(resultItem.recommendations, (item, idx) => {
-          _push(`<li data-v-f8c37a10>${ssrInterpolate(item)}</li>`);
+          _push(`<li data-v-cc0ad625>${ssrInterpolate(item)}</li>`);
         });
         _push(`<!--]--></ul></div>`);
       });
-      _push(`<!--]--></div><button class="btn" data-v-f8c37a10> \u041E\u0442\u043A\u0440\u044B\u0442\u044C \u0432 pdf </button></section>`);
+      _push(`<!--]--></div><button class="${ssrRenderClass([{ hidden: isHidden.value }, "btn"])}" data-v-cc0ad625> \u041E\u0442\u043A\u0440\u044B\u0442\u044C \u0432 pdf </button></section>`);
     };
   }
 };
@@ -4664,7 +4665,7 @@ _sfc_main$4.setup = (props, ctx) => {
   (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("components/resultPage/ResultSection.vue");
   return _sfc_setup$4 ? _sfc_setup$4(props, ctx) : void 0;
 };
-const __nuxt_component_0$2 = /* @__PURE__ */ _export_sfc(_sfc_main$4, [["__scopeId", "data-v-f8c37a10"]]);
+const __nuxt_component_0$2 = /* @__PURE__ */ _export_sfc(_sfc_main$4, [["__scopeId", "data-v-cc0ad625"]]);
 const WhatsappPopup_vue_vue_type_style_index_0_lang = "";
 const _sfc_main$3 = {};
 function _sfc_ssrRender$1(_ctx, _push, _parent, _attrs) {
@@ -5076,7 +5077,7 @@ const routes = [
     children: [],
     meta: meta$2,
     alias: (meta$2 == null ? void 0 : meta$2.alias) || [],
-    component: () => import("./_nuxt/index.15c4d8ee.js").then((m) => m.default || m)
+    component: () => import("./_nuxt/index.d0899c16.js").then((m) => m.default || m)
   },
   {
     name: "result",
@@ -5085,7 +5086,7 @@ const routes = [
     children: [],
     meta: meta$1,
     alias: (meta$1 == null ? void 0 : meta$1.alias) || [],
-    component: () => import("./_nuxt/result.0f7dd833.js").then((m) => m.default || m)
+    component: () => import("./_nuxt/result.75eb4b92.js").then((m) => m.default || m)
   },
   {
     name: "survey",
@@ -5094,7 +5095,7 @@ const routes = [
     children: [],
     meta,
     alias: (meta == null ? void 0 : meta.alias) || [],
-    component: () => import("./_nuxt/survey.8a1686e8.js").then((m) => m.default || m)
+    component: () => import("./_nuxt/survey.01581863.js").then((m) => m.default || m)
   }
 ];
 const configRouterOptions = {};
@@ -8633,7 +8634,7 @@ const _sfc_main$1 = {
   __name: "nuxt-root",
   __ssrInlineRender: true,
   setup(__props) {
-    const ErrorComponent = vue_cjs_prod.defineAsyncComponent(() => import("./_nuxt/error-component.db13b56a.js"));
+    const ErrorComponent = vue_cjs_prod.defineAsyncComponent(() => import("./_nuxt/error-component.36a94860.js"));
     const nuxtApp = useNuxtApp();
     vue_cjs_prod.provide("_route", useRoute());
     nuxtApp.hooks.callHookWith((hooks) => hooks.map((hook) => hook()), "vue:setup");
@@ -8666,7 +8667,7 @@ _sfc_main$1.setup = (props, ctx) => {
   return _sfc_setup$1 ? _sfc_setup$1(props, ctx) : void 0;
 };
 const layouts = {
-  default: vue_cjs_prod.defineAsyncComponent(() => import("./_nuxt/default.b94a4681.js"))
+  default: vue_cjs_prod.defineAsyncComponent(() => import("./_nuxt/default.9d092bac.js"))
 };
 const defaultLayoutTransition = { name: "layout", mode: "out-in" };
 const __nuxt_component_0 = vue_cjs_prod.defineComponent({
