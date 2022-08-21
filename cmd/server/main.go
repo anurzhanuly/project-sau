@@ -25,6 +25,8 @@ func main() {
 			"message": "Ошибка при инициализации конфигов",
 			"error":   err.Error(),
 		}).Error()
+
+		return
 	}
 
 	container := di.NewDi(config)
@@ -61,7 +63,9 @@ func getConfig() (configurations.Pool, error) {
 		return config, err
 	}
 
-	config.Port = port
+	if port != "" {
+		config.Port = port
+	}
 
 	return config, nil
 }
