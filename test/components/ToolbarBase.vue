@@ -1,7 +1,12 @@
 <template>
   <header class="header">
     <NuxtLink to="/">
-      <div class="logo" />
+      <img
+        src="/img/logo.png"
+        alt="logo"
+        height="30"
+        width="160"
+      >
     </NuxtLink>
   </header>
 </template>
@@ -12,14 +17,5 @@
   justify-content: space-between;
   height: 80px;
   align-items: center;
-}
-
-.logo {
-  background-image: url('/img/logo.png');
-  background-position: 50%;
-  background-repeat: no-repeat;
-  background-size: contain;
-  height: 60px;
-  width: 200px;
 }
 </style>

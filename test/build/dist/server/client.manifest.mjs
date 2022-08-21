@@ -2,7 +2,7 @@ export default {
   "node_modules/nuxt/dist/app/entry.mjs": {
     "resourceType": "script",
     "module": true,
-    "file": "entry.6c02589b.js",
+    "file": "entry.0dd3f518.js",
     "src": "node_modules/nuxt/dist/app/entry.mjs",
     "isEntry": true,
     "dynamicImports": [
@@ -23,7 +23,7 @@ export default {
   "virtual:nuxt:/Users/shahnozik/Desktop/Projects/project-sau/test/build/error-component.mjs": {
     "resourceType": "script",
     "module": true,
-    "file": "error-component.5d036beb.js",
+    "file": "error-component.b93e65fe.js",
     "src": "virtual:nuxt:/Users/shahnozik/Desktop/Projects/project-sau/test/build/error-component.mjs",
     "isDynamicEntry": true,
     "imports": [
@@ -37,7 +37,7 @@ export default {
   "pages/index.vue": {
     "resourceType": "script",
     "module": true,
-    "file": "index.aa2e2a11.js",
+    "file": "index.52b94287.js",
     "src": "pages/index.vue",
     "isDynamicEntry": true,
     "imports": [
@@ -47,7 +47,7 @@ export default {
   "pages/result.vue": {
     "resourceType": "script",
     "module": true,
-    "file": "result.fe365ea4.js",
+    "file": "result.b8e25f60.js",
     "src": "pages/result.vue",
     "isDynamicEntry": true,
     "imports": [
@@ -57,7 +57,7 @@ export default {
   "pages/survey.vue": {
     "resourceType": "script",
     "module": true,
-    "file": "survey.9ffb1754.js",
+    "file": "survey.50a38221.js",
     "src": "pages/survey.vue",
     "isDynamicEntry": true,
     "imports": [
@@ -67,24 +67,24 @@ export default {
   "layouts/default.vue": {
     "resourceType": "script",
     "module": true,
-    "file": "default.ad7a21ce.js",
+    "file": "default.732506ca.js",
     "src": "layouts/default.vue",
     "isDynamicEntry": true,
     "imports": [
       "node_modules/nuxt/dist/app/entry.mjs"
     ],
     "css": [
-      "default.7002a0ab.css"
+      "default.9b709c6d.css"
     ]
   },
-  "default.7002a0ab.css": {
-    "file": "default.7002a0ab.css",
+  "default.9b709c6d.css": {
+    "file": "default.9b709c6d.css",
     "resourceType": "style"
   },
   "node_modules/@nuxt/ui-templates/dist/templates/error-404.vue": {
     "resourceType": "script",
     "module": true,
-    "file": "error-404.5cea7bed.js",
+    "file": "error-404.430bdf83.js",
     "src": "node_modules/@nuxt/ui-templates/dist/templates/error-404.vue",
     "isDynamicEntry": true,
     "imports": [
@@ -101,7 +101,7 @@ export default {
   "node_modules/@nuxt/ui-templates/dist/templates/error-500.vue": {
     "resourceType": "script",
     "module": true,
-    "file": "error-500.1e69b77a.js",
+    "file": "error-500.010019b7.js",
     "src": "node_modules/@nuxt/ui-templates/dist/templates/error-500.vue",
     "isDynamicEntry": true,
     "imports": [
@@ -117,7 +117,7 @@ export default {
   },
   "layouts/default.css": {
     "resourceType": "style",
-    "file": "default.7002a0ab.css",
+    "file": "default.9b709c6d.css",
     "src": "layouts/default.css"
   },
   "node_modules/@nuxt/ui-templates/dist/templates/error-500.css": {

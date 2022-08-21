@@ -34,8 +34,8 @@ const _sfc_main = {
     const statusMessage = (_a = error.statusMessage) != null ? _a : is404 ? "Page Not Found" : "Internal Server Error";
     const description = error.message || error.toString();
     const stack = void 0;
-    const _Error404 = vue_cjs_prod.defineAsyncComponent(() => import("./error-404.d0eda177.js"));
-    const _Error = vue_cjs_prod.defineAsyncComponent(() => import("./error-500.f5fc1c8d.js"));
+    const _Error404 = vue_cjs_prod.defineAsyncComponent(() => import("./error-404.36b26575.js"));
+    const _Error = vue_cjs_prod.defineAsyncComponent(() => import("./error-500.e02c7ca8.js"));
     const ErrorTemplate = is404 ? _Error404 : _Error;
     return (_ctx, _push, _parent, _attrs) => {
       _push(ssrRenderComponent(vue_cjs_prod.unref(ErrorTemplate), vue_cjs_prod.mergeProps({ statusCode: vue_cjs_prod.unref(statusCode), statusMessage: vue_cjs_prod.unref(statusMessage), description: vue_cjs_prod.unref(description), stack: vue_cjs_prod.unref(stack) }, _attrs), null, _parent));
