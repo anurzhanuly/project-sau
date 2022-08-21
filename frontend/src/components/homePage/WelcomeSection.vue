@@ -17,7 +17,7 @@
 </template>
 
 <script setup>
-import { RouterLink } from "vue-router";
+import { RouterLink } from 'vue-router';
 </script>
 
 <style scoped>
@@ -40,7 +40,7 @@ import { RouterLink } from "vue-router";
 
 .section-welcome .image-welcome {
   z-index: 1;
-  background-image: url("../../assets/welcome-small.svg");
+  background-image: url('../../assets/welcome-small.svg');
   height: 212px;
   width: 304px;
   background-position: 50%;

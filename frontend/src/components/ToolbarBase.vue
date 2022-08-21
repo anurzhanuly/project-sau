@@ -7,7 +7,7 @@
 </template>
 
 <script setup>
-import { RouterLink } from "vue-router";
+import { RouterLink } from 'vue-router';
 </script>
 
 <style scoped>
@@ -19,7 +19,7 @@ import { RouterLink } from "vue-router";
 }
 
 .logo {
-  background-image: url("../assets/logo.png");
+  background-image: url('../assets/logo.png');
   background-position: 50%;
   background-repeat: no-repeat;
   background-size: contain;

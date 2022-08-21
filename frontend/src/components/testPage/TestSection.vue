@@ -1,8 +1,8 @@
 <template>
   <section class="section-test">
     <div class="test-wrapper">
-      <p class="test-title">{{ questions[idx]["title"] }}</p>
-      <p class="test-description">{{ questions[idx]["description"] }}</p>
+      <p class="test-title">{{ questions[idx]['title'] }}</p>
+      <p class="test-description">{{ questions[idx]['description'] }}</p>
       <div
         v-if="questions[idx].choices && questions[idx].maxSelectedChoices > 1"
       >
@@ -45,21 +45,28 @@
       </div>
       <div v-if="questions[idx].inputType === 'number'">
         <div class="number-input-container">
-          <button class="button-decrement" @click="rangeValue -= 1"></button>
+          <button
+            class="button-decrement btn-input"
+            @click="inputValue > minValue ? (inputValue -= 1) : null"
+          ></button>
           <div class="number-input">
             <input
               type="number"
               :min="minValue"
               :max="maxValue"
-              v-model="rangeValue"
+              v-model="inputValue"
+              @change="validateInput()"
             />
           </div>
-          <button class="button-increment" @click="rangeValue += 1"></button>
+          <button
+            class="button-increment btn-input"
+            @click="inputValue < maxValue ? (inputValue += 1) : null"
+          ></button>
         </div>
-        <p class="input-help">Кликните на цифру для ручного ввода</p>
+        <p class="input-help">Нажмите на цифру для ручного ввода</p>
       </div>
     </div>
-    <div class="test-buttons">
+    <div class="test-buttons" v-if="width > 770">
       <button class="btn prev-btn" @click="prevQuestion" v-if="idx > 0">
         Предыдущий вопрос
       </button>
@@ -75,31 +82,63 @@
         <button class="btn" @click="lastQuestion">Показать результаты</button>
       </RouterLink>
     </div>
+    <div class="test-buttons" v-else>
+      <button
+        class="arrow prev-btn"
+        @click="prevQuestion"
+        v-if="idx > 0"
+      ></button>
+      <button
+        class="arrow"
+        @click="nextQuestion"
+        :disabled="!checked.length && questions[idx].choices"
+        v-if="idx < questions.length - 1"
+      ></button>
+      <RouterLink to="/result" v-else>
+        <button class="btn mobile-btn" @click="lastQuestion">Результаты</button>
+      </RouterLink>
+    </div>
   </section>
 </template>
 
 <script setup>
-import mock from "../../services/mock";
-import { RouterLink } from "vue-router";
-import { ref } from "vue";
-import { useTestStore } from "../../stores/test.js";
+import mock from '../../services/mock';
+import { RouterLink } from 'vue-router';
+import { ref, onMounted } from 'vue';
+import { useTestStore } from '../../stores/test.js';
 
 const questions = ref(mock);
 const idx = ref(0);
 const testStore = useTestStore();
-
-const minValue = ref(questions.value[0].min);
-const maxValue = ref(questions.value[0].max);
-const rangeValue = ref(questions.value[0].defaultValue);
-
-const changeRangeValue = () => {
-  minValue.value = questions.value[idx.value].min;
-  maxValue.value = questions.value[idx.value].max;
-  rangeValue.value = questions.value[idx.value].defaultValue;
-};
-
 const checked = ref([]);
 const selectedAnswers = ref({});
+const minValue = ref(questions.value[0].min);
+const maxValue = ref(questions.value[0].max);
+const inputValue = ref(questions.value[0].defaultValue);
+const width = ref(null);
+
+onMounted(() => {
+  const updateWidth = () => {
+    width.value = window.innerWidth;
+  };
+  window.addEventListener('resize', updateWidth);
+  updateWidth();
+});
+
+const changeInputValue = () => {
+  minValue.value = questions.value[idx.value].min;
+  maxValue.value = questions.value[idx.value].max;
+  inputValue.value = questions.value[idx.value].defaultValue;
+};
+
+const validateInput = () => {
+  if (inputValue.value > maxValue.value) {
+    inputValue.value = maxValue.value;
+  }
+  if (inputValue.value < minValue.value) {
+    inputValue.value = minValue.value;
+  }
+};
 
 const collectAnswers = () => {
   if (
@@ -113,25 +152,25 @@ const collectAnswers = () => {
   ) {
     selectedAnswers.value[idx.value + 1] = [...checked.value];
   } else {
-    selectedAnswers.value[idx.value + 1] = [`${rangeValue.value}`];
+    selectedAnswers.value[idx.value + 1] = [`${inputValue.value}`];
   }
 };
 
 const checkVisible = () => {
+  const objValues = {};
+  const arrVisibility = [];
+
   const arrValues = questions.value[idx.value].visibleIf
-    .split(" ")
+    .split(' ')
     .map((el) => {
-      if (el.includes("{")) {
-        return +el.replace(/[\D]+/g, "");
+      if (el.includes('{')) {
+        return +el.replace(/[\D]+/g, '');
       }
-      if (el.includes("[")) {
+      if (el.includes('[')) {
         return el.slice(2, el.length - 2);
       }
     })
     .filter((el) => el);
-
-  const objValues = {};
-  const arrVisibility = [];
 
   for (let i = 0; i < arrValues.length; i++) {
     if (Number.isInteger(arrValues[i])) {
@@ -154,14 +193,14 @@ const checkVisible = () => {
   return true;
 };
 
-const test = () => {
+const skipQuestion = () => {
   const isVisible = checkVisible();
 
   if (!isVisible) {
     idx.value += 1;
     delete selectedAnswers.value[idx.value];
     if (questions.value[idx.value].visibleIf) {
-      test();
+      skipQuestion();
     }
   }
 };
@@ -172,11 +211,11 @@ const nextQuestion = () => {
   idx.value += 1;
 
   if (questions.value[idx.value].min) {
-    changeRangeValue();
+    changeInputValue();
   }
 
   if (questions.value[idx.value].visibleIf) {
-    test();
+    skipQuestion();
   }
 
   if (selectedAnswers.value[idx.value + 1]) {
@@ -191,7 +230,7 @@ const prevQuestion = () => {
     idx.value -= 1;
   }
   checked.value = [...selectedAnswers.value[idx.value]];
-  rangeValue.value = +selectedAnswers.value[idx.value][0];
+  inputValue.value = +selectedAnswers.value[idx.value][0];
   idx.value -= 1;
 };
 
@@ -199,8 +238,8 @@ const lastQuestion = () => {
   collectAnswers();
   testStore.$patch({
     resultAnswers: {
-      answers: selectedAnswers.value,
-    },
+      answers: selectedAnswers.value
+    }
   });
 };
 </script>
@@ -261,7 +300,7 @@ const lastQuestion = () => {
 }
 
 .checked::before {
-  content: "✔";
+  content: '✔';
 }
 
 .test-buttons {
@@ -279,7 +318,7 @@ const lastQuestion = () => {
   cursor: pointer;
   display: inline-block;
   font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto,
-    "Helvetica Neue", sans-serif;
+    'Helvetica Neue', sans-serif;
   font-size: 16px;
   font-weight: 600;
   line-height: 20px;
@@ -319,6 +358,42 @@ const lastQuestion = () => {
   margin-right: auto;
 }
 
+.mobile-btn {
+  width: 120px;
+  padding: 13px;
+}
+
+.arrow {
+  display: inline-block;
+  width: 64px;
+  height: 64px;
+  border: 3px solid;
+  border-radius: 50%;
+  text-align: center;
+  background-color: #fff;
+}
+
+.arrow:after {
+  content: '';
+  display: inline-block;
+  margin-top: 5px;
+  margin-left: -6px;
+  width: 22.4px;
+  height: 22.4px;
+  border-top: 4px solid;
+  border-right: 4px solid;
+  -moz-transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+.prev-btn.arrow:after {
+  margin-left: 10px;
+  -moz-transform: rotate(-135deg);
+  -webkit-transform: rotate(-135deg);
+  transform: rotate(-135deg);
+}
+
 .number-input-container {
   max-width: 400px;
   width: 100%;
@@ -345,7 +420,7 @@ const lastQuestion = () => {
   color: #acb7c1;
 }
 
-input[type="number"] {
+input[type='number'] {
   -webkit-appearance: none;
   -webkit-border-radius: 0px;
   -moz-appearance: none;
@@ -365,23 +440,23 @@ input[type="number"] {
   transition: all 0.2s ease-out;
 }
 
-input[type="number"]:focus {
+input[type='number']:focus {
   background-color: white;
   border: 1px solid #9c7830;
   outline: none;
 }
 
-input[type="number"]::-webkit-inner-spin-button,
-input[type="number"]::-webkit-outer-spin-button {
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
 
-input[type="number"] {
+input[type='number'] {
   -moz-appearance: textfield;
 }
 
-button {
+.btn-input {
   position: relative;
   height: 100%;
   margin-top: 32px;
@@ -397,13 +472,13 @@ button {
   margin: 0;
 }
 
-button:active,
-button:focus {
+.btn-input:active,
+.btn-input:focus {
   outline: none;
 }
 
-button::after {
-  content: "";
+.btn-input::after {
+  content: '';
   position: absolute;
   opacity: 1;
   top: 0;
@@ -413,14 +488,6 @@ button::after {
   transition: inherit;
   background-position: center;
   background-repeat: no-repeat;
-}
-
-button:disabled {
-  pointer-events: none;
-}
-
-button:disabled::after {
-  opacity: 0.25;
 }
 
 .button-decrement::after {
@@ -440,19 +507,19 @@ button:disabled::after {
 }
 
 @media (hover: hover) {
-  input[type="number"]:hover,
-  button:hover {
+  input[type='number']:hover,
+  .btn-input:hover {
     background-color: white;
   }
 
-  button:active {
+  .btn-input:active {
     background-color: #fcf9ed;
     transform: translateY(1px);
   }
 }
 
 @media (hover: none) {
-  button:active {
+  .btn-input:active {
     background-color: white;
     transform: translateY(1px);
   }
@@ -478,7 +545,7 @@ button:disabled::after {
     margin: 5px 0;
   }
 
-  .test-buttons {
+  .desktop-buttons {
     flex-direction: column;
     align-items: center;
   }
