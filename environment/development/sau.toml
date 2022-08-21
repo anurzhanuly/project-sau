@@ -2,7 +2,7 @@ IP = "0.0.0.0"
 Port = ":8080"
 Debug = true
 MongoDatabaseName = "symptom"
-StaticPath = "./frontend/dist"
+StaticPath = "./test/dist"
 
 [notificator]
     [notificator.WhatsApp]
