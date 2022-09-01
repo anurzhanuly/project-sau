@@ -24,33 +24,33 @@
             {{ item }}
           </li>
         </ul>
-        <strong style="margin-bottom: 7px"> Почему это важно:</strong>
-        <p style="margin-bottom: 10px">{{ resultItem.importance }}</p>
         <strong style="margin-bottom: 7px">Так же рекомендуется:</strong>
         <ul style="margin: 0 0 10px 30px">
           <li v-for="(item, index) in resultItem.recommendations" :key="index">
             {{ item }}
           </li>
         </ul>
+        <strong style="margin-bottom: 7px"> Почему это важно:</strong>
+        <p style="margin-bottom: 10px">{{ resultItem.importance }}</p>
       </div>
     </div>
-    <button @click="printDocument()" class="btn">Открыть в pdf</button>
+    <button class="btn" :class="{ hidden: isHidden }" @click="makePdf()">
+      Открыть в pdf
+    </button>
   </section>
 </template>
 
 <script setup>
-import pdfMake from 'pdfmake/build/pdfmake';
-import pdfFonts from 'pdfmake/build/vfs_fonts';
-import htmlToPdfmake from 'html-to-pdfmake';
 import logoJpg from '../../assets/base64/logo.js';
-import { useTestStore } from '../../stores/test.js';
+import { useSurveyStore } from '../../stores/survey.js';
 import axios from 'axios';
 import { ref, onMounted } from 'vue';
 
-const testStore = useTestStore();
-const { resultAnswers } = testStore;
+const surveyStore = useSurveyStore();
+const { resultAnswers } = surveyStore;
 
 const result = ref(null);
+const isHidden = ref(false);
 
 onMounted(() => {
   axios
@@ -77,18 +77,12 @@ onMounted(() => {
     });
 });
 
-const printDocument = () => {
-  const pdfTable = document.getElementById('pdf');
-  const html = htmlToPdfmake(pdfTable.innerHTML, {
-    imagesByReference: true
-  });
-
-  const documentDefinition = {
-    content: html.content,
-    images: html.images
-  };
-  pdfMake.vfs = pdfFonts;
-  pdfMake.createPdf(documentDefinition).open();
+const makePdf = () => {
+  isHidden.value = true;
+  setTimeout(() => {
+    window.print();
+    isHidden.value = false;
+  }, 1);
 };
 </script>
 
@@ -111,10 +105,19 @@ const printDocument = () => {
 .result-item {
   display: flex;
   flex-direction: column;
+  margin-bottom: 50px;
 }
 
-.hidden {
-  display: none;
+.result-title {
+  margin-bottom: 7px;
+}
+
+.result-list {
+  margin: 0 0 10px 30px;
+}
+
+.result-text {
+  margin-bottom: 10px;
 }
 
 .btn {
@@ -160,6 +163,10 @@ const printDocument = () => {
   color: #dddddd;
   cursor: not-allowed;
   opacity: 1;
+}
+
+.hidden {
+  display: none;
 }
 
 @media (max-width: 480px) {

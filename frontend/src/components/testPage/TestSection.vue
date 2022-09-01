@@ -105,11 +105,11 @@
 import mock from '../../services/mock';
 import { RouterLink } from 'vue-router';
 import { ref, onMounted } from 'vue';
-import { useTestStore } from '../../stores/test.js';
+import { useSurveyStore } from '../../stores/survey.js';
 
 const questions = ref(mock);
 const idx = ref(0);
-const testStore = useTestStore();
+const surveyStore = useSurveyStore();
 const checked = ref([]);
 const selectedAnswers = ref({});
 const minValue = ref(questions.value[0].min);
@@ -236,7 +236,7 @@ const prevQuestion = () => {
 
 const lastQuestion = () => {
   collectAnswers();
-  testStore.$patch({
+  surveyStore.$patch({
     resultAnswers: {
       answers: selectedAnswers.value
     }
