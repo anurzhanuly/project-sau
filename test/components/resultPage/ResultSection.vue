@@ -32,6 +32,9 @@
     <button class="btn" :class="{hidden : isHidden}" @click="makePdf()">
       Открыть в pdf
     </button>
+    <PopupBase>
+      <h2>Popup</h2>
+    </PopupBase>
   </section>
 </template>
 
