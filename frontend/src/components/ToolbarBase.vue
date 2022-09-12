@@ -1,7 +1,7 @@
 <template>
   <header class="header">
     <RouterLink to="/">
-      <div class="logo"></div>
+      <img src="../assets/logo.png" alt="logo" height="30" width="160" />
     </RouterLink>
   </header>
 </template>
@@ -16,14 +16,5 @@ import { RouterLink } from 'vue-router';
   justify-content: space-between;
   height: 80px;
   align-items: center;
-}
-
-.logo {
-  background-image: url('../assets/logo.png');
-  background-position: 50%;
-  background-repeat: no-repeat;
-  background-size: contain;
-  height: 60px;
-  width: 200px;
 }
 </style>
