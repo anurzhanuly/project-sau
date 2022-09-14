@@ -10,6 +10,8 @@
   "dependencies": {
     "axios": "^0.27.2",
     "pinia": "^2.0.14",
+    "primeicons": "^5.0.0",
+    "primevue": "^3.17.0",
     "vue": "^3.2.37",
     "vue-router": "^4.1.2"
   },
