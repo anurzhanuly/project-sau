@@ -51,6 +51,20 @@
     <button class="btn" :class="{ hidden: isHidden }" @click="makePdf()">
       Открыть в pdf
     </button>
+    <button class="btn" :class="{ hidden: isHidden }" @click="openBasic">
+      Получить промокод
+    </button>
+    <Dialog
+      header="Скидочный промокод: Симптом"
+      v-model:visible="displayBasic"
+      :style="{ width: '80vw' }"
+    >
+      <DataTable :value="partners" responsiveLayout="scroll">
+        <Column field="name" header="Категория"> </Column>
+        <Column field="company" header="Компания"> </Column>
+        <Column field="address" header="Адрес"> </Column>
+      </DataTable>
+    </Dialog>
   </section>
 </template>
 
@@ -59,12 +73,47 @@ import { useSurveyStore } from '../../stores/survey.js';
 import axios from 'axios';
 import { ref, onMounted } from 'vue';
 import Panel from 'primevue/panel';
+import Dialog from 'primevue/dialog';
+import DataTable from 'primevue/datatable';
+import Column from 'primevue/column';
 
 const surveyStore = useSurveyStore();
 const { resultAnswers } = surveyStore;
-
 const result = ref(null);
 const isHidden = ref(false);
+const displayBasic = ref(false);
+
+const openBasic = () => {
+  displayBasic.value = true;
+};
+
+const partners = ref([
+  {
+    name: 'Лабор. анализы',
+    company: 'Invitro',
+    address: 'Тараз, Айтиева 6/13'
+  },
+  {
+    name: 'Лабор. анализы',
+    company: 'Invitro',
+    address: 'Тараз, Жунисалиева 2'
+  },
+  {
+    name: 'УЗИ',
+    company: 'УЗИ-Центр',
+    address: 'Тараз, Айтиева 6а'
+  },
+  {
+    name: 'УЗИ',
+    company: 'УЗИ-Центр',
+    address: 'Тараз, Жунисалиева 2'
+  },
+  {
+    name: 'УЗИ',
+    company: 'УЗИ-Центр',
+    address: 'Тараз, Айтиева 6/13'
+  }
+]);
 
 onMounted(() => {
   axios
@@ -163,6 +212,7 @@ const makePdf = () => {
   user-select: none;
   -webkit-user-select: none;
   width: auto;
+  margin-right: 20px;
 }
 
 .btn:focus-visible {
@@ -187,15 +237,19 @@ const makePdf = () => {
   display: none;
 }
 
-@media (max-width: 480px) {
+@media (max-width: 580px) {
   .btn {
     font-size: 14px;
     line-height: 18px;
-    margin: 5px 0;
+    margin: 5px 20px 5px 0;
   }
 
   .section-result {
     padding: 50px 30px;
+  }
+
+  .result-list {
+    margin-left: 10px;
   }
 }
 
