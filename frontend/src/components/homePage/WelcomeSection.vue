@@ -27,6 +27,7 @@ import { RouterLink } from 'vue-router';
   overflow: hidden;
   position: relative;
   line-height: 1.7;
+  border-radius: 5px;
 }
 
 .section-welcome .section-content {

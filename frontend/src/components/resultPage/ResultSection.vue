@@ -155,7 +155,7 @@ const makePdf = () => {
   border-radius: 5px;
   width: 100%;
   padding: 60px 80px 80px;
-  margin: 40px auto;
+  margin: 0 auto 40px;
   -webkit-box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
   -moz-box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
   box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
@@ -245,7 +245,7 @@ const makePdf = () => {
   }
 
   .section-result {
-    padding: 50px 30px;
+    padding: 30px 20px;
   }
 
   .result-list {

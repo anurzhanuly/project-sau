@@ -49,7 +49,7 @@
 }
 
 .info-source {
-  padding: 20px 59px 15px 29px;
+  padding: 20px 30px 15px 29px;
   color: #acb7c1;
 }
 

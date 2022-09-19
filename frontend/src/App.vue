@@ -48,4 +48,10 @@ a {
 .main {
   flex: 1 1 auto;
 }
+
+@media (max-width: 580px) {
+  .wrapper {
+    padding: 0 15px;
+  }
+}
 </style>
