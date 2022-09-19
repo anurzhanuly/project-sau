@@ -2,55 +2,118 @@
   <section class="section-result">
     <h2 class="result-header">Результаты:</h2>
     <div id="pdf">
-      <img
-        :src="logoJpg"
-        alt="logo"
-        height="30"
-        width="160"
-        style="margin-bottom: 40px"
-        class="hidden"
-      />
       <div
         v-for="(resultItem, index) in result"
         :key="index"
         class="result-item"
-        style="margin-bottom: 30px"
       >
-        <strong style="margin-bottom: 7px">
-          Вам рекомендуются следующие исследования:
-        </strong>
-        <ul style="margin: 0 0 10px 30px">
-          <li v-for="(item, index) in resultItem.tests" :key="index">
-            {{ item }}
-          </li>
-        </ul>
-        <strong style="margin-bottom: 7px"> Почему это важно:</strong>
-        <p style="margin-bottom: 10px">{{ resultItem.importance }}</p>
-        <strong style="margin-bottom: 7px">Так же рекомендуется:</strong>
-        <ul style="margin: 0 0 10px 30px">
-          <li v-for="(item, index) in resultItem.recommendations" :key="index">
-            {{ item }}
-          </li>
-        </ul>
+        <Panel
+          class="result-title"
+          header="Вам рекомендуются следующие исследования:"
+          toggleable="true"
+        >
+          <ul class="result-list">
+            <li
+              v-for="(item, index) in resultItem.tests"
+              :key="index"
+              class="result-list__item"
+            >
+              {{ item }}
+            </li>
+          </ul>
+        </Panel>
+        <Panel
+          header="Так же рекомендуется:"
+          toggleable="true"
+          collapsed="true"
+          class="result-title"
+        >
+          <ul class="result-list">
+            <li
+              v-for="(item, index) in resultItem.recommendations"
+              :key="index"
+              class="result-list__item"
+            >
+              {{ item }}
+            </li>
+          </ul>
+        </Panel>
+        <Panel
+          class="result-title"
+          header="Почему это важно:"
+          toggleable="true"
+          collapsed="true"
+        >
+          <p class="result-text">{{ resultItem.importance }}</p>
+        </Panel>
       </div>
     </div>
-    <button @click="printDocument()" class="btn">Открыть в pdf</button>
+    <button class="btn" :class="{ hidden: isHidden }" @click="makePdf()">
+      Открыть в pdf
+    </button>
+    <button class="btn" :class="{ hidden: isHidden }" @click="openBasic">
+      Получить промокод
+    </button>
+    <Dialog
+      header="Скидочный промокод: Симптом"
+      v-model:visible="displayBasic"
+      :style="{ width: '80vw' }"
+    >
+      <DataTable :value="partners" responsiveLayout="scroll">
+        <Column field="name" header="Категория"> </Column>
+        <Column field="company" header="Компания"> </Column>
+        <Column field="address" header="Адрес"> </Column>
+      </DataTable>
+    </Dialog>
   </section>
 </template>
 
 <script setup>
-import pdfMake from 'pdfmake/build/pdfmake';
-import pdfFonts from 'pdfmake/build/vfs_fonts';
-import htmlToPdfmake from 'html-to-pdfmake';
-import logoJpg from '../../assets/base64/logo.js';
-import { useTestStore } from '../../stores/test.js';
+import { useSurveyStore } from '../../stores/survey.js';
 import axios from 'axios';
 import { ref, onMounted } from 'vue';
+import Panel from 'primevue/panel';
+import Dialog from 'primevue/dialog';
+import DataTable from 'primevue/datatable';
+import Column from 'primevue/column';
 
-const testStore = useTestStore();
-const { resultAnswers } = testStore;
-
+const surveyStore = useSurveyStore();
+const { resultAnswers } = surveyStore;
 const result = ref(null);
+const isHidden = ref(false);
+const displayBasic = ref(false);
+
+const openBasic = () => {
+  displayBasic.value = true;
+};
+
+const partners = ref([
+  {
+    name: 'Лабор. анализы',
+    company: 'Invitro',
+    address: 'Тараз, Айтиева 6/13'
+  },
+  {
+    name: 'Лабор. анализы',
+    company: 'Invitro',
+    address: 'Тараз, Жунисалиева 2'
+  },
+  {
+    name: 'УЗИ',
+    company: 'УЗИ-Центр',
+    address: 'Тараз, Айтиева 6а'
+  },
+  {
+    name: 'УЗИ',
+    company: 'УЗИ-Центр',
+    address: 'Тараз, Жунисалиева 2'
+  },
+  {
+    name: 'УЗИ',
+    company: 'УЗИ-Центр',
+    address: 'Тараз, Айтиева 6/13'
+  }
+]);
 
 onMounted(() => {
   axios
@@ -77,18 +140,12 @@ onMounted(() => {
     });
 });
 
-const printDocument = () => {
-  const pdfTable = document.getElementById('pdf');
-  const html = htmlToPdfmake(pdfTable.innerHTML, {
-    imagesByReference: true
-  });
-
-  const documentDefinition = {
-    content: html.content,
-    images: html.images
-  };
-  pdfMake.vfs = pdfFonts;
-  pdfMake.createPdf(documentDefinition).open();
+const makePdf = () => {
+  isHidden.value = true;
+  setTimeout(() => {
+    window.print();
+    isHidden.value = false;
+  }, 1);
 };
 </script>
 
@@ -111,10 +168,23 @@ const printDocument = () => {
 .result-item {
   display: flex;
   flex-direction: column;
+  margin-bottom: 50px;
 }
 
-.hidden {
-  display: none;
+.result-list__item {
+  margin-bottom: 10px;
+}
+
+.result-title {
+  margin-bottom: 10px;
+}
+
+.result-list {
+  margin: 0 0 10px 30px;
+}
+
+.result-text {
+  margin-bottom: 10px;
 }
 
 .btn {
@@ -142,6 +212,7 @@ const printDocument = () => {
   user-select: none;
   -webkit-user-select: none;
   width: auto;
+  margin-right: 20px;
 }
 
 .btn:focus-visible {
@@ -162,21 +233,29 @@ const printDocument = () => {
   opacity: 1;
 }
 
-@media (max-width: 480px) {
+.hidden {
+  display: none;
+}
+
+@media (max-width: 580px) {
   .btn {
     font-size: 14px;
     line-height: 18px;
-    margin: 5px 0;
+    margin: 5px 20px 5px 0;
   }
 
   .section-result {
     padding: 50px 30px;
   }
+
+  .result-list {
+    margin-left: 10px;
+  }
 }
 
 @media (max-width: 768px) {
-  .test-title {
-    font-size: 22px;
+  .result-title {
+    font-size: 12px;
   }
 
   .result-header {

@@ -2,8 +2,8 @@
 declare module 'vue' {
   export interface GlobalComponents {
     'FooterBase': typeof import("../components/FooterBase.vue")['default']
+    'PopupBase': typeof import("../components/PopupBase.vue")['default']
     'ToolbarBase': typeof import("../components/ToolbarBase.vue")['default']
-    'WhatsappPopup': typeof import("../components/WhatsappPopup.vue")['default']
     'IndexPageInfoSection': typeof import("../components/indexPage/InfoSection.vue")['default']
     'IndexPageWelcomeSection': typeof import("../components/indexPage/WelcomeSection.vue")['default']
     'ResultSection': typeof import("../components/resultPage/ResultSection.vue")['default']
@@ -16,8 +16,8 @@ declare module 'vue' {
     'NuxtLink': typeof import("../node_modules/nuxt/dist/app/components/nuxt-link")['default']
     'NuxtLoadingIndicator': typeof import("../node_modules/nuxt/dist/app/components/nuxt-loading-indicator")['default']
     'LazyFooterBase': typeof import("../components/FooterBase.vue")['default']
+    'LazyPopupBase': typeof import("../components/PopupBase.vue")['default']
     'LazyToolbarBase': typeof import("../components/ToolbarBase.vue")['default']
-    'LazyWhatsappPopup': typeof import("../components/WhatsappPopup.vue")['default']
     'LazyIndexPageInfoSection': typeof import("../components/indexPage/InfoSection.vue")['default']
     'LazyIndexPageWelcomeSection': typeof import("../components/indexPage/WelcomeSection.vue")['default']
     'LazyResultSection': typeof import("../components/resultPage/ResultSection.vue")['default']
@@ -33,8 +33,8 @@ declare module 'vue' {
 }
 
 export const FooterBase: typeof import("../components/FooterBase.vue")['default']
+export const PopupBase: typeof import("../components/PopupBase.vue")['default']
 export const ToolbarBase: typeof import("../components/ToolbarBase.vue")['default']
-export const WhatsappPopup: typeof import("../components/WhatsappPopup.vue")['default']
 export const IndexPageInfoSection: typeof import("../components/indexPage/InfoSection.vue")['default']
 export const IndexPageWelcomeSection: typeof import("../components/indexPage/WelcomeSection.vue")['default']
 export const ResultSection: typeof import("../components/resultPage/ResultSection.vue")['default']
@@ -47,8 +47,8 @@ export const ServerPlaceholder: typeof import("../node_modules/nuxt/dist/app/com
 export const NuxtLink: typeof import("../node_modules/nuxt/dist/app/components/nuxt-link")['default']
 export const NuxtLoadingIndicator: typeof import("../node_modules/nuxt/dist/app/components/nuxt-loading-indicator")['default']
 export const LazyFooterBase: typeof import("../components/FooterBase.vue")['default']
+export const LazyPopupBase: typeof import("../components/PopupBase.vue")['default']
 export const LazyToolbarBase: typeof import("../components/ToolbarBase.vue")['default']
-export const LazyWhatsappPopup: typeof import("../components/WhatsappPopup.vue")['default']
 export const LazyIndexPageInfoSection: typeof import("../components/indexPage/InfoSection.vue")['default']
 export const LazyIndexPageWelcomeSection: typeof import("../components/indexPage/WelcomeSection.vue")['default']
 export const LazyResultSection: typeof import("../components/resultPage/ResultSection.vue")['default']
