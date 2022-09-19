@@ -47,7 +47,11 @@
           <p class="result-text">{{ resultItem.importance }}</p>
         </Panel>
       </div>
-      <button class="btn" :class="{ hidden: isHidden }" @click="makeResultPdf()">
+      <button
+        class="btn"
+        :class="{ hidden: isHidden }"
+        @click="makeResultPdf()"
+      >
         Открыть в pdf
       </button>
       <button class="btn" :class="{ hidden: isHidden }" @click="openBasic">
