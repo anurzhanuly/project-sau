@@ -12,7 +12,7 @@
         </RouterLink>
       </div>
     </div>
-    <div class="image-welcome"></div>
+    <!-- <div class="image-welcome"></div> -->
   </section>
 </template>
 

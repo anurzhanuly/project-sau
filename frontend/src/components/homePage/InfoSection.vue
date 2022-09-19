@@ -4,12 +4,12 @@
       <div class="info">
         <div class="image-book"></div>
         <p class="info-text">
-          72% интернет-пользователей ищут информацию о здоровье в сети
+          Вопросам здоровья посвящено свыше 4% всех поисковых запросов.
         </p>
       </div>
       <p class="info-source">
-        Источник: Pew Research Center’s Internet &amp; American Life Project,
-        Health Online, 2013
+        Согласно опубликованной статистике поискового сервиса «Яндекс», около
+        7,5 млн запросов в день – это одна из самых популярных поисковых тем.
       </p>
     </div>
   </section>
