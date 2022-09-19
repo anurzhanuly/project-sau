@@ -50,3 +50,16 @@ func (r Repository) addDisease(model Disease) error {
 
 	return err
 }
+
+func (r Repository) getAllHardcodedDiseases() []Disease {
+	return []Disease{
+		{
+			ID:              1,
+			Name:            "",
+			Tests:           nil,
+			Recommendations: nil,
+			Importance:      "",
+			Conditions:      nil,
+		},
+	}
+}
