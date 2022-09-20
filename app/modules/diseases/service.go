@@ -28,13 +28,30 @@ func NewService(ctx *gin.Context, di *di.DI) *Service {
 }
 
 //GetRecommendations даёт рекомендации опираясь на ответы пользователя по заболеваниям
-func (s Service) GetRecommendations(userAnswer *answers.Result) ([]recommendations.Recommendation, error) {
+func (s Service) GetRecommendations(userAnswer *answers.Result, hardcode bool) ([]recommendations.Recommendation, error) {
 	var err error
 	var result []recommendations.Recommendation
 
 	err = s.Context.BindJSON(userAnswer)
 	if err != nil {
 		return result, err
+	}
+
+	if hardcode {
+		diseases := s.repository.getAllHardcodedDiseases()
+
+		for _, disease := range diseases {
+			if disease.meetsCriteria(userAnswer) {
+				recommendation := recommendations.Recommendation{
+					Name:  disease.Name,
+					Tests: disease.Tests,
+				}
+
+				result = append(result, recommendation)
+			}
+		}
+
+		return result, nil
 	}
 
 	diseases, err := s.repository.getAllDiseases()
