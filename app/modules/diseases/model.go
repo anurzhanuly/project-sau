@@ -16,10 +16,10 @@ type Disease struct {
 }
 
 type HardcodedDisease struct {
-	ID         int                   `bson:"id" json:"id,omitempty"`
-	Name       string                `bson:"name" json:"name"`
-	Tests      []string              `bson:"tests" json:"tests"`
-	Conditions map[string]Conditions `bson:"conditions" json:"conditions"`
+	ID         int                     `bson:"id" json:"id,omitempty"`
+	Name       string                  `bson:"name" json:"name"`
+	Tests      []string                `bson:"tests" json:"tests"`
+	Conditions []map[string]Conditions `bson:"conditions" json:"conditions"`
 }
 
 type Conditions struct {
@@ -90,18 +90,4 @@ func isConditionMet(answer []string, conditions Conditions) bool {
 	}
 
 	return userValue == conditionValue
-}
-
-func (hd HardcodedDisease) meetsCriteria(answers *answers.Result) bool {
-	for key, condition := range hd.Conditions {
-		answer, keyExists := answers.Answers[key]
-
-		if keyExists && isConditionMet(answer, condition) {
-			continue
-		}
-
-		return false
-	}
-
-	return true
 }

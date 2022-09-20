@@ -57,6 +57,54 @@ func (r Repository) getAllHardcodedDiseases() []HardcodedDisease {
 			ID:    2,
 			Name:  "Рак груди",
 			Tests: nil,
+			Conditions: []map[string]Conditions{
+				{
+					"1": {
+						Value:    []string{"Женщина"},
+						Type:     "text",
+						Compare:  "exact",
+						Multiple: false,
+					},
+					"2": {
+						Value:    []string{"50", "69"},
+						Type:     "number",
+						Compare:  "range",
+						Multiple: false,
+					},
+					"10": {
+						Value:    []string{"нет"},
+						Type:     "text",
+						Compare:  "exact",
+						Multiple: false,
+					},
+				},
+				{
+					"1": {
+						Value:    []string{"Женщина"},
+						Type:     "text",
+						Compare:  "exact",
+						Multiple: false,
+					},
+					"2": {
+						Value:    []string{"40", "49"},
+						Type:     "number",
+						Compare:  "range",
+						Multiple: false,
+					},
+					"10": {
+						Value:    []string{"нет"},
+						Type:     "text",
+						Compare:  "exact",
+						Multiple: false,
+					},
+					"18": {
+						Value:    []string{"рак груди"},
+						Type:     "text",
+						Compare:  "exact",
+						Multiple: false,
+					},
+				},
+			},
 		},
 	}
 }
