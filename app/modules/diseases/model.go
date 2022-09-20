@@ -18,7 +18,7 @@ type Disease struct {
 type HardcodedDisease struct {
 	ID         int                     `bson:"id" json:"id,omitempty"`
 	Name       string                  `bson:"name" json:"name"`
-	Tests      []string                `bson:"tests" json:"tests"`
+	Tests      map[string][]string     `bson:"tests" json:"tests"`
 	Conditions []map[string]Conditions `bson:"conditions" json:"conditions"`
 }
 
@@ -27,6 +27,7 @@ type Conditions struct {
 	Type     string   `bson:"type" json:"type"`
 	Compare  string   `bson:"compare" json:"compare"`
 	Multiple bool     `bson:"multiple" json:"multiple"`
+	TestCase string   `bson:"testCase,omitempty" json:"testCase,omitempty"`
 }
 
 func (d Disease) meetsCriteria(answers *answers.Result) bool {

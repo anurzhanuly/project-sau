@@ -51,12 +51,23 @@ func (r Repository) addDisease(model Disease) error {
 	return err
 }
 
+/**
+Виды Compare:
+Except - кроме какого-то значения
+Exact - exact value comparison
+Range - between two numeric values
+*/
+
 func (r Repository) getAllHardcodedDiseases() []HardcodedDisease {
 	return []HardcodedDisease{
 		{
-			ID:    2,
-			Name:  "Рак груди",
-			Tests: nil,
+			ID:   2,
+			Name: "Рак груди",
+			Tests: map[string][]string{
+				"1": {"Маммография (каждые 2 года)", "Посещение маммолога раз в год"},
+				"2": {"Маммография и посещение маммолога раз в год"},
+				"3": {"УЗИ молочных желез"},
+			},
 			Conditions: []map[string]Conditions{
 				{
 					"1": {
@@ -64,18 +75,21 @@ func (r Repository) getAllHardcodedDiseases() []HardcodedDisease {
 						Type:     "text",
 						Compare:  "exact",
 						Multiple: false,
+						TestCase: "1",
 					},
 					"2": {
 						Value:    []string{"50", "69"},
 						Type:     "number",
 						Compare:  "range",
 						Multiple: false,
+						TestCase: "1",
 					},
 					"10": {
 						Value:    []string{"нет"},
 						Type:     "text",
 						Compare:  "exact",
 						Multiple: false,
+						TestCase: "1",
 					},
 				},
 				{
@@ -84,24 +98,37 @@ func (r Repository) getAllHardcodedDiseases() []HardcodedDisease {
 						Type:     "text",
 						Compare:  "exact",
 						Multiple: false,
+						TestCase: "2",
 					},
 					"2": {
 						Value:    []string{"40", "49"},
 						Type:     "number",
 						Compare:  "range",
 						Multiple: false,
+						TestCase: "2",
 					},
 					"10": {
 						Value:    []string{"нет"},
 						Type:     "text",
 						Compare:  "exact",
 						Multiple: false,
+						TestCase: "2",
 					},
 					"18": {
 						Value:    []string{"рак груди"},
 						Type:     "text",
 						Compare:  "exact",
 						Multiple: false,
+						TestCase: "2",
+					},
+				},
+				{
+					"49": {
+						Value:    []string{"Ничего"},
+						Type:     "text",
+						Compare:  "except",
+						Multiple: false,
+						TestCase: "3",
 					},
 				},
 			},
