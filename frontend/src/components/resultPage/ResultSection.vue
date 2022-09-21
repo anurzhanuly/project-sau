@@ -1,7 +1,7 @@
 <template>
   <section class="section-result">
-    <h2 class="result-header">Результаты:</h2>
-    <div id="pdf">
+    <div :class="{ hidden: isResults }">
+      <h2 class="result-header">Результаты:</h2>
       <div
         v-for="(resultItem, index) in result"
         :key="index"
@@ -47,30 +47,121 @@
           <p class="result-text">{{ resultItem.importance }}</p>
         </Panel>
       </div>
+      <button
+        class="btn"
+        :class="{ hidden: isHidden }"
+        @click="makeResultPdf()"
+      >
+        Открыть в pdf
+      </button>
+      <button class="btn" :class="{ hidden: isHidden }" @click="openBasic">
+        Получить промокод
+      </button>
+      <button class="btn" :class="{ hidden: isHidden }" @click="makeCardPdf()">
+        Карточка пациента
+      </button>
+      <Dialog
+        header="Скидочный промокод: Симптом"
+        v-model:visible="displayBasic"
+        :style="{ width: '80vw' }"
+      >
+        <DataTable :value="partners" responsiveLayout="scroll">
+          <Column field="name" header="Категория"> </Column>
+          <Column field="company" header="Компания"> </Column>
+          <Column field="address" header="Адрес"> </Column>
+        </DataTable>
+      </Dialog>
     </div>
-    <button class="btn" :class="{ hidden: isHidden }" @click="makePdf()">
-      Открыть в pdf
-    </button>
-    <button class="btn" :class="{ hidden: isHidden }" @click="openBasic">
-      Получить промокод
-    </button>
-    <Dialog
-      header="Скидочный промокод: Симптом"
-      v-model:visible="displayBasic"
-      :style="{ width: '80vw' }"
-    >
-      <DataTable :value="partners" responsiveLayout="scroll">
-        <Column field="name" header="Категория"> </Column>
-        <Column field="company" header="Компания"> </Column>
-        <Column field="address" header="Адрес"> </Column>
-      </DataTable>
-    </Dialog>
+    <div :class="{ hidden: isCard }">
+      <div class="patient-card">
+        <h2 class="result-header">Карточка пациента:</h2>
+        <span>Дата: {{ date.toLocaleDateString() }} г.</span>
+        <span>Возраст: {{ resultAnswers.answers['1'][0] }}</span>
+        <span>Пол: {{ resultAnswers.answers['2'][0] }}</span>
+        <span>Рост: {{ resultAnswers.answers['3'][0] }}</span>
+        <span>Вес: {{ resultAnswers.answers['4'][0] }}</span>
+        <span
+          >ИМТ:
+          {{
+            (
+              resultAnswers.answers['4'][0] /
+                (resultAnswers.answers['3'][0] *
+                  resultAnswers.answers['3'][0]) +
+              ''
+            ).slice(4, 6)
+          }}</span
+        >
+        <span
+          >Давление:
+          {{
+            resultAnswers.answers['10'] ? resultAnswers.answers['10'][0] : '-'
+          }}</span
+        >
+        <span
+          >Жалобы:
+          {{
+            resultAnswers.answers['25']
+              ? resultAnswers.answers['25'].join()
+              : '-'
+          }}</span
+        >
+        <span
+          >Систолическое давление:
+          {{
+            resultAnswers.answers['10'] ? resultAnswers.answers['10'][0] : '-'
+          }}</span
+        >
+        <span
+          >Уровень глюкозы в крови:
+          {{
+            resultAnswers.answers['12'] ? resultAnswers.answers['12'][0] : '-'
+          }}</span
+        >
+        <span
+          >Хронические заболевания:
+          {{
+            resultAnswers.answers['6'] ? resultAnswers.answers['6'].join() : '-'
+          }}</span
+        >
+        <span
+          >Курение:
+          {{
+            resultAnswers.answers['20'] ? resultAnswers.answers['20'][0] : '-'
+          }}</span
+        >
+        <span
+          >Алкоголь:
+          {{
+            resultAnswers.answers['17'] ? resultAnswers.answers['17'][0] : '-'
+          }}</span
+        >
+        <span
+          >Семейные заболевания:
+          {{
+            resultAnswers.answers['8'] ? resultAnswers.answers['8'].join() : '-'
+          }}</span
+        >
+        <span
+          >Уровень физической активности:
+          {{
+            resultAnswers.answers['23'] ? resultAnswers.answers['23'][0] : '-'
+          }}</span
+        >
+        <span
+          >Рацион питания:
+          {{
+            resultAnswers.answers['24'] ? resultAnswers.answers['24'][0] : '-'
+          }}</span
+        >
+      </div>
+    </div>
   </section>
 </template>
 
 <script setup>
 import { useSurveyStore } from '../../stores/survey.js';
 import axios from 'axios';
+import partners from '../../services/partners.js';
 import { ref, onMounted } from 'vue';
 import Panel from 'primevue/panel';
 import Dialog from 'primevue/dialog';
@@ -81,39 +172,14 @@ const surveyStore = useSurveyStore();
 const { resultAnswers } = surveyStore;
 const result = ref(null);
 const isHidden = ref(false);
+const isResults = ref(false);
+const isCard = ref(true);
 const displayBasic = ref(false);
+const date = ref(new Date());
 
 const openBasic = () => {
   displayBasic.value = true;
 };
-
-const partners = ref([
-  {
-    name: 'Лабор. анализы',
-    company: 'Invitro',
-    address: 'Тараз, Айтиева 6/13'
-  },
-  {
-    name: 'Лабор. анализы',
-    company: 'Invitro',
-    address: 'Тараз, Жунисалиева 2'
-  },
-  {
-    name: 'УЗИ',
-    company: 'УЗИ-Центр',
-    address: 'Тараз, Айтиева 6а'
-  },
-  {
-    name: 'УЗИ',
-    company: 'УЗИ-Центр',
-    address: 'Тараз, Жунисалиева 2'
-  },
-  {
-    name: 'УЗИ',
-    company: 'УЗИ-Центр',
-    address: 'Тараз, Айтиева 6/13'
-  }
-]);
 
 onMounted(() => {
   axios
@@ -140,10 +206,22 @@ onMounted(() => {
     });
 });
 
-const makePdf = () => {
+const makeResultPdf = () => {
   isHidden.value = true;
   setTimeout(() => {
     window.print();
+    isHidden.value = false;
+  }, 1);
+};
+
+const makeCardPdf = () => {
+  isCard.value = false;
+  isResults.value = true;
+  isHidden.value = true;
+  setTimeout(() => {
+    window.print();
+    isCard.value = true;
+    isResults.value = false;
     isHidden.value = false;
   }, 1);
 };
@@ -155,7 +233,7 @@ const makePdf = () => {
   border-radius: 5px;
   width: 100%;
   padding: 60px 80px 80px;
-  margin: 40px auto;
+  margin: 0 auto 40px;
   -webkit-box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
   -moz-box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
   box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
@@ -237,15 +315,23 @@ const makePdf = () => {
   display: none;
 }
 
+.patient-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.patient-card span {
+  margin-bottom: 10px;
+}
+
 @media (max-width: 580px) {
   .btn {
     font-size: 14px;
     line-height: 18px;
-    margin: 5px 20px 5px 0;
   }
 
   .section-result {
-    padding: 50px 30px;
+    padding: 30px 20px;
   }
 
   .result-list {
@@ -254,6 +340,10 @@ const makePdf = () => {
 }
 
 @media (max-width: 768px) {
+  .btn {
+    margin: 5px 20px 5px 0;
+  }
+
   .result-title {
     font-size: 12px;
   }

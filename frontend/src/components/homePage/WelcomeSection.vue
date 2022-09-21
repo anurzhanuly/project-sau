@@ -12,7 +12,7 @@
         </RouterLink>
       </div>
     </div>
-    <div class="image-welcome"></div>
+    <!-- <div class="image-welcome"></div> -->
   </section>
 </template>
 
@@ -27,15 +27,15 @@ import { RouterLink } from 'vue-router';
   overflow: hidden;
   position: relative;
   line-height: 1.7;
+  border-radius: 5px;
 }
 
 .section-welcome .section-content {
-  margin: 0 0 20px;
   color: #fff;
   z-index: 2;
   position: relative;
   text-align: center;
-  padding: 50px 32px 0 32px;
+  padding: 50px 32px;
 }
 
 .section-welcome .image-welcome {
