@@ -28,7 +28,7 @@ func NewService(ctx *gin.Context, di *di.DI) *Service {
 }
 
 //GetRecommendations даёт рекомендации опираясь на ответы пользователя по заболеваниям
-func (s Service) GetRecommendations(userAnswer *answers.Result) ([]recommendations.Recommendation, error) {
+func (s Service) GetRecommendations(userAnswer *answers.Result, hardcode bool) ([]recommendations.Recommendation, error) {
 	var err error
 	var result []recommendations.Recommendation
 
