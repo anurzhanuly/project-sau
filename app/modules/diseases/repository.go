@@ -259,5 +259,64 @@ func (r Repository) getAllHardcodedDiseases() []HardcodedDisease {
 				},
 			},
 		},
+		{
+			ID:   4,
+			Name: "Рак шейки матки",
+			Tests: map[string][]string{
+				"1": {"прививка от ВПЧ (комм.: ACS не рекомендует в возрасте старше)"},
+				"2": {"Мазок шейки матки каждые 3 года"},
+				"3": {"Мазок шейки матки каждые 3 года и Мазок шейки матки и ВПЧ тест каждые 5 лет ИЛИ общее обследование раз в 5 лет"},
+			},
+			Conditions: []map[string]Conditions{
+				{
+					"2": {
+						Value:    []string{"26"},
+						Type:     "number",
+						Compare:  "less",
+						Multiple: false,
+						TestCase: "1",
+					},
+					"1": {
+						Value:    []string{"женщина"},
+						Type:     "text",
+						Compare:  "exact",
+						Multiple: false,
+						TestCase: "1",
+					},
+				},
+				{
+					"2": {
+						Value:    []string{"27", "29"},
+						Type:     "number",
+						Compare:  "range",
+						Multiple: false,
+						TestCase: "2",
+					},
+					"1": {
+						Value:    []string{"женщина"},
+						Type:     "text",
+						Compare:  "exact",
+						Multiple: false,
+						TestCase: "2",
+					},
+				},
+				{
+					"2": {
+						Value:    []string{"30", "65"},
+						Type:     "number",
+						Compare:  "range",
+						Multiple: false,
+						TestCase: "3",
+					},
+					"1": {
+						Value:    []string{"женщина"},
+						Type:     "text",
+						Compare:  "exact",
+						Multiple: false,
+						TestCase: "3",
+					},
+				},
+			},
+		},
 	}
 }
