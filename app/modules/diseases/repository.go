@@ -357,5 +357,104 @@ func (r Repository) getAllHardcodedDiseases() []HardcodedDisease {
 				},
 			},
 		},
+		{
+			ID:   7,
+			Name: "Колоректальный рак",
+			Tests: map[string][]string{
+				"1": {
+					"каждый год анализ кала (с использованием гваяковой кислоты или фекального иммунохимического анализа на скрытую кровь)",
+					"Сигмоидоскопия/тотальная колоноскопия каждые 5лет",
+				},
+				"2": {
+					"Тотальная колоноскопия каждые 5лет при нормальном результате",
+				},
+				"3": {
+					"повторная тотальная колоноскопия через 3 года после",
+					"Тотальная колоноскопия каждые 3 года при множественных полипах и каждые 5лет при нормальном результате",
+				},
+			},
+			Conditions: []map[string]Conditions{
+				{
+					"123": {
+						Value:    []string{"Да"},
+						Type:     "text",
+						Compare:  "exact",
+						Multiple: false,
+						TestCase: "1",
+					},
+					"2": {
+						Value:    []string{"60"},
+						Type:     "number",
+						Compare:  "greater",
+						Multiple: false,
+						TestCase: "1",
+					},
+				},
+				{
+					"123": {
+						Value:    []string{"Да"},
+						Type:     "text",
+						Compare:  "exact",
+						Multiple: false,
+						TestCase: "2",
+					},
+					"2": {
+						Value:    []string{"60"},
+						Type:     "number",
+						Compare:  "less",
+						Multiple: false,
+						TestCase: "2",
+					},
+				},
+				{
+					"113": {
+						Value:    []string{"Да"},
+						Type:     "text",
+						Compare:  "exact",
+						Multiple: false,
+						TestCase: "3",
+					},
+					"114": {
+						Value:    []string{"Да"},
+						Type:     "text",
+						Compare:  "exact",
+						Multiple: false,
+						TestCase: "3",
+					},
+					"115": {
+						Value:    []string{"Да"},
+						Type:     "text",
+						Compare:  "exact",
+						Multiple: false,
+						TestCase: "3",
+					},
+					"116": {
+						Value: []string{
+							"1-2 аденомы (<1см)",
+							"3-4 аденомы или хотя бы 1 аденома размером более 1см",
+							"больше 5 аденом/ 3 аденомы размером больше 1см",
+						},
+						Type:     "text",
+						Compare:  "exact",
+						Multiple: true,
+						TestCase: "3",
+					},
+					"117": {
+						Value:    []string{"Да"},
+						Type:     "text",
+						Compare:  "exact",
+						Multiple: false,
+						TestCase: "3",
+					},
+					"118": {
+						Value:    []string{"Да"},
+						Type:     "text",
+						Compare:  "exact",
+						Multiple: false,
+						TestCase: "3",
+					},
+				},
+			},
+		},
 	}
 }
