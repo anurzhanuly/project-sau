@@ -311,10 +311,6 @@ const makeCardPdf = () => {
   opacity: 1;
 }
 
-.hidden {
-  display: none;
-}
-
 .patient-card {
   display: flex;
   flex-direction: column;
@@ -352,5 +348,9 @@ const makeCardPdf = () => {
     flex-direction: column;
     align-items: flex-start;
   }
+}
+
+.hidden {
+  display: none;
 }
 </style>
