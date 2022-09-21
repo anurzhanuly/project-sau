@@ -318,5 +318,44 @@ func (r Repository) getAllHardcodedDiseases() []HardcodedDisease {
 				},
 			},
 		},
+		{
+			ID:   5,
+			Name: "Воспалительное заболевание кишечника",
+			Tests: map[string][]string{
+				"1": {"эндоскопическое наблюдение через 1-2 года"},
+			},
+			Conditions: []map[string]Conditions{
+				{
+					"12": {
+						Value:    []string{"Воспалительное заболевание кишечника (ВЗК)"},
+						Type:     "text",
+						Compare:  "exact",
+						Multiple: false,
+						TestCase: "1",
+					},
+					"120": {
+						Value:    []string{">10 лет назад"},
+						Type:     "text",
+						Compare:  "exact",
+						Multiple: false,
+						TestCase: "1",
+					},
+					"121": {
+						Value:    []string{"да"},
+						Type:     "text",
+						Compare:  "exact",
+						Multiple: false,
+						TestCase: "1",
+					},
+					"122": {
+						Value:    []string{"поражения или новообразования, связанные с дисплазией"},
+						Type:     "text",
+						Compare:  "exact",
+						Multiple: false,
+						TestCase: "1",
+					},
+				},
+			},
+		},
 	}
 }
