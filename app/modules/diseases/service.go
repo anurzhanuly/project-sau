@@ -37,6 +37,18 @@ func (s Service) GetRecommendations(userAnswer *answers.Result, hardcode bool) (
 		return result, err
 	}
 
+	if hardcode {
+		diseases := s.repository.getAllHardcodedDiseases()
+
+		for _, disease := range diseases {
+			if disease.meetsHardcodedCriteria(userAnswer) {
+
+			}
+		}
+
+		return result, nil
+	}
+
 	diseases, err := s.repository.getAllDiseases()
 	if err != nil {
 		return result, err

@@ -7,22 +7,22 @@ import (
 )
 
 type Disease struct {
-	ID              int                   `bson:"id" json:"id,omitempty"`
-	Name            string                `bson:"name" json:"name"`
-	Tests           []string              `bson:"tests" json:"tests"`
-	Recommendations []string              `bson:"recommendations" json:"recommendations"`
-	Importance      string                `bson:"importance" json:"importance"`
-	Conditions      map[string]Conditions `bson:"conditions" json:"conditions"`
+	ID              int                  `bson:"id" json:"id,omitempty"`
+	Name            string               `bson:"name" json:"name"`
+	Tests           []string             `bson:"tests" json:"tests"`
+	Recommendations []string             `bson:"recommendations" json:"recommendations"`
+	Importance      string               `bson:"importance" json:"importance"`
+	Conditions      map[string]Condition `bson:"conditions" json:"conditions"`
 }
 
 type HardcodedDisease struct {
-	ID         int                     `bson:"id" json:"id,omitempty"`
-	Name       string                  `bson:"name" json:"name"`
-	Tests      map[string][]string     `bson:"tests" json:"tests"`
-	Conditions []map[string]Conditions `bson:"conditions" json:"conditions"`
+	ID         int                    `bson:"id" json:"id,omitempty"`
+	Name       string                 `bson:"name" json:"name"`
+	Tests      map[string][]string    `bson:"tests" json:"tests"`
+	Conditions []map[string]Condition `bson:"conditions" json:"conditions"`
 }
 
-type Conditions struct {
+type Condition struct {
 	Value    []string `bson:"value" json:"value"`
 	Type     string   `bson:"type" json:"type"`
 	Compare  string   `bson:"compare" json:"compare"`
@@ -44,7 +44,7 @@ func (d Disease) meetsCriteria(answers *answers.Result) bool {
 	return true
 }
 
-func isConditionMet(answer []string, conditions Conditions) bool {
+func isConditionMet(answer []string, conditions Condition) bool {
 	userValue := answer[0]
 	conditionValue := conditions.Value[0]
 
@@ -91,4 +91,25 @@ func isConditionMet(answer []string, conditions Conditions) bool {
 	}
 
 	return userValue == conditionValue
+}
+
+func (hd HardcodedDisease) meetsHardcodedCriteria(answers *answers.Result) bool {
+	for _, conditions := range hd.Conditions {
+		for key, condition := range conditions {
+			answer, keyExists := answers.Answers[key]
+
+			if keyExists && isHardcodedConditionMet(answer, condition) {
+				continue
+			}
+		}
+
+		return false
+	}
+
+	return true
+}
+
+func isHardcodedConditionMet(answers []string, conditions Condition) bool {
+
+	return false
 }
