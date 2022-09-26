@@ -2,19 +2,19 @@ package products
 
 import "anurzhanuly/project-sau/app/modules/diseases"
 
-type Number struct {
+type Exact struct {
 	UserAnswer       []string
-	DiseaseCondition diseases.Conditions
+	DiseaseCondition diseases.Condition
 }
 
-func (n Number) DoesMatch() bool {
+func (n Exact) DoesMatch() bool {
 	return false
 }
 
-func (n *Number) SetUserAnswer(answer []string) {
+func (n *Exact) SetUserAnswer(answer []string) {
 	n.UserAnswer = answer
 }
 
-func (n *Number) SetCondition(conditions diseases.Conditions) {
+func (n *Exact) SetCondition(conditions diseases.Condition) {
 	n.DiseaseCondition = conditions
 }
