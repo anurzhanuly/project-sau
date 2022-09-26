@@ -8,6 +8,10 @@ type Exact struct {
 }
 
 func (n Exact) DoesMatch() bool {
+	return doesMatch()
+}
+
+func doesMatch() bool {
 	return false
 }
 
