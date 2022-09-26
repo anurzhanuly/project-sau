@@ -51,16 +51,6 @@ func (r Repository) addDisease(model Disease) error {
 	return err
 }
 
-/**
-Виды Compare:
-Except - кроме какого-то значения
-Exact - exact value comparison
-Range - between two numeric values
-Less - less than a given value
-Greater - greater than a given value
-Optional - one of a given cases should match
-*/
-
 func (r Repository) getAllHardcodedDiseases() []HardcodedDisease {
 	return []HardcodedDisease{
 		{
