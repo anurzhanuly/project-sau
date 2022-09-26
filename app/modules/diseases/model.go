@@ -2,6 +2,7 @@ package diseases
 
 import (
 	"anurzhanuly/project-sau/app/modules/answers"
+	"anurzhanuly/project-sau/app/modules/comparator/factory"
 	"reflect"
 	"strconv"
 )
@@ -96,9 +97,12 @@ func isConditionMet(answer []string, conditions Condition) bool {
 func (hd HardcodedDisease) meetsHardcodedCriteria(answers *answers.Result) bool {
 	for _, conditions := range hd.Conditions {
 		for key, condition := range conditions {
+			comparator := factory.GetAnswersComparator(condition)
 			answer, keyExists := answers.Answers[key]
+			comparator.SetUserAnswer(answer)
+			comparator.SetCondition(condition)
 
-			if keyExists && isHardcodedConditionMet(answer, condition) {
+			if keyExists && comparator.DoesMatch() {
 				continue
 			}
 		}
@@ -107,9 +111,4 @@ func (hd HardcodedDisease) meetsHardcodedCriteria(answers *answers.Result) bool 
 	}
 
 	return true
-}
-
-func isHardcodedConditionMet(answers []string, conditions Condition) bool {
-
-	return false
 }
