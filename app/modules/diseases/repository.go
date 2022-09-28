@@ -55,6 +55,29 @@ func (r Repository) addDisease(model Disease) error {
 func (r Repository) getAllHardcodedDiseases() []HardcodedDisease {
 	return []HardcodedDisease{
 		{
+			ID:   16,
+			Name: "Гепатиты",
+			Tests: map[string][]string{
+				"1": {
+					"HBsAg",
+					"anti-HCV",
+					"вакцинация против Гепатита B",
+					"anti-HIV",
+				},
+			},
+			Conditions: []map[string]data.Condition{
+				{
+					"84": {
+						Value:    []string{"Не отношусь ни к одной из описанных групп"},
+						Type:     "text",
+						Compare:  "except",
+						Multiple: true,
+						TestCase: "1",
+					},
+				},
+			},
+		},
+		{
 			ID:   4,
 			Name: "Рак шейки матки",
 			Tests: map[string][]string{
@@ -521,29 +544,6 @@ func (r Repository) getAllHardcodedDiseases() []HardcodedDisease {
 						Compare:  "exact",
 						Multiple: false,
 						TestCase: "5",
-					},
-				},
-			},
-		},
-		{
-			ID:   16,
-			Name: "Гепатиты",
-			Tests: map[string][]string{
-				"1": {
-					"HBsAg",
-					"anti-HCV",
-					"вакцинация против Гепатита B",
-					"anti-HIV",
-				},
-			},
-			Conditions: []map[string]data.Condition{
-				{
-					"84": {
-						Value:    []string{"Не отношусь ни к одной из описанных групп"},
-						Type:     "text",
-						Compare:  "except",
-						Multiple: false,
-						TestCase: "1",
 					},
 				},
 			},

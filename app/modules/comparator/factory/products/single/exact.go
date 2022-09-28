@@ -1,4 +1,4 @@
-package products
+package single
 
 import (
 	"anurzhanuly/project-sau/app/modules/data"
