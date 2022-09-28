@@ -68,6 +68,29 @@ func (r Repository) getAllHardcodedDiseases() []HardcodedDisease {
 			Conditions: []map[string]data.Condition{
 				{
 					"84": {
+						Value:    []string{"12", "65"},
+						Type:     "number",
+						Compare:  "range",
+						Multiple: false,
+						TestCase: "1",
+					},
+				},
+			},
+		},
+		{
+			ID:   16,
+			Name: "Гепатиты",
+			Tests: map[string][]string{
+				"1": {
+					"HBsAg",
+					"anti-HCV",
+					"вакцинация против Гепатита B",
+					"anti-HIV",
+				},
+			},
+			Conditions: []map[string]data.Condition{
+				{
+					"84": {
 						Value:    []string{"Не отношусь ни к одной из описанных групп"},
 						Type:     "text",
 						Compare:  "except",

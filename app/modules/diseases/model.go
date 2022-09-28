@@ -4,6 +4,7 @@ import (
 	"anurzhanuly/project-sau/app/modules/answers"
 	"anurzhanuly/project-sau/app/modules/comparator/factory"
 	"anurzhanuly/project-sau/app/modules/data"
+	"fmt"
 	"reflect"
 	"strconv"
 )
@@ -96,7 +97,7 @@ func (hd HardcodedDisease) meetsHardcodedCriteria(answers *answers.Result) bool 
 			comparator.SetCondition(condition)
 
 			if keyExists && comparator.DoesMatch() {
-				continue
+				fmt.Println("KRASAVA")
 			}
 		}
 

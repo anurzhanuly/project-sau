@@ -14,8 +14,10 @@ func (s Single) GetComparator() Comparator {
 		return &single.Exact{}
 	} else if s.CompareType == data.LESS_TYPE {
 		return &single.Less{}
-	} else if s.CompareType == data.LESS_TYPE {
+	} else if s.CompareType == data.GREATER_TYPE {
 		return &single.Greater{}
+	} else if s.CompareType == data.RANGE_TYPE {
+		return &single.Range{}
 	}
 
 	return &Empty{}
