@@ -2,14 +2,14 @@ package factory
 
 import (
 	"anurzhanuly/project-sau/app/modules/comparator/factory/products"
-	"anurzhanuly/project-sau/app/modules/diseases"
+	"anurzhanuly/project-sau/app/modules/diseases/settings"
 )
 
 type ComparatorFactory interface {
 	GetComparator() products.Comparator
 }
 
-func GetAnswersComparator(condition diseases.Condition) products.Comparator {
+func GetAnswersComparator(condition settings.Model) products.Comparator {
 	if condition.Multiple {
 		multi := products.Multi{CompareType: condition.Compare}
 

@@ -1,10 +1,12 @@
 package products
 
-import "anurzhanuly/project-sau/app/modules/diseases"
+import (
+	"anurzhanuly/project-sau/app/modules/diseases/settings"
+)
 
 type Empty struct {
 	UserAnswer       []string
-	DiseaseCondition diseases.Condition
+	DiseaseCondition settings.Model
 }
 
 func (n Empty) DoesMatch() bool {
@@ -15,6 +17,6 @@ func (n *Empty) SetUserAnswer(answer []string) {
 	n.UserAnswer = answer
 }
 
-func (n *Empty) SetCondition(conditions diseases.Condition) {
+func (n *Empty) SetCondition(conditions settings.Model) {
 	n.DiseaseCondition = conditions
 }

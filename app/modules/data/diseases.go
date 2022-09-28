@@ -1,4 +1,4 @@
-package diseases
+package data
 
 /**
 Виды Compare:

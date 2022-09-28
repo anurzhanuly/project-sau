@@ -1,13 +1,15 @@
 package products
 
-import "anurzhanuly/project-sau/app/modules/diseases"
+import (
+	"anurzhanuly/project-sau/app/modules/data"
+)
 
 type Single struct {
 	CompareType string
 }
 
 func (s Single) GetComparator() Comparator {
-	if s.CompareType == diseases.EXACT_TYPE {
+	if s.CompareType == data.EXACT_TYPE {
 		return &MultiExact{}
 	}
 

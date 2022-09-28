@@ -1,10 +1,12 @@
 package products
 
-import "anurzhanuly/project-sau/app/modules/diseases"
+import (
+	"anurzhanuly/project-sau/app/modules/diseases/settings"
+)
 
 type Exact struct {
 	UserAnswer       []string
-	DiseaseCondition diseases.Condition
+	DiseaseCondition settings.Model
 }
 
 func (n Exact) DoesMatch() bool {
@@ -19,6 +21,6 @@ func (n *Exact) SetUserAnswer(answer []string) {
 	n.UserAnswer = answer
 }
 
-func (n *Exact) SetCondition(conditions diseases.Condition) {
+func (n *Exact) SetCondition(conditions settings.Model) {
 	n.DiseaseCondition = conditions
 }
