@@ -1,6 +1,6 @@
 <template>
   <section class="section-result">
-    <div :class="{ hidden: isResults }">
+    <div v-show="isResults">
       <h2 class="result-header">Результаты:</h2>
       <div
         v-for="(resultItem, index) in result"
@@ -47,17 +47,13 @@
           <p class="result-text">{{ resultItem.importance }}</p>
         </Panel>
       </div>
-      <button
-        class="btn"
-        :class="{ hidden: isHidden }"
-        @click="makeResultPdf()"
-      >
+      <button class="btn" v-show="isHidden" @click="makeResultPdf()">
         Открыть в pdf
       </button>
-      <button class="btn" :class="{ hidden: isHidden }" @click="openBasic">
+      <button class="btn" v-show="isHidden" @click="openBasic">
         Получить промокод
       </button>
-      <button class="btn" :class="{ hidden: isHidden }" @click="makeCardPdf()">
+      <button class="btn" v-show="isHidden" @click="makeCardPdf()">
         Карточка пациента
       </button>
       <Dialog
@@ -72,89 +68,7 @@
         </DataTable>
       </Dialog>
     </div>
-    <div :class="{ hidden: isCard }">
-      <div class="patient-card">
-        <h2 class="result-header">Карточка пациента:</h2>
-        <span>Дата: {{ date.toLocaleDateString() }} г.</span>
-        <span>Возраст: {{ resultAnswers.answers['1'][0] }}</span>
-        <span>Пол: {{ resultAnswers.answers['2'][0] }}</span>
-        <span>Рост: {{ resultAnswers.answers['3'][0] }}</span>
-        <span>Вес: {{ resultAnswers.answers['4'][0] }}</span>
-        <span
-          >ИМТ:
-          {{
-            (
-              resultAnswers.answers['4'][0] /
-                (resultAnswers.answers['3'][0] *
-                  resultAnswers.answers['3'][0]) +
-              ''
-            ).slice(4, 6)
-          }}</span
-        >
-        <span
-          >Давление:
-          {{
-            resultAnswers.answers['10'] ? resultAnswers.answers['10'][0] : '-'
-          }}</span
-        >
-        <span
-          >Жалобы:
-          {{
-            resultAnswers.answers['25']
-              ? resultAnswers.answers['25'].join()
-              : '-'
-          }}</span
-        >
-        <span
-          >Систолическое давление:
-          {{
-            resultAnswers.answers['10'] ? resultAnswers.answers['10'][0] : '-'
-          }}</span
-        >
-        <span
-          >Уровень глюкозы в крови:
-          {{
-            resultAnswers.answers['12'] ? resultAnswers.answers['12'][0] : '-'
-          }}</span
-        >
-        <span
-          >Хронические заболевания:
-          {{
-            resultAnswers.answers['6'] ? resultAnswers.answers['6'].join() : '-'
-          }}</span
-        >
-        <span
-          >Курение:
-          {{
-            resultAnswers.answers['20'] ? resultAnswers.answers['20'][0] : '-'
-          }}</span
-        >
-        <span
-          >Алкоголь:
-          {{
-            resultAnswers.answers['17'] ? resultAnswers.answers['17'][0] : '-'
-          }}</span
-        >
-        <span
-          >Семейные заболевания:
-          {{
-            resultAnswers.answers['8'] ? resultAnswers.answers['8'].join() : '-'
-          }}</span
-        >
-        <span
-          >Уровень физической активности:
-          {{
-            resultAnswers.answers['23'] ? resultAnswers.answers['23'][0] : '-'
-          }}</span
-        >
-        <span
-          >Рацион питания:
-          {{
-            resultAnswers.answers['24'] ? resultAnswers.answers['24'][0] : '-'
-          }}</span
-        >
-      </div>
-    </div>
+    <PatientCard v-show="isCard" />
   </section>
 </template>
 
@@ -167,15 +81,15 @@ import Panel from 'primevue/panel';
 import Dialog from 'primevue/dialog';
 import DataTable from 'primevue/datatable';
 import Column from 'primevue/column';
+import PatientCard from './PatientCard.vue';
 
 const surveyStore = useSurveyStore();
 const { resultAnswers } = surveyStore;
 const result = ref(null);
-const isHidden = ref(false);
-const isResults = ref(false);
-const isCard = ref(true);
+const isHidden = ref(true);
+const isResults = ref(true);
+const isCard = ref(false);
 const displayBasic = ref(false);
-const date = ref(new Date());
 
 const openBasic = () => {
   displayBasic.value = true;
@@ -207,22 +121,22 @@ onMounted(() => {
 });
 
 const makeResultPdf = () => {
-  isHidden.value = true;
+  isHidden.value = false;
   setTimeout(() => {
     window.print();
-    isHidden.value = false;
+    isHidden.value = true;
   }, 1);
 };
 
 const makeCardPdf = () => {
-  isCard.value = false;
-  isResults.value = true;
-  isHidden.value = true;
+  isCard.value = true;
+  isResults.value = false;
+  isHidden.value = false;
   setTimeout(() => {
     window.print();
-    isCard.value = true;
-    isResults.value = false;
-    isHidden.value = false;
+    isCard.value = false;
+    isResults.value = true;
+    isHidden.value = true;
   }, 1);
 };
 </script>
@@ -309,15 +223,6 @@ const makeCardPdf = () => {
   color: #dddddd;
   cursor: not-allowed;
   opacity: 1;
-}
-
-.patient-card {
-  display: flex;
-  flex-direction: column;
-}
-
-.patient-card span {
-  margin-bottom: 10px;
 }
 
 @media (max-width: 580px) {
