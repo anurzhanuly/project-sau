@@ -1,6 +1,6 @@
-package settings
+package data
 
-type Model struct {
+type Condition struct {
 	Value    []string `bson:"value" json:"value"`
 	Type     string   `bson:"type" json:"type"`
 	Compare  string   `bson:"compare" json:"compare"`

@@ -1,11 +1,11 @@
 package products
 
 import (
-	"anurzhanuly/project-sau/app/modules/diseases/settings"
+	"anurzhanuly/project-sau/app/modules/data"
 )
 
 type Comparator interface {
 	DoesMatch() bool
 	SetUserAnswer([]string)
-	SetCondition(conditions settings.Model)
+	SetCondition(conditions data.Condition)
 }

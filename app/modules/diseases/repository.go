@@ -1,7 +1,7 @@
 package diseases
 
 import (
-	"anurzhanuly/project-sau/app/modules/diseases/settings"
+	"anurzhanuly/project-sau/app/modules/data"
 	"context"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
@@ -62,7 +62,7 @@ func (r Repository) getAllHardcodedDiseases() []HardcodedDisease {
 				"2": {"Маммография и посещение маммолога раз в год"},
 				"3": {"УЗИ молочных желез"},
 			},
-			Conditions: []map[string]settings.Model{
+			Conditions: []map[string]data.Condition{
 				{
 					"1": {
 						Value:    []string{"Женщина"},
@@ -147,7 +147,7 @@ func (r Repository) getAllHardcodedDiseases() []HardcodedDisease {
 					"Бросить курить",
 				},
 			},
-			Conditions: []map[string]settings.Model{
+			Conditions: []map[string]data.Condition{
 				{
 					"2": {
 						Value:    []string{"65"},
@@ -258,7 +258,7 @@ func (r Repository) getAllHardcodedDiseases() []HardcodedDisease {
 				"2": {"Мазок шейки матки каждые 3 года"},
 				"3": {"Мазок шейки матки каждые 3 года и Мазок шейки матки и ВПЧ тест каждые 5 лет ИЛИ общее обследование раз в 5 лет"},
 			},
-			Conditions: []map[string]settings.Model{
+			Conditions: []map[string]data.Condition{
 				{
 					"2": {
 						Value:    []string{"26"},
@@ -315,7 +315,7 @@ func (r Repository) getAllHardcodedDiseases() []HardcodedDisease {
 			Tests: map[string][]string{
 				"1": {"эндоскопическое наблюдение через 1-2 года"},
 			},
-			Conditions: []map[string]settings.Model{
+			Conditions: []map[string]data.Condition{
 				{
 					"12": {
 						Value:    []string{"Воспалительное заболевание кишечника (ВЗК)"},
@@ -364,7 +364,7 @@ func (r Repository) getAllHardcodedDiseases() []HardcodedDisease {
 					"Тотальная колоноскопия каждые 3 года при множественных полипах и каждые 5лет при нормальном результате",
 				},
 			},
-			Conditions: []map[string]settings.Model{
+			Conditions: []map[string]data.Condition{
 				{
 					"123": {
 						Value:    []string{"Да"},
@@ -463,7 +463,7 @@ func (r Repository) getAllHardcodedDiseases() []HardcodedDisease {
 					"Тотальная колоноскопия каждые 3 года при множественных полипах и каждые 5лет при нормальном результате",
 				},
 			},
-			Conditions: []map[string]settings.Model{
+			Conditions: []map[string]data.Condition{
 				{
 					"123": {
 						Value:    []string{"Да"},

@@ -3,7 +3,7 @@ package diseases
 import (
 	"anurzhanuly/project-sau/app/modules/answers"
 	"anurzhanuly/project-sau/app/modules/comparator/factory"
-	"anurzhanuly/project-sau/app/modules/diseases/settings"
+	"anurzhanuly/project-sau/app/modules/data"
 	"reflect"
 	"strconv"
 )
@@ -14,14 +14,14 @@ type Disease struct {
 	Tests           []string                  `bson:"tests" json:"tests"`
 	Recommendations []string                  `bson:"recommendations" json:"recommendations"`
 	Importance      string                    `bson:"importance" json:"importance"`
-	Conditions      map[string]settings.Model `bson:"conditions" json:"conditions"`
+	Conditions      map[string]data.Condition `bson:"conditions" json:"conditions"`
 }
 
 type HardcodedDisease struct {
 	ID         int                         `bson:"id" json:"id,omitempty"`
 	Name       string                      `bson:"name" json:"name"`
 	Tests      map[string][]string         `bson:"tests" json:"tests"`
-	Conditions []map[string]settings.Model `bson:"conditions" json:"conditions"`
+	Conditions []map[string]data.Condition `bson:"conditions" json:"conditions"`
 }
 
 func (d Disease) meetsCriteria(answers *answers.Result) bool {
@@ -38,7 +38,7 @@ func (d Disease) meetsCriteria(answers *answers.Result) bool {
 	return true
 }
 
-func isConditionMet(answer []string, conditions settings.Model) bool {
+func isConditionMet(answer []string, conditions data.Condition) bool {
 	userValue := answer[0]
 	conditionValue := conditions.Value[0]
 

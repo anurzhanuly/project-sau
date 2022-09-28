@@ -1,12 +1,12 @@
 package products
 
 import (
-	"anurzhanuly/project-sau/app/modules/diseases/settings"
+	"anurzhanuly/project-sau/app/modules/data"
 )
 
 type MultiExact struct {
 	UserAnswer       []string
-	DiseaseCondition settings.Model
+	DiseaseCondition data.Condition
 }
 
 func (e MultiExact) DoesMatch() bool {
@@ -21,6 +21,6 @@ func (e *MultiExact) SetUserAnswer(answer []string) {
 	e.UserAnswer = answer
 }
 
-func (e *MultiExact) SetCondition(conditions settings.Model) {
+func (e *MultiExact) SetCondition(conditions data.Condition) {
 	e.DiseaseCondition = conditions
 }
