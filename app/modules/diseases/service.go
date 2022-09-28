@@ -3,7 +3,7 @@ package diseases
 import (
 	"anurzhanuly/project-sau/app/di"
 	"anurzhanuly/project-sau/app/modules/answers"
-	"anurzhanuly/project-sau/app/modules/recommendations"
+	"anurzhanuly/project-sau/app/modules/data"
 	"encoding/json"
 	"github.com/gin-gonic/gin"
 )
@@ -28,9 +28,9 @@ func NewService(ctx *gin.Context, di *di.DI) *Service {
 }
 
 //GetRecommendations даёт рекомендации опираясь на ответы пользователя по заболеваниям
-func (s Service) GetRecommendations(userAnswer *answers.Result, hardcode bool) ([]recommendations.Recommendation, error) {
+func (s Service) GetRecommendations(userAnswer *answers.Result, hardcode bool) ([]data.Recommendation, error) {
 	var err error
-	var result []recommendations.Recommendation
+	var result []data.Recommendation
 
 	err = s.Context.BindJSON(userAnswer)
 	if err != nil {
@@ -56,7 +56,7 @@ func (s Service) GetRecommendations(userAnswer *answers.Result, hardcode bool) (
 
 	for _, disease := range diseases {
 		if disease.meetsCriteria(userAnswer) {
-			recommendation := recommendations.Recommendation{
+			recommendation := data.Recommendation{
 				Name:            disease.Name,
 				Recommendations: disease.Recommendations,
 				Tests:           disease.Tests,

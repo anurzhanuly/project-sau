@@ -1,4 +1,4 @@
-package recommendations
+package data
 
 type Recommendation struct {
 	Name            string   `bson:"name" json:"name"`

@@ -16,7 +16,7 @@ const (
 	EXACT_TYPE = "exact"
 
 	// EXCEPT_TYPE кроме какого-то значения
-	EXCEPT_TYPE = "Except"
+	EXCEPT_TYPE = "except"
 
 	// LESS_TYPE less than a given value
 	LESS_TYPE = "less"
