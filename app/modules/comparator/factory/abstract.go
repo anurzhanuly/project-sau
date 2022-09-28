@@ -16,7 +16,7 @@ func GetAnswersComparator(condition data.Condition) products.Comparator {
 		return multi.GetComparator()
 	}
 
-	single := products.Single{}
+	single := products.Single{CompareType: condition.Compare}
 
 	return single.GetComparator()
 }
