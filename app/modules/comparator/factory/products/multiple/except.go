@@ -8,11 +8,15 @@ type Except struct {
 }
 
 func (e Except) DoesMatch() bool {
-	return e.doesMatch()
-}
+	for _, conditionValue := range e.DiseaseCondition.Value {
+		for _, answer := range e.UserAnswer {
+			if answer == conditionValue {
+				return false
+			}
+		}
+	}
 
-func (e Except) doesMatch() bool {
-	return false
+	return true
 }
 
 func (e *Except) SetUserAnswer(answer []string) {
