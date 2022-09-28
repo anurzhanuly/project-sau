@@ -1,20 +1,33 @@
 package single
 
-import "anurzhanuly/project-sau/app/modules/data"
+import (
+	"anurzhanuly/project-sau/app/modules/data"
+	"strconv"
+)
 
 type Greater struct {
 	UserAnswer       []string
 	DiseaseCondition data.Condition
 }
 
-func (n Greater) DoesMatch() bool {
-	return false
+func (g Greater) DoesMatch() bool {
+	compareValue, err := strconv.Atoi(g.DiseaseCondition.Value[0])
+	if err != nil {
+
+	}
+
+	userAnswer, err := strconv.Atoi(g.UserAnswer[0])
+	if err != nil {
+
+	}
+
+	return userAnswer >= compareValue
 }
 
-func (n *Greater) SetUserAnswer(answer []string) {
-	n.UserAnswer = answer
+func (g *Greater) SetUserAnswer(answer []string) {
+	g.UserAnswer = answer
 }
 
-func (n *Greater) SetCondition(conditions data.Condition) {
-	n.DiseaseCondition = conditions
+func (g *Greater) SetCondition(conditions data.Condition) {
+	g.DiseaseCondition = conditions
 }
