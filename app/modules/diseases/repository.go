@@ -55,202 +55,6 @@ func (r Repository) addDisease(model Disease) error {
 func (r Repository) getAllHardcodedDiseases() []HardcodedDisease {
 	return []HardcodedDisease{
 		{
-			ID:   2,
-			Name: "Рак груди",
-			Tests: map[string][]string{
-				"1": {"Маммография (каждые 2 года)", "Посещение маммолога раз в год"},
-				"2": {"Маммография и посещение маммолога раз в год"},
-				"3": {"УЗИ молочных желез"},
-			},
-			Conditions: []map[string]data.Condition{
-				{
-					"1": {
-						Value:    []string{"Женщина"},
-						Type:     "text",
-						Compare:  "exact",
-						Multiple: false,
-						TestCase: "1",
-					},
-					"2": {
-						Value:    []string{"50", "69"},
-						Type:     "number",
-						Compare:  "range",
-						Multiple: false,
-						TestCase: "1",
-					},
-					"10": {
-						Value:    []string{"нет"},
-						Type:     "text",
-						Compare:  "exact",
-						Multiple: false,
-						TestCase: "1",
-					},
-				},
-				{
-					"1": {
-						Value:    []string{"Женщина"},
-						Type:     "text",
-						Compare:  "exact",
-						Multiple: false,
-						TestCase: "2",
-					},
-					"2": {
-						Value:    []string{"40", "49"},
-						Type:     "number",
-						Compare:  "range",
-						Multiple: false,
-						TestCase: "2",
-					},
-					"10": {
-						Value:    []string{"нет"},
-						Type:     "text",
-						Compare:  "exact",
-						Multiple: false,
-						TestCase: "2",
-					},
-					"18": {
-						Value:    []string{"рак груди"},
-						Type:     "text",
-						Compare:  "exact",
-						Multiple: false,
-						TestCase: "2",
-					},
-				},
-				{
-					"49": {
-						Value:    []string{"Ничего"},
-						Type:     "text",
-						Compare:  "except",
-						Multiple: false,
-						TestCase: "3",
-					},
-				},
-			},
-		},
-		{
-			ID:   3,
-			Name: "Инсульт",
-			Tests: map[string][]string{
-				"1": {
-					"Контролировать артериальное давление на уровне <140/90",
-					"Поддерживать рекомендуемый уровень холестерина ЛПНП <160 мг/дл (4,15 ммоль/л)",
-					"Заниматься физической активностью умеренной интенсивности не менее 30 минут в день (ходьба, бег или другие виды спорта)",
-					"Уменьшить употребление алкоголя",
-					"Бросить курить",
-					"Скрининг на Фибриляцию предсердий в пунктах первичной медико-санитарной помощи путем оценки пульса с последующей ЭКГ",
-				},
-				"2": {
-					"Контролировать артериальное давление на уровне <140/90",
-					"Поддерживать рекомендуемый уровень холестерина ЛПНП <160 мг/дл (4,15 ммоль/л)",
-					"Заниматься физической активностью умеренной интенсивности не менее 30 минут в день (ходьба, бег или другие виды спорта)",
-					"Уменьшить употребление алкоголя",
-					"Бросить курить",
-				},
-			},
-			Conditions: []map[string]data.Condition{
-				{
-					"2": {
-						Value:    []string{"65"},
-						Type:     "number",
-						Compare:  "greater",
-						Multiple: false,
-						TestCase: "1",
-					},
-					"5": {
-						Value:    []string{"25"},
-						Type:     "number",
-						Compare:  "greater",
-						Multiple: false,
-						TestCase: "1",
-					},
-					"12": {
-						Value: []string{
-							"повышенное давление",
-							"атеросклероз",
-							"Сахарный диабет",
-							"Перенесенный инсульт",
-							"Фибрилляция предсердий",
-						},
-						Type:     "text",
-						Compare:  "optional",
-						Multiple: true,
-						TestCase: "1",
-					},
-					"20": {
-						Value:    []string{"да"},
-						Type:     "text",
-						Compare:  "exact",
-						Multiple: false,
-						TestCase: "1",
-					},
-					"23": {
-						Value:    []string{"да"},
-						Type:     "text",
-						Compare:  "exact",
-						Multiple: false,
-						TestCase: "1",
-					},
-					"24": {
-						Value:    []string{"8-14"},
-						Type:     "text",
-						Compare:  "exact",
-						Multiple: false,
-						TestCase: "1",
-					},
-				},
-				{
-					"2": {
-						Value:    []string{"65"},
-						Type:     "number",
-						Compare:  "less",
-						Multiple: false,
-						TestCase: "2",
-					},
-					"5": {
-						Value:    []string{"25"},
-						Type:     "number",
-						Compare:  "greater",
-						Multiple: false,
-						TestCase: "2",
-					},
-					"12": {
-						Value: []string{
-							"повышенное давление",
-							"атеросклероз",
-							"Сахарный диабет",
-							"Перенесенный инсульт",
-							"Фибрилляция предсердий",
-						},
-						Type:     "text",
-						Compare:  "optional",
-						Multiple: true,
-						TestCase: "2",
-					},
-					"20": {
-						Value:    []string{"да"},
-						Type:     "text",
-						Compare:  "exact",
-						Multiple: false,
-						TestCase: "2",
-					},
-					"23": {
-						Value:    []string{"да"},
-						Type:     "text",
-						Compare:  "exact",
-						Multiple: false,
-						TestCase: "2",
-					},
-					"24": {
-						Value:    []string{"8-14"},
-						Type:     "text",
-						Compare:  "exact",
-						Multiple: false,
-						TestCase: "2",
-					},
-				},
-			},
-		},
-		{
 			ID:   4,
 			Name: "Рак шейки матки",
 			Tests: map[string][]string{
@@ -542,6 +346,601 @@ func (r Repository) getAllHardcodedDiseases() []HardcodedDisease {
 						Compare:  "exact",
 						Multiple: false,
 						TestCase: "3",
+					},
+				},
+			},
+		},
+		{
+			ID:   2,
+			Name: "Рак груди",
+			Tests: map[string][]string{
+				"1": {"Маммография (каждые 2 года)", "Посещение маммолога раз в год"},
+				"2": {"Маммография и посещение маммолога раз в год"},
+				"3": {"УЗИ молочных желез"},
+			},
+			Conditions: []map[string]data.Condition{
+				{
+					"1": {
+						Value:    []string{"Женщина"},
+						Type:     "text",
+						Compare:  "exact",
+						Multiple: false,
+						TestCase: "1",
+					},
+					"2": {
+						Value:    []string{"50", "69"},
+						Type:     "number",
+						Compare:  "range",
+						Multiple: false,
+						TestCase: "1",
+					},
+					"10": {
+						Value:    []string{"Нет"},
+						Type:     "text",
+						Compare:  "exact",
+						Multiple: false,
+						TestCase: "1",
+					},
+				},
+				{
+					"1": {
+						Value:    []string{"Женщина"},
+						Type:     "text",
+						Compare:  "exact",
+						Multiple: false,
+						TestCase: "2",
+					},
+					"2": {
+						Value:    []string{"40", "49"},
+						Type:     "number",
+						Compare:  "range",
+						Multiple: false,
+						TestCase: "2",
+					},
+					"10": {
+						Value:    []string{"Нет"},
+						Type:     "text",
+						Compare:  "exact",
+						Multiple: false,
+						TestCase: "2",
+					},
+					"20": {
+						Value:    []string{"Рак молочных желез"},
+						Type:     "text",
+						Compare:  "exact",
+						Multiple: false,
+						TestCase: "2",
+					},
+				},
+				{
+					"49": {
+						Value:    []string{""},
+						Type:     "text",
+						Compare:  "except",
+						Multiple: false,
+						TestCase: "3",
+					},
+				},
+			},
+		},
+		{
+			ID:   3,
+			Name: "Инсульт",
+			Tests: map[string][]string{
+				"1": {
+					"Контролировать артериальное давление на уровне <140/90",
+				},
+				"2": {
+					"Поддерживать рекомендуемый уровень холестерина ЛПНП < 1.8ммоль/л",
+				},
+				"3": {
+					"Поддерживать рекомендуемый уровень холестерина ЛПНП < 2.6 ммоль/л",
+				},
+				"4": {
+					"Контролировать артериальное давление на уровне <130/80",
+				},
+				"5": {
+					"Заниматься физической активностью умеренной интенсивности не менее 30 минут в день (ходьба, бег или другие виды спорта)",
+				},
+				"6": {
+					"Уменьшить употребление алкоголя",
+				},
+				"7": {
+					"Бросить курить",
+				},
+				"8": {
+					"Скрининг на Фибриляцию предсердий в пунктах первичной медико-санитарной помощи путем оценки пульса с последующей ЭКГ",
+				},
+			},
+			Conditions: []map[string]data.Condition{
+				{
+					"16": {
+						Value:    []string{"(АГ) артериальная гипертензия / повышенное давление"},
+						Type:     "text",
+						Compare:  "exact",
+						Multiple: true,
+						TestCase: "1",
+					},
+				},
+				{
+					"16": {
+						Value:    []string{"Перенесенный инсульт"},
+						Type:     "text",
+						Compare:  "exact",
+						Multiple: false,
+						TestCase: "2",
+					},
+				},
+				{
+					"16": {
+						Value:    []string{"Сахарный диабет", "Гиперлипидемия/атеросклероз"},
+						Type:     "text",
+						Compare:  "exact",
+						Multiple: true,
+						TestCase: "3",
+					},
+				},
+				{
+					"16": {
+						Value:    []string{"Сахарный диабет", "(АГ) артериальная гипертензия / повышенное давление"},
+						Type:     "text",
+						Compare:  "exact",
+						Multiple: true,
+						TestCase: "4",
+					},
+				},
+				{
+					"5": {
+						Value:    []string{"25"},
+						Type:     "number",
+						Compare:  "greater",
+						Multiple: false,
+						TestCase: "5",
+					},
+				},
+				{
+					"16": {
+						Value:    []string{""}, //any
+						Type:     "number",
+						Compare:  "greater",
+						Multiple: false,
+						TestCase: "5",
+					},
+				},
+				{
+					"29": {
+						Value:    []string{"Да"},
+						Type:     "text",
+						Compare:  "exact",
+						Multiple: false,
+						TestCase: "6",
+					},
+					"31": {
+						Value:    []string{"8-14"},
+						Type:     "text",
+						Compare:  "exact",
+						Multiple: false,
+						TestCase: "5",
+					},
+				},
+			},
+		},
+		{
+			ID:   16,
+			Name: "Гепатиты",
+			Tests: map[string][]string{
+				"1": {
+					"HBsAg",
+					"anti-HCV",
+					"вакцинация против Гепатита B",
+					"anti-HIV",
+				},
+			},
+			Conditions: []map[string]data.Condition{
+				{
+					"84": {
+						Value:    []string{"Не отношусь ни к одной из описанных групп"},
+						Type:     "text",
+						Compare:  "except",
+						Multiple: false,
+						TestCase: "1",
+					},
+				},
+			},
+		},
+		{
+			ID:   14,
+			Name: "Рак печени",
+			Tests: map[string][]string{
+				"1": {
+					"УЗИ брюшной полости каждые 6 месяцев",
+					"альфа-фетопротеин (АФП) каждые 6 месяцев",
+					"Не употреблять алкоголь",
+				},
+			},
+			Conditions: []map[string]data.Condition{
+				{
+					"19": {
+						Value:    []string{"Гепатит А", "Гепатит E"},
+						Type:     "text",
+						Compare:  "except",
+						Multiple: true,
+						TestCase: "1",
+					},
+				},
+			},
+		},
+		{
+			ID:   18,
+			Name: "Диабет",
+			Tests: map[string][]string{
+				"1": {
+					"Уровень глюкозы в крови натощак",
+					"HbA1C (гликированный гемоглобин)",
+					"Пероральный глюкозотолерантный тест",
+				},
+			},
+			Conditions: []map[string]data.Condition{
+				{
+					"5": {
+						Value:    []string{"25"},
+						Type:     "number",
+						Compare:  "greater",
+						Multiple: false,
+						TestCase: "1",
+					},
+					"2": {
+						Value:    []string{"25", "70"},
+						Type:     "number",
+						Compare:  "range",
+						Multiple: false,
+						TestCase: "1",
+					},
+				},
+				{
+					"16": {
+						Value:    []string{"Сахарный диабет"},
+						Type:     "text",
+						Compare:  "exact",
+						Multiple: true,
+						TestCase: "1",
+					},
+				},
+			},
+		},
+		{
+			ID:   19,
+			Name: "Рак простаты",
+			Tests: map[string][]string{
+				"1": {
+					"Простатический специфический антиген (ПСА) раз в три года",
+				},
+			},
+			Conditions: []map[string]data.Condition{
+				{
+					"1": {
+						Value:    []string{"Мужской"},
+						Type:     "text",
+						Compare:  "exact",
+						Multiple: false,
+						TestCase: "1",
+					},
+					"2": {
+						Value:    []string{"40", "69"},
+						Type:     "number",
+						Compare:  "range",
+						Multiple: false,
+						TestCase: "1",
+					},
+					"20": {
+						Value:    []string{"Рак предстательной железы (простаты)"},
+						Type:     "text",
+						Compare:  "optional",
+						Multiple: false,
+						TestCase: "1",
+					},
+				},
+				{
+					"22": {
+						Value:    []string{"Синдром Линча (наследственный неполипозный рак толстой кишки)"},
+						Type:     "text",
+						Compare:  "exact",
+						Multiple: true,
+						TestCase: "1",
+					},
+				},
+				{
+					"57": {
+						Value:    []string{"Да"},
+						Type:     "text",
+						Compare:  "exact",
+						Multiple: false,
+						TestCase: "1",
+					},
+				},
+				{
+					"58": {
+						Value:    []string{"Да"},
+						Type:     "text",
+						Compare:  "exact",
+						Multiple: false,
+						TestCase: "1",
+					},
+				},
+			},
+		},
+		{
+			ID:   19,
+			Name: "Рак легких",
+			Tests: map[string][]string{
+				"1": {
+					"Низкодозовая компьютерная томография раз в год",
+				},
+			},
+			Conditions: []map[string]data.Condition{
+				{
+					"2": {
+						Value:    []string{"50", "80"},
+						Type:     "number",
+						Compare:  "range",
+						Multiple: false,
+						TestCase: "1",
+					},
+					"20": {
+						Value:    []string{"Да"},
+						Type:     "text",
+						Compare:  "exact",
+						Multiple: false,
+						TestCase: "1",
+					},
+					"21": {
+						Value:    []string{"Меньше 1 пачки"},
+						Type:     "text",
+						Compare:  "except",
+						Multiple: false,
+						TestCase: "1",
+					},
+				},
+			},
+		},
+		{
+			ID:   12,
+			Name: "ИБС",
+			Tests: map[string][]string{
+				"1": {
+					"Ведение дневника артериального давления",
+					"Анализ холестерина, липопротеинов высокой и низкой плотности, триглицеридов",
+					"Обратитесь к врачу. Для профилактики сердечно-сосудистых заболеваний, рекомендуем ограничить сладкое, жирное, мучное, алкоголь",
+					"Рекомендуем минимум 30 минут в день умеренной физической нагрузки (ходьба, бег или другие виды спорта)",
+				},
+			},
+			Conditions: []map[string]data.Condition{
+				{
+					"2": {
+						Value:    []string{"40"},
+						Type:     "number",
+						Compare:  "greater",
+						Multiple: false,
+						TestCase: "1",
+					},
+				},
+				{
+					"5": {
+						Value:    []string{"25"},
+						Type:     "number",
+						Compare:  "greater",
+						Multiple: false,
+						TestCase: "1",
+					},
+				},
+				{
+					"9": {
+						Value:    []string{"<100", "100-119"},
+						Type:     "text",
+						Compare:  "except",
+						Multiple: false,
+						TestCase: "1",
+					},
+				},
+			},
+		},
+		{
+			ID:   13,
+			Name: "ХБП",
+			Tests: map[string][]string{
+				"1": {
+					"Ежегодно креатинин в крови и ОАМ (общий анализ мочи)",
+				},
+			},
+			Conditions: []map[string]data.Condition{
+				{
+					"2": {
+						Value:    []string{"50"},
+						Type:     "number",
+						Compare:  "greater",
+						Multiple: false,
+						TestCase: "1",
+					},
+				},
+				{
+					"12": {
+						Value: []string{
+							"Сахарный диабет",
+							"(АГ) артериальная гипертензия / повышенное давление",
+							"Ишемическая болезнь сердца",
+							"ВИЧ или СПИД",
+							"Онкологические заболевания",
+							"Аутоиммунные заболевания",
+						},
+						Type:     "text",
+						Compare:  "optional",
+						Multiple: true,
+						TestCase: "1",
+					},
+				},
+				{
+					"13": {
+						Value: []string{
+							"Гепатит В",
+							"Гепатит С",
+						},
+						Type:     "text",
+						Compare:  "optional",
+						Multiple: true,
+						TestCase: "1",
+					},
+				},
+			},
+		},
+		{
+			ID:   6,
+			Name: "Колоректальный рак",
+			Tests: map[string][]string{
+				"1": {
+					"каждый год анализ кала (с использованием гваяковой кислоты или фекального иммунохимического анализа на скрытую кровь)",
+					"Сигмоидоскопия/тотальная колоноскопия каждые 5лет",
+				},
+				"2": {
+					"Тотальная колоноскопия каждые 5лет при нормальном результате",
+				},
+				"3": {
+					"тотальная колоноскопия с биопсией участков дисплазии каждые 1-2 года", // 2
+				},
+				"4": {
+					"повторная тотальная колоноскопия через 3 года после полипэктомии",
+					"Тотальная колоноскопия каждые 3 года при множественных полипах  и каждые 5лет при нормальном результате", // 3
+				},
+				"5": {
+					"генетический тест на исследование всех известных полиморфизмов гена АPC",
+					"сигмоидоскопия каждый год; фиброэзофагогастродуоденоскопия каждые 1-2 года", // 4
+				},
+				"6": {
+					"Колоноскопия каждые 10 лет",
+					"Каждый год анализ кала (с использованием гваяковой кислоты или фекального иммунохимического анализа на скрытую кровь)",
+					"Гибкая сигмоидоскопия каждые пять лет с или без фекального иммунохимического (FIT) анализа кала",
+					"Тестирование кала с использованием тестов FIT и ДНК каждые один-три года", // 5
+				},
+				"7": {
+					"генетические тесты",
+					"консультация врача",
+					"тотальная колоноскопия каждые 2 года", //6
+				},
+			},
+			Conditions: []map[string]data.Condition{
+				{
+					"123": {
+						Value:    []string{"да +возраст>60лет?"},
+						Type:     "text",
+						Compare:  "exact",
+						Multiple: false,
+						TestCase: "2",
+					},
+				},
+				{
+					"123": {
+						Value:    []string{"да +возраст<60лет?"},
+						Type:     "text",
+						Compare:  "exact",
+						Multiple: false,
+						TestCase: "1",
+					},
+				},
+				{
+					"124": {
+						Value:    []string{"да"},
+						Type:     "text",
+						Compare:  "exact",
+						Multiple: false,
+						TestCase: "3",
+					},
+				},
+				{
+					"125": {
+						Value:    []string{"да"},
+						Type:     "text",
+						Compare:  "exact",
+						Multiple: false,
+						TestCase: "5",
+					},
+				},
+				{
+					"2": {
+						Value:    []string{"45", "75"},
+						Type:     "number",
+						Compare:  "range",
+						Multiple: false,
+						TestCase: "6",
+					},
+				},
+				{
+					"126": {
+						Value:    []string{"да"},
+						Type:     "text",
+						Compare:  "exact",
+						Multiple: false,
+						TestCase: "7",
+					},
+				},
+				{
+					"113": {
+						Value:    []string{"Да"},
+						Type:     "text",
+						Compare:  "exact",
+						Multiple: false,
+						TestCase: "4",
+					},
+					"114": {
+						Value:    []string{"Да"},
+						Type:     "text",
+						Compare:  "exact",
+						Multiple: false,
+						TestCase: "4",
+					},
+					"115": {
+						Value:    []string{"Да"},
+						Type:     "text",
+						Compare:  "exact",
+						Multiple: false,
+						TestCase: "4",
+					},
+					"116": {
+						Value:    []string{"1-2 аденомы (<1см)"},
+						Type:     "text",
+						Compare:  "exact",
+						Multiple: false,
+						TestCase: "4",
+					},
+				},
+				{
+					"116": {
+						Value:    []string{"3-4 аденомы или хотя бы 1 аденома размером более 1см"},
+						Type:     "text",
+						Compare:  "exact",
+						Multiple: false,
+						TestCase: "4",
+					},
+				},
+				{
+					"116": {
+						Value:    []string{"Больше 5 аденом/ 3 аденомы размером больше 1см"},
+						Type:     "text",
+						Compare:  "exact",
+						Multiple: false,
+						TestCase: "4",
+					},
+					"117": {
+						Value:    []string{"Да"},
+						Type:     "text",
+						Compare:  "exact",
+						Multiple: false,
+						TestCase: "4",
+					},
+					"118": {
+						Value:    []string{"Да"},
+						Type:     "text",
+						Compare:  "exact",
+						Multiple: false,
+						TestCase: "4",
 					},
 				},
 			},
