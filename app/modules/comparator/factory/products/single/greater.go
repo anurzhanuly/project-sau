@@ -8,6 +8,7 @@ import (
 type Greater struct {
 	UserAnswer       []string
 	DiseaseCondition data.Condition
+	UserAnswerInt    []int
 }
 
 func (g Greater) DoesMatch() bool {
@@ -30,4 +31,8 @@ func (g *Greater) SetUserAnswer(answer []string) {
 
 func (g *Greater) SetCondition(conditions data.Condition) {
 	g.DiseaseCondition = conditions
+}
+
+func (g *Greater) SetCastedAnswer(answer []int) {
+	g.UserAnswerInt = answer
 }

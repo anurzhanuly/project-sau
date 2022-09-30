@@ -8,6 +8,7 @@ import (
 type Less struct {
 	UserAnswer       []string
 	DiseaseCondition data.Condition
+	UserAnswerInt    []int
 }
 
 func (l Less) DoesMatch() bool {
@@ -30,4 +31,8 @@ func (l *Less) SetUserAnswer(answer []string) {
 
 func (l *Less) SetCondition(conditions data.Condition) {
 	l.DiseaseCondition = conditions
+}
+
+func (l *Less) SetCastedAnswer(answer []int) {
+	l.UserAnswerInt = answer
 }

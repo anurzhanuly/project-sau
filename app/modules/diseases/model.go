@@ -91,10 +91,20 @@ func isConditionMet(answer []string, conditions data.Condition) bool {
 func (hd HardcodedDisease) meetsHardcodedCriteria(answers *answers.Result) bool {
 	for _, conditions := range hd.Conditions {
 		for key, condition := range conditions {
+			var castedAnswer []int
 			comparator := factory.GetAnswersComparator(condition)
 			answer, keyExists := answers.Answers[key]
 			comparator.SetUserAnswer(answer)
 			comparator.SetCondition(condition)
+
+			if condition.Type == "number" {
+				for _, val := range answer {
+					tmp, _ := strconv.Atoi(val)
+					castedAnswer = append(castedAnswer, tmp)
+				}
+			}
+
+			comparator.SetCastedAnswer(castedAnswer)
 
 			if keyExists && comparator.DoesMatch() {
 				fmt.Println("KRASAVA")

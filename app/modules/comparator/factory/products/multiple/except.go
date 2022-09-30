@@ -5,6 +5,7 @@ import "anurzhanuly/project-sau/app/modules/data"
 type Except struct {
 	UserAnswer       []string
 	DiseaseCondition data.Condition
+	UserAnswerInt    []int
 }
 
 func (e Except) DoesMatch() bool {
@@ -25,4 +26,8 @@ func (e *Except) SetUserAnswer(answer []string) {
 
 func (e *Except) SetCondition(conditions data.Condition) {
 	e.DiseaseCondition = conditions
+}
+
+func (e *Except) SetCastedAnswer(answer []int) {
+	e.UserAnswerInt = answer
 }

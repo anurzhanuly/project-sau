@@ -7,6 +7,7 @@ import (
 type Exact struct {
 	UserAnswer       []string
 	DiseaseCondition data.Condition
+	UserAnswerInt    []int
 }
 
 func (e Exact) DoesMatch() bool {
@@ -31,4 +32,8 @@ func (e *Exact) SetUserAnswer(answer []string) {
 
 func (e *Exact) SetCondition(conditions data.Condition) {
 	e.DiseaseCondition = conditions
+}
+
+func (e *Exact) SetCastedAnswer(answer []int) {
+	e.UserAnswerInt = answer
 }

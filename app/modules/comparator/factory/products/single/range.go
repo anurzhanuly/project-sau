@@ -8,6 +8,7 @@ import (
 type Range struct {
 	UserAnswer       []string
 	DiseaseCondition data.Condition
+	UserAnswerInt    []int
 }
 
 func (r Range) DoesMatch() bool {
@@ -35,4 +36,8 @@ func (r *Range) SetUserAnswer(answer []string) {
 
 func (r *Range) SetCondition(conditions data.Condition) {
 	r.DiseaseCondition = conditions
+}
+
+func (r *Range) SetCastedAnswer(answer []int) {
+	r.UserAnswerInt = answer
 }

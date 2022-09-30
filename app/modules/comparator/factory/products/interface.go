@@ -8,4 +8,5 @@ type Comparator interface {
 	DoesMatch() bool
 	SetUserAnswer([]string)
 	SetCondition(conditions data.Condition)
+	SetCastedAnswer([]int)
 }
