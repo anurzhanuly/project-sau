@@ -41,8 +41,11 @@ func (s Service) GetRecommendations(userAnswer *answers.Result, hardcode bool) (
 		diseases := s.repository.getAllHardcodedDiseases()
 
 		for _, disease := range diseases {
-			if disease.meetsHardcodedCriteria(userAnswer) {
-
+			if recommendations, ok := disease.getRecommendations(userAnswer); ok {
+				result = append(result, data.Recommendation{
+					Name:            disease.Name,
+					Recommendations: recommendations,
+				})
 			}
 		}
 
