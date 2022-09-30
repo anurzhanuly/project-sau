@@ -106,7 +106,7 @@ func (hd HardcodedDisease) getRecommendations(answers *answers.Result) ([]string
 			comparator.SetCastedAnswer(castedAnswer)
 
 			if keyExists && comparator.DoesMatch() {
-				return hd.Tests[key], true
+				return hd.Tests[condition.TestCase], true
 			}
 		}
 	}

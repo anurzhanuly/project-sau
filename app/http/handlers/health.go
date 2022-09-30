@@ -14,7 +14,7 @@ import (
 func HealthGetRecommendation(c *gin.Context, di *di.DI) {
 	userAnswer := &answers.Result{}
 	service := diseases.NewService(c, di)
-	ok := c.Param("hardcode")
+	ok := c.Query("hardcode")
 
 	recommendations, err := service.GetRecommendations(userAnswer, ok != "")
 	if err != nil {
