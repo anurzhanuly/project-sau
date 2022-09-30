@@ -40,10 +40,10 @@ func (d Disease) meetsCriteria(answers *answers.Result) bool {
 
 func isConditionMet(answer []string, conditions data.Condition) bool {
 	userValue := answer[0]
-	conditionValue := conditions.Value[0]
+	conditionValue := conditions.Values[0]
 
 	if conditions.Compare == "optional" && conditions.Type == "text" {
-		for _, value := range conditions.Value {
+		for _, value := range conditions.Values {
 			for _, answer := range answer {
 				if value == answer {
 					return true
@@ -101,6 +101,15 @@ func (hd HardcodedDisease) getRecommendations(answers *answers.Result) ([]string
 					tmp, _ := strconv.Atoi(val)
 					castedAnswer = append(castedAnswer, tmp)
 				}
+
+				castedAnswer = []int{}
+
+				for _, val := range condition.Values {
+					tmp, _ := strconv.Atoi(val)
+					castedAnswer = append(castedAnswer, tmp)
+				}
+
+				condition.IntValues = castedAnswer
 			}
 
 			comparator.SetCastedAnswer(castedAnswer)

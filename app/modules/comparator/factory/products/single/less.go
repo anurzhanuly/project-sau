@@ -12,7 +12,7 @@ type Less struct {
 }
 
 func (l Less) DoesMatch() bool {
-	compareValue, err := strconv.Atoi(l.DiseaseCondition.Value[0])
+	compareValue, err := strconv.Atoi(l.DiseaseCondition.Values[0])
 	if err != nil {
 
 	}

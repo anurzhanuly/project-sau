@@ -12,12 +12,12 @@ type Range struct {
 }
 
 func (r Range) DoesMatch() bool {
-	compareValue, err := strconv.Atoi(r.DiseaseCondition.Value[0])
+	compareValue, err := strconv.Atoi(r.DiseaseCondition.Values[0])
 	if err != nil {
 
 	}
 
-	compareValue2, err := strconv.Atoi(r.DiseaseCondition.Value[1])
+	compareValue2, err := strconv.Atoi(r.DiseaseCondition.Values[1])
 	if err != nil {
 
 	}

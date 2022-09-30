@@ -68,33 +68,10 @@ func (r Repository) getAllHardcodedDiseases() []HardcodedDisease {
 			Conditions: []map[string]data.Condition{
 				{
 					"84": {
-						Value:    []string{"12", "65"},
+						Values:   []string{"12", "65"},
 						Type:     "number",
 						Compare:  "range",
 						Multiple: false,
-						TestCase: "1",
-					},
-				},
-			},
-		},
-		{
-			ID:   16,
-			Name: "Гепатиты",
-			Tests: map[string][]string{
-				"1": {
-					"HBsAg",
-					"anti-HCV",
-					"вакцинация против Гепатита B",
-					"anti-HIV",
-				},
-			},
-			Conditions: []map[string]data.Condition{
-				{
-					"84": {
-						Value:    []string{"Не отношусь ни к одной из описанных групп"},
-						Type:     "text",
-						Compare:  "except",
-						Multiple: true,
 						TestCase: "1",
 					},
 				},
@@ -111,14 +88,14 @@ func (r Repository) getAllHardcodedDiseases() []HardcodedDisease {
 			Conditions: []map[string]data.Condition{
 				{
 					"2": {
-						Value:    []string{"26"},
+						Values:   []string{"26"},
 						Type:     "number",
 						Compare:  "less",
 						Multiple: false,
 						TestCase: "1",
 					},
 					"1": {
-						Value:    []string{"женщина"},
+						Values:   []string{"женщина"},
 						Type:     "text",
 						Compare:  "exact",
 						Multiple: false,
@@ -127,14 +104,14 @@ func (r Repository) getAllHardcodedDiseases() []HardcodedDisease {
 				},
 				{
 					"2": {
-						Value:    []string{"27", "29"},
+						Values:   []string{"27", "29"},
 						Type:     "number",
 						Compare:  "range",
 						Multiple: false,
 						TestCase: "2",
 					},
 					"1": {
-						Value:    []string{"женщина"},
+						Values:   []string{"женщина"},
 						Type:     "text",
 						Compare:  "exact",
 						Multiple: false,
@@ -143,14 +120,14 @@ func (r Repository) getAllHardcodedDiseases() []HardcodedDisease {
 				},
 				{
 					"2": {
-						Value:    []string{"30", "65"},
+						Values:   []string{"30", "65"},
 						Type:     "number",
 						Compare:  "range",
 						Multiple: false,
 						TestCase: "3",
 					},
 					"1": {
-						Value:    []string{"женщина"},
+						Values:   []string{"женщина"},
 						Type:     "text",
 						Compare:  "exact",
 						Multiple: false,
@@ -168,28 +145,28 @@ func (r Repository) getAllHardcodedDiseases() []HardcodedDisease {
 			Conditions: []map[string]data.Condition{
 				{
 					"12": {
-						Value:    []string{"Воспалительное заболевание кишечника (ВЗК)"},
+						Values:   []string{"Воспалительное заболевание кишечника (ВЗК)"},
 						Type:     "text",
 						Compare:  "exact",
 						Multiple: false,
 						TestCase: "1",
 					},
 					"120": {
-						Value:    []string{">10 лет назад"},
+						Values:   []string{">10 лет назад"},
 						Type:     "text",
 						Compare:  "exact",
 						Multiple: false,
 						TestCase: "1",
 					},
 					"121": {
-						Value:    []string{"да"},
+						Values:   []string{"да"},
 						Type:     "text",
 						Compare:  "exact",
 						Multiple: false,
 						TestCase: "1",
 					},
 					"122": {
-						Value:    []string{"поражения или новообразования, связанные с дисплазией"},
+						Values:   []string{"поражения или новообразования, связанные с дисплазией"},
 						Type:     "text",
 						Compare:  "exact",
 						Multiple: false,
@@ -217,14 +194,14 @@ func (r Repository) getAllHardcodedDiseases() []HardcodedDisease {
 			Conditions: []map[string]data.Condition{
 				{
 					"123": {
-						Value:    []string{"Да"},
+						Values:   []string{"Да"},
 						Type:     "text",
 						Compare:  "exact",
 						Multiple: false,
 						TestCase: "1",
 					},
 					"2": {
-						Value:    []string{"60"},
+						Values:   []string{"60"},
 						Type:     "number",
 						Compare:  "greater",
 						Multiple: false,
@@ -233,14 +210,14 @@ func (r Repository) getAllHardcodedDiseases() []HardcodedDisease {
 				},
 				{
 					"123": {
-						Value:    []string{"Да"},
+						Values:   []string{"Да"},
 						Type:     "text",
 						Compare:  "exact",
 						Multiple: false,
 						TestCase: "2",
 					},
 					"2": {
-						Value:    []string{"60"},
+						Values:   []string{"60"},
 						Type:     "number",
 						Compare:  "less",
 						Multiple: false,
@@ -249,28 +226,28 @@ func (r Repository) getAllHardcodedDiseases() []HardcodedDisease {
 				},
 				{
 					"113": {
-						Value:    []string{"Да"},
+						Values:   []string{"Да"},
 						Type:     "text",
 						Compare:  "exact",
 						Multiple: false,
 						TestCase: "3",
 					},
 					"114": {
-						Value:    []string{"Да"},
+						Values:   []string{"Да"},
 						Type:     "text",
 						Compare:  "exact",
 						Multiple: false,
 						TestCase: "3",
 					},
 					"115": {
-						Value:    []string{"Да"},
+						Values:   []string{"Да"},
 						Type:     "text",
 						Compare:  "exact",
 						Multiple: false,
 						TestCase: "3",
 					},
 					"116": {
-						Value: []string{
+						Values: []string{
 							"1-2 аденомы (<1см)",
 							"3-4 аденомы или хотя бы 1 аденома размером более 1см",
 							"больше 5 аденом/ 3 аденомы размером больше 1см",
@@ -281,14 +258,14 @@ func (r Repository) getAllHardcodedDiseases() []HardcodedDisease {
 						TestCase: "3",
 					},
 					"117": {
-						Value:    []string{"Да"},
+						Values:   []string{"Да"},
 						Type:     "text",
 						Compare:  "exact",
 						Multiple: false,
 						TestCase: "3",
 					},
 					"118": {
-						Value:    []string{"Да"},
+						Values:   []string{"Да"},
 						Type:     "text",
 						Compare:  "exact",
 						Multiple: false,
@@ -316,14 +293,14 @@ func (r Repository) getAllHardcodedDiseases() []HardcodedDisease {
 			Conditions: []map[string]data.Condition{
 				{
 					"123": {
-						Value:    []string{"Да"},
+						Values:   []string{"Да"},
 						Type:     "text",
 						Compare:  "exact",
 						Multiple: false,
 						TestCase: "1",
 					},
 					"2": {
-						Value:    []string{"60"},
+						Values:   []string{"60"},
 						Type:     "number",
 						Compare:  "greater",
 						Multiple: false,
@@ -332,14 +309,14 @@ func (r Repository) getAllHardcodedDiseases() []HardcodedDisease {
 				},
 				{
 					"123": {
-						Value:    []string{"Да"},
+						Values:   []string{"Да"},
 						Type:     "text",
 						Compare:  "exact",
 						Multiple: false,
 						TestCase: "2",
 					},
 					"2": {
-						Value:    []string{"60"},
+						Values:   []string{"60"},
 						Type:     "number",
 						Compare:  "less",
 						Multiple: false,
@@ -348,28 +325,28 @@ func (r Repository) getAllHardcodedDiseases() []HardcodedDisease {
 				},
 				{
 					"113": {
-						Value:    []string{"Да"},
+						Values:   []string{"Да"},
 						Type:     "text",
 						Compare:  "exact",
 						Multiple: false,
 						TestCase: "3",
 					},
 					"114": {
-						Value:    []string{"Да"},
+						Values:   []string{"Да"},
 						Type:     "text",
 						Compare:  "exact",
 						Multiple: false,
 						TestCase: "3",
 					},
 					"115": {
-						Value:    []string{"Да"},
+						Values:   []string{"Да"},
 						Type:     "text",
 						Compare:  "exact",
 						Multiple: false,
 						TestCase: "3",
 					},
 					"116": {
-						Value: []string{
+						Values: []string{
 							"1-2 аденомы (<1см)",
 							"3-4 аденомы или хотя бы 1 аденома размером более 1см",
 							"больше 5 аденом/ 3 аденомы размером больше 1см",
@@ -380,14 +357,14 @@ func (r Repository) getAllHardcodedDiseases() []HardcodedDisease {
 						TestCase: "3",
 					},
 					"117": {
-						Value:    []string{"Да"},
+						Values:   []string{"Да"},
 						Type:     "text",
 						Compare:  "exact",
 						Multiple: false,
 						TestCase: "3",
 					},
 					"118": {
-						Value:    []string{"Да"},
+						Values:   []string{"Да"},
 						Type:     "text",
 						Compare:  "exact",
 						Multiple: false,
@@ -407,21 +384,21 @@ func (r Repository) getAllHardcodedDiseases() []HardcodedDisease {
 			Conditions: []map[string]data.Condition{
 				{
 					"1": {
-						Value:    []string{"Женщина"},
+						Values:   []string{"Женщина"},
 						Type:     "text",
 						Compare:  "exact",
 						Multiple: false,
 						TestCase: "1",
 					},
 					"2": {
-						Value:    []string{"50", "69"},
+						Values:   []string{"50", "69"},
 						Type:     "number",
 						Compare:  "range",
 						Multiple: false,
 						TestCase: "1",
 					},
 					"10": {
-						Value:    []string{"Нет"},
+						Values:   []string{"Нет"},
 						Type:     "text",
 						Compare:  "exact",
 						Multiple: false,
@@ -430,28 +407,28 @@ func (r Repository) getAllHardcodedDiseases() []HardcodedDisease {
 				},
 				{
 					"1": {
-						Value:    []string{"Женщина"},
+						Values:   []string{"Женщина"},
 						Type:     "text",
 						Compare:  "exact",
 						Multiple: false,
 						TestCase: "2",
 					},
 					"2": {
-						Value:    []string{"40", "49"},
+						Values:   []string{"40", "49"},
 						Type:     "number",
 						Compare:  "range",
 						Multiple: false,
 						TestCase: "2",
 					},
 					"10": {
-						Value:    []string{"Нет"},
+						Values:   []string{"Нет"},
 						Type:     "text",
 						Compare:  "exact",
 						Multiple: false,
 						TestCase: "2",
 					},
 					"20": {
-						Value:    []string{"Рак молочных желез"},
+						Values:   []string{"Рак молочных желез"},
 						Type:     "text",
 						Compare:  "exact",
 						Multiple: false,
@@ -460,7 +437,7 @@ func (r Repository) getAllHardcodedDiseases() []HardcodedDisease {
 				},
 				{
 					"49": {
-						Value:    []string{""},
+						Values:   []string{""},
 						Type:     "text",
 						Compare:  "except",
 						Multiple: false,
@@ -501,7 +478,7 @@ func (r Repository) getAllHardcodedDiseases() []HardcodedDisease {
 			Conditions: []map[string]data.Condition{
 				{
 					"16": {
-						Value:    []string{"(АГ) артериальная гипертензия / повышенное давление"},
+						Values:   []string{"(АГ) артериальная гипертензия / повышенное давление"},
 						Type:     "text",
 						Compare:  "exact",
 						Multiple: true,
@@ -510,7 +487,7 @@ func (r Repository) getAllHardcodedDiseases() []HardcodedDisease {
 				},
 				{
 					"16": {
-						Value:    []string{"Перенесенный инсульт"},
+						Values:   []string{"Перенесенный инсульт"},
 						Type:     "text",
 						Compare:  "exact",
 						Multiple: false,
@@ -519,7 +496,7 @@ func (r Repository) getAllHardcodedDiseases() []HardcodedDisease {
 				},
 				{
 					"16": {
-						Value:    []string{"Сахарный диабет", "Гиперлипидемия/атеросклероз"},
+						Values:   []string{"Сахарный диабет", "Гиперлипидемия/атеросклероз"},
 						Type:     "text",
 						Compare:  "exact",
 						Multiple: true,
@@ -528,7 +505,7 @@ func (r Repository) getAllHardcodedDiseases() []HardcodedDisease {
 				},
 				{
 					"16": {
-						Value:    []string{"Сахарный диабет", "(АГ) артериальная гипертензия / повышенное давление"},
+						Values:   []string{"Сахарный диабет", "(АГ) артериальная гипертензия / повышенное давление"},
 						Type:     "text",
 						Compare:  "exact",
 						Multiple: true,
@@ -537,7 +514,7 @@ func (r Repository) getAllHardcodedDiseases() []HardcodedDisease {
 				},
 				{
 					"5": {
-						Value:    []string{"25"},
+						Values:   []string{"25"},
 						Type:     "number",
 						Compare:  "greater",
 						Multiple: false,
@@ -546,7 +523,7 @@ func (r Repository) getAllHardcodedDiseases() []HardcodedDisease {
 				},
 				{
 					"16": {
-						Value:    []string{""}, //any
+						Values:   []string{""}, //any
 						Type:     "number",
 						Compare:  "greater",
 						Multiple: false,
@@ -555,14 +532,14 @@ func (r Repository) getAllHardcodedDiseases() []HardcodedDisease {
 				},
 				{
 					"29": {
-						Value:    []string{"Да"},
+						Values:   []string{"Да"},
 						Type:     "text",
 						Compare:  "exact",
 						Multiple: false,
 						TestCase: "6",
 					},
 					"31": {
-						Value:    []string{"8-14"},
+						Values:   []string{"8-14"},
 						Type:     "text",
 						Compare:  "exact",
 						Multiple: false,
@@ -584,7 +561,7 @@ func (r Repository) getAllHardcodedDiseases() []HardcodedDisease {
 			Conditions: []map[string]data.Condition{
 				{
 					"19": {
-						Value:    []string{"Гепатит А", "Гепатит E"},
+						Values:   []string{"Гепатит А", "Гепатит E"},
 						Type:     "text",
 						Compare:  "except",
 						Multiple: true,
@@ -606,14 +583,14 @@ func (r Repository) getAllHardcodedDiseases() []HardcodedDisease {
 			Conditions: []map[string]data.Condition{
 				{
 					"5": {
-						Value:    []string{"25"},
+						Values:   []string{"25"},
 						Type:     "number",
 						Compare:  "greater",
 						Multiple: false,
 						TestCase: "1",
 					},
 					"2": {
-						Value:    []string{"25", "70"},
+						Values:   []string{"25", "70"},
 						Type:     "number",
 						Compare:  "range",
 						Multiple: false,
@@ -622,7 +599,7 @@ func (r Repository) getAllHardcodedDiseases() []HardcodedDisease {
 				},
 				{
 					"16": {
-						Value:    []string{"Сахарный диабет"},
+						Values:   []string{"Сахарный диабет"},
 						Type:     "text",
 						Compare:  "exact",
 						Multiple: true,
@@ -642,21 +619,21 @@ func (r Repository) getAllHardcodedDiseases() []HardcodedDisease {
 			Conditions: []map[string]data.Condition{
 				{
 					"1": {
-						Value:    []string{"Мужской"},
+						Values:   []string{"Мужской"},
 						Type:     "text",
 						Compare:  "exact",
 						Multiple: false,
 						TestCase: "1",
 					},
 					"2": {
-						Value:    []string{"40", "69"},
+						Values:   []string{"40", "69"},
 						Type:     "number",
 						Compare:  "range",
 						Multiple: false,
 						TestCase: "1",
 					},
 					"20": {
-						Value:    []string{"Рак предстательной железы (простаты)"},
+						Values:   []string{"Рак предстательной железы (простаты)"},
 						Type:     "text",
 						Compare:  "optional",
 						Multiple: false,
@@ -665,7 +642,7 @@ func (r Repository) getAllHardcodedDiseases() []HardcodedDisease {
 				},
 				{
 					"22": {
-						Value:    []string{"Синдром Линча (наследственный неполипозный рак толстой кишки)"},
+						Values:   []string{"Синдром Линча (наследственный неполипозный рак толстой кишки)"},
 						Type:     "text",
 						Compare:  "exact",
 						Multiple: true,
@@ -674,7 +651,7 @@ func (r Repository) getAllHardcodedDiseases() []HardcodedDisease {
 				},
 				{
 					"57": {
-						Value:    []string{"Да"},
+						Values:   []string{"Да"},
 						Type:     "text",
 						Compare:  "exact",
 						Multiple: false,
@@ -683,7 +660,7 @@ func (r Repository) getAllHardcodedDiseases() []HardcodedDisease {
 				},
 				{
 					"58": {
-						Value:    []string{"Да"},
+						Values:   []string{"Да"},
 						Type:     "text",
 						Compare:  "exact",
 						Multiple: false,
@@ -703,21 +680,21 @@ func (r Repository) getAllHardcodedDiseases() []HardcodedDisease {
 			Conditions: []map[string]data.Condition{
 				{
 					"2": {
-						Value:    []string{"50", "80"},
+						Values:   []string{"50", "80"},
 						Type:     "number",
 						Compare:  "range",
 						Multiple: false,
 						TestCase: "1",
 					},
 					"20": {
-						Value:    []string{"Да"},
+						Values:   []string{"Да"},
 						Type:     "text",
 						Compare:  "exact",
 						Multiple: false,
 						TestCase: "1",
 					},
 					"21": {
-						Value:    []string{"Меньше 1 пачки"},
+						Values:   []string{"Меньше 1 пачки"},
 						Type:     "text",
 						Compare:  "except",
 						Multiple: false,
@@ -740,7 +717,7 @@ func (r Repository) getAllHardcodedDiseases() []HardcodedDisease {
 			Conditions: []map[string]data.Condition{
 				{
 					"2": {
-						Value:    []string{"40"},
+						Values:   []string{"40"},
 						Type:     "number",
 						Compare:  "greater",
 						Multiple: false,
@@ -749,7 +726,7 @@ func (r Repository) getAllHardcodedDiseases() []HardcodedDisease {
 				},
 				{
 					"5": {
-						Value:    []string{"25"},
+						Values:   []string{"25"},
 						Type:     "number",
 						Compare:  "greater",
 						Multiple: false,
@@ -758,7 +735,7 @@ func (r Repository) getAllHardcodedDiseases() []HardcodedDisease {
 				},
 				{
 					"9": {
-						Value:    []string{"<100", "100-119"},
+						Values:   []string{"<100", "100-119"},
 						Type:     "text",
 						Compare:  "except",
 						Multiple: false,
@@ -778,7 +755,7 @@ func (r Repository) getAllHardcodedDiseases() []HardcodedDisease {
 			Conditions: []map[string]data.Condition{
 				{
 					"2": {
-						Value:    []string{"50"},
+						Values:   []string{"50"},
 						Type:     "number",
 						Compare:  "greater",
 						Multiple: false,
@@ -787,7 +764,7 @@ func (r Repository) getAllHardcodedDiseases() []HardcodedDisease {
 				},
 				{
 					"12": {
-						Value: []string{
+						Values: []string{
 							"Сахарный диабет",
 							"(АГ) артериальная гипертензия / повышенное давление",
 							"Ишемическая болезнь сердца",
@@ -803,7 +780,7 @@ func (r Repository) getAllHardcodedDiseases() []HardcodedDisease {
 				},
 				{
 					"13": {
-						Value: []string{
+						Values: []string{
 							"Гепатит В",
 							"Гепатит С",
 						},
@@ -852,7 +829,7 @@ func (r Repository) getAllHardcodedDiseases() []HardcodedDisease {
 			Conditions: []map[string]data.Condition{
 				{
 					"123": {
-						Value:    []string{"да +возраст>60лет?"},
+						Values:   []string{"да +возраст>60лет?"},
 						Type:     "text",
 						Compare:  "exact",
 						Multiple: false,
@@ -861,7 +838,7 @@ func (r Repository) getAllHardcodedDiseases() []HardcodedDisease {
 				},
 				{
 					"123": {
-						Value:    []string{"да +возраст<60лет?"},
+						Values:   []string{"да +возраст<60лет?"},
 						Type:     "text",
 						Compare:  "exact",
 						Multiple: false,
@@ -870,7 +847,7 @@ func (r Repository) getAllHardcodedDiseases() []HardcodedDisease {
 				},
 				{
 					"124": {
-						Value:    []string{"да"},
+						Values:   []string{"да"},
 						Type:     "text",
 						Compare:  "exact",
 						Multiple: false,
@@ -879,7 +856,7 @@ func (r Repository) getAllHardcodedDiseases() []HardcodedDisease {
 				},
 				{
 					"125": {
-						Value:    []string{"да"},
+						Values:   []string{"да"},
 						Type:     "text",
 						Compare:  "exact",
 						Multiple: false,
@@ -888,7 +865,7 @@ func (r Repository) getAllHardcodedDiseases() []HardcodedDisease {
 				},
 				{
 					"2": {
-						Value:    []string{"45", "75"},
+						Values:   []string{"45", "75"},
 						Type:     "number",
 						Compare:  "range",
 						Multiple: false,
@@ -897,7 +874,7 @@ func (r Repository) getAllHardcodedDiseases() []HardcodedDisease {
 				},
 				{
 					"126": {
-						Value:    []string{"да"},
+						Values:   []string{"да"},
 						Type:     "text",
 						Compare:  "exact",
 						Multiple: false,
@@ -906,37 +883,28 @@ func (r Repository) getAllHardcodedDiseases() []HardcodedDisease {
 				},
 				{
 					"113": {
-						Value:    []string{"Да"},
+						Values:   []string{"Да"},
 						Type:     "text",
 						Compare:  "exact",
 						Multiple: false,
 						TestCase: "4",
 					},
 					"114": {
-						Value:    []string{"Да"},
+						Values:   []string{"Да"},
 						Type:     "text",
 						Compare:  "exact",
 						Multiple: false,
 						TestCase: "4",
 					},
 					"115": {
-						Value:    []string{"Да"},
+						Values:   []string{"Да"},
 						Type:     "text",
 						Compare:  "exact",
 						Multiple: false,
 						TestCase: "4",
 					},
 					"116": {
-						Value:    []string{"1-2 аденомы (<1см)"},
-						Type:     "text",
-						Compare:  "exact",
-						Multiple: false,
-						TestCase: "4",
-					},
-				},
-				{
-					"116": {
-						Value:    []string{"3-4 аденомы или хотя бы 1 аденома размером более 1см"},
+						Values:   []string{"1-2 аденомы (<1см)"},
 						Type:     "text",
 						Compare:  "exact",
 						Multiple: false,
@@ -945,21 +913,30 @@ func (r Repository) getAllHardcodedDiseases() []HardcodedDisease {
 				},
 				{
 					"116": {
-						Value:    []string{"Больше 5 аденом/ 3 аденомы размером больше 1см"},
+						Values:   []string{"3-4 аденомы или хотя бы 1 аденома размером более 1см"},
+						Type:     "text",
+						Compare:  "exact",
+						Multiple: false,
+						TestCase: "4",
+					},
+				},
+				{
+					"116": {
+						Values:   []string{"Больше 5 аденом/ 3 аденомы размером больше 1см"},
 						Type:     "text",
 						Compare:  "exact",
 						Multiple: false,
 						TestCase: "4",
 					},
 					"117": {
-						Value:    []string{"Да"},
+						Values:   []string{"Да"},
 						Type:     "text",
 						Compare:  "exact",
 						Multiple: false,
 						TestCase: "4",
 					},
 					"118": {
-						Value:    []string{"Да"},
+						Values:   []string{"Да"},
 						Type:     "text",
 						Compare:  "exact",
 						Multiple: false,

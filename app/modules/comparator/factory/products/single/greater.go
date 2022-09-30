@@ -12,7 +12,7 @@ type Greater struct {
 }
 
 func (g Greater) DoesMatch() bool {
-	compareValue, err := strconv.Atoi(g.DiseaseCondition.Value[0])
+	compareValue, err := strconv.Atoi(g.DiseaseCondition.Values[0])
 	if err != nil {
 
 	}
