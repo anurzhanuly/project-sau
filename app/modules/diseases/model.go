@@ -4,7 +4,6 @@ import (
 	"anurzhanuly/project-sau/app/modules/answers"
 	"anurzhanuly/project-sau/app/modules/comparator/factory"
 	"anurzhanuly/project-sau/app/modules/data"
-	"fmt"
 	"reflect"
 	"strconv"
 )
@@ -88,7 +87,7 @@ func isConditionMet(answer []string, conditions data.Condition) bool {
 	return userValue == conditionValue
 }
 
-func (hd HardcodedDisease) meetsHardcodedCriteria(answers *answers.Result) bool {
+func (hd HardcodedDisease) getRecommendations(answers *answers.Result) ([]string, bool) {
 	for _, conditions := range hd.Conditions {
 		for key, condition := range conditions {
 			var castedAnswer []int
@@ -107,12 +106,10 @@ func (hd HardcodedDisease) meetsHardcodedCriteria(answers *answers.Result) bool 
 			comparator.SetCastedAnswer(castedAnswer)
 
 			if keyExists && comparator.DoesMatch() {
-				fmt.Println("KRASAVA")
+				return hd.Tests[key], true
 			}
 		}
-
-		return false
 	}
 
-	return true
+	return []string{}, false
 }
