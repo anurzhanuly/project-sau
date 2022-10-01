@@ -1,7 +1,7 @@
 <template>
   <section class="section-test">
     <div class="test-wrapper">
-      <p class="test-title">{{ questions[idx]['title'] }}</p>
+      <p class="test-title">{{ questions[idx]['name'] }}</p>
       <p class="test-description">{{ questions[idx]['description'] }}</p>
       <div
         v-if="questions[idx].choices && questions[idx].maxSelectedChoices > 1"
@@ -145,14 +145,18 @@ const collectAnswers = () => {
     questions.value[idx.value].choices &&
     questions.value[idx.value].maxSelectedChoices === 1
   ) {
-    selectedAnswers.value[idx.value + 1] = [checked.value].flat(Infinity);
+    selectedAnswers.value[questions.value[idx.value].name] = [
+      checked.value
+    ].flat(Infinity);
   } else if (
     questions.value[idx.value].choices &&
     questions.value[idx.value].maxSelectedChoices > 1
   ) {
-    selectedAnswers.value[idx.value + 1] = [...checked.value];
+    selectedAnswers.value[questions.value[idx.value].name] = [...checked.value];
   } else {
-    selectedAnswers.value[idx.value + 1] = [`${inputValue.value}`];
+    selectedAnswers.value[questions.value[idx.value].name] = [
+      `${inputValue.value}`
+    ];
   }
 };
 
@@ -164,20 +168,22 @@ const checkVisible = () => {
     .split(' ')
     .map((el) => {
       if (el.includes('{')) {
-        return +el.replace(/[\D]+/g, '');
+        return el.slice(1, el.length - 1);
       }
       if (el.includes('[')) {
         return el.slice(2, el.length - 2);
       }
     })
     .filter((el) => el);
+  console.log("🚀 ~ file: SurveySection.vue ~ line 178 ~ checkVisible ~ arrValues", arrValues)
 
   for (let i = 0; i < arrValues.length; i++) {
-    if (Number.isInteger(arrValues[i])) {
-      objValues[arrValues[i]] = arrValues[i + 1];
+    if (arrValues[i].includes('{')) {
+      objValues[arrValues[i].slice(2, arrValues[i].length - 2)] =
+        arrValues[i + 1];
     }
   }
-
+  console.log("🚀 ~ file: SurveySection.vue ~ line 183 ~ .map ~ objValues", objValues)
   for (let key in objValues) {
     if (selectedAnswers.value[key].includes(objValues[key])) {
       arrVisibility.push(true);
@@ -185,7 +191,7 @@ const checkVisible = () => {
       arrVisibility.push(false);
     }
   }
-
+  console.log("🚀 ~ file: SurveySection.vue ~ line 192 ~ .map ~ arrVisibility", arrVisibility)
   if (arrVisibility.includes(false)) {
     return false;
   }
@@ -198,7 +204,7 @@ const skipQuestion = () => {
 
   if (!isVisible) {
     idx.value += 1;
-    delete selectedAnswers.value[idx.value];
+    delete selectedAnswers.value[questions.value[idx.value].name];
     if (questions.value[idx.value].visibleIf) {
       skipQuestion();
     }
@@ -207,9 +213,7 @@ const skipQuestion = () => {
 
 const nextQuestion = () => {
   collectAnswers();
-
   idx.value += 1;
-
   if (questions.value[idx.value].min) {
     changeInputValue();
   }
@@ -218,19 +222,22 @@ const nextQuestion = () => {
     skipQuestion();
   }
 
-  if (selectedAnswers.value[idx.value + 1]) {
-    checked.value = [...selectedAnswers.value[idx.value + 1]];
+  if (selectedAnswers.value[questions.value[idx.value].name]) {
+    checked.value = [...selectedAnswers.value[questions.value[idx.value].name]];
   } else {
     checked.value = [];
   }
 };
 
 const prevQuestion = () => {
-  while (!selectedAnswers.value[idx.value]) {
+  while (!selectedAnswers.value[questions.value[idx.value - 1].name]) {
     idx.value -= 1;
   }
-  checked.value = [...selectedAnswers.value[idx.value]];
-  inputValue.value = +selectedAnswers.value[idx.value][0];
+  checked.value = [
+    ...selectedAnswers.value[questions.value[idx.value - 1].name]
+  ];
+  inputValue.value =
+    +selectedAnswers.value[questions.value[idx.value - 1].name][0];
   idx.value -= 1;
 };
 
