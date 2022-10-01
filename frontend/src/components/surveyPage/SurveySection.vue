@@ -163,27 +163,36 @@ const collectAnswers = () => {
 const checkVisible = () => {
   const objValues = {};
   const arrVisibility = [];
+  const visibleArray = questions.value[idx.value].visibleIf.split(' ');
 
-  const arrValues = questions.value[idx.value].visibleIf
-    .split(' ')
-    .map((el) => {
-      if (el.includes('{')) {
-        return el.slice(1, el.length - 1);
+  const arrValues = visibleArray
+    .map((el, idx) => {
+      if (el === '{') {
+        const lastIdx = visibleArray.indexOf('}', idx);
+        return visibleArray.slice(idx + 1, lastIdx).join(' ');
       }
-      if (el.includes('[')) {
-        return el.slice(2, el.length - 2);
+      if (el === '[') {
+        const lastIdx = visibleArray.indexOf(']', idx);
+        return visibleArray
+          .slice(idx + 1, lastIdx)
+          .join(' ')
+          .slice(1, -1);
       }
     })
     .filter((el) => el);
-  console.log("🚀 ~ file: SurveySection.vue ~ line 178 ~ checkVisible ~ arrValues", arrValues)
+  console.log(
+    '🚀 ~ file: SurveySection.vue ~ line 178 ~ checkVisible ~ arrValues',
+    arrValues
+  );
 
   for (let i = 0; i < arrValues.length; i++) {
-    if (arrValues[i].includes('{')) {
-      objValues[arrValues[i].slice(2, arrValues[i].length - 2)] =
-        arrValues[i + 1];
-    }
+    objValues[arrValues[i]] = arrValues[i + 1];
+    i++;
   }
-  console.log("🚀 ~ file: SurveySection.vue ~ line 183 ~ .map ~ objValues", objValues)
+  console.log(
+    '🚀 ~ file: SurveySection.vue ~ line 183 ~ .map ~ objValues',
+    objValues
+  );
   for (let key in objValues) {
     if (selectedAnswers.value[key].includes(objValues[key])) {
       arrVisibility.push(true);
@@ -191,7 +200,10 @@ const checkVisible = () => {
       arrVisibility.push(false);
     }
   }
-  console.log("🚀 ~ file: SurveySection.vue ~ line 192 ~ .map ~ arrVisibility", arrVisibility)
+  console.log(
+    '🚀 ~ file: SurveySection.vue ~ line 192 ~ .map ~ arrVisibility',
+    arrVisibility
+  );
   if (arrVisibility.includes(false)) {
     return false;
   }
