@@ -1,7 +1,7 @@
 <template>
   <div class="patient-card" :class="{ hidden: isCard }">
     <h2 class="result-header">Карточка пациента:</h2>
-    <span>Дата: {{ date.toLocaleDateString() }} г.</span>
+    <!-- <span>Дата: {{ date.toLocaleDateString() }} г.</span>
     <span>Возраст: {{ resultAnswers.answers['1'][0] }}</span>
     <span>Пол: {{ resultAnswers.answers['2'][0] }}</span>
     <span>Рост: {{ resultAnswers.answers['3'][0] }}</span>
@@ -75,7 +75,7 @@
       {{
         resultAnswers.answers['24'] ? resultAnswers.answers['24'][0] : '-'
       }}</span
-    >
+    > -->
   </div>
 </template>
 

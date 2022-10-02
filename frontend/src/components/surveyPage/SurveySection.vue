@@ -79,7 +79,13 @@
         Следующий вопрос
       </button>
       <RouterLink to="/result" v-else>
-        <button class="btn" @click="lastQuestion">Показать результаты</button>
+        <button
+          class="btn"
+          @click="lastQuestion"
+          :disabled="!checked.length && questions[idx].choices"
+        >
+          Показать результаты
+        </button>
       </RouterLink>
     </div>
     <div class="test-buttons" v-else>
@@ -95,7 +101,13 @@
         v-if="idx < questions.length - 1"
       ></button>
       <RouterLink to="/result" v-else>
-        <button class="btn mobile-btn" @click="lastQuestion">Результаты</button>
+        <button
+          class="btn mobile-btn"
+          @click="lastQuestion"
+          :disabled="!checked.length && questions[idx].choices"
+        >
+          Результаты
+        </button>
       </RouterLink>
     </div>
   </section>
@@ -180,19 +192,12 @@ const checkVisible = () => {
       }
     })
     .filter((el) => el);
-  console.log(
-    '🚀 ~ file: SurveySection.vue ~ line 178 ~ checkVisible ~ arrValues',
-    arrValues
-  );
 
   for (let i = 0; i < arrValues.length; i++) {
     objValues[arrValues[i]] = arrValues[i + 1];
     i++;
   }
-  console.log(
-    '🚀 ~ file: SurveySection.vue ~ line 183 ~ .map ~ objValues',
-    objValues
-  );
+
   for (let key in objValues) {
     if (selectedAnswers.value[key].includes(objValues[key])) {
       arrVisibility.push(true);
@@ -200,10 +205,7 @@ const checkVisible = () => {
       arrVisibility.push(false);
     }
   }
-  console.log(
-    '🚀 ~ file: SurveySection.vue ~ line 192 ~ .map ~ arrVisibility',
-    arrVisibility
-  );
+
   if (arrVisibility.includes(false)) {
     return false;
   }
@@ -239,6 +241,8 @@ const nextQuestion = () => {
   } else {
     checked.value = [];
   }
+  console.log(idx.value);
+  console.log(questions.value.length);
 };
 
 const prevQuestion = () => {

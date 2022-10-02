@@ -96,6 +96,7 @@ const openBasic = () => {
 };
 
 onMounted(() => {
+  console.log(resultAnswers)
   axios
     .post(
       'https://project-sau.herokuapp.com/diseases/recommendations',
