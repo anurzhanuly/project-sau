@@ -24,6 +24,20 @@
         </label>
       </div>
       <div
+        v-if="
+          questions[idx].inputType !== 'number' &&
+          questions[idx].type === 'text'
+        "
+        class="input-wrapper"
+      >
+        <input
+          class="text-input"
+          placeholder="Нажми на меня"
+          type="text"
+          v-model="inputText"
+        />
+      </div>
+      <div
         v-if="questions[idx].choices && questions[idx].maxSelectedChoices === 1"
       >
         <label
@@ -47,20 +61,20 @@
         <div class="number-input-container">
           <button
             class="button-decrement btn-input"
-            @click="inputValue > minValue ? (inputValue -= 1) : null"
+            @click="inputNumber > minValue ? (inputNumber -= 1) : null"
           ></button>
           <div class="number-input">
             <input
               type="number"
               :min="minValue"
               :max="maxValue"
-              v-model="inputValue"
+              v-model="inputNumber"
               @change="validateInput()"
             />
           </div>
           <button
             class="button-increment btn-input"
-            @click="inputValue < maxValue ? (inputValue += 1) : null"
+            @click="inputNumber < maxValue ? (inputNumber += 1) : null"
           ></button>
         </div>
         <p class="input-help">Нажмите на цифру для ручного ввода</p>
@@ -114,7 +128,7 @@
 </template>
 
 <script setup>
-import mock from '../../services/mock';
+import mock from '../../services/newMock';
 import { RouterLink } from 'vue-router';
 import { ref, onMounted } from 'vue';
 import { useSurveyStore } from '../../stores/survey.js';
@@ -126,7 +140,8 @@ const checked = ref([]);
 const selectedAnswers = ref({});
 const minValue = ref(questions.value[0].min);
 const maxValue = ref(questions.value[0].max);
-const inputValue = ref(questions.value[0].defaultValue);
+const inputText = ref('');
+const inputNumber = ref(questions.value[0].defaultValue);
 const width = ref(null);
 
 onMounted(() => {
@@ -140,15 +155,16 @@ onMounted(() => {
 const changeInputValue = () => {
   minValue.value = questions.value[idx.value].min;
   maxValue.value = questions.value[idx.value].max;
-  inputValue.value = questions.value[idx.value].defaultValue;
+  inputNumber.value = questions.value[idx.value].defaultValue;
+  inputText.value = '';
 };
 
 const validateInput = () => {
-  if (inputValue.value > maxValue.value) {
-    inputValue.value = maxValue.value;
+  if (inputNumber.value > maxValue.value) {
+    inputNumber.value = maxValue.value;
   }
-  if (inputValue.value < minValue.value) {
-    inputValue.value = minValue.value;
+  if (inputNumber.value < minValue.value) {
+    inputNumber.value = minValue.value;
   }
 };
 
@@ -165,9 +181,13 @@ const collectAnswers = () => {
     questions.value[idx.value].maxSelectedChoices > 1
   ) {
     selectedAnswers.value[questions.value[idx.value].name] = [...checked.value];
+  } else if (questions.value[idx.value].inputType === 'number') {
+    selectedAnswers.value[questions.value[idx.value].name] = [
+      `${inputNumber.value}`
+    ];
   } else {
     selectedAnswers.value[questions.value[idx.value].name] = [
-      `${inputValue.value}`
+      `${inputText.value}`
     ];
   }
 };
@@ -252,7 +272,7 @@ const prevQuestion = () => {
   checked.value = [
     ...selectedAnswers.value[questions.value[idx.value - 1].name]
   ];
-  inputValue.value =
+  inputNumber.value =
     +selectedAnswers.value[questions.value[idx.value - 1].name][0];
   idx.value -= 1;
 };
@@ -432,6 +452,29 @@ const lastQuestion = () => {
   flex-direction: row;
   background-color: #fcf9ed;
   overflow: hidden;
+}
+
+.input-wrapper {
+  display: flex;
+}
+
+.text-input {
+  width: 80%;
+  margin: 0 auto;
+  background-color: #fcf9ed;
+  border: 1px solid #ede6d9;
+  height: 50px;
+  font-size: 20px;
+  line-height: 34px;
+  text-align: center;
+  font-weight: 500;
+  transition: all 0.2s ease-out;
+}
+
+input[type='text']:focus {
+  background-color: white;
+  border: 1px solid #9c7830;
+  outline: none;
 }
 
 .input-help {

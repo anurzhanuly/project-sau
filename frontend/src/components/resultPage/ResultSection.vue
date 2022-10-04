@@ -87,8 +87,8 @@ const surveyStore = useSurveyStore();
 const { resultAnswers } = surveyStore;
 const result = ref(null);
 const isHidden = ref(true);
-const isResults = ref(true);
-const isCard = ref(false);
+const isResults = ref(false);
+const isCard = ref(true);
 const displayBasic = ref(false);
 
 const openBasic = () => {
@@ -147,7 +147,7 @@ const makeCardPdf = () => {
   background-color: #fff;
   border-radius: 5px;
   width: 100%;
-  padding: 60px 80px 80px;
+  padding: 60px;
   margin: 0 auto 40px;
   -webkit-box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
   -moz-box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
