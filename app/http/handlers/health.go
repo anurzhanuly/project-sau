@@ -14,9 +14,8 @@ import (
 func HealthGetRecommendation(c *gin.Context, di *di.DI) {
 	userAnswer := &answers.Result{}
 	service := diseases.NewService(c, di)
-	ok := c.Query("hardcode")
 
-	recommendations, err := service.GetRecommendations(userAnswer, ok != "")
+	recommendations, err := service.GetRecommendations(userAnswer)
 	if err != nil {
 		c.JSON(
 			http.StatusInternalServerError,

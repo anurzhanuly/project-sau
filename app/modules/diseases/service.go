@@ -28,7 +28,7 @@ func NewService(ctx *gin.Context, di *di.DI) *Service {
 }
 
 //GetRecommendations даёт рекомендации опираясь на ответы пользователя по заболеваниям
-func (s Service) GetRecommendations(userAnswer *answers.Result, hardcode bool) ([]data.Recommendation, error) {
+func (s Service) GetRecommendations(userAnswer *answers.Result) ([]data.Recommendation, error) {
 	var err error
 	var result []data.Recommendation
 
@@ -37,36 +37,14 @@ func (s Service) GetRecommendations(userAnswer *answers.Result, hardcode bool) (
 		return result, err
 	}
 
-	if hardcode {
-		diseases := s.repository.getAllHardcodedDiseases()
-
-		for _, disease := range diseases {
-			if recommendations, ok := disease.getRecommendations(userAnswer); ok {
-				result = append(result, data.Recommendation{
-					Name:            disease.Name,
-					Recommendations: recommendations,
-				})
-			}
-		}
-
-		return result, nil
-	}
-
-	diseases, err := s.repository.getAllDiseases()
-	if err != nil {
-		return result, err
-	}
+	diseases := s.repository.getAllHardcodedDiseases()
 
 	for _, disease := range diseases {
-		if disease.meetsCriteria(userAnswer) {
-			recommendation := data.Recommendation{
+		if recommendations, ok := disease.getRecommendations(userAnswer); ok {
+			result = append(result, data.Recommendation{
 				Name:            disease.Name,
-				Recommendations: disease.Recommendations,
-				Tests:           disease.Tests,
-				Importance:      disease.Importance,
-			}
-
-			result = append(result, recommendation)
+				Recommendations: recommendations,
+			})
 		}
 	}
 
