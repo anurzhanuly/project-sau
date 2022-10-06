@@ -7,7 +7,7 @@
         :key="index"
         class="result-item"
       >
-        <Panel
+        <!-- <Panel
           class="result-title"
           header="Вам рекомендуются следующие исследования:"
           toggleable="true"
@@ -21,13 +21,8 @@
               {{ item }}
             </li>
           </ul>
-        </Panel>
-        <Panel
-          header="Так же рекомендуется:"
-          toggleable="true"
-          collapsed="true"
-          class="result-title"
-        >
+        </Panel> -->
+        <Panel header="Рекомендуется:" toggleable="true" class="result-title">
           <ul class="result-list">
             <li
               v-for="(item, index) in resultItem.recommendations"
@@ -38,14 +33,14 @@
             </li>
           </ul>
         </Panel>
-        <Panel
+        <!-- <Panel
           class="result-title"
           header="Почему это важно:"
           toggleable="true"
           collapsed="true"
         >
           <p class="result-text">{{ resultItem.importance }}</p>
-        </Panel>
+        </Panel> -->
       </div>
       <button class="btn" v-show="isHidden" @click="makeResultPdf()">
         Открыть в pdf
