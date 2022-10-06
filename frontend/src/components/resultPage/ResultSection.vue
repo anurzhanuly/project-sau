@@ -87,8 +87,8 @@ const surveyStore = useSurveyStore();
 const { resultAnswers } = surveyStore;
 const result = ref(null);
 const isHidden = ref(true);
-const isResults = ref(false);
-const isCard = ref(true);
+const isResults = ref(true);
+const isCard = ref(false);
 const displayBasic = ref(false);
 
 const openBasic = () => {
@@ -96,7 +96,7 @@ const openBasic = () => {
 };
 
 onMounted(() => {
-  console.log(resultAnswers)
+  console.log(resultAnswers);
   axios
     .post(
       'https://project-sau.herokuapp.com/diseases/recommendations',

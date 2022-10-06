@@ -1461,6 +1461,13 @@ const mock = [
     ],
     maxSelectedChoices: 1,
     selectAllText: 'Я не уверен'
+  },
+  {
+    type: 'text',
+    name: 'Оцените качество опросника по 5 бальной шкале',
+    inputType: 'number',
+    min: 0,
+    max: 5
   }
 ];
 
