@@ -293,7 +293,7 @@ func (r Repository) getAllHardcodedDiseases() []HardcodedDisease {
 				},
 				// { // no condition, testcase 3
 				//"Лечитесь или наблюдаетесь ли Вы по поводу рака легких?": {
-				//Values:[]string{"Нет"},
+				//Answers:[]string{"Нет"},
 				//Type:"text",
 				//Compare:"exact",
 				//Multiple: false,

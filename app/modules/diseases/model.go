@@ -24,7 +24,7 @@ type HardcodedDisease struct {
 	Conditions []map[string]data.Condition `bson:"conditions" json:"conditions"`
 }
 
-func (d Disease) meetsCriteria(answers *answers.Result) bool {
+func (d Disease) meetsCriteria(answers *answers.User) bool {
 	for key, condition := range d.Conditions {
 		answer, keyExists := answers.Answers[key]
 
@@ -87,7 +87,7 @@ func isConditionMet(answer []string, conditions data.Condition) bool {
 	return userValue == conditionValue
 }
 
-func (hd HardcodedDisease) getRecommendations(answers *answers.Result) ([]string, bool) {
+func (hd HardcodedDisease) getRecommendations(answers *answers.User) ([]string, bool) {
 	for _, conditions := range hd.Conditions {
 		for key, condition := range conditions {
 			var castedAnswer []int

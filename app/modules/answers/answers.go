@@ -1,5 +1,5 @@
 package answers
 
-type Result struct {
+type User struct {
 	Answers map[string][]string
 }
