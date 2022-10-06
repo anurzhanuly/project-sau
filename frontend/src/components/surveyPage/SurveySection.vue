@@ -212,20 +212,35 @@ const checkVisible = () => {
       }
     })
     .filter((el) => el);
+  console.log(
+    '🚀 ~ file: SurveySection.vue ~ line 215 ~ checkVisible ~ arrValues',
+    arrValues
+  );
 
   for (let i = 0; i < arrValues.length; i++) {
     objValues[arrValues[i]] = arrValues[i + 1];
     i++;
   }
+  console.log(
+    '🚀 ~ file: SurveySection.vue ~ line 197 ~ checkVisible ~ objValues',
+    objValues
+  );
 
   for (let key in objValues) {
-    if (selectedAnswers.value[key].includes(objValues[key])) {
-      arrVisibility.push(true);
+    if (selectedAnswers.value[key]) {
+      if (selectedAnswers.value[key].includes(objValues[key])) {
+        arrVisibility.push(true);
+      } else {
+        arrVisibility.push(false);
+      }
     } else {
       arrVisibility.push(false);
     }
   }
-
+  console.log(
+    '🚀 ~ file: SurveySection.vue ~ line 199 ~ checkVisible ~ arrVisibility',
+    arrVisibility
+  );
   if (arrVisibility.includes(false)) {
     return false;
   }
