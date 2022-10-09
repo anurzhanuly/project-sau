@@ -156,7 +156,6 @@ const changeInputValue = () => {
   minValue.value = questions.value[idx.value].min;
   maxValue.value = questions.value[idx.value].max;
   inputNumber.value = questions.value[idx.value].defaultValue;
-  inputText.value = '';
 };
 
 const validateInput = () => {
@@ -189,6 +188,7 @@ const collectAnswers = () => {
     selectedAnswers.value[questions.value[idx.value].name] = [
       `${inputText.value}`
     ];
+    inputText.value = '';
   }
 };
 
@@ -263,7 +263,7 @@ const skipQuestion = () => {
 const nextQuestion = () => {
   collectAnswers();
   idx.value += 1;
-  if (questions.value[idx.value].min) {
+  if (Number.isInteger(questions.value[idx.value].min)) {
     changeInputValue();
   }
 
