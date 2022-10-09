@@ -83,7 +83,7 @@ const { resultAnswers } = surveyStore;
 const result = ref(null);
 const isHidden = ref(true);
 const isResults = ref(true);
-const isCard = ref(true);
+const isCard = ref(false);
 const displayBasic = ref(false);
 
 const openBasic = () => {
