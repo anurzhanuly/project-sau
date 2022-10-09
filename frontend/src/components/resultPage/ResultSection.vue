@@ -48,9 +48,9 @@
       <button class="btn" v-show="isHidden" @click="openBasic">
         Получить промокод
       </button>
-      <button class="btn" v-show="isHidden" @click="makeCardPdf()">
+      <!-- <button class="btn" v-show="isHidden" @click="makeCardPdf()">
         Карточка пациента
-      </button>
+      </button> -->
       <Dialog
         header="Скидочный промокод: Симптом"
         v-model:visible="displayBasic"
