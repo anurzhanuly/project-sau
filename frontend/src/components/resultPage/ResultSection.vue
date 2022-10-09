@@ -83,7 +83,7 @@ const { resultAnswers } = surveyStore;
 const result = ref(null);
 const isHidden = ref(true);
 const isResults = ref(true);
-const isCard = ref(false);
+const isCard = ref(true);
 const displayBasic = ref(false);
 
 const openBasic = () => {
@@ -133,7 +133,7 @@ const makeCardPdf = () => {
     isCard.value = false;
     isResults.value = true;
     isHidden.value = true;
-  }, 1);
+  }, 2);
 };
 </script>
 

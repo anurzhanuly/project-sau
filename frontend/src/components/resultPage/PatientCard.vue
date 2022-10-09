@@ -3,38 +3,56 @@
     <h2 class="card-header">Карточка пациента:</h2>
     <div class="card-row">
       <div class="card-item">
-        <span>Дата:</span>
-        <span>123</span>
+        <p>Дата:</p>
+        <p>{{ date.toLocaleDateString() }}</p>
       </div>
       <div class="card-item">
-        <span>Пол:</span>
-        <span>123</span>
+        <p>Пол:</p>
+        <p>123</p>
       </div>
       <div class="card-item">
-        <span>Возраст:</span>
-        <span>123</span>
+        <p>Возраст:</p>
+        <p>123</p>
       </div>
       <div class="card-item">
-        <span>Врач:</span>
-        <span>123</span>
+        <p>Врач:</p>
+        <p></p>
       </div>
     </div>
     <div class="card-row">
       <div class="card-item">
-        <span>Рост:</span>
-        <span>123</span>
+        <p>Рост:</p>
+        <p>123</p>
       </div>
       <div class="card-item">
-        <span>Вес:</span>
-        <span>123</span>
+        <p>Вес:</p>
+        <p>123</p>
       </div>
       <div class="card-item">
-        <span>ИМТ:</span>
-        <span>123</span>
+        <p>ИМТ:</p>
+        <p>123</p>
       </div>
       <div class="card-item">
-        <span>Давление:</span>
-        <span>123</span>
+        <p>Давление:</p>
+        <p>sdfsdfsdfsdfsdfsf</p>
+      </div>
+    </div>
+    <div class="card-row">
+      <div class="card-item">
+        <p>Жалобы:</p>
+        <ul>
+          <li>1</li>
+          <li>1</li>
+          <li>1</li>
+        </ul>
+      </div>
+      <div class="card-item">
+        <p>Анамнез заболевания:</p>
+        <ul>
+          <li>Анамнез заболевания</li>
+          <li>Анамнез заболевания</li>
+          <li>Анамнез заболевания</li>
+        </ul>
       </div>
     </div>
   </div>
@@ -57,6 +75,7 @@ const date = ref(new Date());
 .patient-card {
   display: flex;
   flex-direction: column;
+  width: 100%;
 }
 
 .card-row {
@@ -70,5 +89,7 @@ const date = ref(new Date());
   border-right: 1px solid #222222;
   padding: 20px;
   width: 100%;
+  display: flex;
+  justify-content: space-between;
 }
 </style>

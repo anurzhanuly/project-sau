@@ -22,6 +22,15 @@
           />
           {{ answer }}
         </label>
+        <label class="label">
+          <input
+            v-if="questions[idx].hasOther"
+            class="text-input"
+            placeholder="Другое"
+            type="text"
+            v-model="inputText"
+          />
+        </label>
       </div>
       <div
         v-if="
@@ -87,7 +96,9 @@
       <button
         class="btn"
         @click="nextQuestion"
-        :disabled="!checked.length && questions[idx].choices"
+        :disabled="
+          !checked.length && questions[idx].choices && inputText.length === 0
+        "
         v-if="idx < questions.length - 1"
       >
         Следующий вопрос
@@ -111,7 +122,9 @@
       <button
         class="arrow"
         @click="nextQuestion"
-        :disabled="!checked.length && questions[idx].choices"
+        :disabled="
+          !checked.length && questions[idx].choices && inputText.length === 0
+        "
         v-if="idx < questions.length - 1"
       ></button>
       <RouterLink to="/result" v-else>
@@ -128,7 +141,7 @@
 </template>
 
 <script setup>
-import mock from '../../services/newMock';
+import mock from '../../services/mock';
 import { RouterLink } from 'vue-router';
 import { ref, onMounted } from 'vue';
 import { useSurveyStore } from '../../stores/survey.js';
@@ -180,6 +193,12 @@ const collectAnswers = () => {
     questions.value[idx.value].maxSelectedChoices > 1
   ) {
     selectedAnswers.value[questions.value[idx.value].name] = [...checked.value];
+    if (inputText.value) {
+      selectedAnswers.value[questions.value[idx.value].name].push(
+        inputText.value
+      );
+      inputText.value = '';
+    }
   } else if (questions.value[idx.value].inputType === 'number') {
     selectedAnswers.value[questions.value[idx.value].name] = [
       `${inputNumber.value}`
@@ -276,7 +295,7 @@ const nextQuestion = () => {
   } else {
     checked.value = [];
   }
-  console.log(idx.value);
+  console.log(JSON.stringify(selectedAnswers.value));
   console.log(questions.value.length);
 };
 
@@ -289,6 +308,7 @@ const prevQuestion = () => {
   ];
   inputNumber.value =
     +selectedAnswers.value[questions.value[idx.value - 1].name][0];
+
   idx.value -= 1;
 };
 
@@ -484,6 +504,10 @@ const lastQuestion = () => {
   text-align: center;
   font-weight: 500;
   transition: all 0.2s ease-out;
+}
+
+.label .text-input {
+  width: 100%;
 }
 
 input[type='text']:focus {
