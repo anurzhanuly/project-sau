@@ -22,9 +22,8 @@
           />
           {{ answer }}
         </label>
-        <label class="label">
+        <label class="label" v-if="questions[idx].hasOther">
           <input
-            v-if="questions[idx].hasOther"
             class="text-input"
             placeholder="Другое"
             type="text"
