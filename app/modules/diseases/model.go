@@ -93,6 +93,11 @@ func (hd HardcodedDisease) getRecommendations(answers *answers.User) ([]string, 
 			var castedAnswer []int
 			comparator := factory.GetAnswersComparator(condition)
 			answer, keyExists := answers.Answers[key]
+
+			if !keyExists {
+				continue
+			}
+
 			comparator.SetUserAnswer(answer)
 			comparator.SetCondition(condition)
 
