@@ -1094,18 +1094,12 @@ func (r Repository) getAllHardcodedDiseases() []HardcodedDisease {
 				},
 				{
 					"Отметьте, какие хронические заболевания у вас есть или были": {
-						Values:   []string{"Гиперлипидемия/атеросклероз"},
-						Type:     "text",
-						Compare:  "exact",
-						Multiple: true,
-						TestCase: "2",
-					},
-					"Отметьте, какие хронические заболевания у вас есть или были": {
-						Values:   []string{"Сахарный диабетm"},
-						Type:     "text",
-						Compare:  "except",
-						Multiple: true,
-						TestCase: "2",
+						Values:         []string{"Гиперлипидемия/атеросклероз"},
+						Type:           "text",
+						Compare:        "optional",
+						Multiple:       true,
+						TestCase:       "2",
+						ExcludedValues: []string{"Сахарный диабетm"},
 					},
 					"Вам диагностировали двусторонний стеноз сонных артерий?": {
 						Values:   []string{"Нет"},
@@ -1117,18 +1111,12 @@ func (r Repository) getAllHardcodedDiseases() []HardcodedDisease {
 				},
 				{
 					"Отметьте, какие хронические заболевания у вас есть или были": {
-						Values:   []string{"Гиперлипидемия/атеросклероз"},
-						Type:     "text",
-						Compare:  "exact",
-						Multiple: true,
-						TestCase: "3",
-					},
-					"Отметьте, какие хронические заболевания у вас есть или были": {
-						Values:   []string{"Сахарный диабетm"},
-						Type:     "text",
-						Compare:  "except",
-						Multiple: true,
-						TestCase: "3",
+						Values:         []string{"Гиперлипидемия/атеросклероз"},
+						Type:           "text",
+						Compare:        "optional",
+						Multiple:       true,
+						TestCase:       "3",
+						ExcludedValues: []string{"Сахарный диабетm"},
 					},
 					"Вам диагностировали двусторонний стеноз сонных артерий?": {
 						Values:   []string{"Да"},
@@ -1733,18 +1721,12 @@ func (r Repository) getAllHardcodedDiseases() []HardcodedDisease {
 							"Дефицит альфа-1-антитрипсина",
 						},
 						Type:     "text",
-						Compare:  "exact",
+						Compare:  "optional",
 						Multiple: true,
 						TestCase: "7",
-					},
-					"Отметьте какие заболевания печени у Вас есть/были?": {
-						Values: []string{
+						ExcludedValues: []string{
 							"Рак печени",
 						},
-						Type:     "text",
-						Compare:  "except",
-						Multiple: true,
-						TestCase: "7",
 					},
 				},
 			},
