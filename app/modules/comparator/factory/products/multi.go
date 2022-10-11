@@ -14,6 +14,10 @@ func (m Multi) GetComparator() Comparator {
 		return &multiple.Exact{}
 	} else if m.CompareType == data.EXCEPT_TYPE {
 		return &multiple.Except{}
+	} else if m.CompareType == data.RANGE_TYPE {
+		return &multiple.Range{}
+	} else if m.CompareType == data.OPTIONAL_TYPE {
+		return &multiple.Optional{}
 	}
 
 	return &Empty{}
