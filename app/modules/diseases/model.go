@@ -89,13 +89,17 @@ func isConditionMet(answer []string, conditions data.Condition) bool {
 
 func (hd HardcodedDisease) getRecommendations(answers *answers.User) ([]string, bool) {
 	for _, conditions := range hd.Conditions {
+		conditionApplies := true
+		var testCase string
+
 		for key, condition := range conditions {
 			var castedAnswer []int
+			testCase = condition.TestCase
 			comparator := factory.GetAnswersComparator(condition)
 			answer, keyExists := answers.Answers[key]
 
 			if !keyExists {
-				continue
+				break
 			}
 
 			comparator.SetUserAnswer(answer)
@@ -119,9 +123,14 @@ func (hd HardcodedDisease) getRecommendations(answers *answers.User) ([]string, 
 
 			comparator.SetCastedAnswer(castedAnswer)
 
-			if keyExists && comparator.DoesMatch() {
-				return hd.Tests[condition.TestCase], true
+			if !comparator.DoesMatch() {
+				conditionApplies = false
+				break
 			}
+		}
+
+		if conditionApplies {
+			return hd.Tests[testCase], true
 		}
 	}
 
