@@ -99,6 +99,7 @@ func (hd HardcodedDisease) getRecommendations(answers *answers.User) ([]string, 
 			answer, keyExists := answers.Answers[key]
 
 			if !keyExists {
+				conditionApplies = false
 				break
 			}
 
