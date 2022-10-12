@@ -19,3 +19,18 @@ func TestExact_DoesMatch(t *testing.T) {
 		t.Errorf("got %t, wanted %t", got, true)
 	}
 }
+
+func TestExcept_DoesMatch(t *testing.T) {
+	comparator := Except{
+		UserAnswer: []string{"Azeke krasava", "Aleke krasava", "Isake krasava"},
+		DiseaseCondition: data.Condition{
+			Values: []string{"Aleke krasava"},
+		},
+	}
+
+	got := comparator.DoesMatch()
+
+	if got != false {
+		t.Errorf("got %t, wanted %t", got, false)
+	}
+}

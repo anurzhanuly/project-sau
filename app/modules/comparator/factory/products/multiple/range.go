@@ -8,10 +8,6 @@ type Range struct {
 	UserAnswerInt    []int
 }
 
-func (n Range) DoesMatch() bool {
-	return false
-}
-
 func (n *Range) SetUserAnswer(answer []string) {
 	n.UserAnswer = answer
 }
