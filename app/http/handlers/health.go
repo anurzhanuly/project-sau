@@ -12,10 +12,18 @@ import (
 //TODO: Надо бы вынести инициализацию сервиса модулей в middleware
 
 func HealthGetRecommendation(c *gin.Context, di *di.DI) {
-	userAnswer := &answers.Result{}
+	userAnswer := &answers.User{}
 	service := diseases.NewService(c, di)
+	answerService := answers.NewService(c, di)
 
-	recommendations, err := service.GetRecommendations(userAnswer)
+	if !answerService.SaveAnswers() {
+		logrus.WithField(
+			"Ошибка при сохранении ответов пользователя",
+			logrus.Fields{"userAnswer": userAnswer},
+		)
+	}
+
+	recommendations, err := service.GetRecommendations(answerService.Model)
 	if err != nil {
 		c.JSON(
 			http.StatusInternalServerError,

@@ -27,3 +27,5 @@ StaticPath = "./frontend/dist"
         Name = "questionnaire"
     [collections.diseases]
         Name = "diseases"
+    [collections.answers]
+        Name = "answers"

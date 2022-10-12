@@ -11,10 +11,14 @@ type Exact struct {
 }
 
 func (e Exact) DoesMatch() bool {
-	return doesMatch()
-}
+	for _, conditionValue := range e.DiseaseCondition.Values {
+		for _, answer := range e.UserAnswer {
+			if answer == conditionValue {
+				return true
+			}
+		}
+	}
 
-func doesMatch() bool {
 	return false
 }
 
