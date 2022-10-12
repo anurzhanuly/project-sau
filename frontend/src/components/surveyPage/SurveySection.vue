@@ -27,7 +27,7 @@
             class="text-input"
             placeholder="Другое"
             type="text"
-            v-model="inputText"
+            v-model="inputOtherText"
           />
         </label>
       </div>
@@ -96,7 +96,9 @@
         class="btn"
         @click="nextQuestion"
         :disabled="
-          !checked.length && questions[idx].choices && inputText.length === 0
+          !checked.length &&
+          questions[idx].choices &&
+          inputOtherText.length === 0
         "
         v-if="idx < questions.length - 1"
       >
@@ -122,7 +124,9 @@
         class="arrow"
         @click="nextQuestion"
         :disabled="
-          !checked.length && questions[idx].choices && inputText.length === 0
+          !checked.length &&
+          questions[idx].choices &&
+          inputOtherText.length === 0
         "
         v-if="idx < questions.length - 1"
       ></button>
@@ -153,6 +157,7 @@ const selectedAnswers = ref({});
 const minValue = ref(questions.value[0].min);
 const maxValue = ref(questions.value[0].max);
 const inputText = ref('');
+const inputOtherText = ref('');
 const inputNumber = ref(questions.value[0].defaultValue);
 const width = ref(null);
 
@@ -192,11 +197,11 @@ const collectAnswers = () => {
     questions.value[idx.value].maxSelectedChoices > 1
   ) {
     selectedAnswers.value[questions.value[idx.value].name] = [...checked.value];
-    if (inputText.value) {
+    if (inputOtherText.value) {
       selectedAnswers.value[questions.value[idx.value].name].push(
-        inputText.value
+        inputOtherText.value
       );
-      inputText.value = '';
+      inputOtherText.value = '';
     }
   } else if (questions.value[idx.value].inputType === 'number') {
     selectedAnswers.value[questions.value[idx.value].name] = [
@@ -307,7 +312,8 @@ const prevQuestion = () => {
   ];
   inputNumber.value =
     +selectedAnswers.value[questions.value[idx.value - 1].name][0];
-
+  inputText.value =
+    selectedAnswers.value[questions.value[idx.value - 1].name][0];
   idx.value -= 1;
 };
 
