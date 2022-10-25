@@ -84,7 +84,7 @@ const makeCardPdf = () => {
     isCard.value = false;
     isResults.value = true;
     isHidden.value = true;
-  }, 2);
+  }, 500);
 };
 </script>
 
