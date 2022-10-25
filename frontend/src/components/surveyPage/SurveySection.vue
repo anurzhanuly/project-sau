@@ -77,7 +77,7 @@
               :min="minValue"
               :max="maxValue"
               v-model="inputNumber"
-              @change="validateInput()"
+              @change="validateInputNumber()"
             />
           </div>
           <button
@@ -147,11 +147,10 @@
 import mock from '../../services/mock';
 import { RouterLink } from 'vue-router';
 import { ref, onMounted } from 'vue';
-import { useSurveyStore } from '../../stores/survey.js';
+import { useSurveyStore } from '../../stores/surveyStore.js';
 
 const questions = ref(mock);
 const idx = ref(0);
-const surveyStore = useSurveyStore();
 const checked = ref([]);
 const selectedAnswers = ref({});
 const minValue = ref(questions.value[0].min);
@@ -161,6 +160,8 @@ const inputOtherText = ref('');
 const inputNumber = ref(questions.value[0].defaultValue);
 const width = ref(null);
 
+const surveyStore = useSurveyStore();
+
 onMounted(() => {
   const updateWidth = () => {
     width.value = window.innerWidth;
@@ -169,13 +170,13 @@ onMounted(() => {
   updateWidth();
 });
 
-const changeInputValue = () => {
+const changeInputNumberValue = () => {
   minValue.value = questions.value[idx.value].min;
   maxValue.value = questions.value[idx.value].max;
   inputNumber.value = questions.value[idx.value].defaultValue;
 };
 
-const validateInput = () => {
+const validateInputNumber = () => {
   if (inputNumber.value > maxValue.value) {
     inputNumber.value = maxValue.value;
   }
@@ -235,19 +236,11 @@ const checkVisible = () => {
       }
     })
     .filter((el) => el);
-  console.log(
-    '🚀 ~ file: SurveySection.vue ~ line 215 ~ checkVisible ~ arrValues',
-    arrValues
-  );
 
   for (let i = 0; i < arrValues.length; i++) {
     objValues[arrValues[i]] = arrValues[i + 1];
     i++;
   }
-  console.log(
-    '🚀 ~ file: SurveySection.vue ~ line 197 ~ checkVisible ~ objValues',
-    objValues
-  );
 
   for (let key in objValues) {
     if (selectedAnswers.value[key]) {
@@ -260,10 +253,7 @@ const checkVisible = () => {
       arrVisibility.push(false);
     }
   }
-  console.log(
-    '🚀 ~ file: SurveySection.vue ~ line 199 ~ checkVisible ~ arrVisibility',
-    arrVisibility
-  );
+
   if (arrVisibility.includes(false)) {
     return false;
   }
@@ -286,12 +276,14 @@ const skipQuestion = () => {
 const nextQuestion = () => {
   collectAnswers();
   idx.value += 1;
-  if (Number.isInteger(questions.value[idx.value].min)) {
-    changeInputValue();
-  }
 
   if (questions.value[idx.value].visibleIf) {
     skipQuestion();
+  }
+
+  console.log(questions.value[idx.value])
+  if (Number.isInteger(questions.value[idx.value].min)) {
+    changeInputNumberValue();
   }
 
   if (selectedAnswers.value[questions.value[idx.value].name]) {
@@ -299,8 +291,6 @@ const nextQuestion = () => {
   } else {
     checked.value = [];
   }
-  console.log(JSON.stringify(selectedAnswers.value));
-  console.log(questions.value.length);
 };
 
 const prevQuestion = () => {
@@ -319,11 +309,8 @@ const prevQuestion = () => {
 
 const lastQuestion = () => {
   collectAnswers();
-  surveyStore.$patch({
-    resultAnswers: {
-      answers: selectedAnswers.value
-    }
-  });
+  const answers = JSON.parse(JSON.stringify(selectedAnswers.value));
+  surveyStore.postAnswersData({ answers: answers });
 };
 </script>
 

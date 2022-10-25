@@ -29,6 +29,10 @@ a {
   color: #2c3e50;
 }
 
+li {
+  list-style: none;
+}
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

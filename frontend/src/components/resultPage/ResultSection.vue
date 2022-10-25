@@ -7,22 +7,7 @@
         :key="index"
         class="result-item"
       >
-        <!-- <Panel
-          class="result-title"
-          header="Вам рекомендуются следующие исследования:"
-          toggleable="true"
-        >
-          <ul class="result-list">
-            <li
-              v-for="(item, index) in resultItem.tests"
-              :key="index"
-              class="result-list__item"
-            >
-              {{ item }}
-            </li>
-          </ul>
-        </Panel> -->
-        <Panel header="Рекомендуется:" toggleable="true" class="result-title">
+        <Panel header="Рекомендуется:" :toggleable="true" class="result-title">
           <ul class="result-list">
             <li
               v-for="(item, index) in resultItem.recommendations"
@@ -33,14 +18,6 @@
             </li>
           </ul>
         </Panel>
-        <!-- <Panel
-          class="result-title"
-          header="Почему это важно:"
-          toggleable="true"
-          collapsed="true"
-        >
-          <p class="result-text">{{ resultItem.importance }}</p>
-        </Panel> -->
       </div>
       <button class="btn" v-show="isHidden" @click="makeResultPdf()">
         Открыть в pdf
@@ -48,9 +25,9 @@
       <button class="btn" v-show="isHidden" @click="openBasic">
         Получить промокод
       </button>
-      <!-- <button class="btn" v-show="isHidden" @click="makeCardPdf()">
+      <button class="btn" v-show="isHidden" @click="makeCardPdf()">
         Карточка пациента
-      </button> -->
+      </button>
       <Dialog
         header="Скидочный промокод: Симптом"
         v-model:visible="displayBasic"
@@ -68,10 +45,9 @@
 </template>
 
 <script setup>
-import { useSurveyStore } from '../../stores/survey.js';
-import axios from 'axios';
+import { useSurveyStore } from '../../stores/surveyStore.js';
 import partners from '../../services/partners.js';
-import { ref, onMounted } from 'vue';
+import { ref, computed } from 'vue';
 import Panel from 'primevue/panel';
 import Dialog from 'primevue/dialog';
 import DataTable from 'primevue/datatable';
@@ -79,42 +55,17 @@ import Column from 'primevue/column';
 import PatientCard from './PatientCard.vue';
 
 const surveyStore = useSurveyStore();
-const { resultAnswers } = surveyStore;
-const result = ref(null);
+
 const isHidden = ref(true);
 const isResults = ref(true);
 const isCard = ref(false);
 const displayBasic = ref(false);
 
+const result = computed(() => surveyStore.recommendations || []);
+
 const openBasic = () => {
   displayBasic.value = true;
 };
-
-onMounted(() => {
-  console.log(resultAnswers);
-  axios
-    .post(
-      'https://project-sau.herokuapp.com/diseases/recommendations',
-      resultAnswers
-    )
-    .then((response) => {
-      if (!response.data.recommendations) {
-        result.value = [
-          {
-            name: 'Короче,нет ничего',
-            tests: [],
-            recommendations: [],
-            importance: ''
-          }
-        ];
-      } else {
-        result.value = response.data.recommendations;
-      }
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-});
 
 const makeResultPdf = () => {
   isHidden.value = false;
