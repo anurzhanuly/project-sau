@@ -1,6 +1,6 @@
 <template>
   <section class="section-result">
-    <div :class="{ hidden: isResultsHidden }">
+    <div id="rec">
       <h2 class="result-header">Результаты:</h2>
       <div
         v-for="(resultItem, index) in result"
@@ -23,7 +23,7 @@
           </ul>
         </p-panel>
       </div>
-      <div :class="{ hidden: isButtonsHidden }">
+      <div>
         <button class="btn" @click="makeResultPdf()">Открыть в pdf</button>
         <button class="btn" @click="openPromo">Получить промокод</button>
         <button class="btn" @click="makeCardPdf()">Карточка пациента</button>
@@ -40,7 +40,7 @@
         </data-table>
       </p-dialog>
     </div>
-    <patient-card :class="{ hidden: isCardHidden }" />
+    <patient-card class="hidden" id="card" />
   </section>
 </template>
 
@@ -56,9 +56,10 @@ import PatientCard from '../components/PatientCard.vue';
 
 const surveyStore = useSurveyStore();
 
-const isButtonsHidden = ref(false);
-const isResultsHidden = ref(false);
-const isCardHidden = ref(true);
+// const isButtonsHidden = ref(false);
+// const isResultsHidden = ref(false);
+// const isCardHidden = ref(true);
+const printedComponent = ref('');
 const displayPromo = ref(false);
 
 const result = computed(() => surveyStore.recommendations || []);
@@ -67,32 +68,30 @@ const openPromo = () => {
   displayPromo.value = true;
 };
 
+window.onbeforeprint = () => {
+  console.log('Before print');
+  if (printedComponent.value === 'card') {
+    document.getElementById('rec').classList.add('hidden');
+    document.getElementById('card').classList.remove('hidden');
+  }
+};
+
+window.onafterprint = () => {
+  console.log('After print');
+  if (printedComponent.value === 'card') {
+    document.getElementById('rec').classList.remove('hidden');
+    document.getElementById('card').classList.add('hidden');
+  }
+};
+
 const makeResultPdf = () => {
-  setTimeout(() => {
-    isButtonsHidden.value = true;
-  });
-  setTimeout(() => {
-    window.print();
-  });
-  setTimeout(() => {
-    isButtonsHidden.value = false;
-  });
+  window.print();
 };
 
 const makeCardPdf = () => {
-  setTimeout(() => {
-    isResultsHidden.value = true;
-    isButtonsHidden.value = true;
-    isCardHidden.value = false;
-  });
-  setTimeout(() => {
-    window.print();
-  });
-  setTimeout(() => {
-    isCardHidden.value = true;
-    isResultsHidden.value = false;
-    isButtonsHidden.value = false;
-  });
+  printedComponent.value = 'card';
+  window.print();
+  printedComponent.value = '';
 };
 </script>
 
