@@ -1,6 +1,6 @@
 <template>
   <section class="section-result">
-    <div v-show="isResultsVisible">
+    <div :class="{ hidden: isResultsVisible }">
       <h2 class="result-header">Результаты:</h2>
       <div
         v-for="(resultItem, index) in result"
@@ -23,15 +23,11 @@
           </ul>
         </p-panel>
       </div>
-      <button class="btn" v-show="isButtonsVisible" @click="makeResultPdf()">
-        Открыть в pdf
-      </button>
-      <button class="btn" v-show="isButtonsVisible" @click="openPromo">
-        Получить промокод
-      </button>
-      <button class="btn" v-show="isButtonsVisible" @click="makeCardPdf()">
-        Карточка пациента
-      </button>
+      <div :class="{ hidden: isButtonsVisible }">
+        <button class="btn" @click="makeResultPdf()">Открыть в pdf</button>
+        <button class="btn" @click="openPromo">Получить промокод</button>
+        <button class="btn" @click="makeCardPdf()">Карточка пациента</button>
+      </div>
       <p-dialog
         header="Скидочный промокод: Симптом"
         v-model:visible="displayPromo"
@@ -44,7 +40,7 @@
         </data-table>
       </p-dialog>
     </div>
-    <patient-card v-show="isCardVisible" />
+    <patient-card :class="{ hidden: isCardVisible }" />
   </section>
 </template>
 

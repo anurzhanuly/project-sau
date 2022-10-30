@@ -14,7 +14,7 @@
 <style scoped>
 .footer {
   border-top: 1px solid #dee3e8;
-  padding: 50px 0 32px;
+  padding: 30px 0;
   display: flex;
   justify-content: space-between;
   align-items: center;

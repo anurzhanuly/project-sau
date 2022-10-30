@@ -319,7 +319,7 @@ const lastQuestion = () => {
   border-radius: 5px;
   width: 100%;
   padding: 80px;
-  margin: 40px auto;
+  margin: 20px auto;
   -webkit-box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
   -moz-box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
   box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
