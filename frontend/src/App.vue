@@ -1,15 +1,14 @@
 <template>
   <div class="wrapper">
-    <ToolbarBase />
-    <main class="main"><RouterView /></main>
-    <FooterBase />
+    <toolbar-base />
+    <main class="main"><router-view /></main>
+    <footer-base />
   </div>
 </template>
 
 <script setup>
 import ToolbarBase from '@/components/ToolbarBase.vue';
 import FooterBase from '@/components/FooterBase.vue';
-import { RouterView } from 'vue-router';
 </script>
 
 <style>
