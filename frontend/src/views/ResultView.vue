@@ -207,11 +207,6 @@ const makeCardPdf = () => {
 }
 
 .hidden {
-  visibility: hidden;
-  position: absolute;
-  right: 0;
-  appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
+  display: none;
 }
 </style>
