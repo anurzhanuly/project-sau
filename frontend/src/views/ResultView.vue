@@ -65,7 +65,13 @@ const openPromo = () => {
 };
 
 const makeResultPdf = () => {
-  window.print();
+  document.getElementById('buttons').classList.add('hidden');
+  setTimeout(() => {
+    window.print();
+  });
+  setTimeout(() => {
+    document.getElementById('buttons').classList.remove('hidden');
+  }, 2000);
 };
 
 const makeCardPdf = () => {
@@ -74,6 +80,10 @@ const makeCardPdf = () => {
   setTimeout(() => {
     window.print();
   });
+  setTimeout(() => {
+    document.getElementById('recommendation').classList.remove('hidden');
+    document.getElementById('patient-card').classList.add('hidden');
+  }, 2000);
 };
 </script>
 
