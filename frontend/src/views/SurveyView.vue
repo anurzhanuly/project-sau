@@ -140,7 +140,7 @@
         </button>
       </router-link>
     </div>
-    <progress-bar :value="progressValue" />
+    <progress-bar :value="+progressValue" />
   </section>
 </template>
 
@@ -279,7 +279,6 @@ const skipQuestion = () => {
 };
 
 const nextQuestion = () => {
-  console.log(progressValue.value);
   collectAnswers();
   idx.value += 1;
 
@@ -287,7 +286,6 @@ const nextQuestion = () => {
     skipQuestion();
   }
 
-  console.log(questions.value[idx.value]);
   if (Number.isInteger(questions.value[idx.value].min)) {
     changeInputNumberValue();
   }

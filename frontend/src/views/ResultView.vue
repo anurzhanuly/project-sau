@@ -1,6 +1,6 @@
 <template>
   <section class="section-result">
-    <div :class="{ hidden: isResultsVisible }">
+    <div :class="{ hidden: isResultsHidden }" id="recommendations">
       <h2 class="result-header">Результаты:</h2>
       <div
         v-for="(resultItem, index) in result"
@@ -23,10 +23,10 @@
           </ul>
         </p-panel>
       </div>
-      <div :class="{ hidden: isButtonsVisible }">
+      <div :class="{ hidden: isButtonsHidden }">
         <button class="btn" @click="makeResultPdf()">Открыть в pdf</button>
         <button class="btn" @click="openPromo">Получить промокод</button>
-        <button class="btn" @click="makeCardPdf()">Карточка пациента</button>
+        <button class="btn" @click="test()">Карточка пациента</button>
       </div>
       <p-dialog
         header="Скидочный промокод: Симптом"
@@ -40,7 +40,7 @@
         </data-table>
       </p-dialog>
     </div>
-    <patient-card :class="{ hidden: isCardVisible }" />
+    <patient-card :class="{ hidden: isCardHidden }" id="patientCard" />
   </section>
 </template>
 
@@ -56,9 +56,9 @@ import PatientCard from '../components/PatientCard.vue';
 
 const surveyStore = useSurveyStore();
 
-const isButtonsVisible = ref(false);
-const isResultsVisible = ref(false);
-const isCardVisible = ref(true);
+const isButtonsHidden = ref(false);
+const isResultsHidden = ref(false);
+const isCardHidden = ref(true);
 const displayPromo = ref(false);
 
 const result = computed(() => surveyStore.recommendations || []);
@@ -68,29 +68,20 @@ const openPromo = () => {
 };
 
 const makeResultPdf = () => {
-  console.log(123)
-  isButtonsVisible.value = true;
+  isButtonsHidden.value = true;
   setTimeout(() => {
-    console.log(123)
     window.print();
-    console.log(11)
-    isButtonsVisible.value = false;
+    isButtonsHidden.value = false;
   }, 300);
 };
 
-const makeCardPdf = () => {
-  console.log(123)
-  isResultsVisible.value = true;
-  isButtonsVisible.value = true;
-  isCardVisible.value = false;
-  setTimeout(() => {
-    console.log(123)
-    window.print();
-    console.log(11)
-    isCardVisible.value = true;
-    isResultsVisible.value = false;
-    isButtonsVisible.value = false;
-  }, 300);
+const test = () => {
+  const r = document.getElementById('recommendations');
+  const cloneR = r.cloneNode(true)
+  const p = document.getElementById('patientCard');
+  r.innerHTML = p.innerHTML;
+  window.print();
+  r.innerHTML = cloneR.innerHTML;
 };
 </script>
 
@@ -209,6 +200,11 @@ const makeCardPdf = () => {
 }
 
 .hidden {
-  display: none;
+  visibility: hidden;
+  position: absolute;
+  right: 0;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
 }
 </style>
