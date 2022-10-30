@@ -1,6 +1,6 @@
 <template>
   <section class="section-result">
-    <div :class="{ hidden: isResultsHidden }" id="recommendations">
+    <div :class="{ hidden: isResultsHidden }">
       <h2 class="result-header">Результаты:</h2>
       <div
         v-for="(resultItem, index) in result"
@@ -26,7 +26,7 @@
       <div :class="{ hidden: isButtonsHidden }">
         <button class="btn" @click="makeResultPdf()">Открыть в pdf</button>
         <button class="btn" @click="openPromo">Получить промокод</button>
-        <button class="btn" @click="test()">Карточка пациента</button>
+        <button class="btn" @click="makeCardPdf()">Карточка пациента</button>
       </div>
       <p-dialog
         header="Скидочный промокод: Симптом"
@@ -40,7 +40,7 @@
         </data-table>
       </p-dialog>
     </div>
-    <patient-card :class="{ hidden: isCardHidden }" id="patientCard" />
+    <patient-card :class="{ hidden: isCardHidden }" />
   </section>
 </template>
 
@@ -71,17 +71,24 @@ const makeResultPdf = () => {
   isButtonsHidden.value = true;
   setTimeout(() => {
     window.print();
-    isButtonsHidden.value = false;
-  }, 300);
+    setTimeout(() => {
+      isButtonsHidden.value = false;
+    });
+  });
 };
 
-const test = () => {
-  const r = document.getElementById('recommendations');
-  const cloneR = r.cloneNode(true)
-  const p = document.getElementById('patientCard');
-  r.innerHTML = p.innerHTML;
-  window.print();
-  r.innerHTML = cloneR.innerHTML;
+const makeCardPdf = () => {
+  isResultsHidden.value = true;
+  isButtonsHidden.value = true;
+  isCardHidden.value = false;
+  setTimeout(() => {
+    window.print();
+    setTimeout(() => {
+      isCardHidden.value = true;
+      isResultsHidden.value = false;
+      isButtonsHidden.value = false;
+    });
+  });
 };
 </script>
 
