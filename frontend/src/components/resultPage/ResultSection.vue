@@ -72,7 +72,7 @@ const makeResultPdf = () => {
   setTimeout(() => {
     window.print();
     isHidden.value = true;
-  }, 1);
+  }, 500);
 };
 
 const makeCardPdf = () => {
@@ -84,7 +84,7 @@ const makeCardPdf = () => {
     isCard.value = false;
     isResults.value = true;
     isHidden.value = true;
-  }, 1);
+  }, 500);
 };
 </script>
 
