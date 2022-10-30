@@ -55,13 +55,9 @@ import DataTable from 'primevue/datatable';
 import PColumn from 'primevue/column';
 import PatientCard from '../components/PatientCard.vue';
 
-const surveyStore = useSurveyStore();
-
-// const isButtonsHidden = ref(false);
-// const isResultsHidden = ref(false);
-// const isCardHidden = ref(true);
 const displayPromo = ref(false);
 
+const surveyStore = useSurveyStore();
 const result = computed(() => surveyStore.recommendations || []);
 
 const openPromo = () => {
@@ -75,9 +71,11 @@ const makeResultPdf = () => {
 const makeCardPdf = () => {
   document.getElementById('rec').classList.add('hidden');
   document.getElementById('card').classList.remove('hidden');
-  window.print();
-  document.getElementById('rec').classList.remove('hidden');
-  document.getElementById('card').classList.add('hidden');
+  setTimeout(() => {
+    window.print();
+    document.getElementById('rec').classList.remove('hidden');
+    document.getElementById('card').classList.add('hidden');
+  }, 1000);
 };
 </script>
 
@@ -196,11 +194,6 @@ const makeCardPdf = () => {
 }
 
 .hidden {
-  visibility: hidden;
-  position: absolute;
-  right: 0;
-  appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
+  display: none;
 }
 </style>
