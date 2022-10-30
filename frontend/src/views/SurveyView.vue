@@ -140,13 +140,15 @@
         </button>
       </router-link>
     </div>
+    <progress-bar :value="progressValue" />
   </section>
 </template>
 
 <script setup>
 import mock from '../services/mock';
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, computed } from 'vue';
 import { useSurveyStore } from '../stores/surveyStore.js';
+import ProgressBar from 'primevue/progressbar';
 
 const questions = ref(mock);
 const idx = ref(0);
@@ -168,6 +170,10 @@ onMounted(() => {
   window.addEventListener('resize', updateWidth);
   updateWidth();
 });
+
+const progressValue = computed(() =>
+  ((idx.value * 100) / questions.value.length).toFixed(1)
+);
 
 const changeInputNumberValue = () => {
   minValue.value = questions.value[idx.value].min;
@@ -273,6 +279,7 @@ const skipQuestion = () => {
 };
 
 const nextQuestion = () => {
+  console.log(progressValue.value);
   collectAnswers();
   idx.value += 1;
 
@@ -280,7 +287,7 @@ const nextQuestion = () => {
     skipQuestion();
   }
 
-  console.log(questions.value[idx.value])
+  console.log(questions.value[idx.value]);
   if (Number.isInteger(questions.value[idx.value].min)) {
     changeInputNumberValue();
   }
@@ -375,7 +382,7 @@ const lastQuestion = () => {
 .test-buttons {
   display: flex;
   justify-content: flex-end;
-  margin-top: 40px;
+  margin: 40px 0;
 }
 
 .btn {
