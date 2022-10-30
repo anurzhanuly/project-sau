@@ -41,7 +41,6 @@
       </p-dialog>
     </div>
     <patient-card class="hidden" id="patient-card" />
-    <p>1</p>
   </section>
 </template>
 
