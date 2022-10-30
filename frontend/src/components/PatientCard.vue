@@ -633,6 +633,7 @@ const surveyStore = useSurveyStore();
 
 const answers = computed(() => surveyStore.resultAnswers || {});
 const date = ref(new Date());
+
 </script>
 
 <style scoped>

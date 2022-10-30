@@ -60,7 +60,6 @@ const surveyStore = useSurveyStore();
 // const isButtonsHidden = ref(false);
 // const isResultsHidden = ref(false);
 // const isCardHidden = ref(true);
-const printedComponent = ref('');
 const displayPromo = ref(false);
 
 const result = computed(() => surveyStore.recommendations || []);
@@ -69,28 +68,16 @@ const openPromo = () => {
   displayPromo.value = true;
 };
 
-window.onbeforeprint = () => {
-  console.log('Before print');
-};
-
-window.onafterprint = () => {
-  console.log('After print');
-  if (printedComponent.value === 'card') {
-    document.getElementById('rec').classList.remove('hidden');
-    document.getElementById('card').classList.add('hidden');
-  }
-};
-
 const makeResultPdf = () => {
   window.print();
 };
 
 const makeCardPdf = () => {
-  printedComponent.value = 'card';
   document.getElementById('rec').classList.add('hidden');
   document.getElementById('card').classList.remove('hidden');
   window.print();
-  printedComponent.value = '';
+  document.getElementById('rec').classList.remove('hidden');
+  document.getElementById('card').classList.add('hidden');
 };
 </script>
 
@@ -209,6 +196,11 @@ const makeCardPdf = () => {
 }
 
 .hidden {
-  display: none;
+  visibility: hidden;
+  position: absolute;
+  right: 0;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
 }
 </style>
