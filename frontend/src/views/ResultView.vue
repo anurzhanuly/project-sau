@@ -68,23 +68,29 @@ const openPromo = () => {
 };
 
 const makeResultPdf = () => {
+  console.log(123)
   isButtonsVisible.value = true;
   setTimeout(() => {
+    console.log(123)
     window.print();
+    console.log(11)
     isButtonsVisible.value = false;
-  }, 1);
+  }, 300);
 };
 
 const makeCardPdf = () => {
+  console.log(123)
   isResultsVisible.value = true;
   isButtonsVisible.value = true;
   isCardVisible.value = false;
   setTimeout(() => {
+    console.log(123)
     window.print();
+    console.log(11)
     isCardVisible.value = true;
     isResultsVisible.value = false;
     isButtonsVisible.value = false;
-  }, 1);
+  }, 300);
 };
 </script>
 
