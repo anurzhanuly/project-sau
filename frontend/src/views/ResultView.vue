@@ -73,8 +73,6 @@ const makeCardPdf = () => {
   document.getElementById('card').classList.remove('hidden');
   setTimeout(() => {
     window.print();
-    document.getElementById('rec').classList.remove('hidden');
-    document.getElementById('card').classList.add('hidden');
   }, 1000);
 };
 </script>
