@@ -68,26 +68,30 @@ const openPromo = () => {
 };
 
 const makeResultPdf = () => {
-  isButtonsHidden.value = true;
+  setTimeout(() => {
+    isButtonsHidden.value = true;
+  });
   setTimeout(() => {
     window.print();
-    setTimeout(() => {
-      isButtonsHidden.value = false;
-    });
+  });
+  setTimeout(() => {
+    isButtonsHidden.value = false;
   });
 };
 
 const makeCardPdf = () => {
-  isResultsHidden.value = true;
-  isButtonsHidden.value = true;
-  isCardHidden.value = false;
+  setTimeout(() => {
+    isResultsHidden.value = true;
+    isButtonsHidden.value = true;
+    isCardHidden.value = false;
+  });
   setTimeout(() => {
     window.print();
-    setTimeout(() => {
-      isCardHidden.value = true;
-      isResultsHidden.value = false;
-      isButtonsHidden.value = false;
-    });
+  });
+  setTimeout(() => {
+    isCardHidden.value = true;
+    isResultsHidden.value = false;
+    isButtonsHidden.value = false;
   });
 };
 </script>
