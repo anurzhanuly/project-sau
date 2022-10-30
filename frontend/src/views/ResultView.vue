@@ -70,10 +70,6 @@ const openPromo = () => {
 
 window.onbeforeprint = () => {
   console.log('Before print');
-  if (printedComponent.value === 'card') {
-    document.getElementById('rec').classList.add('hidden');
-    document.getElementById('card').classList.remove('hidden');
-  }
 };
 
 window.onafterprint = () => {
@@ -90,6 +86,8 @@ const makeResultPdf = () => {
 
 const makeCardPdf = () => {
   printedComponent.value = 'card';
+  document.getElementById('rec').classList.add('hidden');
+  document.getElementById('card').classList.remove('hidden');
   window.print();
   printedComponent.value = '';
 };
