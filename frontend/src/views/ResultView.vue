@@ -56,9 +56,9 @@ import PatientCard from '../components/PatientCard.vue';
 
 const surveyStore = useSurveyStore();
 
-const isButtonsVisible = ref(true);
-const isResultsVisible = ref(true);
-const isCardVisible = ref(false);
+const isButtonsVisible = ref(false);
+const isResultsVisible = ref(false);
+const isCardVisible = ref(true);
 const displayPromo = ref(false);
 
 const result = computed(() => surveyStore.recommendations || []);
@@ -68,22 +68,22 @@ const openPromo = () => {
 };
 
 const makeResultPdf = () => {
-  isButtonsVisible.value = false;
+  isButtonsVisible.value = true;
   setTimeout(() => {
     window.print();
-    isButtonsVisible.value = true;
+    isButtonsVisible.value = false;
   }, 1);
 };
 
 const makeCardPdf = () => {
-  isResultsVisible.value = false;
-  isButtonsVisible.value = false;
-  isCardVisible.value = true;
+  isResultsVisible.value = true;
+  isButtonsVisible.value = true;
+  isCardVisible.value = false;
   setTimeout(() => {
     window.print();
-    isCardVisible.value = false;
-    isResultsVisible.value = true;
-    isButtonsVisible.value = true;
+    isCardVisible.value = true;
+    isResultsVisible.value = false;
+    isButtonsVisible.value = false;
   }, 1);
 };
 </script>
