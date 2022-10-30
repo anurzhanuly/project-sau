@@ -1,6 +1,6 @@
 <template>
   <section class="section-result">
-    <div id="rec">
+    <div id="recommendation">
       <h2 class="result-header">Результаты:</h2>
       <div
         v-for="(resultItem, index) in result"
@@ -23,7 +23,7 @@
           </ul>
         </p-panel>
       </div>
-      <div>
+      <div id="buttons">
         <button class="btn" @click="makeResultPdf()">Открыть в pdf</button>
         <button class="btn" @click="openPromo">Получить промокод</button>
         <button class="btn" @click="makeCardPdf()">Карточка пациента</button>
@@ -40,7 +40,7 @@
         </data-table>
       </p-dialog>
     </div>
-    <patient-card class="hidden" id="card" />
+    <patient-card class="hidden" id="patient-card" />
     <p>1</p>
   </section>
 </template>
@@ -69,11 +69,11 @@ const makeResultPdf = () => {
 };
 
 const makeCardPdf = () => {
-  document.getElementById('rec').classList.add('hidden');
-  document.getElementById('card').classList.remove('hidden');
+  document.getElementById('recommendation').classList.add('hidden');
+  document.getElementById('patient-card').classList.remove('hidden');
   setTimeout(() => {
     window.print();
-  }, 1000);
+  });
 };
 </script>
 
