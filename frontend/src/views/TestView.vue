@@ -18,6 +18,7 @@ onMounted(() => {
     console.log(sender.data);
   }
   const survey = new Survey(surveyJson);
+  console.log(survey);
   survey.render('survey');
   survey.onComplete.add(surveyComplete);
 });
