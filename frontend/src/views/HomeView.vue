@@ -7,7 +7,7 @@
           Пройдите анализ своего здоровья и узнайте, что вам стоит пройти.
           Быстро, бесплатно и анонимно.
         </p>
-        <router-link to="/test">
+        <router-link to="/survey">
           <button class="btn">Пройти тест</button>
         </router-link>
       </div>
