@@ -12,7 +12,7 @@ export const useSurveyStore = defineStore('survey', () => {
     axios
       .post('https://project-sau.herokuapp.com/diseases/recommendations', data)
       .then((response) => {
-        console.log(response)
+        console.log(response);
         if (!response.data.recommendations) {
           recommendations.value = [
             {
