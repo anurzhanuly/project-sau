@@ -2,6 +2,7 @@ package questionnaire
 
 import (
 	"context"
+	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
 	"time"
@@ -16,7 +17,7 @@ func (r Repository) FetchById(id int) (Questionnaire, error) {
 
 	cxt, _ := context.WithTimeout(context.Background(), 10*time.Second)
 
-	err := r.collection.FindOne(cxt, Questionnaire{ID: id}).Decode(&result)
+	err := r.collection.FindOne(cxt, bson.M{"id": id}).Decode(&result)
 	if err != nil {
 		return result, err
 	}

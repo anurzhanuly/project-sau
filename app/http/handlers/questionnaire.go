@@ -14,7 +14,16 @@ func QuestionnaireByName(c *gin.Context, di *di.DI) {
 }
 
 func QuestionnaireById(c *gin.Context, di *di.DI) {
+	service := questionnaire.NewService(c, di)
 
+	result, err := service.GetById()
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, []byte("Не удалось инициализовароть сервис добавления опросника"))
+
+		return
+	}
+
+	c.JSON(http.StatusOK, result)
 }
 
 func QuestionnaireAdd(c *gin.Context, di *di.DI) {
@@ -27,5 +36,5 @@ func QuestionnaireAdd(c *gin.Context, di *di.DI) {
 		return
 	}
 
-	//c.JSON(http.StatusOK, []byte(`{"id":`+id+`}`))
+	c.JSON(http.StatusOK, []byte("All saved, AlhamdulilLah! :D"))
 }
