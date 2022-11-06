@@ -7,8 +7,8 @@
 </template>
 
 <script setup>
-import ToolbarBase from '@/components/ToolbarBase.vue';
-import FooterBase from '@/components/FooterBase.vue';
+import ToolbarBase from "@/components/ToolbarBase.vue";
+import FooterBase from "@/components/FooterBase.vue";
 </script>
 
 <style>

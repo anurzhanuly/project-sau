@@ -1,34 +1,30 @@
-import { defineStore } from 'pinia';
-import { ref } from 'vue';
-import axios from 'axios';
+import { defineStore } from "pinia";
+import axios from "axios";
+import { ref } from "vue";
+import { postAnswers } from "../services/survey.js";
 
-export const useSurveyStore = defineStore('survey', () => {
+export const useSurveyStore = defineStore("survey", () => {
   const resultAnswers = ref({});
-  const recommendations = ref([]);
+  const recommendations = ref([
+    {
+      name: "Короче,нет ничего",
+      tests: ["Вы здоровы"],
+      recommendations: ["Вы здоровы"],
+      importance: "",
+    },
+  ]);
 
-  function postAnswersData(data) {
+  async function postAnswersData(data) {
     resultAnswers.value = data.answers;
-
-    axios
-      .post('https://project-sau.herokuapp.com/diseases/recommendations', data)
-      .then((response) => {
-        console.log(response);
-        if (!response.data.recommendations) {
-          recommendations.value = [
-            {
-              name: 'Короче,нет ничего',
-              tests: ['Вы здоровы'],
-              recommendations: ['Вы здоровы'],
-              importance: ''
-            }
-          ];
-        } else {
-          recommendations.value = response.data.recommendations;
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    const res = await postAnswers(data);
+    console.log(res);
+    if (!axios.isAxiosError(res)) {
+      if (res.data.recommendations) {
+        recommendations.value = res.data.recommendations;
+      }
+    }
+    return res;
   }
+
   return { resultAnswers, recommendations, postAnswersData };
 });

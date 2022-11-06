@@ -7,17 +7,17 @@
           Пройдите анализ своего здоровья и узнайте, что вам стоит пройти.
           Быстро, бесплатно и анонимно.
         </p>
-        <router-link to="/test">
+        <router-link to="/surveylib">
           <button class="btn">Пройти тест</button>
         </router-link>
       </div>
     </div>
-    <div class="image-welcome"></div>
+    <div class="image-welcome" />
   </section>
   <section class="section-info">
     <div class="section-content">
       <div class="info">
-        <div class="image-book"></div>
+        <div class="image-book" />
         <p class="info-text">
           Вопросам здоровья посвящено свыше 4% всех поисковых запросов.
         </p>
@@ -43,7 +43,7 @@
 }
 
 .image-book {
-  background-image: url('../assets/info-icon.svg');
+  background-image: url("../assets/info-icon.svg");
   background-position: 50%;
   background-repeat: no-repeat;
   background-size: contain;
@@ -119,7 +119,7 @@
 
 .section-welcome .image-welcome {
   z-index: 1;
-  background-image: url('../assets/welcome-small.svg');
+  background-image: url("../assets/welcome-small.svg");
   height: 212px;
   width: 304px;
   background-position: 50%;

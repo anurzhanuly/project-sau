@@ -1,33 +1,33 @@
 <template>
   <section class="section-test">
     <div class="test-wrapper">
-      <p class="test-title">{{ questions[idx]['name'] }}</p>
-      <p class="test-description">{{ questions[idx]['description'] }}</p>
+      <p class="test-title">{{ questions[idx]["name"] }}</p>
+      <p class="test-description">{{ questions[idx]["description"] }}</p>
       <div
         v-if="questions[idx].choices && questions[idx].maxSelectedChoices > 1"
       >
         <label
           v-for="(answer, index) in questions[idx].choices"
-          :for="index"
           :key="index"
+          :for="index"
           class="label"
           :class="{ checked: checked.includes(answer) }"
         >
           <input
             :id="index"
+            v-model="checked"
             type="checkbox"
             class="hidden"
             :value="answer"
-            v-model="checked"
           />
           {{ answer }}
         </label>
-        <label class="label" v-if="questions[idx].hasOther">
+        <label v-if="questions[idx].hasOther" class="label">
           <input
+            v-model="inputOtherText"
             class="text-input"
             placeholder="Другое"
             type="text"
-            v-model="inputOtherText"
           />
         </label>
       </div>
@@ -39,10 +39,10 @@
         class="input-wrapper"
       >
         <input
+          v-model="inputText"
           class="text-input"
           placeholder="Нажми на меня"
           type="text"
-          v-model="inputText"
         />
       </div>
       <div
@@ -50,17 +50,17 @@
       >
         <label
           v-for="(answer, index) in questions[idx].choices"
-          :for="index"
           :key="index"
+          :for="index"
           class="label"
           :class="{ checked: checked.includes(answer) }"
         >
           <input
             :id="index"
+            v-model="checked"
             type="radio"
             class="hidden"
             :value="answer"
-            v-model="checked"
           />
           {{ answer }}
         </label>
@@ -70,71 +70,67 @@
           <button
             class="button-decrement btn-input"
             @click="inputNumber > minValue ? (inputNumber -= 1) : null"
-          ></button>
+          />
           <div class="number-input">
             <input
+              v-model="inputNumber"
               type="number"
               :min="minValue"
               :max="maxValue"
-              v-model="inputNumber"
               @change="validateInputNumber()"
             />
           </div>
           <button
             class="button-increment btn-input"
             @click="inputNumber < maxValue ? (inputNumber += 1) : null"
-          ></button>
+          />
         </div>
         <p class="input-help">Нажмите на цифру для ручного ввода</p>
       </div>
     </div>
-    <div class="test-buttons" v-if="width > 770">
-      <button class="btn prev-btn" @click="prevQuestion" v-if="idx > 0">
+    <div v-if="width > 770" class="test-buttons">
+      <button v-if="idx > 0" class="btn prev-btn" @click="prevQuestion">
         Предыдущий вопрос
       </button>
       <button
+        v-if="idx < questions.length - 1"
         class="btn"
-        @click="nextQuestion"
         :disabled="
           !checked.length &&
           questions[idx].choices &&
           inputOtherText.length === 0
         "
-        v-if="idx < questions.length - 1"
+        @click="nextQuestion"
       >
         Следующий вопрос
       </button>
-      <router-link to="/result" v-else>
+      <router-link v-else to="/result">
         <button
           class="btn"
-          @click="lastQuestion"
           :disabled="!checked.length && questions[idx].choices"
+          @click="lastQuestion"
         >
           Показать результаты
         </button>
       </router-link>
     </div>
-    <div class="test-buttons" v-else>
+    <div v-else class="test-buttons">
+      <button v-if="idx > 0" class="arrow prev-btn" @click="prevQuestion" />
       <button
-        class="arrow prev-btn"
-        @click="prevQuestion"
-        v-if="idx > 0"
-      ></button>
-      <button
+        v-if="idx < questions.length - 1"
         class="arrow"
-        @click="nextQuestion"
         :disabled="
           !checked.length &&
           questions[idx].choices &&
           inputOtherText.length === 0
         "
-        v-if="idx < questions.length - 1"
-      ></button>
-      <router-link to="/result" v-else>
+        @click="nextQuestion"
+      />
+      <router-link v-else to="/result">
         <button
           class="btn mobile-btn"
-          @click="lastQuestion"
           :disabled="!checked.length && questions[idx].choices"
+          @click="lastQuestion"
         >
           Результаты
         </button>
@@ -145,10 +141,10 @@
 </template>
 
 <script setup>
-import mock from '../services/mock';
-import { ref, onMounted, computed } from 'vue';
-import { useSurveyStore } from '../stores/surveyStore.js';
-import ProgressBar from 'primevue/progressbar';
+import mock from "../services/mock";
+import { ref, onMounted, computed } from "vue";
+import { useSurveyStore } from "../stores/surveyStore.js";
+import ProgressBar from "primevue/progressbar";
 
 const questions = ref(mock);
 const idx = ref(0);
@@ -156,8 +152,8 @@ const checked = ref([]);
 const selectedAnswers = ref({});
 const minValue = ref(questions.value[0].min);
 const maxValue = ref(questions.value[0].max);
-const inputText = ref('');
-const inputOtherText = ref('');
+const inputText = ref("");
+const inputOtherText = ref("");
 const inputNumber = ref(questions.value[0].defaultValue);
 const width = ref(null);
 
@@ -167,7 +163,7 @@ onMounted(() => {
   const updateWidth = () => {
     width.value = window.innerWidth;
   };
-  window.addEventListener('resize', updateWidth);
+  window.addEventListener("resize", updateWidth);
   updateWidth();
 });
 
@@ -196,7 +192,7 @@ const collectAnswers = () => {
     questions.value[idx.value].maxSelectedChoices === 1
   ) {
     selectedAnswers.value[questions.value[idx.value].name] = [
-      checked.value
+      checked.value,
     ].flat(Infinity);
   } else if (
     questions.value[idx.value].choices &&
@@ -207,36 +203,36 @@ const collectAnswers = () => {
       selectedAnswers.value[questions.value[idx.value].name].push(
         inputOtherText.value
       );
-      inputOtherText.value = '';
+      inputOtherText.value = "";
     }
-  } else if (questions.value[idx.value].inputType === 'number') {
+  } else if (questions.value[idx.value].inputType === "number") {
     selectedAnswers.value[questions.value[idx.value].name] = [
-      `${inputNumber.value}`
+      `${inputNumber.value}`,
     ];
   } else {
     selectedAnswers.value[questions.value[idx.value].name] = [
-      `${inputText.value}`
+      `${inputText.value}`,
     ];
-    inputText.value = '';
+    inputText.value = "";
   }
 };
 
 const checkVisible = () => {
   const objValues = {};
   const arrVisibility = [];
-  const visibleArray = questions.value[idx.value].visibleIf.split(' ');
+  const visibleArray = questions.value[idx.value].visibleIf.split(" ");
 
   const arrValues = visibleArray
     .map((el, idx) => {
-      if (el === '{') {
-        const lastIdx = visibleArray.indexOf('}', idx);
-        return visibleArray.slice(idx + 1, lastIdx).join(' ');
+      if (el === "{") {
+        const lastIdx = visibleArray.indexOf("}", idx);
+        return visibleArray.slice(idx + 1, lastIdx).join(" ");
       }
-      if (el === '[') {
-        const lastIdx = visibleArray.indexOf(']', idx);
+      if (el === "[") {
+        const lastIdx = visibleArray.indexOf("]", idx);
         return visibleArray
           .slice(idx + 1, lastIdx)
-          .join(' ')
+          .join(" ")
           .slice(1, -1);
       }
     })
@@ -302,7 +298,7 @@ const prevQuestion = () => {
     idx.value -= 1;
   }
   checked.value = [
-    ...selectedAnswers.value[questions.value[idx.value - 1].name]
+    ...selectedAnswers.value[questions.value[idx.value - 1].name],
   ];
   inputNumber.value =
     +selectedAnswers.value[questions.value[idx.value - 1].name][0];
@@ -374,7 +370,7 @@ const lastQuestion = () => {
 }
 
 .checked::before {
-  content: '✔';
+  content: "✔";
 }
 
 .test-buttons {
@@ -392,7 +388,7 @@ const lastQuestion = () => {
   cursor: pointer;
   display: inline-block;
   font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto,
-    'Helvetica Neue', sans-serif;
+    "Helvetica Neue", sans-serif;
   font-size: 16px;
   font-weight: 600;
   line-height: 20px;
@@ -448,7 +444,7 @@ const lastQuestion = () => {
 }
 
 .arrow:after {
-  content: '';
+  content: "";
   display: inline-block;
   margin-top: 5px;
   margin-left: -6px;
@@ -506,7 +502,7 @@ const lastQuestion = () => {
   width: 100%;
 }
 
-input[type='text']:focus {
+input[type="text"]:focus {
   background-color: white;
   border: 1px solid #9c7830;
   outline: none;
@@ -521,7 +517,7 @@ input[type='text']:focus {
   color: #acb7c1;
 }
 
-input[type='number'] {
+input[type="number"] {
   -webkit-appearance: none;
   -webkit-border-radius: 0px;
   -moz-appearance: none;
@@ -541,19 +537,19 @@ input[type='number'] {
   transition: all 0.2s ease-out;
 }
 
-input[type='number']:focus {
+input[type="number"]:focus {
   background-color: white;
   border: 1px solid #9c7830;
   outline: none;
 }
 
-input[type='number']::-webkit-inner-spin-button,
-input[type='number']::-webkit-outer-spin-button {
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
 
-input[type='number'] {
+input[type="number"] {
   -moz-appearance: textfield;
 }
 
@@ -579,7 +575,7 @@ input[type='number'] {
 }
 
 .btn-input::after {
-  content: '';
+  content: "";
   position: absolute;
   opacity: 1;
   top: 0;
@@ -608,7 +604,7 @@ input[type='number'] {
 }
 
 @media (hover: hover) {
-  input[type='number']:hover,
+  input[type="number"]:hover,
   .btn-input:hover {
     background-color: white;
   }
