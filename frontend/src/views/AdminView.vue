@@ -1,7 +1,7 @@
 <template>
   <div class="section-admin">
     <p-textarea
-      v-model="questionsJson"
+      v-model="surveyJSON"
       rows="25"
       aria-label="Вставьте сюда json с вопросами из survey"
     />
@@ -19,15 +19,20 @@ import PButton from "primevue/button";
 import { ref } from "vue";
 import { changeQuestionsJson } from "../services/admin.js";
 
-const questionsJson = ref("");
+const surveyJSON = ref("");
 const changeSurveyQuestions = async () => {
+  const questionsJson = JSON.parse(
+    surveyJSON.value.split("\n").join(""),
+  ).pages.filter(el => {
+    return el.elements[0].type !== "expression";
+  });
+
   const questions = {
     id: "114",
-    content: questionsJson.value.split("\n").join(""),
+    content: { pages: questionsJson },
   };
 
   const res = await changeQuestionsJson(questions);
-  console.log(res);
 };
 </script>
 

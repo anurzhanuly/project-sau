@@ -1,10 +1,10 @@
 import axios from "axios";
 
-export const postAnswers = async (answers) => {
+export const postAnswers = async answers => {
   try {
     const res = axios.post(
       "http://www.symptom.kz/diseases/recommendations",
-      answers
+      answers,
     );
 
     return res;

@@ -1,10 +1,22 @@
 import axios from "axios";
 
-export const postQuestionsJson = async (questions) => {
+export const getQuestionsJson = async () => {
+  try {
+    const res = axios.get("http://www.symptom.kz/questionnaires/id/114");
+
+    return res;
+  } catch (error) {
+    const err = error;
+    console.log(error);
+    return err;
+  }
+};
+
+export const postQuestionsJson = async questions => {
   try {
     const res = axios.post(
       "http://www.symptom.kz/questionnaires/add",
-      questions
+      questions,
     );
 
     return res;
@@ -15,11 +27,11 @@ export const postQuestionsJson = async (questions) => {
   }
 };
 
-export const changeQuestionsJson = async (questions) => {
+export const changeQuestionsJson = async questions => {
   try {
     const res = axios.put(
       "http://www.symptom.kz/questionnaires/update",
-      questions
+      questions,
     );
 
     return res;
