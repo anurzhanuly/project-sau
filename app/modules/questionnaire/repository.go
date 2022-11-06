@@ -2,6 +2,7 @@ package questionnaire
 
 import (
 	"context"
+	"errors"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
@@ -51,17 +52,17 @@ func (r Repository) Update(model Questionnaire) (primitive.ObjectID, error) {
 	var err error
 	var id primitive.ObjectID
 
-	filter := bson.D{{"id", id}}
+	filter := bson.D{{"id", model.ID}}
 	update := bson.D{{"$set", bson.D{{"content", model.Content}}}}
 
 	cxt, _ := context.WithTimeout(context.Background(), 10*time.Second)
 
 	result, err := r.collection.UpdateOne(cxt, filter, update)
-	if err != nil {
+	if result.MatchedCount == 0 {
+		err = errors.New("не найден документ для добавления")
+
 		return [12]byte{}, err
 	}
-
-	result = result
 
 	return id, err
 }
