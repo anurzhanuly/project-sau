@@ -12,7 +12,7 @@ type Repository struct {
 	collection *mongo.Collection
 }
 
-func (r Repository) FetchById(id int) (Questionnaire, error) {
+func (r Repository) FetchById(id string) (Questionnaire, error) {
 	var result Questionnaire
 
 	cxt, _ := context.WithTimeout(context.Background(), 10*time.Second)

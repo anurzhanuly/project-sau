@@ -4,7 +4,6 @@ import (
 	"anurzhanuly/project-sau/app/di"
 	"github.com/gin-gonic/gin"
 	"go.mongodb.org/mongo-driver/bson/primitive"
-	"strconv"
 )
 
 type Service struct {
@@ -64,10 +63,7 @@ func (s Service) GetById() (Questionnaire, error) {
 	var err error
 	var result Questionnaire
 
-	id, err := strconv.Atoi(s.Context.Param("id"))
-	if err != nil {
-		return result, err
-	}
+	id := s.Context.Param("id")
 
 	result, err = s.Repo.FetchById(id)
 	if err != nil {
