@@ -52,7 +52,7 @@ func (r Repository) addDisease(model Disease) error {
 	return err
 }
 
-func (r Repository) getAllHardcodedDiseases() []HardcodedDisease {
+func (r Repository) getAllHardcodedRecommendations() []HardcodedDisease {
 	return []HardcodedDisease{
 		{
 			ID:   1,

@@ -68,3 +68,19 @@ func GetAllDiseases(c *gin.Context, di *di.DI) {
 		"result": result,
 	})
 }
+
+func GetAllRecommendations(c *gin.Context, di *di.DI) {
+	var result string
+	var err error
+	service := diseases.NewService(c, di)
+
+	result, err = service.GetAllRecommendations()
+	if err != nil {
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"status": http.StatusOK,
+		"result": result,
+	})
+}
