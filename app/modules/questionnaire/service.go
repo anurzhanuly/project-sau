@@ -43,6 +43,23 @@ func (s Service) DoAdd() (primitive.ObjectID, error) {
 	return id, err
 }
 
+func (s Service) DoUpdate() (primitive.ObjectID, error) {
+	var err error
+	var id primitive.ObjectID
+
+	err = s.Context.BindJSON(s.Model)
+	if err != nil {
+		return [12]byte{}, err
+	}
+
+	id, err = s.Repo.Update(*s.Model)
+	if err != nil {
+		return [12]byte{}, err
+	}
+
+	return id, err
+}
+
 func (s Service) GetById() (Questionnaire, error) {
 	var err error
 	var result Questionnaire

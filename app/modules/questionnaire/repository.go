@@ -46,3 +46,22 @@ func (r Repository) Add(model Questionnaire) (primitive.ObjectID, error) {
 
 	return id, err
 }
+
+func (r Repository) Update(model Questionnaire) (primitive.ObjectID, error) {
+	var err error
+	var id primitive.ObjectID
+
+	filter := bson.D{{"id", id}}
+	update := bson.D{{"$set", bson.D{{"content", model.Content}}}}
+
+	cxt, _ := context.WithTimeout(context.Background(), 10*time.Second)
+
+	result, err := r.collection.UpdateOne(cxt, filter, update)
+	if err != nil {
+		return [12]byte{}, err
+	}
+
+	result = result
+
+	return id, err
+}

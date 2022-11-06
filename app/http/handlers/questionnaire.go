@@ -31,7 +31,20 @@ func QuestionnaireAdd(c *gin.Context, di *di.DI) {
 
 	_, err := service.DoAdd()
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, []byte("Не удалось инициализовароть сервис добавления опросника"))
+		c.JSON(http.StatusInternalServerError, []byte(err.Error()))
+
+		return
+	}
+
+	c.JSON(http.StatusOK, []byte("All saved, AlhamdulilLah! :D"))
+}
+
+func QuestionnaireUpdate(c *gin.Context, di *di.DI) {
+	service := questionnaire.NewService(c, di)
+
+	_, err := service.DoUpdate()
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, []byte(err.Error()))
 
 		return
 	}
