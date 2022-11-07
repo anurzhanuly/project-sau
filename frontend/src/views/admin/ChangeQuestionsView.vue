@@ -1,5 +1,5 @@
 <template>
-  <div class="section-admin">
+  <section class="section-questions__add">
     <h2>Вставьте сюда json с вопросами из survey</h2>
     <p-textarea v-model="surveyJSON" rows="25" />
     <p-button
@@ -7,14 +7,14 @@
       class="p-button-lg"
       @click="changeSurveyQuestions"
     />
-  </div>
+  </section>
 </template>
 
 <script setup>
 import PTextarea from "primevue/textarea";
 import PButton from "primevue/button";
 import { ref } from "vue";
-import { changeQuestionsJson } from "../services/admin.js";
+import { changeQuestionsJson } from "../../services/admin.js";
 
 const surveyJSON = ref("");
 const changeSurveyQuestions = async () => {
@@ -34,7 +34,7 @@ const changeSurveyQuestions = async () => {
 </script>
 
 <style scoped>
-.section-admin {
+.section-questions__add {
   display: flex;
   flex-direction: column;
   margin: 0 auto;

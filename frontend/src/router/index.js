@@ -27,7 +27,18 @@ const router = createRouter({
     {
       path: "/admin",
       name: "admin",
-      component: () => import("@/views/AdminView.vue"),
+      component: () => import("@/views/admin/AdminView.vue"),
+      children: [
+        {
+          path: "changeQuest",
+          component: () => import("@/views/admin/ChangeQuestionsView.vue"),
+        },
+        {
+          path: "changeReccom",
+          component: () =>
+            import("@/views/admin/ChangeRecommendationsView.vue"),
+        },
+      ],
     },
   ],
 });
