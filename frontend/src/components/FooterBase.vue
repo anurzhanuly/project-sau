@@ -7,6 +7,7 @@
       <p>
         Почта: <a href="mailto:symptom.kz@gmail.com">symptom.kz@gmail.com</a>
       </p>
+      <router-link to="/admin">Админ</router-link>
     </div>
   </footer>
 </template>

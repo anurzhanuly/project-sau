@@ -1,10 +1,7 @@
 <template>
   <div class="section-admin">
-    <p-textarea
-      v-model="surveyJSON"
-      rows="25"
-      aria-label="Вставьте сюда json с вопросами из survey"
-    />
+    <h2>Вставьте сюда json с вопросами из survey</h2>
+    <p-textarea v-model="surveyJSON" rows="25" />
     <p-button
       label="Сохранить"
       class="p-button-lg"
