@@ -41,3 +41,15 @@ export const changeQuestionsJson = async questions => {
     return err;
   }
 };
+
+export const getRecommendationsJson = async () => {
+  try {
+    const res = axios.get("http://www.symptom.kz/recommendations");
+
+    return res;
+  } catch (error) {
+    const err = error;
+    console.log(error);
+    return err;
+  }
+};
