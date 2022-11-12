@@ -141,12 +141,10 @@
 </template>
 
 <script setup>
-import mock from "../services/mock";
 import { ref, onMounted, computed } from "vue";
 import { useSurveyStore } from "../stores/surveyStore.js";
 import ProgressBar from "primevue/progressbar";
 
-const questions = ref(mock);
 const idx = ref(0);
 const checked = ref([]);
 const selectedAnswers = ref({});
@@ -160,6 +158,7 @@ const width = ref(null);
 const surveyStore = useSurveyStore();
 
 onMounted(() => {
+  surveyStore.getQuestionsData();
   const updateWidth = () => {
     width.value = window.innerWidth;
   };
@@ -167,8 +166,9 @@ onMounted(() => {
   updateWidth();
 });
 
+const questions = computed(() => surveyStore.questions);
 const progressValue = computed(() =>
-  ((idx.value * 100) / questions.value.length).toFixed(1)
+  ((idx.value * 100) / questions.value.length).toFixed(1),
 );
 
 const changeInputNumberValue = () => {
@@ -201,7 +201,7 @@ const collectAnswers = () => {
     selectedAnswers.value[questions.value[idx.value].name] = [...checked.value];
     if (inputOtherText.value) {
       selectedAnswers.value[questions.value[idx.value].name].push(
-        inputOtherText.value
+        inputOtherText.value,
       );
       inputOtherText.value = "";
     }
@@ -236,7 +236,7 @@ const checkVisible = () => {
           .slice(1, -1);
       }
     })
-    .filter((el) => el);
+    .filter(el => el);
 
   for (let i = 0; i < arrValues.length; i++) {
     objValues[arrValues[i]] = arrValues[i + 1];
