@@ -12,7 +12,7 @@ module.exports = {
     ecmaVersion: "latest",
   },
   rules: {
-    "no-console": "error",
+    // "no-console": "error",
     "no-debugger": "error",
     "vue/no-multiple-template-root": "off",
     "@typescript-eslint/ban-ts-comment": "off",

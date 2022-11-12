@@ -30,11 +30,11 @@ const router = createRouter({
       component: () => import("@/views/admin/AdminView.vue"),
       children: [
         {
-          path: "changeQuest",
+          path: "quest",
           component: () => import("@/views/admin/ChangeQuestionsView.vue"),
         },
         {
-          path: "changeReccom",
+          path: "recom",
           component: () =>
             import("@/views/admin/ChangeRecommendationsView.vue"),
         },

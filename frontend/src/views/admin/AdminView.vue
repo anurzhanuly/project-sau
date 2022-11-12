@@ -11,12 +11,12 @@ const adminPages = ref([
   {
     label: "Изменить JSON вопросов",
     icon: "pi pi-fw pi-pencil",
-    to: "/admin/changeQuest",
+    to: "/admin/quest",
   },
   {
     label: "Изменить рекомендации",
     icon: "pi pi-fw pi-file",
-    to: "/admin/changeReccom",
+    to: "/admin/recom",
   },
 ]);
 </script>

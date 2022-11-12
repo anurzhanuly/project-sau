@@ -30,7 +30,7 @@ const changeSurveyQuestions = async () => {
     content: { pages: questionsJson },
   };
 
-  const res = await changeQuestionsJson(questions);
+  await changeQuestionsJson(questions);
 };
 </script>
 
