@@ -14,8 +14,8 @@
         >
           <ul class="result-list">
             <li
-              v-for="(item, index) in resultItem.recommendations"
-              :key="index"
+              v-for="(item, idx) in resultItem.recommendations"
+              :key="idx"
               class="result-list__item"
             >
               {{ item }}
@@ -29,30 +29,30 @@
         <button class="btn" @click="makeCardPdf()">Карточка пациента</button>
       </div>
       <p-dialog
-        header="Скидочный промокод: Симптом"
         v-model:visible="displayPromo"
+        header="Скидочный промокод: Симптом"
         :style="{ width: '80vw' }"
       >
-        <data-table :value="partners" responsiveLayout="scroll">
-          <p-column field="name" header="Категория"> </p-column>
-          <p-column field="company" header="Компания"> </p-column>
-          <p-column field="address" header="Адрес"> </p-column>
+        <data-table :value="partners" responsive-layout="scroll">
+          <p-column field="name" header="Категория" />
+          <p-column field="company" header="Компания" />
+          <p-column field="address" header="Адрес" />
         </data-table>
       </p-dialog>
     </div>
-    <patient-card class="hidden" id="patient-card" />
+    <patient-card id="patient-card" class="hidden" />
   </section>
 </template>
 
 <script setup>
-import { useSurveyStore } from '../stores/surveyStore.js';
-import partners from '../services/partners.js';
-import { ref, computed } from 'vue';
-import PPanel from 'primevue/panel';
-import PDialog from 'primevue/dialog';
-import DataTable from 'primevue/datatable';
-import PColumn from 'primevue/column';
-import PatientCard from '../components/PatientCard.vue';
+import { useSurveyStore } from "../stores/surveyStore.js";
+import partners from "../services/partners.js";
+import { ref, computed } from "vue";
+import PPanel from "primevue/panel";
+import PDialog from "primevue/dialog";
+import DataTable from "primevue/datatable";
+import PColumn from "primevue/column";
+import PatientCard from "../components/PatientCard.vue";
 
 const displayPromo = ref(false);
 
@@ -64,24 +64,24 @@ const openPromo = () => {
 };
 
 const makeResultPdf = () => {
-  document.getElementById('buttons').classList.add('hidden');
+  document.getElementById("buttons").classList.add("hidden");
   setTimeout(() => {
     window.print();
   });
   setTimeout(() => {
-    document.getElementById('buttons').classList.remove('hidden');
+    document.getElementById("buttons").classList.remove("hidden");
   }, 2000);
 };
 
 const makeCardPdf = () => {
-  document.getElementById('recommendation').classList.add('hidden');
-  document.getElementById('patient-card').classList.remove('hidden');
+  document.getElementById("recommendation").classList.add("hidden");
+  document.getElementById("patient-card").classList.remove("hidden");
   setTimeout(() => {
     window.print();
   });
   setTimeout(() => {
-    document.getElementById('recommendation').classList.remove('hidden');
-    document.getElementById('patient-card').classList.add('hidden');
+    document.getElementById("recommendation").classList.remove("hidden");
+    document.getElementById("patient-card").classList.add("hidden");
   }, 2000);
 };
 </script>
@@ -133,7 +133,7 @@ const makeCardPdf = () => {
   cursor: pointer;
   display: inline-block;
   font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto,
-    'Helvetica Neue', sans-serif;
+    "Helvetica Neue", sans-serif;
   font-size: 16px;
   font-weight: 600;
   line-height: 20px;

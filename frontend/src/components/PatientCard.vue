@@ -10,17 +10,17 @@
           </div>
           <div class="card-item">
             <p>Пол:</p>
-            <p>{{ answers['Ваш пол'][0] }}</p>
+            <p>{{ answers["Ваш пол"][0] }}</p>
           </div>
         </div>
         <div class="card-row">
           <div class="card-item">
             <p>Рост:</p>
-            <p>{{ answers['Ваш рост'][0] }}</p>
+            <p>{{ answers["Ваш рост"][0] }}</p>
           </div>
           <div class="card-item">
             <p>Вес:</p>
-            <p>{{ answers['Ваш вес'][0] }}</p>
+            <p>{{ answers["Ваш вес"][0] }}</p>
           </div>
         </div>
         <div class="card-row">
@@ -33,7 +33,7 @@
                 ]"
                 :key="index"
               >
-                {{ answer || '' }}
+                {{ answer || "" }}
               </li>
               <li
                 v-for="(answer, index) in answers[
@@ -41,7 +41,7 @@
                 ]"
                 :key="index"
               >
-                {{ answer || '' }}
+                {{ answer || "" }}
               </li>
               <li
                 v-for="(answer, index) in answers[
@@ -49,13 +49,13 @@
                 ]"
                 :key="index"
               >
-                {{ answer || '' }}
+                {{ answer || "" }}
               </li>
               <li
                 v-for="(answer, index) in answers['Становится ли вам лучше?']"
                 :key="index"
               >
-                {{ answer || '' }}
+                {{ answer || "" }}
               </li>
             </ul>
           </div>
@@ -70,7 +70,7 @@
                 ]"
                 :key="index"
               >
-                {{ answer || '' }}
+                {{ answer || "" }}
               </li>
               <li
                 v-for="(answer, index) in answers[
@@ -78,7 +78,7 @@
                 ]"
                 :key="index"
               >
-                {{ answer || '' }}
+                {{ answer || "" }}
               </li>
               <li
                 v-for="(answer, index) in answers[
@@ -86,7 +86,7 @@
                 ]"
                 :key="index"
               >
-                {{ answer || '' }}
+                {{ answer || "" }}
               </li>
               <li
                 v-for="(answer, index) in answers[
@@ -94,7 +94,7 @@
                 ]"
                 :key="index"
               >
-                {{ answer || '' }}
+                {{ answer || "" }}
               </li>
             </ul>
           </div>
@@ -109,7 +109,7 @@
                 ]"
                 :key="index"
               >
-                {{ answer || '' }}
+                {{ answer || "" }}
               </li>
               <li
                 v-for="(answer, index) in answers[
@@ -117,7 +117,7 @@
                 ]"
                 :key="index"
               >
-                {{ answer || '' }}
+                {{ answer || "" }}
               </li>
             </ul>
           </div>
@@ -128,7 +128,7 @@
                 v-for="(answer, index) in answers['Есть ли у Вас аллергия?']"
                 :key="index"
               >
-                {{ answer || '' }}
+                {{ answer || "" }}
               </li>
               <li
                 v-for="(answer, index) in answers[
@@ -136,7 +136,7 @@
                 ]"
                 :key="index"
               >
-                {{ answer || '' }}
+                {{ answer || "" }}
               </li>
             </ul>
           </div>
@@ -152,7 +152,7 @@
                     'Отметьте жалобы общего состояния'
                   ]"
                   :key="index"
-                  >{{ answer || '' }},</span
+                  >{{ answer || "" }},</span
                 >
               </li>
               <li>
@@ -160,7 +160,7 @@
                 <span
                   v-for="(answer, index) in answers['Отметьте жалобы с кожей']"
                   :key="index"
-                  >{{ answer || '' }},</span
+                  >{{ answer || "" }},</span
                 >
               </li>
               <li>
@@ -170,7 +170,7 @@
                     'Отметьте жалобы в области головы'
                   ]"
                   :key="index"
-                  >{{ answer || '' }},</span
+                  >{{ answer || "" }},</span
                 >
               </li>
               <li>
@@ -180,7 +180,7 @@
                     'Отметьте жалобы с дыханием'
                   ]"
                   :key="index"
-                  >{{ answer || '' }},</span
+                  >{{ answer || "" }},</span
                 >
               </li>
               <li>
@@ -190,7 +190,7 @@
                     'Отметьте жалобы с сердцем'
                   ]"
                   :key="index"
-                  >{{ answer || '' }},</span
+                  >{{ answer || "" }},</span
                 >
               </li>
               <li>
@@ -200,7 +200,7 @@
                     'Отметьте жалобы с животом'
                   ]"
                   :key="index"
-                  >{{ answer || '' }},</span
+                  >{{ answer || "" }},</span
                 >
               </li>
               <li>
@@ -210,7 +210,7 @@
                     'Отметьте жалобы с половой системой'
                   ]"
                   :key="index"
-                  >{{ answer || '' }},</span
+                  >{{ answer || "" }},</span
                 >
               </li>
               <li>
@@ -218,7 +218,7 @@
                 <span
                   v-for="(answer, index) in answers['Отметьте жалобы с грудью']"
                   :key="index"
-                  >{{ answer || '' }},</span
+                  >{{ answer || "" }},</span
                 >
               </li>
               <li>
@@ -228,7 +228,7 @@
                     'Отметьте жалобы с мышцами'
                   ]"
                   :key="index"
-                  >{{ answer || '' }},</span
+                  >{{ answer || "" }},</span
                 >
               </li>
               <li>
@@ -236,7 +236,7 @@
                 <span
                   v-for="(answer, index) in answers['Отметьте жалобы с кровью']"
                   :key="index"
-                  >{{ answer || '' }},</span
+                  >{{ answer || "" }},</span
                 >
               </li>
               <li>
@@ -246,7 +246,7 @@
                     'Отметьте жалобы с щитовидкой'
                   ]"
                   :key="index"
-                  >{{ answer || '' }},</span
+                  >{{ answer || "" }},</span
                 >
               </li>
               <li>
@@ -256,7 +256,7 @@
                     'Отметьте жалобы с ментальным здоровьем'
                   ]"
                   :key="index"
-                  >{{ answer || '' }},</span
+                  >{{ answer || "" }},</span
                 >
               </li>
             </ul>
@@ -272,13 +272,13 @@
                 ]"
                 :key="index"
               >
-                {{ answer || '' }}
+                {{ answer || "" }}
               </li>
               <li
                 v-for="(answer, index) in answers['Результаты анализа на ПСА']"
                 :key="index"
               >
-                {{ answer || '' }}
+                {{ answer || "" }}
               </li>
               <li
                 v-for="(answer, index) in answers[
@@ -286,7 +286,7 @@
                 ]"
                 :key="index"
               >
-                {{ answer || '' }}
+                {{ answer || "" }}
               </li>
             </ul>
           </div>
@@ -296,11 +296,11 @@
         <div class="card-row">
           <div class="card-item">
             <p>Возраст:</p>
-            <p>{{ answers['Сколько Вам полных лет?'][0] }}</p>
+            <p>{{ answers["Сколько Вам полных лет?"][0] }}</p>
           </div>
           <div class="card-item">
             <p>Врач:</p>
-            <p></p>
+            <p />
           </div>
         </div>
         <div class="card-row">
@@ -309,9 +309,9 @@
             <p>
               {{
                 (
-                  answers['Ваш вес'][0] /
-                    (answers['Ваш рост'][0] * answers['Ваш рост'][0]) +
-                  ''
+                  answers["Ваш вес"][0] /
+                    (answers["Ваш рост"][0] * answers["Ваш рост"][0]) +
+                  ""
                 ).slice(4, 6)
               }}
             </p>
@@ -319,7 +319,7 @@
           <div class="card-item">
             <p>Давление:</p>
             <p>
-              {{ answers['Укажите свое систолическое (верхнее) давление'][0] }}
+              {{ answers["Укажите свое систолическое (верхнее) давление"][0] }}
             </p>
           </div>
         </div>
@@ -333,7 +333,7 @@
                 ]"
                 :key="index"
               >
-                {{ answer || '' }}
+                {{ answer || "" }}
               </li>
               <li
                 v-for="(answer, index) in answers[
@@ -341,7 +341,7 @@
                 ]"
                 :key="index"
               >
-                {{ answer || '' }}
+                {{ answer || "" }}
               </li>
               <li
                 v-for="(answer, index) in answers[
@@ -349,7 +349,7 @@
                 ]"
                 :key="index"
               >
-                {{ answer || '' }}
+                {{ answer || "" }}
               </li>
               <li
                 v-for="(answer, index) in answers[
@@ -357,7 +357,7 @@
                 ]"
                 :key="index"
               >
-                {{ answer || '' }}
+                {{ answer || "" }}
               </li>
             </ul>
           </div>
@@ -372,13 +372,13 @@
                 ]"
                 :key="index"
               >
-                {{ answer || '' }}
+                {{ answer || "" }}
               </li>
               <li
                 v-for="(answer, index) in answers['Какие у Вас были операции?']"
                 :key="index"
               >
-                {{ answer || '' }}
+                {{ answer || "" }}
               </li>
             </ul>
           </div>
@@ -389,7 +389,7 @@
                 v-for="(answer, index) in answers['Лежали ли Вы в больнице?']"
                 :key="index"
               >
-                {{ answer || '' }}
+                {{ answer || "" }}
               </li>
               <li
                 v-for="(answer, index) in answers[
@@ -397,7 +397,7 @@
                 ]"
                 :key="index"
               >
-                {{ answer || '' }}
+                {{ answer || "" }}
               </li>
             </ul>
           </div>
@@ -407,7 +407,7 @@
             <p>Курение:</p>
             <ul>
               <li v-for="(answer, index) in answers['Вы курите?']" :key="index">
-                {{ answer || '' }}
+                {{ answer || "" }}
               </li>
               <li
                 v-for="(answer, index) in answers[
@@ -415,13 +415,13 @@
                 ]"
                 :key="index"
               >
-                {{ answer || '' }}
+                {{ answer || "" }}
               </li>
               <li
                 v-for="(answer, index) in answers['Сколько лет Вы курите?']"
                 :key="index"
               >
-                {{ answer || '' }}
+                {{ answer || "" }}
               </li>
             </ul>
           </div>
@@ -434,7 +434,7 @@
                 ]"
                 :key="index"
               >
-                {{ answer || '' }}
+                {{ answer || "" }}
               </li>
             </ul>
           </div>
@@ -450,7 +450,7 @@
                 :key="index"
               >
                 Получали ли Вы лучевую терапию на грудь в возрасте 10-30 лет?
-                {{ answer || '' }}
+                {{ answer || "" }}
               </li>
               <li
                 v-for="(answer, index) in answers[
@@ -459,7 +459,7 @@
                 :key="index"
               >
                 Делали ли Вы прививку от вируса папилломы человека?
-                {{ answer || '' }}
+                {{ answer || "" }}
               </li>
               <li
                 v-for="(answer, index) in answers[
@@ -468,7 +468,7 @@
                 :key="index"
               >
                 Делали ли Вы ранее скрининг на рак шейки матки?
-                {{ answer || '' }}
+                {{ answer || "" }}
               </li>
               <li
                 v-for="(answer, index) in answers[
@@ -477,7 +477,7 @@
                 :key="index"
               >
                 Были ли последние два скрининга отрицательными?
-                {{ answer || '' }}
+                {{ answer || "" }}
               </li>
               <li
                 v-for="(answer, index) in answers[
@@ -486,7 +486,7 @@
                 :key="index"
               >
                 У вас низкая физическая активность? У вас сидячий образ жизни?
-                {{ answer || '' }}
+                {{ answer || "" }}
               </li>
               <li
                 v-for="(answer, index) in answers[
@@ -495,7 +495,7 @@
                 :key="index"
               >
                 Относится ли к вам что-либо из нижеперечисленного?
-                {{ answer || '' }}
+                {{ answer || "" }}
               </li>
               <li
                 v-for="(answer, index) in answers[
@@ -505,7 +505,7 @@
               >
                 Проходили ли вы полный курс вакцинации (3 дозы) от гепатита В во
                 взрослом возрасте?
-                {{ answer || '' }}
+                {{ answer || "" }}
               </li>
               <li
                 v-for="(answer, index) in answers[
@@ -514,7 +514,7 @@
                 :key="index"
               >
                 Вам диагностировали двусторонний стеноз сонных артерий?
-                {{ answer || '' }}
+                {{ answer || "" }}
               </li>
               <li
                 v-for="(answer, index) in answers[
@@ -523,7 +523,7 @@
                 :key="index"
               >
                 Вам диагностировали открытое овальное окно?
-                {{ answer || '' }}
+                {{ answer || "" }}
               </li>
             </ul>
           </div>
@@ -539,7 +539,7 @@
                 :key="index"
               >
                 Проходили ли Вы УЗИ органов брюшной полости последние 6 месяцев?
-                {{ answer || '' }}
+                {{ answer || "" }}
               </li>
               <li
                 v-for="(answer, index) in answers[
@@ -548,7 +548,7 @@
                 :key="index"
               >
                 Какие были результаты УЗИ органов брюшной области?
-                {{ answer || '' }}
+                {{ answer || "" }}
               </li>
               <li
                 v-for="(answer, index) in answers[
@@ -558,7 +558,7 @@
               >
                 Проводилось ли Вам пато-морфологическое исследование (биопсия)
                 простаты?
-                {{ answer || '' }}
+                {{ answer || "" }}
               </li>
               <li
                 v-for="(answer, index) in answers[
@@ -567,7 +567,7 @@
                 :key="index"
               >
                 Были ли подтвержден диагноз рак предстательной железы?
-                {{ answer || '' }}
+                {{ answer || "" }}
               </li>
               <li
                 v-for="(answer, index) in answers[
@@ -576,7 +576,7 @@
                 :key="index"
               >
                 Делали ли Вам тотальную колоноскопию?
-                {{ answer || '' }}
+                {{ answer || "" }}
               </li>
               <li
                 v-for="(answer, index) in answers[
@@ -587,7 +587,7 @@
                 Была ли обнаружена патология в результате исследования материала
                 биопсии толстой и прямой кишки, полученного в результате
                 эндоскопического исследования?
-                {{ answer || '' }}
+                {{ answer || "" }}
               </li>
               <li
                 v-for="(answer, index) in answers[
@@ -596,7 +596,7 @@
                 :key="index"
               >
                 Какой был результат биопсии прямой и толстой кишки?
-                {{ answer || '' }}
+                {{ answer || "" }}
               </li>
               <li
                 v-for="(answer, index) in answers[
@@ -605,7 +605,7 @@
                 :key="index"
               >
                 Проходили ли Вы колоноскопию?
-                {{ answer || '' }}
+                {{ answer || "" }}
               </li>
               <li
                 v-for="(answer, index) in answers[
@@ -615,7 +615,7 @@
               >
                 Была ли обнаружена патология в результате эндоскопического
                 исследования?
-                {{ answer || '' }}
+                {{ answer || "" }}
               </li>
             </ul>
           </div>
@@ -626,14 +626,13 @@
 </template>
 
 <script setup>
-import { computed, ref } from 'vue';
-import { useSurveyStore } from '../stores/surveyStore.js';
+import { computed, ref } from "vue";
+import { useSurveyStore } from "../stores/surveyStore.js";
 
 const surveyStore = useSurveyStore();
 
 const answers = computed(() => surveyStore.resultAnswers || {});
 const date = ref(new Date());
-
 </script>
 
 <style scoped>

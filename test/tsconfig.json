@@ -1,9 +1,0 @@
-{
-  "extends": "./build/tsconfig.json",
-  "compilerOptions": {
-    "types": [
-      "@pinia/nuxt",
-      "@nuxt/types",
-    ]
-  }
-}

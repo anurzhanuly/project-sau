@@ -1,30 +1,46 @@
-import { createRouter, createWebHistory } from 'vue-router';
-import HomeView from '@/views/HomeView.vue';
+import { createRouter, createWebHistory } from "vue-router";
+import HomeView from "@/views/HomeView.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: '/',
-      name: 'home',
-      component: HomeView
+      path: "/",
+      name: "home",
+      component: HomeView,
     },
     {
-      path: '/survey',
-      name: 'survey',
-      component: () => import('@/views/SurveyView.vue')
+      path: "/survey",
+      name: "survey",
+      component: () => import("@/views/SurveyView.vue"),
     },
     {
-      path: '/result',
-      name: 'result',
-      component: () => import('@/views/ResultView.vue')
+      path: "/result",
+      name: "result",
+      component: () => import("@/views/ResultView.vue"),
     },
     {
-      path: '/test',
-      name: 'test',
-      component: () => import('@/views/TestView.vue')
-    }
-  ]
+      path: "/surveylib",
+      name: "surveylib",
+      component: () => import("@/views/SurveyLibView.vue"),
+    },
+    {
+      path: "/admin",
+      name: "admin",
+      component: () => import("@/views/admin/AdminView.vue"),
+      children: [
+        {
+          path: "changeQuest",
+          component: () => import("@/views/admin/ChangeQuestionsView.vue"),
+        },
+        {
+          path: "changeReccom",
+          component: () =>
+            import("@/views/admin/ChangeRecommendationsView.vue"),
+        },
+      ],
+    },
+  ],
 });
 
 export default router;

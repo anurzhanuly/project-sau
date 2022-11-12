@@ -8,8 +8,9 @@
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore"
   },
   "dependencies": {
+    "@vueuse/core": "^9.3.0",
     "axios": "^0.27.2",
-    "pinia": "^2.0.14",
+    "pinia": "^2.0.23",
     "primeicons": "^5.0.0",
     "primevue": "^3.17.0",
     "vue": "^3.2.37",
@@ -20,10 +21,13 @@
     "@rushstack/eslint-patch": "^1.1.0",
     "@vitejs/plugin-vue": "^2.3.3",
     "@vue/eslint-config-prettier": "^7.0.0",
-    "eslint": "^8.5.0",
-    "eslint-plugin-vue": "^9.0.0",
-    "prettier": "^2.5.1",
-    "vite": "^2.9.14",
-    "vite-plugin-pwa": "^0.12.4"
+    "autoprefixer": "^10.4.12",
+    "eslint": "^8.25.0",
+    "eslint-plugin-vue": "^9.6.0",
+    "jsdom": "^20.0.1",
+    "prettier": "^2.7.1",
+    "vite": "^3.1.7",
+    "vite-plugin-eslint": "^1.8.1",
+    "vitest": "^0.23.4"
   }
 }
