@@ -5,6 +5,7 @@ import (
 	"context"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
+	"go.mongodb.org/mongo-driver/mongo/options"
 	"time"
 )
 
@@ -41,8 +42,10 @@ func (r Repository) addDisease(model Disease) error {
 	var err error
 
 	cxt, _ := context.WithTimeout(context.Background(), 10*time.Second)
+	opts := options.Replace().SetUpsert(true)
+	filter := bson.D{{"id", model.ID}}
 
-	result, err := r.collection.InsertOne(cxt, model)
+	result, err := r.collection.ReplaceOne(cxt, filter, model, opts)
 	if err != nil {
 		return err
 	}
