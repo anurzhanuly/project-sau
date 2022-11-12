@@ -4,6 +4,7 @@ import (
 	"anurzhanuly/project-sau/app/di"
 	"anurzhanuly/project-sau/app/modules/answers"
 	"anurzhanuly/project-sau/app/modules/diseases"
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/sirupsen/logrus"
 	"net/http"
@@ -49,23 +50,17 @@ func AddDisease(c *gin.Context, di *di.DI) {
 
 	err := service.AddDisease()
 	if err != nil {
-		return
-	}
-}
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"status": http.StatusInternalServerError,
+			"result": fmt.Printf("произошла ошибка со стороны сервера: %s", err.Error()),
+		})
 
-func GetAllDiseases(c *gin.Context, di *di.DI) {
-	var result string
-	var err error
-	service := diseases.NewService(c, di)
-
-	result, err = service.GetAllDiseases()
-	if err != nil {
 		return
 	}
 
 	c.JSON(http.StatusOK, gin.H{
 		"status": http.StatusOK,
-		"result": result,
+		"result": "success",
 	})
 }
 

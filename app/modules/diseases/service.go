@@ -63,20 +63,6 @@ func (s Service) AddDisease() error {
 	return err
 }
 
-func (s Service) GetAllDiseases() (string, error) {
-	var result []byte
-	var err error
-
-	diseases, err := s.repository.getAllDiseases()
-	if err != nil {
-		return "", err
-	}
-
-	result, err = json.Marshal(diseases)
-
-	return string(result), err
-}
-
 func (s Service) GetAllRecommendations() (string, error) {
 	var result []byte
 	var err error
