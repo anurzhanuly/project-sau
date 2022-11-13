@@ -71,8 +71,8 @@ func (r Repository) deleteDisease(model Disease) error {
 	return err
 }
 
-func (r Repository) getAllHardcodedRecommendations() []HardcodedDisease {
-	return []HardcodedDisease{
+func (r Repository) getAllHardcodedRecommendations() []Disease {
+	return []Disease{
 		{
 			ID:   1,
 			Name: "Cervical cancer",
