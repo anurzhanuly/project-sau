@@ -2,12 +2,12 @@ package answers
 
 import (
 	"anurzhanuly/project-sau/app/di"
+	"anurzhanuly/project-sau/app/modules/data"
 	"github.com/gin-gonic/gin"
 	"github.com/sirupsen/logrus"
 )
 
 type Service struct {
-	Model   *User
 	Repo    Repository
 	Context *gin.Context
 	DI      *di.DI
@@ -18,27 +18,24 @@ func NewService(ctx *gin.Context, di *di.DI) *Service {
 	repo := Repository{collection: collection}
 
 	return &Service{
-		Model:   &User{},
 		Repo:    repo,
 		DI:      di,
 		Context: ctx,
 	}
 }
 
-func (s Service) SaveAnswers() bool {
-	err := s.Context.BindJSON(s.Model)
-	if err != nil {
-		logrus.Info("Не удалось распарсить ответы пользователя")
-
-		return false
+func (s Service) SaveAnswers(userAnswers *User, recommendation []data.Recommendation) error {
+	userResult := UserResult{
+		Answers:         *userAnswers,
+		Recommendations: recommendation,
 	}
 
-	_, err = s.Repo.Save(*s.Model)
+	_, err := s.Repo.Save(userResult)
 	if err != nil {
 		logrus.Info("Не удалось сохранить ответы пользователя")
 
-		return false
+		return err
 	}
 
-	return true
+	return err
 }

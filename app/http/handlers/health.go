@@ -16,25 +16,43 @@ func HealthGetRecommendation(c *gin.Context, di *di.DI) {
 	userAnswer := &answers.User{}
 	service := diseases.NewService(c, di)
 	answerService := answers.NewService(c, di)
+	err := c.BindJSON(userAnswer)
+	if err != nil {
+		logrus.Info("Не удалось распарсить ответы пользователя")
 
-	if !answerService.SaveAnswers() {
-		logrus.WithField(
-			"Ошибка при сохранении ответов пользователя",
-			logrus.Fields{"userAnswer": userAnswer},
+		c.JSON(
+			http.StatusInternalServerError,
+			fmt.Sprintf("Произошла ошибка во время получения ответов пользователя: %s", err.Error()),
 		)
+
+		return
 	}
 
-	recommendations, err := service.GetRecommendations(answerService.Model)
+	recommendations, err := service.GetRecommendations(userAnswer)
 	if err != nil {
 		c.JSON(
 			http.StatusInternalServerError,
-			"Произошла ошибка во время получения рекомендации по заболеваниям",
+			fmt.Sprintf("Произошла ошибка во время получения рекомендации по заболеваниям: %s", err.Error()),
 		)
 
 		logrus.WithField(
 			"Ошибка при получении рекомендации",
 			logrus.Fields{"userAnswer": userAnswer},
 		).Fatal("Произошла ошибка во время получения рекомендации по заболеваниям")
+
+		return
+	}
+
+	if err = answerService.SaveAnswers(userAnswer, recommendations); err != nil {
+		logrus.WithField(
+			"Ошибка при сохранении ответов пользователя",
+			logrus.Fields{"userAnswer": userAnswer},
+		)
+
+		c.JSON(
+			http.StatusInternalServerError,
+			fmt.Sprintf("Произошла ошибка во сохранения результатов: %s", err.Error()),
+		)
 
 		return
 	}
