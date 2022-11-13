@@ -52,7 +52,7 @@ func AddDisease(c *gin.Context, di *di.DI) {
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
 			"status": http.StatusInternalServerError,
-			"result": fmt.Printf("произошла ошибка со стороны сервера: %s", err.Error()),
+			"result": fmt.Sprintf("произошла ошибка со стороны сервера: %s", err.Error()),
 		})
 
 		return
