@@ -1,6 +1,8 @@
 <template>
-  <section class="section-recommendations__change">
-    <div class="recommendation__nav">
+  <p-toast />
+  <confirm-popup />
+  <section class="section-recommendations-change">
+    <div class="recommendation-nav">
       <label
         v-for="(recomm, index) in recommendationsJSON"
         :key="index"
@@ -18,7 +20,7 @@
         {{ recomm.name }}
       </label>
     </div>
-    <div v-if="checkedRecommendationName !== ''" class="recommendation__body">
+    <div v-if="checkedRecommendationName !== ''" class="recommendation-body">
       <p-panel
         v-for="(condition, index) in checkedRecommendationObj.conditions"
         :key="index"
@@ -26,32 +28,54 @@
         :toggleable="true"
         :collapsed="true"
       >
+        <p-button
+          icon="pi pi-plus"
+          class="p-button-rounded p-button-success p-button-outlined create-rec-btn"
+          @click="popupStore.openPopup({ checkedRecommendationName, index })"
+        />
         <div
           v-for="(key, idx) in Object.keys(condition)"
           :key="idx"
-          class="condition__item"
+          class="condition-item"
         >
           <p>{{ key }}</p>
           <p>{{ condition[key].compare }}</p>
           <p>{{ condition[key].value.join(",") }}</p>
+          <p>{{ condition[key].testCase }}</p>
           <p-button
             icon="pi pi-times"
             class="p-button-rounded p-button-danger p-button-outlined"
-            @click="deleteConditionItem(checkedRecommendationName, index, key)"
+            @click="
+              confirmDeleteConditionItem(
+                $event,
+                checkedRecommendationName,
+                index,
+                key,
+              )
+            "
           />
         </div>
       </p-panel>
     </div>
   </section>
+  <create-recommendations-popup-component />
 </template>
 
 <script setup>
 import { ref, watch, onMounted, computed } from "vue";
 import PPanel from "primevue/panel";
 import PButton from "primevue/button";
+import pToast from "primevue/toast";
+import ConfirmPopup from "primevue/confirmpopup";
+import { useConfirm } from "primevue/useconfirm";
 import { useAdminStore } from "../../stores/adminStore";
+import { usePopupStore } from "../../stores/popupStore";
+import CreateRecommendationsPopupComponent from "./CreateRecommendationsPopupComponent.vue";
+
+const confirm = useConfirm();
 
 const adminStore = useAdminStore();
+const popupStore = usePopupStore();
 
 const checkedRecommendationName = ref("");
 const checkedRecommendationObj = ref({});
@@ -59,6 +83,10 @@ const checkedRecommendationObj = ref({});
 onMounted(() => {
   if (!adminStore.recommendations.length) {
     adminStore.getRecommendationsData();
+  }
+
+  if (!adminStore.questions.length) {
+    adminStore.getQuestionsData();
   }
 });
 
@@ -70,24 +98,39 @@ watch(checkedRecommendationName, newRecommendationName => {
   )[0];
 });
 
-const deleteConditionItem = (recName, conditionIndex, keyInCondition) => {
-  adminStore.deleteRecByIndex(recName, conditionIndex, keyInCondition);
+const confirmDeleteConditionItem = (
+  event,
+  recName,
+  conditionIndex,
+  keyInCondition,
+) => {
+  confirm.require({
+    target: event.currentTarget,
+    message: "Вы уверены?",
+    acceptLabel: "Да",
+    rejectLabel: "Нет",
+    icon: "pi pi-info-circle",
+    acceptClass: "p-button-danger",
+    accept: () => {
+      adminStore.deleteRecByIndex(recName, conditionIndex, keyInCondition);
+    },
+  });
 };
 </script>
 
 <style scoped>
-.section-recommendations__change {
+.section-recommendations-change {
   display: flex;
   padding: 10px 0;
 }
 
-.recommendation__nav {
+.recommendation-nav {
   width: 20vw;
   display: flex;
   flex-direction: column;
 }
 
-.recommendation__item {
+.recommendation-item {
   cursor: pointer;
 }
 
@@ -119,19 +162,39 @@ const deleteConditionItem = (recName, conditionIndex, keyInCondition) => {
   content: "✔";
 }
 
-.recommendation__body {
+.recommendation-body {
   width: 70vw;
   padding-left: 20px;
 }
 
-.condition__item {
+.condition-item {
   display: flex;
   justify-content: space-between;
   margin-bottom: 20px;
   align-items: center;
 }
 
-.condition__item p {
-  max-width: 30%;
+.condition-item p {
+  word-wrap: break-word;
+}
+
+.condition-item p:first-child {
+  width: 35%;
+}
+
+.condition-item p:nth-child(2) {
+  width: 10%;
+}
+
+.condition-item p:nth-child(3) {
+  width: 35%;
+}
+
+.condition-item p:nth-child(4) {
+  width: 10%;
+}
+
+.create-rec-btn {
+  margin-bottom: 20px;
 }
 </style>
