@@ -32,7 +32,10 @@ func (s Service) GetRecommendations(userAnswer *answers.User) ([]data.Recommenda
 	var err error
 	var result []data.Recommendation
 
-	diseases := s.repository.getAllHardcodedRecommendations()
+	diseases, err := s.repository.getAllDiseases()
+	if err != nil {
+		return result, err
+	}
 
 	for _, disease := range diseases {
 		if recommendations, ok := disease.getRecommendations(userAnswer); ok {
@@ -75,4 +78,20 @@ func (s Service) GetAllRecommendations() (string, error) {
 	result, err = json.Marshal(recommendations)
 
 	return string(result), err
+}
+
+func (s Service) DeleteDisease() error {
+	var err error
+
+	err = s.Context.BindJSON(s.model)
+	if err != nil {
+		return err
+	}
+
+	err = s.repository.deleteDisease(*s.model)
+	if err != nil {
+		return err
+	}
+
+	return err
 }

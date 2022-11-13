@@ -43,7 +43,7 @@ func (r Repository) addDisease(model Disease) error {
 
 	cxt, _ := context.WithTimeout(context.Background(), 10*time.Second)
 	opts := options.Replace().SetUpsert(true)
-	filter := bson.D{{"id", model.ID}}
+	filter := bson.D{{"name", model.Name}}
 
 	result, err := r.collection.ReplaceOne(cxt, filter, model, opts)
 	if err != nil {
@@ -55,8 +55,24 @@ func (r Repository) addDisease(model Disease) error {
 	return err
 }
 
-func (r Repository) getAllHardcodedRecommendations() []HardcodedDisease {
-	return []HardcodedDisease{
+func (r Repository) deleteDisease(model Disease) error {
+	var err error
+
+	cxt, _ := context.WithTimeout(context.Background(), 10*time.Second)
+	filter := bson.D{{"name", model.Name}}
+
+	result, err := r.collection.DeleteOne(cxt, filter)
+	if err != nil {
+		return err
+	}
+
+	result = result
+
+	return err
+}
+
+func (r Repository) getAllHardcodedRecommendations() []Disease {
+	return []Disease{
 		{
 			ID:   1,
 			Name: "Cervical cancer",

@@ -28,4 +28,4 @@ StaticPath = "./frontend/dist"
     [collections.diseases]
         Name = "diseases"
     [collections.answers]
-        Name = "answers"
+        Name = "user_results"
