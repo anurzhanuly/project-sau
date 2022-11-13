@@ -60,8 +60,15 @@ export const useAdminStore = defineStore("admin", () => {
     return res;
   }
 
-  async function createConditionInRec(newRecord) {
-    console.log(newRecord)
+  async function createConditionInRec(newRecord, recName, conditionIndex) {
+    const rec = recommendations.value.filter(el => {
+      return el.name === recName;
+    })[0];
+    const recIndex = recommendations.value.indexOf(rec);
+    const conditionKey = newRecord.name;
+    delete newRecord.name;
+    recommendations.value[recIndex].conditions[conditionIndex][conditionKey] =
+      newRecord;
   }
 
   function deleteRecByIndex(recName, conditionIndex, keyInCondition) {

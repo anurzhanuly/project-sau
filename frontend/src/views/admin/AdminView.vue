@@ -14,8 +14,13 @@ const adminPages = ref([
     to: "/admin/quest",
   },
   {
-    label: "Изменить рекомендации",
+    label: "Изменить условия рекомендаций",
     icon: "pi pi-fw pi-file",
+    to: "/admin/cond",
+  },
+  {
+    label: "Изменить рекомендации",
+    icon: "pi pi-fw pi-book",
     to: "/admin/recom",
   },
 ]);

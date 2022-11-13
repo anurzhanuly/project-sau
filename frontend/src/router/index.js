@@ -34,9 +34,12 @@ const router = createRouter({
           component: () => import("@/views/admin/ChangeQuestionsView.vue"),
         },
         {
+          path: "cond",
+          component: () => import("@/views/admin/ChangeConditionsView.vue"),
+        },
+        {
           path: "recom",
-          component: () =>
-            import("@/views/admin/ChangeRecommendationsView.vue"),
+          component: () => import("@/views/admin/ChangeRecommendationsView.vue"),
         },
       ],
     },

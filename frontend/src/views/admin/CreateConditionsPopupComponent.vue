@@ -105,7 +105,15 @@ const checkConditionRecValidation = () => {
 const createRecCondition = () => {
   checkConditionRecValidation();
   if (isRecordValidated.value) {
-    adminStore.createConditionInRec(newRecord.value);
+    const res = { ...newRecord.value };
+    const question = adminStore.questions.filter(el => el.name === res.name)[0];
+    res.multiple = !!(question?.maxSelectedChoices > 1);
+    res.type = question.type;
+    res.value = res.value.split(",");
+
+    const { checkedRecommendationName, index } = popupStore.conditionProps;
+
+    adminStore.createConditionInRec(res, checkedRecommendationName, index);
     addToast("success", "Успешно", "Условие создано");
     popupStore.closePopup();
   }

@@ -28,6 +28,7 @@ export const usePopupStore = defineStore("popup-state", () => {
 
   return {
     isPopupVisible,
+    conditionProps,
     openPopup,
     closePopup,
     createPopupFields,

@@ -22,55 +22,91 @@
     </div>
     <div v-if="checkedRecommendationName !== ''" class="recommendation-body">
       <p-panel
-        v-for="(testKey, _) in Object.keys(copiedTests)"
-        :key="_"
-        :header="testKey"
+        v-for="(condition, index) in checkedRecommendationObj.conditions"
+        :key="index"
+        :header="`${index + 1}`"
         :toggleable="true"
         :collapsed="true"
       >
-        <p-textarea
-          v-model="copiedTests[testKey]"
-          style="width: 100%; height: 100%"
-          disabled
+        <p-button
+          icon="pi pi-plus"
+          class="p-button-rounded p-button-success p-button-outlined create-rec-btn"
+          @click="
+            popupStore.openPopupWithProps({ checkedRecommendationName, index })
+          "
         />
+        <div
+          v-for="(key, idx) in Object.keys(condition)"
+          :key="idx"
+          class="condition-item"
+        >
+          <p>{{ key }}</p>
+          <p>{{ condition[key].compare }}</p>
+          <p>{{ condition[key].value.join(",") }}</p>
+          <p>{{ condition[key].testCase }}</p>
+          <p-button
+            icon="pi pi-times"
+            class="p-button-rounded p-button-danger p-button-outlined"
+            @click="
+              confirmDeleteConditionItem(
+                $event,
+                checkedRecommendationName,
+                index,
+                key,
+              )
+            "
+          />
+        </div>
       </p-panel>
       <p-button label="Сохранить" class="p-button-lg" />
     </div>
   </section>
+  <create-conditions-popup-component />
 </template>
 
 <script setup>
 import { ref, watch, onMounted, computed } from "vue";
 import PPanel from "primevue/panel";
 import PButton from "primevue/button";
-import PToast from "primevue/toast";
-import PTextarea from "primevue/textarea";
+import pToast from "primevue/toast";
 import ConfirmPopup from "primevue/confirmpopup";
 import { useConfirm } from "primevue/useconfirm";
 import { useAdminStore } from "../../stores/adminStore";
+import { usePopupStore } from "../../stores/popupStore";
+import CreateConditionsPopupComponent from "./CreateConditionsPopupComponent.vue";
 
 const confirm = useConfirm();
 
 const adminStore = useAdminStore();
+const popupStore = usePopupStore();
 
 const checkedRecommendationName = ref("");
-const copiedTests = ref({});
+const checkedRecommendationObj = ref({});
 
 onMounted(() => {
   if (!adminStore.recommendations.length) {
     adminStore.getRecommendationsData();
+  }
+
+  if (!adminStore.questions.length) {
+    adminStore.getQuestionsData();
   }
 });
 
 const recommendationsJSON = computed(() => adminStore.recommendations);
 
 watch(checkedRecommendationName, newRecommendationName => {
-  copiedTests.value = recommendationsJSON.value.filter(
+  checkedRecommendationObj.value = recommendationsJSON.value.filter(
     el => el.name === newRecommendationName,
-  )[0].tests;
+  )[0];
 });
 
-const confirmDeleteRecommendationItem = event => {
+const confirmDeleteConditionItem = (
+  event,
+  recName,
+  conditionIndex,
+  keyInCondition,
+) => {
   confirm.require({
     target: event.currentTarget,
     message: "Вы уверены?",
@@ -78,9 +114,9 @@ const confirmDeleteRecommendationItem = event => {
     rejectLabel: "Нет",
     icon: "pi pi-info-circle",
     acceptClass: "p-button-danger",
-    // accept: () => {
-    //   adminStore.deleteRecByIndex(recName, conditionIndex, keyInCondition);
-    // },
+    accept: () => {
+      adminStore.deleteRecByIndex(recName, conditionIndex, keyInCondition);
+    },
   });
 };
 </script>
@@ -132,6 +168,37 @@ const confirmDeleteRecommendationItem = event => {
 .recommendation-body {
   width: 70vw;
   padding-left: 20px;
+}
+
+.condition-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  align-items: center;
+}
+
+.condition-item p {
+  word-wrap: break-word;
+}
+
+.condition-item p:first-child {
+  width: 35%;
+}
+
+.condition-item p:nth-child(2) {
+  width: 10%;
+}
+
+.condition-item p:nth-child(3) {
+  width: 35%;
+}
+
+.condition-item p:nth-child(4) {
+  width: 10%;
+}
+
+.create-rec-btn {
+  margin-bottom: 20px;
 }
 
 .p-button-lg {
