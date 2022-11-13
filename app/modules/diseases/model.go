@@ -20,8 +20,8 @@ type Disease struct {
 type HardcodedDisease struct {
 	ID         int                         `bson:"id" json:"id,omitempty"`
 	Name       string                      `bson:"name" json:"name"`
-	Tests      map[string][]string         `bson:"tests" json:"tests"`
-	Conditions []map[string]data.Condition `bson:"conditions" json:"conditions"`
+	Tests      map[string][]string         `bson:"tests" json:"tests,omitempty"`
+	Conditions []map[string]data.Condition `bson:"conditions" json:"conditions,omitempty"`
 }
 
 func (d Disease) meetsCriteria(answers *answers.User) bool {
