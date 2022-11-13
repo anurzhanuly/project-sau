@@ -39,3 +39,14 @@ func (s Service) SaveAnswers(userAnswers *User, recommendation []data.Recommenda
 
 	return err
 }
+
+func (s Service) GetAnswers() ([]UserResult, error) {
+	userResult, err := s.Repo.GetAll()
+	if err != nil {
+		logrus.Info("Не удалось сохранить ответы пользователя")
+
+		return userResult, err
+	}
+
+	return userResult, err
+}

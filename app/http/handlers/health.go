@@ -117,3 +117,25 @@ func GetAllRecommendations(c *gin.Context, di *di.DI) {
 		"result": result,
 	})
 }
+
+func GetAllUsersStatistics(c *gin.Context, di *di.DI) {
+	var err error
+	service := answers.NewService(c, di)
+
+	result, err := service.GetAnswers()
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"status":  http.StatusInternalServerError,
+			"message": "произошла ошибка во время получения статистика пользователя",
+			"error":   err.Error(),
+			"result":  result,
+		})
+
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"status": http.StatusOK,
+		"result": result,
+	})
+}
