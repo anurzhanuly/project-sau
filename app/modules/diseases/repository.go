@@ -55,6 +55,22 @@ func (r Repository) addDisease(model Disease) error {
 	return err
 }
 
+func (r Repository) deleteDisease(model Disease) error {
+	var err error
+
+	cxt, _ := context.WithTimeout(context.Background(), 10*time.Second)
+	filter := bson.D{{"name", model.Name}}
+
+	result, err := r.collection.DeleteOne(cxt, filter)
+	if err != nil {
+		return err
+	}
+
+	result = result
+
+	return err
+}
+
 func (r Repository) getAllHardcodedRecommendations() []HardcodedDisease {
 	return []HardcodedDisease{
 		{

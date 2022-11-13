@@ -33,6 +33,7 @@ func ConfigureRoutes(router *gin.Engine, di di.DI) {
 	router.GET("/_health", middleware.ProvideDependency(handlers.Health, di))
 	router.POST("/diseases/recommendations", middleware.ProvideDependency(handlers.HealthGetRecommendation, di))
 	router.POST("/diseases", middleware.ProvideDependency(handlers.AddDisease, di))
+	router.POST("/diseases/delete", middleware.ProvideDependency(handlers.DeleteDisease, di))
 	router.GET("/recommendations", middleware.ProvideDependency(handlers.GetAllRecommendations, di))
 	router.GET("/questionnaires/:name", middleware.ProvideDependency(handlers.QuestionnaireByName, di))
 	router.GET("/questionnaires/id/:id", middleware.ProvideDependency(handlers.QuestionnaireById, di))

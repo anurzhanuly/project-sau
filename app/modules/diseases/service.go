@@ -76,3 +76,19 @@ func (s Service) GetAllRecommendations() (string, error) {
 
 	return string(result), err
 }
+
+func (s Service) DeleteDisease() error {
+	var err error
+
+	err = s.Context.BindJSON(s.model)
+	if err != nil {
+		return err
+	}
+
+	err = s.repository.deleteDisease(*s.model)
+	if err != nil {
+		return err
+	}
+
+	return err
+}
