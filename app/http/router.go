@@ -32,7 +32,7 @@ func ConfigureRoutes(router *gin.Engine, di di.DI) {
 	router.Use(static.Serve("/", static.LocalFile(di.Config.StaticPath, false)))
 	router.GET("/_health", middleware.ProvideDependency(handlers.Health, di))
 	router.POST("/diseases/recommendations", middleware.ProvideDependency(handlers.HealthGetRecommendation, di))
-	router.POST("/diseases", middleware.ProvideDependency(handlers.AddDisease, di))
+	router.POST("/diseases/add", middleware.ProvideDependency(handlers.AddDisease, di))
 	router.POST("/diseases/delete", middleware.ProvideDependency(handlers.DeleteDisease, di))
 	router.GET("/recommendations", middleware.ProvideDependency(handlers.GetAllRecommendations, di))
 	router.GET("/userAnswers", middleware.ProvideDependency(handlers.GetAllUsersStatistics, di))
