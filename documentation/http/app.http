@@ -126,7 +126,7 @@ Content-Type: application/json
 }
 
 ### Получение всех заболевании
-GET http://{{host}}{{get_all_diseases}}
+GET http://{{host}}/recommendations
 Content-Type: application/json
 
 ### Добавляет json анкету в монгу

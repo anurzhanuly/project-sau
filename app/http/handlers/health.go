@@ -107,7 +107,7 @@ func GetAllRecommendations(c *gin.Context, di *di.DI) {
 	var err error
 	service := diseases.NewService(c, di)
 
-	result, err = service.GetAllRecommendations()
+	result, err = service.GetAllDiseases()
 	if err != nil {
 		return
 	}

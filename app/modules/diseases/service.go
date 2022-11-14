@@ -66,11 +66,11 @@ func (s Service) AddDisease() error {
 	return err
 }
 
-func (s Service) GetAllRecommendations() (string, error) {
+func (s Service) GetAllDiseases() (string, error) {
 	var result []byte
 	var err error
 
-	recommendations := s.repository.getAllHardcodedRecommendations()
+	recommendations, err := s.repository.getAllDiseases()
 	if err != nil {
 		return "", err
 	}
