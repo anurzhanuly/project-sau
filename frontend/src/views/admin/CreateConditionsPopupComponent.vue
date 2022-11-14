@@ -17,7 +17,7 @@
             option-value="value"
             option-label="value"
             placeholder="Выберите..."
-            style="width: 100%; height: 100%"
+            style="max-width: 100%; height: 100%"
             filter-placeholder="Поиск"
             filter
             lazy

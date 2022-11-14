@@ -1,7 +1,11 @@
 import { defineStore } from "pinia";
 import axios from "axios";
 import { computed, ref } from "vue";
-import { getRecommendationsJson, getQuestionsJson } from "../services/admin.js";
+import {
+  getRecommendationsJson,
+  getQuestionsJson,
+  putRecommendationsJSON,
+} from "../services/admin.js";
 
 export const useAdminStore = defineStore("admin", () => {
   const recommendations = ref([]);
@@ -60,7 +64,12 @@ export const useAdminStore = defineStore("admin", () => {
     return res;
   }
 
-  async function createConditionInRec(newRecord, recName, conditionIndex) {
+  async function saveNewConditions() {
+    const res = await putRecommendationsJSON(recommendations.value);
+    return res;
+  }
+
+  function createConditionInRec(newRecord, recName, conditionIndex) {
     const rec = recommendations.value.filter(el => {
       return el.name === recName;
     })[0];
@@ -90,5 +99,6 @@ export const useAdminStore = defineStore("admin", () => {
     getQuestionsData,
     deleteRecByIndex,
     createConditionInRec,
+    saveNewConditions,
   };
 });

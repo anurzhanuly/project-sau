@@ -31,7 +31,6 @@
         <p-textarea
           v-model="copiedTests[testKey]"
           style="width: 100%; height: 100%"
-          disabled
         />
       </p-panel>
       <p-button label="Сохранить" class="p-button-lg" />
@@ -45,11 +44,7 @@ import PPanel from "primevue/panel";
 import PButton from "primevue/button";
 import PToast from "primevue/toast";
 import PTextarea from "primevue/textarea";
-import ConfirmPopup from "primevue/confirmpopup";
-import { useConfirm } from "primevue/useconfirm";
 import { useAdminStore } from "../../stores/adminStore";
-
-const confirm = useConfirm();
 
 const adminStore = useAdminStore();
 
@@ -69,20 +64,6 @@ watch(checkedRecommendationName, newRecommendationName => {
     el => el.name === newRecommendationName,
   )[0].tests;
 });
-
-const confirmDeleteRecommendationItem = event => {
-  confirm.require({
-    target: event.currentTarget,
-    message: "Вы уверены?",
-    acceptLabel: "Да",
-    rejectLabel: "Нет",
-    icon: "pi pi-info-circle",
-    acceptClass: "p-button-danger",
-    // accept: () => {
-    //   adminStore.deleteRecByIndex(recName, conditionIndex, keyInCondition);
-    // },
-  });
-};
 </script>
 
 <style scoped>
