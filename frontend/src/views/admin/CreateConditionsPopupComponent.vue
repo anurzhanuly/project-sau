@@ -79,6 +79,7 @@ const newRecord = ref(popupStore.createPopupFields(columns.value));
 const isRecordValidated = ref(false);
 
 const checkConditionRecValidation = () => {
+  isRecordValidated.value = false;
   if (!newRecord.value.name.length) {
     addToast(
       "error",
@@ -115,7 +116,7 @@ const createRecCondition = () => {
 
     adminStore.createConditionInRec(res, checkedRecommendationName, index);
     addToast("success", "Успешно", "Условие создано");
-    popupStore.closePopup();
+    hidePopup();
   }
 };
 

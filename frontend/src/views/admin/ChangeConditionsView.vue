@@ -58,11 +58,7 @@
           />
         </div>
       </p-panel>
-      <p-button
-        label="Сохранить"
-        class="p-button-lg"
-        @click="adminStore.saveNewConditions"
-      />
+      <p-button label="Сохранить" class="p-button-lg" @click="saveConditions" />
     </div>
   </section>
   <create-conditions-popup-component />
@@ -78,7 +74,10 @@ import { useConfirm } from "primevue/useconfirm";
 import { useAdminStore } from "../../stores/adminStore";
 import { usePopupStore } from "../../stores/popupStore";
 import CreateConditionsPopupComponent from "./CreateConditionsPopupComponent.vue";
+import { useToast } from "primevue/usetoast";
+import axios from "axios";
 
+const toast = useToast();
 const confirm = useConfirm();
 
 const adminStore = useAdminStore();
@@ -105,6 +104,28 @@ watch(checkedRecommendationName, newRecommendationName => {
   )[0];
 });
 
+const addToast = (severity, summary, message) => {
+  toast.add({
+    severity,
+    summary,
+    detail: message,
+    life: 3000,
+  });
+};
+
+const saveConditions = async () => {
+  const res = await adminStore.saveConditionsData(checkedRecommendationName);
+
+  if (res.status === 200) {
+    addToast("success", "Успешно", "Изменения внесены");
+  } else {
+    if (axios.isAxiosError(res)) {
+      const err = res.response?.data;
+      addToast("error", "Ошибка", err.ERROR);
+    }
+  }
+};
+
 const confirmDeleteConditionItem = (
   event,
   recName,
@@ -119,7 +140,11 @@ const confirmDeleteConditionItem = (
     icon: "pi pi-info-circle",
     acceptClass: "p-button-danger",
     accept: () => {
-      adminStore.deleteRecByIndex(recName, conditionIndex, keyInCondition);
+      adminStore.deleteConditionByIndex(
+        recName,
+        conditionIndex,
+        keyInCondition,
+      );
     },
   });
 };

@@ -54,9 +54,9 @@ export const getRecommendationsJson = async () => {
   }
 };
 
-export const putRecommendationsJSON = async newRec => {
+export const putRecommendationsObj = async newRec => {
   try {
-    const res = axios.put("http://www.symptom.kz/diseases/add", newRec);
+    const res = axios.post("http://www.symptom.kz/diseases/add", newRec);
 
     return res;
   } catch (error) {

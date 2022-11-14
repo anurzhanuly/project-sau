@@ -1,6 +1,5 @@
 <template>
   <p-toast />
-  <confirm-popup />
   <section class="section-recommendations-change">
     <div class="recommendation-nav">
       <label
@@ -33,7 +32,11 @@
           style="width: 100%; height: 100%"
         />
       </p-panel>
-      <p-button label="Сохранить" class="p-button-lg" />
+      <p-button
+        label="Сохранить"
+        class="p-button-lg"
+        @click="saveRecommendationTests"
+      />
     </div>
   </section>
 </template>
@@ -45,8 +48,11 @@ import PButton from "primevue/button";
 import PToast from "primevue/toast";
 import PTextarea from "primevue/textarea";
 import { useAdminStore } from "../../stores/adminStore";
+import { useToast } from "primevue/usetoast";
+import axios from "axios";
 
 const adminStore = useAdminStore();
+const toast = useToast();
 
 const checkedRecommendationName = ref("");
 const copiedTests = ref({});
@@ -64,6 +70,39 @@ watch(checkedRecommendationName, newRecommendationName => {
     el => el.name === newRecommendationName,
   )[0].tests;
 });
+
+const addToast = (severity, summary, message) => {
+  toast.add({
+    severity,
+    summary,
+    detail: message,
+    life: 3000,
+  });
+};
+
+const saveRecommendationTests = async () => {
+  const newTests = {};
+  for (let key in copiedTests.value) {
+    if (Array.isArray(copiedTests.value[key])) {
+      newTests[key] = [...copiedTests.value[key]];
+    } else {
+      newTests[key] = copiedTests.value[key].split(",");
+    }
+  }
+  const res = await adminStore.saveRecommendationsData(
+    checkedRecommendationName.value,
+    newTests,
+  );
+
+  if (res.status === 200) {
+    addToast("success", "Успешно", "Изменения внесены");
+  } else {
+    if (axios.isAxiosError(res)) {
+      const err = res.response?.data;
+      addToast("error", "Ошибка", err.ERROR);
+    }
+  }
+};
 </script>
 
 <style scoped>

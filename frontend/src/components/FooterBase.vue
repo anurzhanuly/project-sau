@@ -1,4 +1,5 @@
 <template>
+  <admin-login-popup />
   <footer class="footer">
     <div class="footer__logo" />
     <div class="footer__contacts">
@@ -7,10 +8,17 @@
       <p>
         Почта: <a href="mailto:symptom.kz@gmail.com">symptom.kz@gmail.com</a>
       </p>
-      <router-link to="/admin">Админ</router-link>
+      <p @click="popupStore.openPopup">Админ</p>
     </div>
   </footer>
 </template>
+
+<script setup>
+import { usePopupStore } from "../stores/popupStore";
+import AdminLoginPopup from "./AdminLoginPopup.vue";
+
+const popupStore = usePopupStore();
+</script>
 
 <style scoped>
 .footer {

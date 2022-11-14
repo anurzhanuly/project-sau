@@ -4,7 +4,7 @@ import { computed, ref } from "vue";
 import {
   getRecommendationsJson,
   getQuestionsJson,
-  putRecommendationsJSON,
+  putRecommendationsObj,
 } from "../services/admin.js";
 
 export const useAdminStore = defineStore("admin", () => {
@@ -64,8 +64,31 @@ export const useAdminStore = defineStore("admin", () => {
     return res;
   }
 
-  async function saveNewConditions() {
-    const res = await putRecommendationsJSON(recommendations.value);
+  async function saveRecommendationsData(recName, recomm) {
+    const recommendation = JSON.parse(
+      JSON.stringify(
+        recommendations.value.filter(el => {
+          return el.name === recName;
+        })[0],
+      ),
+    );
+    recommendation.tests = recomm;
+    console.log(recommendation);
+    const res = await putRecommendationsObj(recommendation);
+
+    return res;
+  }
+
+  async function saveConditionsData(recName) {
+    const recommendation = JSON.parse(
+      JSON.stringify(
+        recommendations.value.filter(el => {
+          return el.name === recName;
+        })[0],
+      ),
+    );
+    const res = await putRecommendationsObj(recommendation);
+
     return res;
   }
 
@@ -80,7 +103,7 @@ export const useAdminStore = defineStore("admin", () => {
       newRecord;
   }
 
-  function deleteRecByIndex(recName, conditionIndex, keyInCondition) {
+  function deleteConditionByIndex(recName, conditionIndex, keyInCondition) {
     const rec = recommendations.value.filter(el => {
       return el.name === recName;
     })[0];
@@ -97,8 +120,9 @@ export const useAdminStore = defineStore("admin", () => {
     conditionColumns,
     getRecommendationsData,
     getQuestionsData,
-    deleteRecByIndex,
+    deleteConditionByIndex,
     createConditionInRec,
-    saveNewConditions,
+    saveConditionsData,
+    saveRecommendationsData,
   };
 });
