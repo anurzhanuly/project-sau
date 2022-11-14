@@ -53,3 +53,15 @@ export const getRecommendationsJson = async () => {
     return err;
   }
 };
+
+export const putRecommendationsJSON = async newRec => {
+  try {
+    const res = axios.put("http://www.symptom.kz/diseases/add", newRec);
+
+    return res;
+  } catch (error) {
+    const err = error;
+    console.log(error);
+    return err;
+  }
+};

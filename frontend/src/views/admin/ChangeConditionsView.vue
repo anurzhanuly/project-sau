@@ -58,7 +58,11 @@
           />
         </div>
       </p-panel>
-      <p-button label="Сохранить" class="p-button-lg" />
+      <p-button
+        label="Сохранить"
+        class="p-button-lg"
+        @click="adminStore.saveNewConditions"
+      />
     </div>
   </section>
   <create-conditions-popup-component />
