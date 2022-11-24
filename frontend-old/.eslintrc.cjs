@@ -6,26 +6,17 @@ module.exports = {
   extends: [
     "plugin:vue/vue3-strongly-recommended",
     "eslint:recommended",
-    "@vue/eslint-config-typescript",
     "@vue/eslint-config-prettier",
   ],
   parserOptions: {
     ecmaVersion: "latest",
   },
   rules: {
-    "no-console": process.env.NODE_ENV === "production" ? "error" : "off",
-    "no-debugger": process.env.NODE_ENV === "production" ? "error" : "off",
+    // "no-console": "error",
+    "no-debugger": "error",
     "vue/no-multiple-template-root": "off",
     "@typescript-eslint/ban-ts-comment": "off",
     "vue/singleline-html-element-content-newline": 0,
-    "vue/block-lang": [
-      "error",
-      {
-        script: {
-          lang: "ts",
-        },
-      },
-    ],
     "vue/attributes-order": [
       "error",
       {

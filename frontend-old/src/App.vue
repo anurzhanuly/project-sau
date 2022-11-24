@@ -6,7 +6,7 @@
   </div>
 </template>
 
-<script lang="ts" setup>
+<script setup>
 import ToolbarBase from "@/components/ToolbarBase.vue";
 import FooterBase from "@/components/FooterBase.vue";
 </script>

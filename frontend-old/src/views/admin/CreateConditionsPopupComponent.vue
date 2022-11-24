@@ -8,7 +8,7 @@
     :style="{ width: '50vw' }"
   >
     <div class="popup">
-      <div v-for="(column, idx) in conditionColumns" :key="idx">
+      <div v-for="(column, idx) in columns" :key="idx">
         <div v-if="column.hasDropdown">
           <h3>{{ column.header }}</h3>
           <dropdown
@@ -24,26 +24,6 @@
             :empty-filter-message="'Ничего не найдено'"
             :empty-message="'Ничего не найдено'"
           />
-        </div>
-        <div v-else-if="column.field === 'name'">
-          <h3>{{ column.header }}</h3>
-          <dropdown
-            v-model="questionName"
-            :options="column?.options"
-            option-value="value"
-            option-label="value"
-            placeholder="Выберите..."
-            style="max-width: 100%; height: 100%"
-            filter-placeholder="Поиск"
-            filter
-            lazy
-            :empty-filter-message="'Ничего не найдено'"
-            :empty-message="'Ничего не найдено'"
-          />
-        </div>
-        <div v-else-if="column.field === 'value'">
-          <h3>{{ column.header }}</h3>
-          <input-text v-model="conditionValue" style="width: 100%" />
         </div>
         <div v-else>
           <h3>{{ column.header }}</h3>
@@ -69,7 +49,7 @@
   </p-dialog>
 </template>
 
-<script lang="ts" setup>
+<script setup>
 import { computed, ref } from "vue";
 import { usePopupStore } from "../../stores/popupStore";
 import { useAdminStore } from "../../stores/adminStore";
@@ -78,10 +58,9 @@ import PButton from "primevue/button";
 import Dropdown from "primevue/dropdown";
 import InputText from "primevue/inputtext";
 import { useToast } from "primevue/usetoast";
-import type { Condition } from "@/types/recommendations";
 
 const toast = useToast();
-const addToast = (severity: string, summary: string, message: string) => {
+const addToast = (severity, summary, message) => {
   toast.add({
     severity,
     summary,
@@ -94,12 +73,10 @@ const adminStore = useAdminStore();
 const popupStore = usePopupStore();
 
 const displayCreatePopup = computed(() => popupStore.isPopupVisible);
-const conditionColumns = computed(() => adminStore.conditionColumns);
+const columns = computed(() => adminStore.conditionColumns);
 
-const newRecord = ref(popupStore.createPopupFields(conditionColumns.value));
+const newRecord = ref(popupStore.createPopupFields(columns.value));
 const isRecordValidated = ref(false);
-const questionName = ref("");
-const conditionValue = ref("");
 
 const checkConditionRecValidation = () => {
   isRecordValidated.value = false;
@@ -129,22 +106,22 @@ const checkConditionRecValidation = () => {
 const createRecCondition = () => {
   checkConditionRecValidation();
   if (isRecordValidated.value) {
-    const res = { ...newRecord.value } as unknown as Condition;
-    const question = adminStore.questions.filter(
-      el => el.name === questionName.value,
-    )[0];
+    const res = { ...newRecord.value };
+    const question = adminStore.questions.filter(el => el.name === res.name)[0];
     res.multiple = !!(question?.maxSelectedChoices > 1);
     res.type = question.type;
-    res.value = conditionValue.value.split(",");
+    res.value = res.value.split(",");
 
-    adminStore.createConditionInRec(res, questionName.value);
+    const { checkedRecommendationName, index } = popupStore.conditionProps;
+
+    adminStore.createConditionInRec(res, checkedRecommendationName, index);
     addToast("success", "Успешно", "Условие создано");
     hidePopup();
   }
 };
 
 const hidePopup = () => {
-  newRecord.value = popupStore.createPopupFields(conditionColumns.value);
+  newRecord.value = popupStore.createPopupFields(columns.value);
   popupStore.closePopup();
 };
 </script>

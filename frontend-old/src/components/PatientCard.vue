@@ -309,8 +309,8 @@
             <p>
               {{
                 (
-                  +answers["Ваш вес"][0] /
-                    (+answers["Ваш рост"][0] * +answers["Ваш рост"][0]) +
+                  answers["Ваш вес"][0] /
+                    (answers["Ваш рост"][0] * answers["Ваш рост"][0]) +
                   ""
                 ).slice(4, 6)
               }}
@@ -625,9 +625,9 @@
   </div>
 </template>
 
-<script lang="ts" setup>
+<script setup>
 import { computed, ref } from "vue";
-import { useSurveyStore } from "../stores/surveyStore";
+import { useSurveyStore } from "../stores/surveyStore.js";
 
 const surveyStore = useSurveyStore();
 

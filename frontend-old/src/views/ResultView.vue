@@ -1,6 +1,6 @@
 <template>
   <section class="section-result">
-    <div v-if="isRecommendationsVisible">
+    <div id="recommendation">
       <h2 class="result-header">Результаты:</h2>
       <div
         v-for="(resultItem, index) in result"
@@ -23,7 +23,7 @@
           </ul>
         </p-panel>
       </div>
-      <div v-if="isButtonsVisible">
+      <div id="buttons">
         <button class="btn" @click="makeResultPdf()">Открыть в pdf</button>
         <button class="btn" @click="openPromo">Получить промокод</button>
         <button class="btn" @click="makeCardPdf()">Карточка пациента</button>
@@ -40,13 +40,13 @@
         </data-table>
       </p-dialog>
     </div>
-    <patient-card v-if="isPatientCardVisible" />
+    <patient-card id="patient-card" class="hidden" />
   </section>
 </template>
 
-<script lang="ts" setup>
-import { useSurveyStore } from "../stores/surveyStore";
-import partners from "../services/partners";
+<script setup>
+import { useSurveyStore } from "../stores/surveyStore.js";
+import partners from "../services/partners.js";
 import { ref, computed } from "vue";
 import PPanel from "primevue/panel";
 import PDialog from "primevue/dialog";
@@ -54,37 +54,34 @@ import DataTable from "primevue/datatable";
 import PColumn from "primevue/column";
 import PatientCard from "../components/PatientCard.vue";
 
+const displayPromo = ref(false);
+
 const surveyStore = useSurveyStore();
 const result = computed(() => surveyStore.recommendations || []);
-
-const displayPromo = ref(false);
-const isButtonsVisible = ref(true);
-const isPatientCardVisible = ref(false);
-const isRecommendationsVisible = ref(true);
 
 const openPromo = () => {
   displayPromo.value = true;
 };
 
 const makeResultPdf = () => {
-  isButtonsVisible.value = false;
+  document.getElementById("buttons").classList.add("hidden");
   setTimeout(() => {
     window.print();
   });
   setTimeout(() => {
-    isButtonsVisible.value = true;
+    document.getElementById("buttons").classList.remove("hidden");
   }, 2000);
 };
 
 const makeCardPdf = () => {
-  isRecommendationsVisible.value = false;
-  isPatientCardVisible.value = true;
+  document.getElementById("recommendation").classList.add("hidden");
+  document.getElementById("patient-card").classList.remove("hidden");
   setTimeout(() => {
     window.print();
   });
   setTimeout(() => {
-    isRecommendationsVisible.value = true;
-    isPatientCardVisible.value = false;
+    document.getElementById("recommendation").classList.remove("hidden");
+    document.getElementById("patient-card").classList.add("hidden");
   }, 2000);
 };
 </script>

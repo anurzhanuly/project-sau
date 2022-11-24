@@ -1,4 +1,4 @@
-<!-- <template>
+<template>
   <section class="section-test">
     <div class="test-wrapper">
       <p class="test-title">{{ questions[idx]["name"] }}</p>
@@ -140,7 +140,7 @@
   </section>
 </template>
 
-<script lang="ts" setup>
+<script setup>
 import { ref, onMounted, computed } from "vue";
 import { useSurveyStore } from "../stores/surveyStore.js";
 import ProgressBar from "primevue/progressbar";
@@ -647,4 +647,4 @@ input[type="number"] {
     align-items: center;
   }
 }
-</style> -->
+</style>

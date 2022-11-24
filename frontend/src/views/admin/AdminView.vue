@@ -3,7 +3,7 @@
   <router-view />
 </template>
 
-<script setup>
+<script lang="ts" setup>
 import TabMenu from "primevue/tabmenu";
 import { ref } from "vue";
 

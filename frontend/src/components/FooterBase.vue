@@ -13,7 +13,7 @@
   </footer>
 </template>
 
-<script setup>
+<script lang="ts" setup>
 import { usePopupStore } from "../stores/popupStore";
 import AdminLoginPopup from "./AdminLoginPopup.vue";
 

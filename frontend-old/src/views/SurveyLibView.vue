@@ -2,7 +2,7 @@
   <div id="survey" />
 </template>
 
-<script lang="ts" setup>
+<script setup>
 import "survey-core/defaultV2.min.css";
 import { StylesManager } from "survey-core";
 import { Survey } from "survey-knockout-ui";
@@ -22,19 +22,21 @@ onMounted(async () => {
   const survey = new Survey(surveyJson);
   survey.locale = "ru";
 
-  const surveyComplete = (sender: { data: Record<string, string[]> }) => {
-    const newData = {} as Record<string, string[]>;
+  const surveyComplete = sender => {
+    const newData = {};
     for (let key in sender.data) {
-      if (Array.isArray(sender.data[key])) {
-        newData[key] = sender.data[key];
-      } else {
+      if (!Array.isArray(sender.data[key])) {
         newData[key] = [`${sender.data[key]}`];
+      } else {
+        newData[key] = sender.data[key];
       }
     }
 
     surveyStore.postAnswersData({ answers: newData });
     router.push({
       path: "/result",
+      name: "result",
+      component: () => import("@/views/ResultView.vue"),
     });
   };
   survey.onComplete.add(surveyComplete);

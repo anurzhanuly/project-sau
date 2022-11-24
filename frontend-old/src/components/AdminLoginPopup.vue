@@ -36,7 +36,7 @@
   </p-dialog>
 </template>
 
-<script lang="ts" setup>
+<script setup>
 import { computed, ref } from "vue";
 import { usePopupStore } from "../stores/popupStore";
 import PDialog from "primevue/dialog";
@@ -49,7 +49,7 @@ import { useRouter } from "vue-router";
 const toast = useToast();
 const router = useRouter();
 
-const addToast = (severity: string, summary: string, message: string) => {
+const addToast = (severity, summary, message) => {
   toast.add({
     severity,
     summary,
@@ -62,7 +62,7 @@ const popupStore = usePopupStore();
 
 const displayAdminPopup = computed(() => popupStore.isPopupVisible);
 
-const newRecord = ref({} as Record<string, string>);
+const newRecord = ref({});
 const isRecordValidated = ref(false);
 
 const checkAdminValidation = () => {
@@ -82,7 +82,24 @@ const checkAdmin = () => {
   checkAdminValidation();
   if (isRecordValidated.value) {
     router.push({
+      path: "/admin",
       name: "admin",
+      component: () => import("@/views/admin/AdminView.vue"),
+      children: [
+        {
+          path: "quest",
+          component: () => import("@/views/admin/ChangeQuestionsView.vue"),
+        },
+        {
+          path: "cond",
+          component: () => import("@/views/admin/ChangeConditionsView.vue"),
+        },
+        {
+          path: "recom",
+          component: () =>
+            import("@/views/admin/ChangeRecommendationsView.vue"),
+        },
+      ],
     });
     hidePopup();
   }

@@ -6,12 +6,12 @@
       <label
         v-for="(recomm, index) in recommendationsJSON"
         :key="index"
-        :for="`${index}`"
+        :for="index"
         class="label"
         :class="{ checked: checkedRecommendationName === recomm.name }"
       >
         <input
-          :id="`${index}`"
+          :id="index"
           v-model="checkedRecommendationName"
           type="radio"
           class="hidden"
@@ -31,7 +31,9 @@
         <p-button
           icon="pi pi-plus"
           class="p-button-rounded p-button-success p-button-outlined create-rec-btn"
-          @click="createCondition(checkedRecommendationName, index)"
+          @click="
+            popupStore.openPopupWithProps({ checkedRecommendationName, index })
+          "
         />
         <div
           v-for="(key, idx) in Object.keys(condition)"
@@ -62,7 +64,7 @@
   <create-conditions-popup-component />
 </template>
 
-<script lang="ts" setup>
+<script setup>
 import { ref, watch, onMounted, computed } from "vue";
 import PPanel from "primevue/panel";
 import PButton from "primevue/button";
@@ -74,8 +76,6 @@ import { usePopupStore } from "../../stores/popupStore";
 import CreateConditionsPopupComponent from "./CreateConditionsPopupComponent.vue";
 import { useToast } from "primevue/usetoast";
 import axios from "axios";
-import type { Recommendation } from "@/types/recommendations";
-import type { Error } from "@/types/response.";
 
 const toast = useToast();
 const confirm = useConfirm();
@@ -84,7 +84,7 @@ const adminStore = useAdminStore();
 const popupStore = usePopupStore();
 
 const checkedRecommendationName = ref("");
-const checkedRecommendationObj = ref({} as Recommendation);
+const checkedRecommendationObj = ref({});
 
 onMounted(() => {
   if (!adminStore.recommendations.length) {
@@ -104,22 +104,13 @@ watch(checkedRecommendationName, newRecommendationName => {
   )[0];
 });
 
-const addToast = (severity: string, summary: string, message: string) => {
+const addToast = (severity, summary, message) => {
   toast.add({
     severity,
     summary,
     detail: message,
     life: 3000,
   });
-};
-
-const createCondition = (
-  checkedRecommendationName: string,
-  conditionIndex: number,
-) => {
-  adminStore.checkedRecommendationName = checkedRecommendationName;
-  adminStore.conditionIndex = conditionIndex;
-  popupStore.openPopup();
 };
 
 const saveConditions = async () => {
@@ -131,17 +122,17 @@ const saveConditions = async () => {
     addToast("success", "Успешно", "Изменения внесены");
   } else {
     if (axios.isAxiosError(res)) {
-      const err = res.response?.data as Error;
+      const err = res.response?.data;
       addToast("error", "Ошибка", err.ERROR);
     }
   }
 };
 
 const confirmDeleteConditionItem = (
-  event: any,
-  recName: string,
-  conditionIndex: number,
-  keyInCondition: string,
+  event,
+  recName,
+  conditionIndex,
+  keyInCondition,
 ) => {
   confirm.require({
     target: event.currentTarget,

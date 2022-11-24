@@ -5,12 +5,12 @@
       <label
         v-for="(recomm, index) in recommendationsJSON"
         :key="index"
-        :for="`${index}`"
+        :for="index"
         class="label"
         :class="{ checked: checkedRecommendationName === recomm.name }"
       >
         <input
-          :id="`${index}`"
+          :id="index"
           v-model="checkedRecommendationName"
           type="radio"
           class="hidden"
@@ -41,7 +41,7 @@
   </section>
 </template>
 
-<script lang="ts" setup>
+<script setup>
 import { ref, watch, onMounted, computed } from "vue";
 import PPanel from "primevue/panel";
 import PButton from "primevue/button";
@@ -50,13 +50,12 @@ import PTextarea from "primevue/textarea";
 import { useAdminStore } from "../../stores/adminStore";
 import { useToast } from "primevue/usetoast";
 import axios from "axios";
-import type { Error } from "@/types/response.";
 
 const adminStore = useAdminStore();
 const toast = useToast();
 
 const checkedRecommendationName = ref("");
-const copiedTests = ref({} as Record<string, string>);
+const copiedTests = ref({});
 
 onMounted(() => {
   if (!adminStore.recommendations.length) {
@@ -67,16 +66,12 @@ onMounted(() => {
 const recommendationsJSON = computed(() => adminStore.recommendations);
 
 watch(checkedRecommendationName, newRecommendationName => {
-  const testRecommendations = recommendationsJSON.value.filter(
+  copiedTests.value = recommendationsJSON.value.filter(
     el => el.name === newRecommendationName,
   )[0].tests;
-  copiedTests.value = {};
-  for (let key in testRecommendations) {
-    copiedTests.value[key] = testRecommendations.value.join(",");
-  }
 });
 
-const addToast = (severity: string, summary: string, message: string) => {
+const addToast = (severity, summary, message) => {
   toast.add({
     severity,
     summary,
@@ -86,9 +81,13 @@ const addToast = (severity: string, summary: string, message: string) => {
 };
 
 const saveRecommendationTests = async () => {
-  const newTests = {} as Record<string, string[]>;
+  const newTests = {};
   for (let key in copiedTests.value) {
-    newTests[key] = copiedTests.value[key].split(",");
+    if (Array.isArray(copiedTests.value[key])) {
+      newTests[key] = [...copiedTests.value[key]];
+    } else {
+      newTests[key] = copiedTests.value[key].split(",");
+    }
   }
   const res = await adminStore.saveRecommendationsData(
     checkedRecommendationName.value,
@@ -99,7 +98,7 @@ const saveRecommendationTests = async () => {
     addToast("success", "Успешно", "Изменения внесены");
   } else {
     if (axios.isAxiosError(res)) {
-      const err = res.response?.data as Error;
+      const err = res.response?.data;
       addToast("error", "Ошибка", err.ERROR);
     }
   }
