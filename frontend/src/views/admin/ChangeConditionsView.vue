@@ -114,7 +114,9 @@ const addToast = (severity, summary, message) => {
 };
 
 const saveConditions = async () => {
-  const res = await adminStore.saveConditionsData(checkedRecommendationName);
+  const res = await adminStore.saveConditionsData(
+    checkedRecommendationName.value,
+  );
 
   if (res.status === 200) {
     addToast("success", "Успешно", "Изменения внесены");

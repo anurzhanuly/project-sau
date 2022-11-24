@@ -87,6 +87,7 @@ export const useAdminStore = defineStore("admin", () => {
         })[0],
       ),
     );
+
     const res = await putRecommendationsObj(recommendation);
 
     return res;
