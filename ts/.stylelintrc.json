@@ -1,0 +1,18 @@
+{
+  "extends": ["stylelint-config-standard", "stylelint-config-prettier"],
+  "rules": {
+    "font-family-no-duplicate-names": true,
+    "font-family-no-missing-generic-family-keyword": true,
+    "font-family-name-quotes": "always-where-required",
+    "function-calc-no-unspaced-operator": true,
+    "function-no-unknown": true,
+    "unit-no-unknown": true,
+    "declaration-block-no-duplicate-properties": true,
+    "declaration-block-no-shorthand-property-overrides": true,
+    "block-no-empty": true,
+    "comment-no-empty": true,
+    "no-duplicate-selectors": true,
+    "no-invalid-double-slash-comments": true,
+    "property-no-vendor-prefix": null
+  }
+}

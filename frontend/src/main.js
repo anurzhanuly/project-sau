@@ -10,7 +10,7 @@ import "primevue/resources/primevue.min.css";
 import "primeicons/primeicons.css";
 
 const app = createApp(App);
-console.log('test')
+
 app.use(createPinia());
 app.use(router);
 app.use(PrimeVue);
