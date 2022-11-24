@@ -49,7 +49,7 @@ import { useRouter } from "vue-router";
 const toast = useToast();
 const router = useRouter();
 
-const addToast = (severity, summary, message) => {
+const addToast = (severity: string, summary: string, message: string) => {
   toast.add({
     severity,
     summary,
@@ -62,7 +62,7 @@ const popupStore = usePopupStore();
 
 const displayAdminPopup = computed(() => popupStore.isPopupVisible);
 
-const newRecord = ref({});
+const newRecord = ref({} as Record<string, string>);
 const isRecordValidated = ref(false);
 
 const checkAdminValidation = () => {
@@ -82,24 +82,7 @@ const checkAdmin = () => {
   checkAdminValidation();
   if (isRecordValidated.value) {
     router.push({
-      path: "/admin",
       name: "admin",
-      component: () => import("@/views/admin/AdminView.vue"),
-      children: [
-        {
-          path: "quest",
-          component: () => import("@/views/admin/ChangeQuestionsView.vue"),
-        },
-        {
-          path: "cond",
-          component: () => import("@/views/admin/ChangeConditionsView.vue"),
-        },
-        {
-          path: "recom",
-          component: () =>
-            import("@/views/admin/ChangeRecommendationsView.vue"),
-        },
-      ],
     });
     hidePopup();
   }

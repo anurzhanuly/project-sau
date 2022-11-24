@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
   <section class="section-test">
     <div class="test-wrapper">
       <p class="test-title">{{ questions[idx]["name"] }}</p>
@@ -647,4 +647,4 @@ input[type="number"] {
     align-items: center;
   }
 }
-</style>
+</style> -->

@@ -17,7 +17,6 @@ module.exports = {
     "no-debugger": process.env.NODE_ENV === "production" ? "error" : "off",
     "vue/no-multiple-template-root": "off",
     "@typescript-eslint/ban-ts-comment": "off",
-    "vue/html-indent": ["error", 2],
     "vue/singleline-html-element-content-newline": 0,
     "vue/block-lang": [
       "error",
