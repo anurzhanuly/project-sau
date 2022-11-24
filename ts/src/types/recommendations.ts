@@ -13,3 +13,8 @@ export interface Recommendation {
   name: string;
   tests: Record<string, string[]>;
 }
+
+export interface ResRecommendation {
+  result: string;
+  status: number;
+}
