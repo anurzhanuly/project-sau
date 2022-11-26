@@ -9,23 +9,7 @@
   >
     <div class="popup">
       <div v-for="(column, idx) in conditionColumns" :key="idx">
-        <div v-if="column.hasDropdown">
-          <h3>{{ column.header }}</h3>
-          <dropdown
-            v-model="newRecord[column.field]"
-            :options="column?.options"
-            option-value="value"
-            option-label="value"
-            placeholder="Выберите..."
-            style="max-width: 100%; height: 100%"
-            filter-placeholder="Поиск"
-            filter
-            lazy
-            :empty-filter-message="'Ничего не найдено'"
-            :empty-message="'Ничего не найдено'"
-          />
-        </div>
-        <div v-else-if="column.field === 'name'">
+        <div v-if="column.field === 'name'">
           <h3>{{ column.header }}</h3>
           <dropdown
             v-model="questionName"
@@ -33,17 +17,51 @@
             option-value="value"
             option-label="value"
             placeholder="Выберите..."
-            style="max-width: 100%; height: 100%"
+            filter-placeholder="Поиск"
+            filter
+            lazy
+            style="width: 250px"
+            :empty-filter-message="'Ничего не найдено'"
+            :empty-message="'Ничего не найдено'"
+            @change="addValueOptions"
+          />
+        </div>
+        <div v-else-if="column.field === 'value'">
+          <div v-if="!isValueHasChoices">
+            <h3>{{ column.header }}</h3>
+            <input-text v-model="conditionValue" style="width: 100%" />
+          </div>
+          <div v-if="isValueHasChoices">
+            <h3>{{ column.header }}</h3>
+            <p-multi-select
+              v-model="newRecord[column.field]"
+              :options="valueOptions"
+              option-value="value"
+              option-label="value"
+              placeholder="Выберите..."
+              filter-placeholder="Поиск"
+              filter
+              lazy
+              style="width: 250px"
+              :empty-filter-message="'Ничего не найдено'"
+              :empty-message="'Ничего не найдено'"
+            />
+          </div>
+        </div>
+        <div v-else-if="column.hasDropdown">
+          <h3>{{ column.header }}</h3>
+          <dropdown
+            v-model="newRecord[column.field]"
+            :options="column?.options"
+            option-value="value"
+            option-label="value"
+            placeholder="Выберите..."
             filter-placeholder="Поиск"
             filter
             lazy
             :empty-filter-message="'Ничего не найдено'"
             :empty-message="'Ничего не найдено'"
           />
-        </div>
-        <div v-else-if="column.field === 'value'">
-          <h3>{{ column.header }}</h3>
-          <input-text v-model="conditionValue" style="width: 100%" />
         </div>
         <div v-else>
           <h3>{{ column.header }}</h3>
@@ -74,6 +92,7 @@ import { computed, ref } from "vue";
 import { usePopupStore } from "../../stores/popupStore";
 import { useAdminStore } from "../../stores/adminStore";
 import PDialog from "primevue/dialog";
+import PMultiSelect from "primevue/multiselect";
 import PButton from "primevue/button";
 import Dropdown from "primevue/dropdown";
 import InputText from "primevue/inputtext";
@@ -100,6 +119,8 @@ const newRecord = ref(popupStore.createPopupFields(conditionColumns.value));
 const isRecordValidated = ref(false);
 const questionName = ref("");
 const conditionValue = ref("");
+const isValueHasChoices = ref(false);
+const valueOptions = ref([] as Record<string, string>[]);
 
 const checkConditionRecValidation = () => {
   isRecordValidated.value = false;
@@ -135,7 +156,9 @@ const createRecCondition = () => {
     )[0];
     res.multiple = !!(question?.maxSelectedChoices > 1);
     res.type = question.type;
-    res.value = conditionValue.value.split(",");
+    res.value = isValueHasChoices.value
+      ? res.value
+      : conditionValue.value.split(",");
 
     adminStore.createConditionInRec(res, questionName.value);
     addToast("success", "Успешно", "Условие создано");
@@ -143,8 +166,25 @@ const createRecCondition = () => {
   }
 };
 
+const addValueOptions = () => {
+  const question = adminStore.questions.filter(
+    el => el.name === questionName.value,
+  )[0];
+
+  if (question?.choices) {
+    isValueHasChoices.value = true;
+    valueOptions.value = question.choices.map(el => {
+      return { value: el };
+    });
+    return;
+  }
+  isValueHasChoices.value = false;
+};
+
 const hidePopup = () => {
   newRecord.value = popupStore.createPopupFields(conditionColumns.value);
+  questionName.value = "";
+  isValueHasChoices.value = false;
   popupStore.closePopup();
 };
 </script>
@@ -158,5 +198,9 @@ const hidePopup = () => {
 
 .popup h3 {
   margin-bottom: 10px;
+}
+
+.p-dropdown-items-wrapper {
+  max-width: 200px !important;
 }
 </style>
