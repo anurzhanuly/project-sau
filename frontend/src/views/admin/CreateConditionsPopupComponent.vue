@@ -136,7 +136,11 @@ const checkConditionRecValidation = () => {
     addToast("error", "Ошибка", "Поле 'Условие' должно быть заполнено");
     return;
   }
-  if (!newRecord.value.value.length) {
+  if (!newRecord.value.value.length && isValueHasChoices.value) {
+    addToast("error", "Ошибка", "Поле 'Значение1' должно быть заполнено");
+    return;
+  }
+  if (!conditionValue.value.length && !isValueHasChoices.value) {
     addToast("error", "Ошибка", "Поле 'Значение' должно быть заполнено");
     return;
   }
@@ -161,7 +165,7 @@ const createRecCondition = () => {
       : conditionValue.value.split(",");
 
     adminStore.createConditionInRec(res, questionName.value);
-    addToast("success", "Успешно", "Условие создано");
+    addToast("success", "Успешно", "Условие создано, не забудьте сохранить");
     hidePopup();
   }
 };
