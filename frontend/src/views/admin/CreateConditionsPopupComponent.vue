@@ -124,7 +124,7 @@ const valueOptions = ref([] as Record<string, string>[]);
 
 const checkConditionRecValidation = () => {
   isRecordValidated.value = false;
-  if (!newRecord.value.name.length) {
+  if (!questionName.value.length) {
     addToast(
       "error",
       "Ошибка",
