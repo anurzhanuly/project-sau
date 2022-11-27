@@ -72,7 +72,7 @@ watch(checkedRecommendationName, newRecommendationName => {
   )[0].tests;
   copiedTests.value = {};
   for (let key in testRecommendations) {
-    copiedTests.value[key] = testRecommendations.value.join(",");
+    copiedTests.value[key] = testRecommendations[key].join(",");
   }
 });
 
@@ -88,7 +88,7 @@ const addToast = (severity: string, summary: string, message: string) => {
 const saveRecommendationTests = async () => {
   const newTests = {} as Record<string, string[]>;
   for (let key in copiedTests.value) {
-    newTests[key] = copiedTests.value[key].split(",");
+    newTests[key] = copiedTests.value[key].split(".,");
   }
   const res = await adminStore.saveRecommendationsData(
     checkedRecommendationName.value,
