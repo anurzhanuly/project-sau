@@ -31,7 +31,7 @@
         <p-button
           icon="pi pi-plus"
           class="p-button-rounded p-button-success p-button-outlined create-rec-btn"
-          @click="createCondition(checkedRecommendationName, index)"
+          @click="createConditionItem(checkedRecommendationName, index)"
         />
         <div
           v-for="(key, idx) in Object.keys(condition)"
@@ -56,7 +56,26 @@
           />
         </div>
       </p-panel>
-      <p-button label="Сохранить" class="p-button-lg" @click="saveConditions" />
+      <div class="condition-buttons">
+        <p-button
+          label="Добавить"
+          class="p-button-raised p-button-text"
+          @click="createCondition"
+        />
+        <div>
+          <input-number v-model="conditionDeleteIndex" />
+          <p-button
+            label="Удалить"
+            class="p-button-raised p-button-danger p-button-text"
+            @click="confirmDeleteCondition($event)"
+          />
+        </div>
+        <p-button
+          label="Сохранить"
+          class="p-button-raised p-button-success p-button-text"
+          @click="saveConditions"
+        />
+      </div>
     </div>
   </section>
   <create-conditions-popup-component />
@@ -68,6 +87,7 @@ import PPanel from "primevue/panel";
 import PButton from "primevue/button";
 import pToast from "primevue/toast";
 import ConfirmPopup from "primevue/confirmpopup";
+import InputNumber from "primevue/inputnumber";
 import { useConfirm } from "primevue/useconfirm";
 import { useAdminStore } from "../../stores/adminStore";
 import { usePopupStore } from "../../stores/popupStore";
@@ -85,6 +105,7 @@ const popupStore = usePopupStore();
 
 const checkedRecommendationName = ref("");
 const checkedRecommendationObj = ref({} as Recommendation);
+const conditionDeleteIndex = ref();
 
 onMounted(() => {
   if (!adminStore.recommendations.length) {
@@ -113,13 +134,17 @@ const addToast = (severity: string, summary: string, message: string) => {
   });
 };
 
-const createCondition = (
+const createConditionItem = (
   checkedRecommendationName: string,
   conditionIndex: number,
 ) => {
   adminStore.checkedRecommendationName = checkedRecommendationName;
   adminStore.conditionIndex = conditionIndex;
   popupStore.openPopup();
+};
+
+const createCondition = () => {
+  checkedRecommendationObj.value.conditions.push({});
 };
 
 const saveConditions = async () => {
@@ -135,6 +160,30 @@ const saveConditions = async () => {
       addToast("error", "Ошибка", err.ERROR);
     }
   }
+};
+
+const deleteCondition = () => {
+  if (
+    checkedRecommendationObj.value.conditions[conditionDeleteIndex.value - 1]
+  ) {
+    checkedRecommendationObj.value.conditions.splice(
+      conditionDeleteIndex.value - 1,
+      1,
+    );
+    conditionDeleteIndex.value = null;
+  }
+};
+
+const confirmDeleteCondition = (event: any) => {
+  confirm.require({
+    target: event.currentTarget,
+    message: "Вы уверены?",
+    acceptLabel: "Да",
+    rejectLabel: "Нет",
+    icon: "pi pi-info-circle",
+    acceptClass: "p-button-danger",
+    accept: deleteCondition,
+  });
 };
 
 const confirmDeleteConditionItem = (
@@ -241,7 +290,9 @@ const confirmDeleteConditionItem = (
   margin-bottom: 20px;
 }
 
-.p-button-lg {
+.condition-buttons {
+  display: flex;
+  justify-content: space-around;
   margin-top: 20px;
 }
 </style>

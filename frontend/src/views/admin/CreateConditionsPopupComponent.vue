@@ -5,7 +5,7 @@
     draggable
     :closable="false"
     header="Создание нового условия"
-    :style="{ width: '50vw' }"
+    :style="{ width: '70vw' }"
   >
     <div class="popup">
       <div v-for="(column, idx) in conditionColumns" :key="idx">
@@ -163,6 +163,7 @@ const createRecCondition = () => {
     res.value = isValueHasChoices.value
       ? res.value
       : conditionValue.value.split(",");
+    delete res.name;
 
     adminStore.createConditionInRec(res, questionName.value);
     addToast("success", "Успешно", "Условие создано, не забудьте сохранить");

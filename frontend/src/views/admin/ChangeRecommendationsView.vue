@@ -67,9 +67,9 @@ onMounted(() => {
 const recommendationsJSON = computed(() => adminStore.recommendations);
 
 watch(checkedRecommendationName, newRecommendationName => {
-  const testRecommendations = recommendationsJSON.value.filter(
-    el => el.name === newRecommendationName,
-  )[0].tests;
+  const testRecommendations: Record<string, string[]> =
+    recommendationsJSON.value.filter(el => el.name === newRecommendationName)[0]
+      .tests;
   copiedTests.value = {};
   for (let key in testRecommendations) {
     copiedTests.value[key] = testRecommendations[key].join(",");
