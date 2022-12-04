@@ -32,11 +32,18 @@
           style="width: 100%; height: 100%"
         />
       </p-panel>
-      <p-button
-        label="Сохранить"
-        class="p-button-lg"
-        @click="saveRecommendationTests"
-      />
+      <div class="rec-buttons">
+        <p-button
+          label="Добавить"
+          class="p-button-raised p-button-text"
+          @click="createRecommendationTest"
+        />
+        <p-button
+          label="Сохранить"
+          class="p-button-raised p-button-success p-button-text"
+          @click="saveRecommendationTests"
+        />
+      </div>
     </div>
   </section>
 </template>
@@ -83,6 +90,12 @@ const addToast = (severity: string, summary: string, message: string) => {
     detail: message,
     life: 3000,
   });
+};
+
+const createRecommendationTest = () => {
+  const testKeys = Object.keys(copiedTests.value);
+  const key = `${+testKeys[testKeys.length - 1] + 1}`;
+  copiedTests.value[key] = "";
 };
 
 const saveRecommendationTests = async () => {
@@ -156,6 +169,12 @@ const saveRecommendationTests = async () => {
 }
 
 .p-button-lg {
+  margin-top: 20px;
+}
+
+.rec-buttons {
+  display: flex;
+  justify-content: space-around;
   margin-top: 20px;
 }
 </style>

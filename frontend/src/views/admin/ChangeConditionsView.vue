@@ -19,6 +19,14 @@
         />
         {{ recomm.name }}
       </label>
+      <div class="rec-create">
+        <input-text v-model="newRecommendationName" />
+        <p-button
+          label="Добавить"
+          class="p-button-raised p-button-text"
+          @click="createRecommendation"
+        />
+      </div>
     </div>
     <div v-if="checkedRecommendationName !== ''" class="recommendation-body">
       <p-panel
@@ -88,6 +96,7 @@ import PButton from "primevue/button";
 import pToast from "primevue/toast";
 import ConfirmPopup from "primevue/confirmpopup";
 import InputNumber from "primevue/inputnumber";
+import InputText from "primevue/inputtext";
 import { useConfirm } from "primevue/useconfirm";
 import { useAdminStore } from "../../stores/adminStore";
 import { usePopupStore } from "../../stores/popupStore";
@@ -106,6 +115,7 @@ const popupStore = usePopupStore();
 const checkedRecommendationName = ref("");
 const checkedRecommendationObj = ref({} as Recommendation);
 const conditionDeleteIndex = ref();
+const newRecommendationName = ref("");
 
 onMounted(() => {
   if (!adminStore.recommendations.length) {
@@ -132,6 +142,17 @@ const addToast = (severity: string, summary: string, message: string) => {
     detail: message,
     life: 3000,
   });
+};
+
+const createRecommendation = () => {
+  const newRecommendation = {} as Recommendation;
+  newRecommendation.id =
+    recommendationsJSON.value[recommendationsJSON.value.length - 1].id + 1;
+  newRecommendation.name = newRecommendationName.value;
+  newRecommendation.conditions = [];
+  newRecommendation.tests = { 1: [""] };
+  adminStore.recommendations.push(newRecommendation);
+  newRecommendationName.value = "";
 };
 
 const createConditionItem = (
@@ -294,5 +315,10 @@ const confirmDeleteConditionItem = (
   display: flex;
   justify-content: space-around;
   margin-top: 20px;
+}
+
+.rec-create .p-inputtext {
+  margin: 20px 0 10px;
+  width: 170px;
 }
 </style>
