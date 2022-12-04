@@ -22,6 +22,10 @@
         <p-textarea v-model="fifthArea" cols="60" rows="8" />
       </div>
     </div>
+    <p-button
+      label="Сохранить"
+      class="p-button-raised p-button-success p-button-text"
+    />
   </section>
 </template>
 
@@ -29,6 +33,7 @@
 import { useSurveyStore } from "../stores/surveyStore";
 import { ref, computed } from "vue";
 import PTextarea from "primevue/textarea";
+import PButton from "primevue/button";
 
 const surveyStore = useSurveyStore();
 const answers = computed(() => surveyStore.resultAnswers || {});
