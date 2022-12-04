@@ -34,7 +34,7 @@ onMounted(async () => {
 
     surveyStore.postAnswersData({ answers: newData });
     router.push({
-      path: "/result",
+      path: "/result-hack",
     });
   };
   survey.onComplete.add(surveyComplete);
