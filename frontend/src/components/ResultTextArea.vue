@@ -2,27 +2,35 @@
   <div class="result-wrapper">
     <div class="result-item">
       <h3>Жалобы при поступлении</h3>
-      <p-textarea v-model="firstArea" cols="60" rows="5" />
+      <p-textarea v-model="complaints" cols="60" rows="5" />
     </div>
     <div class="result-item">
       <h3>Анамнез заболевания</h3>
-      <p-textarea v-model="secArea" cols="60" rows="5" />
+      <p-textarea v-model="complaintsAnamnesis" cols="60" rows="5" />
     </div>
     <div class="result-item">
       <h3>Анамнез жизни</h3>
-      <p-textarea v-model="thirdArea" cols="60" rows="6" />
+      <p-textarea v-model="lifeAnamnesis" cols="60" rows="6" />
     </div>
     <div class="result-item">
       <h3>Аллергологический анамнез</h3>
-      <p-textarea v-model="fourthArea" cols="60" rows="5" />
+      <p-textarea v-model="alergicAnamnesis" cols="60" rows="5" />
     </div>
     <div class="result-item">
       <h3>Объективные данные</h3>
-      <p-textarea v-model="fifthArea" cols="60" rows="10" />
+      <p-textarea v-model="objectiveData" cols="60" rows="10" />
+    </div>
+    <div class="result-item">
+      <h3>Объективный осмотр</h3>
+      <p-textarea v-model="objectiveExamination" cols="60" rows="10" />
     </div>
   </div>
   <div class="btn-wrapper">
-    <p-button label="Сохранить" class="p-button-raised p-button-text" />
+    <p-button
+      label="Сохранить"
+      class="p-button-raised p-button-text"
+      @click="postPatientResultData"
+    />
   </div>
 </template>
 
@@ -35,26 +43,38 @@ import PButton from "primevue/button";
 const surveyStore = useSurveyStore();
 const answers = computed(() => surveyStore.resultAnswers || {});
 
-const firstArea = ref("");
-const secArea = ref("");
-const thirdArea = ref("");
-const fourthArea = ref("");
-const fifthArea = ref("");
+const complaints = ref("");
+const complaintsAnamnesis = ref("");
+const lifeAnamnesis = ref("");
+const alergicAnamnesis = ref("");
+const objectiveData = ref("");
+const objectiveExamination = ref("");
+
+const postPatientResultData = () => {
+  const patientData = {} as Record<string, string>;
+  patientData.complaints = complaints.value;
+  patientData.complaintsAnamnesis = complaintsAnamnesis.value;
+  patientData.lifeAnamnesis = lifeAnamnesis.value;
+  patientData.alergicAnamnesis = alergicAnamnesis.value;
+  patientData.objectiveData = objectiveData.value;
+  patientData.objectiveExamination = objectiveExamination.value;
+  console.log(patientData);
+};
 
 if (answers.value["Есть ли у вас сейчас жалобы?"].includes("Да")) {
-  firstArea.value = `${
+  complaints.value = `${
     answers.value["Какие у Вас основные жалобы?"]?.join(",") || ""
   }`;
-  secArea.value = `На протяжении ${
+  complaintsAnamnesis.value = `На протяжении ${
     answers.value[
       "На протяжении какого времени Вы испытываете подобные симптомы?"
     ]?.join(",") || ""
   } становится ${answers.value["Становится ли Вам лучше?"]?.join(",") || ""}`;
 } else {
-  firstArea.value = "Жалобы не указал";
+  complaints.value = "Жалобы не указал";
 }
 
-thirdArea.value = `Хронические заболевания: ${
+lifeAnamnesis.value = `Хронические заболевания: ${
   answers.value[
     "Отметьте, какие хронические заболевания у вас есть или были"
   ]?.join(",") || ""
@@ -82,11 +102,11 @@ thirdArea.value = `Хронические заболевания: ${
 } ${answers.value["Сколько лет Вы курите?"]?.join(",") || ""}
 Алкоголь: ${answers.value["Употребляете ли Вы алкоголь?"]?.join(",") || ""}`;
 
-fourthArea.value = `${
+alergicAnamnesis.value = `${
   answers.value["Есть ли у Вас аллергия?"]?.join(",") || ""
 } ${answers.value["Укажите на что у вас аллергия"]?.join(",") || ""}`;
 
-fifthArea.value = `Общее состояние: ${
+objectiveData.value = `Общее состояние: ${
   answers.value["Отметьте жалобы общего состояния"]?.join(",") || ""
 }
 Кожная система: ${answers.value["Отметьте жалобы с кожей"]?.join(",") || ""}

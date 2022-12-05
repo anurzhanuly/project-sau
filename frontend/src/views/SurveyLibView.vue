@@ -30,8 +30,11 @@ onMounted(async () => {
       } else {
         newData[key] = [`${sender.data[key]}`];
       }
+      newData[key] = newData[key].includes("none")
+        ? ["Без особенностей"]
+        : newData[key];
     }
-
+    console.log(newData);
     surveyStore.postAnswersData({ answers: newData });
     router.push({
       path: "/result",
