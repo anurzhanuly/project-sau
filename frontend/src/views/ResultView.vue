@@ -1,90 +1,60 @@
 <template>
   <section class="section-result">
-    <div v-if="isRecommendationsVisible">
-      <h2 class="result-header">Результаты:</h2>
-      <div
+    <h2 class="result-header">Результаты:</h2>
+    <p-panel
+      v-if="isResultVisible"
+      header="Карточка пациента:"
+      :toggleable="true"
+    >
+      <result-text-area />
+    </p-panel>
+    <p-panel header="Рекомендуется:" :toggleable="true">
+      <ul
         v-for="(resultItem, index) in result"
         :key="index"
-        class="result-item"
+        class="result-list"
       >
-        <p-panel
-          header="Рекомендуется:"
-          :toggleable="true"
-          class="result-title"
+        <li
+          v-for="(item, idx) in resultItem.recommendations"
+          :key="idx"
+          class="result-list__item"
         >
-          <ul class="result-list">
-            <li
-              v-for="(item, idx) in resultItem.recommendations"
-              :key="idx"
-              class="result-list__item"
-            >
-              {{ item }}
-            </li>
-          </ul>
-        </p-panel>
+          - {{ item }}
+        </li>
+      </ul>
+      <div v-if="isButtonsVisible" class="btn-wrapper">
+        <p-button
+          label="Открыть в pdf"
+          class="p-button-raised p-button-text"
+          @click="makeResultPdf"
+        />
       </div>
-      <div v-if="isButtonsVisible">
-        <button class="btn" @click="makeResultPdf()">Открыть в pdf</button>
-        <button class="btn" @click="openPromo">Получить промокод</button>
-        <button class="btn" @click="makeCardPdf()">Карточка пациента</button>
-      </div>
-      <p-dialog
-        v-model:visible="displayPromo"
-        header="Скидочный промокод: Симптом"
-        :style="{ width: '80vw' }"
-      >
-        <data-table :value="partners" responsive-layout="scroll">
-          <p-column field="name" header="Категория" />
-          <p-column field="company" header="Компания" />
-          <p-column field="address" header="Адрес" />
-        </data-table>
-      </p-dialog>
-    </div>
-    <patient-card v-if="isPatientCardVisible" />
+    </p-panel>
   </section>
 </template>
 
 <script lang="ts" setup>
 import { useSurveyStore } from "../stores/surveyStore";
-import partners from "../services/partners";
 import { ref, computed } from "vue";
 import PPanel from "primevue/panel";
-import PDialog from "primevue/dialog";
-import DataTable from "primevue/datatable";
-import PColumn from "primevue/column";
-import PatientCard from "../components/PatientCard.vue";
+import PButton from "primevue/button";
+import ResultTextArea from "@/components/ResultTextArea.vue";
 
 const surveyStore = useSurveyStore();
 const result = computed(() => surveyStore.recommendations || []);
 
-const displayPromo = ref(false);
 const isButtonsVisible = ref(true);
-const isPatientCardVisible = ref(false);
-const isRecommendationsVisible = ref(true);
-
-const openPromo = () => {
-  displayPromo.value = true;
-};
+const isResultVisible = ref(true);
 
 const makeResultPdf = () => {
   isButtonsVisible.value = false;
+  isResultVisible.value = false;
   setTimeout(() => {
     window.print();
   });
   setTimeout(() => {
     isButtonsVisible.value = true;
-  }, 2000);
-};
-
-const makeCardPdf = () => {
-  isRecommendationsVisible.value = false;
-  isPatientCardVisible.value = true;
-  setTimeout(() => {
-    window.print();
-  });
-  setTimeout(() => {
-    isRecommendationsVisible.value = true;
-    isPatientCardVisible.value = false;
+    isResultVisible.value = true;
   }, 2000);
 };
 </script>
@@ -94,7 +64,7 @@ const makeCardPdf = () => {
   background-color: #fff;
   border-radius: 5px;
   width: 100%;
-  padding: 60px;
+  padding: 40px;
   margin: 0 auto 40px;
   -webkit-box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
   -moz-box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
@@ -105,80 +75,24 @@ const makeCardPdf = () => {
   margin-bottom: 40px;
 }
 
-.result-item {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 50px;
-}
-
 .result-list__item {
   margin-bottom: 10px;
 }
 
-.result-title {
-  margin-bottom: 10px;
-}
-
 .result-list {
-  margin: 0 0 10px 30px;
+  margin: 0 0 30px 20px;
 }
 
-.result-text {
-  margin-bottom: 10px;
+.p-panel {
+  margin-bottom: 30px;
 }
 
-.btn {
-  background-color: #ffffff;
-  border: 1px solid #222222;
-  border-radius: 8px;
-  box-sizing: border-box;
-  color: #222222;
-  cursor: pointer;
-  display: inline-block;
-  font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto,
-    "Helvetica Neue", sans-serif;
-  font-size: 16px;
-  font-weight: 600;
-  line-height: 20px;
-  margin: 0;
-  outline: none;
-  padding: 13px 23px;
-  position: relative;
-  text-align: center;
-  text-decoration: none;
-  touch-action: manipulation;
-  transition: box-shadow 0.2s, -ms-transform 0.1s, -webkit-transform 0.1s,
-    transform 0.1s;
-  user-select: none;
-  -webkit-user-select: none;
-  width: auto;
-  margin-right: 20px;
-}
-
-.btn:focus-visible {
-  box-shadow: #222222 0 0 0 2px, rgba(255, 255, 255, 0.8) 0 0 0 4px;
-  transition: box-shadow 0.2s;
-}
-
-.btn:active {
-  background-color: #f7f7f7;
-  border-color: #000000;
-  transform: scale(0.96);
-}
-
-.btn:disabled {
-  border-color: #dddddd;
-  color: #dddddd;
-  cursor: not-allowed;
-  opacity: 1;
+.btn-wrapper {
+  display: flex;
+  justify-content: flex-end;
 }
 
 @media (max-width: 580px) {
-  .btn {
-    font-size: 14px;
-    line-height: 18px;
-  }
-
   .section-result {
     padding: 30px 20px;
   }
@@ -189,14 +103,6 @@ const makeCardPdf = () => {
 }
 
 @media (max-width: 768px) {
-  .btn {
-    margin: 5px 20px 5px 0;
-  }
-
-  .result-title {
-    font-size: 12px;
-  }
-
   .result-header {
     flex-direction: column;
     align-items: flex-start;

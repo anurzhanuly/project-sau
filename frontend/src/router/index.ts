@@ -20,11 +20,6 @@ const router = createRouter({
       component: () => import("@/views/ResultView.vue"),
     },
     {
-      path: "/result-hack",
-      name: "result-hack",
-      component: () => import("@/views/ResultHackathonView.vue"),
-    },
-    {
       path: "/surveylib",
       name: "surveylib",
       component: () => import("@/views/SurveyLibView.vue"),

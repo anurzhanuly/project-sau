@@ -1,32 +1,29 @@
 <template>
-  <section class="section-result">
-    <div class="result-hack">
-      <div class="result-hack-item">
-        <h3>Жалобы при поступлении</h3>
-        <p-textarea v-model="firstArea" cols="60" rows="5" />
-      </div>
-      <div class="result-hack-item">
-        <h3>Анамнез заболевания</h3>
-        <p-textarea v-model="secArea" cols="60" rows="5" />
-      </div>
-      <div class="result-hack-item">
-        <h3>Анамнез жизни</h3>
-        <p-textarea v-model="thirdArea" cols="60" rows="6" />
-      </div>
-      <div class="result-hack-item">
-        <h3>Аллергологический анамнез</h3>
-        <p-textarea v-model="fourthArea" cols="60" rows="5" />
-      </div>
-      <div class="result-hack-item">
-        <h3>Объективные данные</h3>
-        <p-textarea v-model="fifthArea" cols="60" rows="8" />
-      </div>
+  <div class="result-wrapper">
+    <div class="result-item">
+      <h3>Жалобы при поступлении</h3>
+      <p-textarea v-model="firstArea" cols="60" rows="5" />
     </div>
-    <p-button
-      label="Сохранить"
-      class="p-button-raised p-button-success p-button-text"
-    />
-  </section>
+    <div class="result-item">
+      <h3>Анамнез заболевания</h3>
+      <p-textarea v-model="secArea" cols="60" rows="5" />
+    </div>
+    <div class="result-item">
+      <h3>Анамнез жизни</h3>
+      <p-textarea v-model="thirdArea" cols="60" rows="6" />
+    </div>
+    <div class="result-item">
+      <h3>Аллергологический анамнез</h3>
+      <p-textarea v-model="fourthArea" cols="60" rows="5" />
+    </div>
+    <div class="result-item">
+      <h3>Объективные данные</h3>
+      <p-textarea v-model="fifthArea" cols="60" rows="10" />
+    </div>
+  </div>
+  <div class="btn-wrapper">
+    <p-button label="Сохранить" class="p-button-raised p-button-text" />
+  </div>
 </template>
 
 <script lang="ts" setup>
@@ -120,35 +117,23 @@ fifthArea.value = `Общее состояние: ${
 </script>
 
 <style scoped>
-.section-result {
-  background-color: #fff;
-  border-radius: 5px;
-  width: 100%;
-  padding: 30px;
-  margin: 0 auto;
-  -webkit-box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
-  -moz-box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
-  box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
-}
-
-.result-hack {
+.result-wrapper {
   display: flex;
   flex-direction: column;
 }
 
-.result-hack-item {
+.result-item {
   display: flex;
   justify-content: space-between;
   margin-bottom: 20px;
 }
 
-.result-hack-item h3 {
+.result-item h3 {
   margin-right: 20px;
 }
 
-@media (max-width: 580px) {
-  .section-result {
-    padding: 30px 20px;
-  }
+.btn-wrapper {
+  display: flex;
+  justify-content: flex-end;
 }
 </style>
