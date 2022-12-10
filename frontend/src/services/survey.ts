@@ -5,7 +5,7 @@ export const postAnswers = async (answers: {
 }) => {
   try {
     const res = axios.post(
-      "http://www.symptom.kz/diseases/recommendations",
+      "https://project-sau.herokuapp.com/diseases/recommendations",
       answers,
     );
 
