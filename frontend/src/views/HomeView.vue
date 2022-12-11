@@ -30,6 +30,17 @@
   </section>
 </template>
 
+<script lang="ts" setup>
+import { onMounted } from "vue";
+import { useSurveyStore } from "../stores/surveyStore.js";
+
+const surveyStore = useSurveyStore();
+
+onMounted(async () => {
+  await surveyStore.getQuestionsData();
+});
+</script>
+
 <style scoped>
 /* Section welcome */
 .info {
