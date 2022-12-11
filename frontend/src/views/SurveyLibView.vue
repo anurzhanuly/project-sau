@@ -19,8 +19,7 @@ const surveyJson = computed(() => surveyStore.questions);
 StylesManager.applyTheme("defaultV2");
 
 onMounted(() => {
-  console.log(surveyJson.value);
-  const survey = new Survey(surveyJson);
+  const survey = new Survey(surveyJson.value);
 
   survey.locale = "ru";
 

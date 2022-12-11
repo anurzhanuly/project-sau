@@ -7,9 +7,7 @@
           Пройдите анализ своего здоровья и узнайте, что вам стоит пройти.
           Быстро, бесплатно и анонимно.
         </p>
-        <router-link to="/surveylib">
-          <button class="btn">Пройти тест</button>
-        </router-link>
+        <button class="btn" @click="goToSurvey">Пройти тест</button>
       </div>
     </div>
     <div class="image-welcome" />
@@ -31,14 +29,29 @@
 </template>
 
 <script lang="ts" setup>
-import { onMounted } from "vue";
+import { onMounted, computed } from "vue";
 import { useSurveyStore } from "../stores/surveyStore.js";
+import { useRouter } from "vue-router";
 
+const router = useRouter();
 const surveyStore = useSurveyStore();
+const surveyJson = computed(() => surveyStore.questions);
 
-onMounted(async () => {
-  await surveyStore.getQuestionsData();
+onMounted(() => {
+  surveyStore.getQuestionsData();
 });
+
+const goToSurvey = () => {
+  if (surveyJson.value.pages) {
+    router.push({
+      path: "/surveylib",
+    });
+  } else {
+    setTimeout(() => {
+      goToSurvey();
+    }, 100);
+  }
+};
 </script>
 
 <style scoped>
