@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const getQuestionsJson = async () => {
   try {
-    const res = axios.get("http://www.symptom.kz/questionnaires/id/114");
+    const res = axios.get("https://project-sau.herokuapp.com/questionnaires/id/114");
 
     return res;
   } catch (error) {
@@ -15,7 +15,7 @@ export const getQuestionsJson = async () => {
 export const postQuestionsJson = async questions => {
   try {
     const res = axios.post(
-      "http://www.symptom.kz/questionnaires/add",
+      "https://project-sau.herokuapp.com/questionnaires/add",
       questions,
     );
 
@@ -30,7 +30,7 @@ export const postQuestionsJson = async questions => {
 export const changeQuestionsJson = async questions => {
   try {
     const res = axios.put(
-      "http://www.symptom.kz/questionnaires/update",
+      "https://project-sau.herokuapp.com/questionnaires/update",
       questions,
     );
 
@@ -44,7 +44,7 @@ export const changeQuestionsJson = async questions => {
 
 export const getRecommendationsJson = async () => {
   try {
-    const res = axios.get("http://www.symptom.kz/recommendations");
+    const res = axios.get("https://project-sau.herokuapp.com/recommendations");
 
     return res;
   } catch (error) {
@@ -56,7 +56,7 @@ export const getRecommendationsJson = async () => {
 
 export const putRecommendationsObj = async newRec => {
   try {
-    const res = axios.post("http://www.symptom.kz/diseases/add", newRec);
+    const res = axios.post("https://project-sau.herokuapp.com/diseases/add", newRec);
 
     return res;
   } catch (error) {
