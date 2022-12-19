@@ -23,6 +23,11 @@ const adminPages = ref([
     icon: "pi pi-fw pi-book",
     to: "/admin/recom",
   },
+  {
+    label: "Изменить наименование",
+    icon: "pi pi-fw pi-database",
+    to: "/admin/magic",
+  },
 ]);
 </script>
 
