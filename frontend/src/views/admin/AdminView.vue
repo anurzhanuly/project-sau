@@ -4,8 +4,21 @@
 </template>
 
 <script lang="ts" setup>
+import { useAdminStore } from "@/stores/adminStore";
 import TabMenu from "primevue/tabmenu";
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
+
+const adminStore = useAdminStore();
+
+onMounted(() => {
+  if (!adminStore.recommendations.length) {
+    adminStore.getRecommendationsData();
+  }
+
+  if (!adminStore.questions.length) {
+    adminStore.getQuestionsData();
+  }
+});
 
 const adminPages = ref([
   {

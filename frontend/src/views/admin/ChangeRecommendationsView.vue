@@ -65,12 +65,6 @@ const toast = useToast();
 const checkedRecommendationName = ref("");
 const copiedTests = ref({} as Record<string, string>);
 
-onMounted(() => {
-  if (!adminStore.recommendations.length) {
-    adminStore.getRecommendationsData();
-  }
-});
-
 const recommendationsJSON = computed(() => adminStore.recommendations);
 
 watch(checkedRecommendationName, newRecommendationName => {

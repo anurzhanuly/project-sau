@@ -15,7 +15,11 @@
       </div>
       <div>
         <h3>Пароль</h3>
-        <input-text v-model="newRecord.password" style="width: 100%" />
+        <input-text
+          v-model="newRecord.password"
+          type="password"
+          style="width: 100%"
+        />
       </div>
     </div>
     <template #footer>

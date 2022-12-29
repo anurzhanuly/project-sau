@@ -10,10 +10,18 @@
           placeholder="До"
           style="width: 100%"
         />
-        <input-text
+        <dropdown
           v-model="afterQuestName"
+          :options="questionNameOptions"
+          option-value="value"
+          option-label="value"
           placeholder="После"
+          filter-placeholder="Поиск"
+          filter
+          lazy
           style="margin: 0 20px; width: 100%"
+          :empty-filter-message="'Ничего не найдено'"
+          :empty-message="'Ничего не найдено'"
         />
         <p-button
           label="Изменить"
@@ -30,8 +38,9 @@
 import InputText from "primevue/inputtext";
 import PButton from "primevue/button";
 import pToast from "primevue/toast";
+import Dropdown from "primevue/dropdown";
 import ConfirmPopup from "primevue/confirmpopup";
-import { onMounted, ref, computed } from "vue";
+import { ref, computed } from "vue";
 import { useAdminStore } from "@/stores/adminStore";
 import { useConfirm } from "primevue/useconfirm";
 import { useToast } from "primevue/usetoast";
@@ -44,13 +53,10 @@ const adminStore = useAdminStore();
 const beforeQuestName = ref("");
 const afterQuestName = ref("");
 
-onMounted(() => {
-  if (!adminStore.recommendations.length) {
-    adminStore.getRecommendationsData();
-  }
-});
-
 const recommendationsJSON = computed(() => adminStore.recommendations);
+const questionNameOptions = computed(
+  () => adminStore.conditionColumns[0].options,
+);
 
 const changeQuestName = () => {
   const recommendationStr = JSON.stringify(recommendationsJSON.value);

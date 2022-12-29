@@ -117,16 +117,6 @@ const checkedRecommendationObj = ref({} as Recommendation);
 const conditionDeleteIndex = ref();
 const newRecommendationName = ref("");
 
-onMounted(() => {
-  if (!adminStore.recommendations.length) {
-    adminStore.getRecommendationsData();
-  }
-
-  if (!adminStore.questions.length) {
-    adminStore.getQuestionsData();
-  }
-});
-
 const recommendationsJSON = computed(() => adminStore.recommendations);
 
 watch(checkedRecommendationName, newRecommendationName => {
