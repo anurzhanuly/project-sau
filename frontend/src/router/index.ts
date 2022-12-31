@@ -31,20 +31,19 @@ const router = createRouter({
       children: [
         {
           path: "quest",
-          component: () => import("@/views/admin/ChangeQuestionsView.vue"),
+          component: () => import("@/views/admin/QuestionsView.vue"),
         },
         {
           path: "cond",
-          component: () => import("@/views/admin/ChangeConditionsView.vue"),
+          component: () => import("@/views/admin/ConditionsView.vue"),
         },
         {
           path: "recom",
-          component: () =>
-            import("@/views/admin/ChangeRecommendationsView.vue"),
+          component: () => import("@/views/admin/RecommendationsView.vue"),
         },
         {
           path: "magic",
-          component: () => import("@/views/admin/ChangeConditionsName.vue"),
+          component: () => import("@/views/admin/ConditionsNameView.vue"),
         },
       ],
     },
