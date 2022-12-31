@@ -104,7 +104,7 @@ import CreateConditionsPopupComponent from "./CreateConditionsPopupComponent.vue
 import { useToast } from "primevue/usetoast";
 import axios from "axios";
 import type { Recommendation } from "@/types/recommendations";
-import type { Error } from "@/types/response.";
+import type { Error } from "@/types/response";
 
 const toast = useToast();
 const confirm = useConfirm();

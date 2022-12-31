@@ -3,7 +3,7 @@ import type {
   Recommendation,
   ResRecommendation,
 } from "@/types/recommendations";
-import type { Error } from "@/types/response.";
+import type { Error } from "@/types/response";
 import axios, { AxiosError } from "axios";
 
 export const getQuestionsJson = async () => {

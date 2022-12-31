@@ -57,7 +57,7 @@ import PTextarea from "primevue/textarea";
 import { useAdminStore } from "../../stores/adminStore";
 import { useToast } from "primevue/usetoast";
 import axios from "axios";
-import type { Error } from "@/types/response.";
+import type { Error } from "@/types/response";
 
 const adminStore = useAdminStore();
 const toast = useToast();
