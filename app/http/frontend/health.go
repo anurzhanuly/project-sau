@@ -63,45 +63,6 @@ func HealthGetRecommendation(c *gin.Context, di *di.DI) {
 	})
 }
 
-func AddDisease(c *gin.Context, di *di.DI) {
-	service := diseases.NewService(c, di)
-
-	err := service.AddDisease()
-	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{
-			"status": http.StatusInternalServerError,
-			"result": fmt.Sprintf("произошла ошибка со стороны сервера: %s", err.Error()),
-		})
-
-		return
-	}
-
-	c.JSON(http.StatusOK, gin.H{
-		"status": http.StatusOK,
-		"result": "success",
-	})
-}
-
-func DeleteDisease(c *gin.Context, di *di.DI) {
-	service := diseases.NewService(c, di)
-
-	err := service.DeleteDisease()
-	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{
-			"status": http.StatusInternalServerError,
-			"result": fmt.Sprintf(
-				"произошла ошибка со стороны сервера, во время удаления рекомендации: %s", err.Error()),
-		})
-
-		return
-	}
-
-	c.JSON(http.StatusOK, gin.H{
-		"status": http.StatusOK,
-		"result": "success",
-	})
-}
-
 func GetAllRecommendations(c *gin.Context, di *di.DI) {
 	var result string
 	var err error

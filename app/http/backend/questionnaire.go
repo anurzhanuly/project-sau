@@ -1,4 +1,4 @@
-package frontend
+package backend
 
 import (
 	"anurzhanuly/project-sau/app/di"
