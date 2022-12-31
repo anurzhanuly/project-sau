@@ -33,7 +33,7 @@ func ConfigureRoutes(router *gin.Engine, di di.DI) {
 	router.Use(static.Serve("/", static.LocalFile(di.Config.StaticPath, false)))
 
 	// Frontend сам сайт
-	website := router.Group("site")
+	website := router.Group("")
 	{
 		website.GET("/_health", middleware.ProvideDependency(frontend.Health, di))
 		website.POST("/diseases/recommendations", middleware.ProvideDependency(frontend.HealthGetRecommendation, di))
