@@ -1,4 +1,4 @@
-package handlers
+package frontend
 
 import (
 	"anurzhanuly/project-sau/app/di"

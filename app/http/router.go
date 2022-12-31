@@ -2,7 +2,7 @@ package http
 
 import (
 	"anurzhanuly/project-sau/app/di"
-	"anurzhanuly/project-sau/app/http/handlers"
+	"anurzhanuly/project-sau/app/http/frontend"
 	"anurzhanuly/project-sau/app/http/middleware"
 	"github.com/gin-contrib/static"
 	"github.com/gin-gonic/gin"
@@ -30,15 +30,15 @@ func ConfigureRoutes(router *gin.Engine, di di.DI) {
 	}))
 
 	router.Use(static.Serve("/", static.LocalFile(di.Config.StaticPath, false)))
-	router.GET("/_health", middleware.ProvideDependency(handlers.Health, di))
-	router.POST("/diseases/recommendations", middleware.ProvideDependency(handlers.HealthGetRecommendation, di))
-	router.POST("/diseases/add", middleware.ProvideDependency(handlers.AddDisease, di))
-	router.POST("/diseases/delete", middleware.ProvideDependency(handlers.DeleteDisease, di))
-	router.GET("/recommendations", middleware.ProvideDependency(handlers.GetAllRecommendations, di))
-	router.GET("/userAnswers", middleware.ProvideDependency(handlers.GetAllUsersStatistics, di))
-	router.GET("/questionnaires/:name", middleware.ProvideDependency(handlers.QuestionnaireByName, di))
-	router.GET("/questionnaires/id/:id", middleware.ProvideDependency(handlers.QuestionnaireById, di))
-	router.POST("/questionnaires/add", middleware.ProvideDependency(handlers.QuestionnaireAdd, di))
-	router.PUT("/questionnaires/update", middleware.ProvideDependency(handlers.QuestionnaireUpdate, di))
-	router.POST("/notify", middleware.ProvideDependency(handlers.SendNotification, di))
+	router.GET("/_health", middleware.ProvideDependency(frontend.Health, di))
+	router.POST("/diseases/recommendations", middleware.ProvideDependency(frontend.HealthGetRecommendation, di))
+	router.POST("/diseases/add", middleware.ProvideDependency(frontend.AddDisease, di))
+	router.POST("/diseases/delete", middleware.ProvideDependency(frontend.DeleteDisease, di))
+	router.GET("/recommendations", middleware.ProvideDependency(frontend.GetAllRecommendations, di))
+	router.GET("/userAnswers", middleware.ProvideDependency(frontend.GetAllUsersStatistics, di))
+	router.GET("/questionnaires/:name", middleware.ProvideDependency(frontend.QuestionnaireByName, di))
+	router.GET("/questionnaires/id/:id", middleware.ProvideDependency(frontend.QuestionnaireById, di))
+	router.POST("/questionnaires/add", middleware.ProvideDependency(frontend.QuestionnaireAdd, di))
+	router.PUT("/questionnaires/update", middleware.ProvideDependency(frontend.QuestionnaireUpdate, di))
+	router.POST("/notify", middleware.ProvideDependency(frontend.SendNotification, di))
 }
