@@ -37,12 +37,9 @@ func ConfigureRoutes(router *gin.Engine, di di.DI) {
 	{
 		website.GET("/_health", middleware.ProvideDependency(frontend.Health, di))
 		website.POST("/diseases/recommendations", middleware.ProvideDependency(frontend.HealthGetRecommendation, di))
-		website.POST("/diseases/add", middleware.ProvideDependency(frontend.AddDisease, di))
-		website.POST("/diseases/delete", middleware.ProvideDependency(frontend.DeleteDisease, di))
 		website.GET("/userAnswers", middleware.ProvideDependency(frontend.GetAllUsersStatistics, di))
 		website.GET("/questionnaires/:name", middleware.ProvideDependency(frontend.QuestionnaireByName, di))
 		website.GET("/questionnaires/id/:id", middleware.ProvideDependency(frontend.QuestionnaireById, di))
-		website.POST("/questionnaires/add", middleware.ProvideDependency(frontend.QuestionnaireAdd, di))
 		website.PUT("/questionnaires/update", middleware.ProvideDependency(frontend.QuestionnaireUpdate, di))
 		website.POST("/notify", middleware.ProvideDependency(frontend.SendNotification, di))
 	}
@@ -51,5 +48,8 @@ func ConfigureRoutes(router *gin.Engine, di di.DI) {
 	admin := router.Group("/admin")
 	{
 		admin.GET("/recommendations", middleware.ProvideDependency(backend.GetAllRecommendations, di))
+		admin.POST("/diseases/add", middleware.ProvideDependency(frontend.AddDisease, di))
+		admin.POST("/diseases/delete", middleware.ProvideDependency(frontend.DeleteDisease, di))
+		admin.POST("/questionnaires/add", middleware.ProvideDependency(frontend.QuestionnaireAdd, di))
 	}
 }
