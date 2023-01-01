@@ -83,13 +83,35 @@ func (s Service) FetchAllRecommendations() (string, error) {
 func (s Service) FetchAllRecommendationsV1() (string, error) {
 	var result []byte
 	var err error
+	var allDiseases []DiseaseV1
 
 	recommendations, err := s.repository.getAllRecommendations()
 	if err != nil {
 		return "", err
 	}
 
-	result, err = json.Marshal(recommendations)
+	for _, disease := range recommendations {
+		diseaseV1 := disease.ConvertToV1()
+		var allConditionsV1 [][]data.ConditionV1
+
+		for _, conditions := range disease.Conditions {
+			var conditionsV1 []data.ConditionV1
+
+			for questionName, condition := range conditions {
+				conditionV1 := condition.ConvertToV1()
+				conditionV1.QuestionName = questionName
+
+				conditionsV1 = append(conditionsV1, *conditionV1)
+			}
+
+			allConditionsV1 = append(allConditionsV1, conditionsV1)
+		}
+
+		diseaseV1.Conditions = allConditionsV1
+		allDiseases = append(allDiseases, *diseaseV1)
+	}
+
+	result, err = json.Marshal(allDiseases)
 
 	return string(result), err
 }
