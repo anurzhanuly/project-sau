@@ -66,7 +66,7 @@ func (s Service) AddDisease() error {
 	return err
 }
 
-func (s Service) GetAllDiseases() (string, error) {
+func (s Service) FetchAllRecommendations() (string, error) {
 	var result []byte
 	var err error
 
@@ -80,7 +80,7 @@ func (s Service) GetAllDiseases() (string, error) {
 	return string(result), err
 }
 
-func (s Service) GetAllDiseasesV1() (string, error) {
+func (s Service) FetchAllRecommendationsV1() (string, error) {
 	var result []byte
 	var err error
 

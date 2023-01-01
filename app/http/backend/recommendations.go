@@ -13,7 +13,7 @@ func GetAllRecommendations(c *gin.Context, di *di.DI) {
 	var err error
 	service := diseases.NewService(c, di)
 
-	result, err = service.GetAllDiseases()
+	result, err = service.FetchAllRecommendations()
 	if err != nil {
 		return
 	}
@@ -29,7 +29,7 @@ func GetAllRecommendationsV1(c *gin.Context, di *di.DI) {
 	var err error
 	service := diseases.NewService(c, di)
 
-	result, err = service.GetAllDiseasesV1()
+	result, err = service.FetchAllRecommendationsV1()
 	if err != nil {
 		return
 	}
