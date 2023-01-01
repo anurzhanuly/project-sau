@@ -63,22 +63,6 @@ func HealthGetRecommendation(c *gin.Context, di *di.DI) {
 	})
 }
 
-func GetAllRecommendations(c *gin.Context, di *di.DI) {
-	var result string
-	var err error
-	service := diseases.NewService(c, di)
-
-	result, err = service.GetAllDiseases()
-	if err != nil {
-		return
-	}
-
-	c.JSON(http.StatusOK, gin.H{
-		"status": http.StatusOK,
-		"result": result,
-	})
-}
-
 func GetAllUsersStatistics(c *gin.Context, di *di.DI) {
 	var err error
 	service := answers.NewService(c, di)
