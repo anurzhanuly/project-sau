@@ -42,6 +42,11 @@ func ConfigureRoutes(router *gin.Engine, di di.DI) {
 		website.GET("/questionnaires/id/:id", middleware.ProvideDependency(backend.QuestionnaireById, di))
 		website.PUT("/questionnaires/update", middleware.ProvideDependency(backend.QuestionnaireUpdate, di))
 		website.POST("/notify", middleware.ProvideDependency(frontend.SendNotification, di))
+		website.GET("/recommendations", middleware.ProvideDependency(backend.GetAllRecommendations, di))
+		website.GET("/v1/recommendations", middleware.ProvideDependency(backend.GetAllRecommendationsV1, di))
+		website.POST("/diseases/add", middleware.ProvideDependency(backend.AddDisease, di))
+		website.POST("/diseases/delete", middleware.ProvideDependency(backend.DeleteDisease, di))
+		website.POST("/questionnaires/add", middleware.ProvideDependency(backend.QuestionnaireAdd, di))
 	}
 
 	// Backend админка
