@@ -2,7 +2,7 @@
   <admin-login-popup />
   <footer class="footer">
     <div class="footer__logo" />
-    <div class="footer__contacts">
+    <div>
       <p>Контакты для связи:</p>
       <p>Телефон: <a href="tel:+77773771515">+7 (777) 377-15-15</a></p>
       <p>

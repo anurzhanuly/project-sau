@@ -10,7 +10,7 @@ import type { Condition, Recommendation } from "@/types/recommendations.js";
 import type { Questions } from "@/types/questions.js";
 
 export const useAdminStore = defineStore("admin", () => {
-  const recommendations = ref([] as Recommendation[]);
+  const allRecommendations = ref([] as Recommendation[]);
   const questions = ref([] as Questions[]);
   const questionsNames = ref([] as { value: string }[]);
   const checkedRecommendationName = ref("");
@@ -62,7 +62,7 @@ export const useAdminStore = defineStore("admin", () => {
     const res = await getRecommendationsJson();
 
     if (!axios.isAxiosError(res)) {
-      recommendations.value = JSON.parse(res.data.result);
+      allRecommendations.value = JSON.parse(res.data.result);
     }
 
     return res;
@@ -72,40 +72,41 @@ export const useAdminStore = defineStore("admin", () => {
     recName: string,
     recomm: Record<string, string[]>,
   ) {
-    const recommendation = JSON.parse(
+    const newRecommendation = JSON.parse(
       JSON.stringify(
-        recommendations.value.filter(el => {
+        allRecommendations.value.filter(el => {
           return el.name === recName;
         })[0],
       ),
     );
-    recommendation.tests = recomm;
-    console.log(recommendation);
-    const res = await putRecommendationsObj(recommendation);
+    newRecommendation.tests = recomm;
+    const res = await putRecommendationsObj(newRecommendation);
 
     return res;
   }
 
-  async function saveConditionsData(recName: string) {
-    const recommendation = JSON.parse(
+  async function saveConditionsData(conditionName: string) {
+    const newRecommendation = JSON.parse(
       JSON.stringify(
-        recommendations.value.filter(el => {
-          return el.name === recName;
+        allRecommendations.value.filter(el => {
+          return el.name === conditionName;
         })[0],
       ),
     );
-    const res = await putRecommendationsObj(recommendation);
+    console.log(newRecommendation);
+
+    const res = await putRecommendationsObj(newRecommendation);
 
     return res;
   }
 
   function createConditionInRec(newRecord: Condition, questionName: string) {
-    const rec = recommendations.value.filter(el => {
+    const rec = allRecommendations.value.filter(el => {
       return el.name === checkedRecommendationName.value;
     })[0];
-    const recIndex: number = recommendations.value.indexOf(rec);
+    const recIndex: number = allRecommendations.value.indexOf(rec);
 
-    recommendations.value[recIndex].conditions[conditionIndex.value][
+    allRecommendations.value[recIndex].conditions[conditionIndex.value][
       questionName
     ] = newRecord;
   }
@@ -115,17 +116,17 @@ export const useAdminStore = defineStore("admin", () => {
     conditionIndex: number,
     keyInCondition: string,
   ) {
-    const rec = recommendations.value.filter(el => {
+    const rec = allRecommendations.value.filter(el => {
       return el.name === recName;
     })[0];
-    const recIndex = recommendations.value.indexOf(rec);
-    delete recommendations.value[recIndex].conditions[conditionIndex][
+    const recIndex = allRecommendations.value.indexOf(rec);
+    delete allRecommendations.value[recIndex].conditions[conditionIndex][
       keyInCondition
     ];
   }
 
   return {
-    recommendations,
+    recommendations: allRecommendations,
     questions,
     questionsNames,
     conditionColumns,
