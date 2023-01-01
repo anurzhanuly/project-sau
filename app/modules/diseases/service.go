@@ -32,7 +32,7 @@ func (s Service) GetRecommendations(userAnswer *answers.User) ([]data.Recommenda
 	var err error
 	var result []data.Recommendation
 
-	diseases, err := s.repository.getAllDiseases()
+	diseases, err := s.repository.getAllRecommendations()
 	if err != nil {
 		return result, err
 	}
@@ -58,7 +58,7 @@ func (s Service) AddDisease() error {
 		return err
 	}
 
-	err = s.repository.addDisease(*s.model)
+	err = s.repository.addRecommendation(*s.model)
 	if err != nil {
 		return err
 	}
@@ -70,7 +70,7 @@ func (s Service) FetchAllRecommendations() (string, error) {
 	var result []byte
 	var err error
 
-	recommendations, err := s.repository.getAllDiseases()
+	recommendations, err := s.repository.getAllRecommendations()
 	if err != nil {
 		return "", err
 	}
@@ -84,7 +84,7 @@ func (s Service) FetchAllRecommendationsV1() (string, error) {
 	var result []byte
 	var err error
 
-	recommendations, err := s.repository.getAllDiseases()
+	recommendations, err := s.repository.getAllRecommendations()
 	if err != nil {
 		return "", err
 	}
@@ -102,7 +102,7 @@ func (s Service) DeleteDisease() error {
 		return err
 	}
 
-	err = s.repository.deleteDisease(*s.model)
+	err = s.repository.deleteRecommendation(*s.model)
 	if err != nil {
 		return err
 	}
