@@ -80,6 +80,20 @@ func (s Service) GetAllDiseases() (string, error) {
 	return string(result), err
 }
 
+func (s Service) GetAllDiseasesV1() (string, error) {
+	var result []byte
+	var err error
+
+	recommendations, err := s.repository.getAllDiseases()
+	if err != nil {
+		return "", err
+	}
+
+	result, err = json.Marshal(recommendations)
+
+	return string(result), err
+}
+
 func (s Service) DeleteDisease() error {
 	var err error
 

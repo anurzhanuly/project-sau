@@ -24,6 +24,22 @@ func GetAllRecommendations(c *gin.Context, di *di.DI) {
 	})
 }
 
+func GetAllRecommendationsV1(c *gin.Context, di *di.DI) {
+	var result string
+	var err error
+	service := diseases.NewService(c, di)
+
+	result, err = service.GetAllDiseasesV1()
+	if err != nil {
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"status": http.StatusOK,
+		"result": result,
+	})
+}
+
 func AddDisease(c *gin.Context, di *di.DI) {
 	service := diseases.NewService(c, di)
 

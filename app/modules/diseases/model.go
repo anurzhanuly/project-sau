@@ -14,6 +14,13 @@ type Disease struct {
 	Conditions []map[string]data.Condition `bson:"conditions" json:"conditions,omitempty"`
 }
 
+type DiseaseV1 struct {
+	ID         int                  `bson:"id" json:"id,omitempty"`
+	Name       string               `bson:"name" json:"name"`
+	Tests      map[string][]string  `bson:"tests" json:"tests,omitempty"`
+	Conditions [][]data.ConditionV1 `bson:"conditions" json:"conditions,omitempty"`
+}
+
 func (hd Disease) getRecommendations(answers *answers.User) ([]string, bool) {
 	for _, conditions := range hd.Conditions {
 		conditionApplies := true
