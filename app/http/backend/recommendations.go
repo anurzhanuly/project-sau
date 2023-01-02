@@ -62,7 +62,7 @@ func AddDisease(c *gin.Context, di *di.DI) {
 func DeleteDisease(c *gin.Context, di *di.DI) {
 	service := diseases.NewService(c, di)
 
-	err := service.DeleteDisease()
+	err := service.ExecuteDeletion()
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
 			"status": http.StatusInternalServerError,

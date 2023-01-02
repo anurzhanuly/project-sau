@@ -32,7 +32,7 @@ func (s Service) GetRecommendations(userAnswer *answers.User) ([]data.Recommenda
 	var err error
 	var result []data.Recommendation
 
-	diseases, err := s.repository.getAllRecommendations()
+	diseases, err := s.repository.getAll()
 	if err != nil {
 		return result, err
 	}
@@ -58,7 +58,7 @@ func (s Service) AddDisease() error {
 		return err
 	}
 
-	err = s.repository.addRecommendation(*s.model)
+	err = s.repository.add(*s.model)
 	if err != nil {
 		return err
 	}
@@ -70,7 +70,7 @@ func (s Service) FetchAllRecommendations() (string, error) {
 	var result []byte
 	var err error
 
-	recommendations, err := s.repository.getAllRecommendations()
+	recommendations, err := s.repository.getAll()
 	if err != nil {
 		return "", err
 	}
@@ -85,7 +85,7 @@ func (s Service) FetchAllRecommendationsV1() (string, error) {
 	var err error
 	var allDiseases []DiseaseV1
 
-	recommendations, err := s.repository.getAllRecommendations()
+	recommendations, err := s.repository.getAll()
 	if err != nil {
 		return "", err
 	}
@@ -116,7 +116,7 @@ func (s Service) FetchAllRecommendationsV1() (string, error) {
 	return string(result), err
 }
 
-func (s Service) DeleteDisease() error {
+func (s Service) ExecuteDeletion() error {
 	var err error
 
 	err = s.Context.BindJSON(s.model)
@@ -124,7 +124,7 @@ func (s Service) DeleteDisease() error {
 		return err
 	}
 
-	err = s.repository.deleteRecommendation(*s.model)
+	err = s.repository.delete(*s.model)
 	if err != nil {
 		return err
 	}

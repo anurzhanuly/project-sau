@@ -12,7 +12,7 @@ type Repository struct {
 	collection *mongo.Collection
 }
 
-func (r Repository) getAllRecommendations() ([]Disease, error) {
+func (r Repository) getAll() ([]Disease, error) {
 	var diseases []Disease
 	var err error
 
@@ -37,7 +37,7 @@ func (r Repository) getAllRecommendations() ([]Disease, error) {
 	return diseases, err
 }
 
-func (r Repository) addRecommendation(model Disease) error {
+func (r Repository) add(model Disease) error {
 	var err error
 
 	cxt, _ := context.WithTimeout(context.Background(), 10*time.Second)
@@ -54,7 +54,7 @@ func (r Repository) addRecommendation(model Disease) error {
 	return err
 }
 
-func (r Repository) deleteRecommendation(model Disease) error {
+func (r Repository) delete(model Disease) error {
 	var err error
 
 	cxt, _ := context.WithTimeout(context.Background(), 10*time.Second)
