@@ -8,6 +8,7 @@ import (
 	"net/http"
 )
 
+// GetAllRecommendations возвращает все условия по заболеванию
 func GetAllRecommendations(c *gin.Context, di *di.DI) {
 	var result string
 	var err error
@@ -24,6 +25,7 @@ func GetAllRecommendations(c *gin.Context, di *di.DI) {
 	})
 }
 
+// GetAllRecommendationsV1 возвращает все условия по заболеванию по новому формату
 func GetAllRecommendationsV1(c *gin.Context, di *di.DI) {
 	var result string
 	var err error
@@ -40,6 +42,7 @@ func GetAllRecommendationsV1(c *gin.Context, di *di.DI) {
 	})
 }
 
+// AddDisease добавляет условие по заболеванию, или апдейтит существующий
 func AddDisease(c *gin.Context, di *di.DI) {
 	service := diseases.NewService(c, di)
 
@@ -59,6 +62,7 @@ func AddDisease(c *gin.Context, di *di.DI) {
 	})
 }
 
+// DeleteDisease удаляет условие по заболеванию
 func DeleteDisease(c *gin.Context, di *di.DI) {
 	service := diseases.NewService(c, di)
 
