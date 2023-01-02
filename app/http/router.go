@@ -55,6 +55,7 @@ func ConfigureRoutes(router *gin.Engine, di di.DI) {
 		admin.GET("/recommendations", middleware.ProvideDependency(backend.GetAllRecommendations, di))
 		admin.GET("/v1/recommendations", middleware.ProvideDependency(backend.GetAllRecommendationsV1, di))
 		admin.POST("/diseases/add", middleware.ProvideDependency(backend.AddDisease, di))
+		admin.POST("/v1/diseases/add", middleware.ProvideDependency(backend.AddDiseaseV1, di))
 		admin.POST("/diseases/delete", middleware.ProvideDependency(backend.DeleteDisease, di))
 		admin.POST("/questionnaires/add", middleware.ProvideDependency(backend.QuestionnaireAdd, di))
 	}
