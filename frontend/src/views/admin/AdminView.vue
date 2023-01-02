@@ -11,7 +11,7 @@ import { onMounted, ref } from "vue";
 const adminStore = useAdminStore();
 
 onMounted(() => {
-  if (!adminStore.recommendations.length) {
+  if (!adminStore.allRecommendations.length) {
     adminStore.getRecommendationsData();
   }
 

@@ -9,7 +9,7 @@
   >
     <div class="popup">
       <div v-for="(column, idx) in conditionColumns" :key="idx">
-        <div v-if="column.field === 'name'">
+        <div v-if="column.field === 'questionName'">
           <h3>{{ column.header }}</h3>
           <dropdown
             v-model="questionName"
@@ -115,7 +115,9 @@ const popupStore = usePopupStore();
 const displayCreatePopup = computed(() => popupStore.isPopupVisible);
 const conditionColumns = computed(() => adminStore.conditionColumns);
 
-const newRecord = ref(popupStore.createPopupFields(conditionColumns.value));
+const newRecord = ref(
+  popupStore.createPopupFields(conditionColumns.value),
+);
 const isRecordValidated = ref(false);
 const questionName = ref("");
 const conditionValue = ref("");
@@ -163,7 +165,6 @@ const createRecCondition = () => {
     res.value = isValueHasChoices.value
       ? res.value
       : conditionValue.value.split(",");
-    delete res.name;
 
     adminStore.createConditionInRec(res, questionName.value);
     addToast("success", "Успешно", "Условие создано, не забудьте сохранить");

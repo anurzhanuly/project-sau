@@ -53,7 +53,7 @@ export const changeQuestionsJson = async (questions: ResQuestions) => {
 export const getRecommendationsJson = async () => {
   try {
     const res = axios.get<ResRecommendation>(
-      "https://project-sau.herokuapp.com/recommendations",
+      "https://project-sau.herokuapp.com/admin/v1/recommendations",
     );
 
     return res;
@@ -66,7 +66,10 @@ export const getRecommendationsJson = async () => {
 
 export const putRecommendationsObj = async (newRec: Recommendation) => {
   try {
-    const res = axios.post("https://project-sau.herokuapp.com/diseases/add", newRec);
+    const res = axios.post(
+      "https://project-sau.herokuapp.com/diseases/add",
+      newRec,
+    );
 
     return res;
   } catch (error) {

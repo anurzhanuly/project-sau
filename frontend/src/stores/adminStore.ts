@@ -18,7 +18,7 @@ export const useAdminStore = defineStore("admin", () => {
   const conditionColumns = [
     {
       header: "Наименование вопроса",
-      field: "name",
+      field: "questionName",
       hasDropdown: true,
       options: computed(() => questionsNames.value),
     },
@@ -42,6 +42,9 @@ export const useAdminStore = defineStore("admin", () => {
     {
       header: "Номер рекомендации",
       field: "testCase",
+    },
+    {
+      header: "Удаление",
     },
   ];
 
@@ -79,10 +82,25 @@ export const useAdminStore = defineStore("admin", () => {
         })[0],
       ),
     );
+    const recIndex: number =
+      allRecommendations.value.indexOf(newRecommendation);
     newRecommendation.tests = recomm;
+    allRecommendations.value[recIndex].tests = recomm;
+
     const res = await putRecommendationsObj(newRecommendation);
 
     return res;
+  }
+
+  function editLocalRecommendationsByIndex(
+    recName: string,
+    condIndex: number,
+    tableIndex: number,
+    updateTo: Recommendation,
+  ) {
+    if (allRecommendations.value[tableIndex]) {
+      accurClientsStoreData.value[tableIndex] = updateTo;
+    }
   }
 
   async function saveConditionsData(conditionName: string) {
@@ -93,7 +111,6 @@ export const useAdminStore = defineStore("admin", () => {
         })[0],
       ),
     );
-    console.log(newRecommendation);
 
     const res = await putRecommendationsObj(newRecommendation);
 
@@ -111,27 +128,42 @@ export const useAdminStore = defineStore("admin", () => {
     ] = newRecord;
   }
 
+  function editLocalConditionsByIndex(tableIndex: number, updateTo: Condition) {
+    const rec = allRecommendations.value.filter(el => {
+      return el.name === checkedRecommendationName.value;
+    })[0];
+    const recIndex: number = allRecommendations.value.indexOf(rec);
+
+    allRecommendations.value[recIndex].conditions[conditionIndex.value][
+      tableIndex
+    ] = { ...updateTo };
+  }
+
   function deleteConditionByIndex(
     recName: string,
     conditionIndex: number,
-    keyInCondition: string,
+    tableIndex: number,
   ) {
     const rec = allRecommendations.value.filter(el => {
       return el.name === recName;
     })[0];
     const recIndex = allRecommendations.value.indexOf(rec);
-    delete allRecommendations.value[recIndex].conditions[conditionIndex][
-      keyInCondition
-    ];
+    console.log(allRecommendations.value[recIndex].conditions[conditionIndex]);
+    // allRecommendations.value[recIndex].conditions[conditionIndex].splice(
+    //   tableIndex,
+    //   1,
+    // );
   }
 
   return {
-    recommendations: allRecommendations,
+    allRecommendations,
     questions,
     questionsNames,
     conditionColumns,
     checkedRecommendationName,
     conditionIndex,
+    editLocalConditionsByIndex,
+    editLocalRecommendationsByIndex,
     getRecommendationsData,
     getQuestionsData,
     deleteConditionByIndex,

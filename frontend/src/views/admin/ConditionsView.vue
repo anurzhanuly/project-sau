@@ -30,7 +30,7 @@
     </div>
     <div v-if="checkedRecommendationName !== ''" class="recommendation-body">
       <p-panel
-        v-for="(condition, index) in checkedRecommendationObj.conditions"
+        v-for="(arrCondition, index) in checkedRecommendationObj.conditions"
         :key="index"
         :header="`${index + 1}`"
         :toggleable="true"
@@ -39,30 +39,87 @@
         <p-button
           icon="pi pi-plus"
           class="p-button-rounded p-button-success p-button-outlined create-rec-btn"
-          @click="createConditionItem(checkedRecommendationName, index)"
+          @click="createConditionItem(index)"
         />
-        <div
-          v-for="(key, idx) in Object.keys(condition)"
-          :key="idx"
-          class="condition-item"
+        <data-table
+          :value="arrCondition"
+          responsive-layout="scroll"
+          scrollable
+          class="p-datatable-sm"
+          striped-rows
+          reorderable-columns
+          resizable-columns
+          column-resize-mode="expand"
+          show-gridlines
+          edit-mode="cell"
+          @cell-edit-complete="onCellEdit($event, index)"
         >
-          <p>{{ key }}</p>
-          <p>{{ condition[key].compare }}</p>
-          <p>{{ condition[key].value.join(",") }}</p>
-          <p>{{ condition[key].testCase }}</p>
-          <p-button
-            icon="pi pi-times"
-            class="p-button-rounded p-button-danger p-button-outlined"
-            @click="
-              confirmDeleteConditionItem(
-                $event,
-                checkedRecommendationName,
-                index,
-                key,
-              )
-            "
-          />
-        </div>
+          <column
+            v-for="(column, idx) in conditionColumns"
+            :key="idx"
+            :header="column.header"
+            :field="column.field"
+          >
+            <template #editor="{ data, field }">
+              <div v-if="column.field === 'value'">
+                <p-multi-select
+                  v-if="
+                    adminStore.questions.filter(
+                      el => el.name === data.questionName,
+                    )[0]?.choices
+                  "
+                  v-model="data[field]"
+                  :options="
+                    adminStore.questions
+                      .filter(el => el.name === data.questionName)[0]
+                      ?.choices.map(el => {
+                        return { value: el };
+                      })
+                  "
+                  option-value="value"
+                  option-label="value"
+                  placeholder="Выберите..."
+                  filter-placeholder="Поиск"
+                  filter
+                  lazy
+                  style="width: 250px"
+                  :empty-filter-message="'Ничего не найдено'"
+                  :empty-message="'Ничего не найдено'"
+                />
+                <input-text v-else v-model="data[field]" style="width: 100%" />
+              </div>
+              <p-button
+                v-else-if="column.header === 'Удаление'"
+                icon="pi pi-times"
+                class="p-button-rounded p-button-danger p-button-outlined"
+                @click="
+                  confirmDeleteConditionItem(
+                    $event,
+                    checkedRecommendationName,
+                    index,
+                    idx,
+                  )
+                "
+              />
+              <dropdown
+                v-else-if="column.hasDropdown"
+                v-model="data[field]"
+                :options="column?.options"
+                option-value="value"
+                option-label="value"
+                placeholder="Выберите..."
+                style="width: 250px"
+                filter-placeholder="Поиск"
+                lazy
+                filter
+                :empty-filter-message="'Ничего не найдено'"
+                :empty-message="'Ничего не найдено'"
+                @change="data.value = ''"
+              />
+              <input-text v-else v-model="data[field]" style="width: 100%" />
+            </template>
+          </column>
+        </data-table>
       </p-panel>
       <div class="condition-buttons">
         <p-button
@@ -90,20 +147,26 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, watch, onMounted, computed } from "vue";
+import { ref, watch, computed } from "vue";
+import DataTable, {
+  type DataTableCellEditCompleteEvent,
+} from "primevue/datatable";
+import Column from "primevue/column";
 import PPanel from "primevue/panel";
 import PButton from "primevue/button";
 import pToast from "primevue/toast";
 import ConfirmPopup from "primevue/confirmpopup";
+import PMultiSelect from "primevue/multiselect";
 import InputNumber from "primevue/inputnumber";
 import InputText from "primevue/inputtext";
+import Dropdown from "primevue/dropdown";
 import { useConfirm } from "primevue/useconfirm";
 import { useAdminStore } from "../../stores/adminStore";
 import { usePopupStore } from "../../stores/popupStore";
 import CreateConditionsPopupComponent from "./CreateConditionsPopupComponent.vue";
 import { useToast } from "primevue/usetoast";
 import axios from "axios";
-import type { Recommendation } from "@/types/recommendations";
+import type { Condition, Recommendation } from "@/types/recommendations";
 import type { Error } from "@/types/response";
 
 const toast = useToast();
@@ -117,7 +180,8 @@ const checkedRecommendationObj = ref({} as Recommendation);
 const conditionDeleteIndex = ref();
 const newRecommendationName = ref("");
 
-const recommendationsJSON = computed(() => adminStore.recommendations);
+const recommendationsJSON = computed(() => adminStore.allRecommendations);
+const conditionColumns = computed(() => adminStore.conditionColumns);
 
 watch(checkedRecommendationName, newRecommendationName => {
   checkedRecommendationObj.value = recommendationsJSON.value.filter(
@@ -141,21 +205,18 @@ const createRecommendation = () => {
   newRecommendation.name = newRecommendationName.value;
   newRecommendation.conditions = [];
   newRecommendation.tests = { 1: [""] };
-  adminStore.recommendations.push(newRecommendation);
+  adminStore.allRecommendations.push(newRecommendation);
   newRecommendationName.value = "";
 };
 
-const createConditionItem = (
-  checkedRecommendationName: string,
-  conditionIndex: number,
-) => {
-  adminStore.checkedRecommendationName = checkedRecommendationName;
+const createConditionItem = (conditionIndex: number) => {
+  adminStore.checkedRecommendationName = checkedRecommendationName.value;
   adminStore.conditionIndex = conditionIndex;
   popupStore.openPopup();
 };
 
 const createCondition = () => {
-  checkedRecommendationObj.value.conditions.push({});
+  checkedRecommendationObj.value.conditions.push([{}] as Condition[]);
 };
 
 const saveConditions = async () => {
@@ -170,6 +231,19 @@ const saveConditions = async () => {
       const err = res.response?.data as Error;
       addToast("error", "Ошибка", err.ERROR);
     }
+  }
+};
+
+const onCellEdit = async (
+  event: DataTableCellEditCompleteEvent,
+  index: number,
+) => {
+  const updated = event.newData;
+  adminStore.checkedRecommendationName = checkedRecommendationName.value;
+  adminStore.conditionIndex = index;
+
+  if (event.newValue && event.value !== event.newValue) {
+    adminStore.editLocalConditionsByIndex(event.index, updated);
   }
 };
 
@@ -201,7 +275,7 @@ const confirmDeleteConditionItem = (
   event: any,
   recName: string,
   conditionIndex: number,
-  keyInCondition: string,
+  tableIndex: number,
 ) => {
   confirm.require({
     target: event.currentTarget,
@@ -211,11 +285,7 @@ const confirmDeleteConditionItem = (
     icon: "pi pi-info-circle",
     acceptClass: "p-button-danger",
     accept: () => {
-      adminStore.deleteConditionByIndex(
-        recName,
-        conditionIndex,
-        keyInCondition,
-      );
+      adminStore.deleteConditionByIndex(recName, conditionIndex, tableIndex);
     },
   });
 };
