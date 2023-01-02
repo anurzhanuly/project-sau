@@ -4,6 +4,7 @@ import (
 	"anurzhanuly/project-sau/app/di"
 	"anurzhanuly/project-sau/app/modules/answers"
 	"anurzhanuly/project-sau/app/modules/data"
+	v1 "anurzhanuly/project-sau/app/modules/diseases/v1"
 	"encoding/json"
 	"github.com/gin-gonic/gin"
 )
@@ -83,7 +84,7 @@ func (s Service) FetchAllRecommendations() (string, error) {
 func (s Service) FetchAllRecommendationsV1() (string, error) {
 	var result []byte
 	var err error
-	var allDiseases []DiseaseV1
+	var allDiseases []v1.Disease
 
 	recommendations, err := s.repository.getAll()
 	if err != nil {

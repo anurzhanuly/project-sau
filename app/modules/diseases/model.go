@@ -4,6 +4,7 @@ import (
 	"anurzhanuly/project-sau/app/modules/answers"
 	"anurzhanuly/project-sau/app/modules/comparator/factory"
 	"anurzhanuly/project-sau/app/modules/data"
+	v1 "anurzhanuly/project-sau/app/modules/diseases/v1"
 	"strconv"
 )
 
@@ -12,13 +13,6 @@ type Disease struct {
 	Name       string                      `bson:"name" json:"name"`
 	Tests      map[string][]string         `bson:"tests" json:"tests,omitempty"`
 	Conditions []map[string]data.Condition `bson:"conditions" json:"conditions,omitempty"`
-}
-
-type DiseaseV1 struct {
-	ID         int                  `bson:"id" json:"id,omitempty"`
-	Name       string               `bson:"name" json:"name"`
-	Tests      map[string][]string  `bson:"tests" json:"tests,omitempty"`
-	Conditions [][]data.ConditionV1 `bson:"conditions" json:"conditions,omitempty"`
 }
 
 func (d Disease) getRecommendations(answers *answers.User) ([]string, bool) {
@@ -72,8 +66,8 @@ func (d Disease) getRecommendations(answers *answers.User) ([]string, bool) {
 	return []string{}, false
 }
 
-func (d Disease) ConvertToV1() *DiseaseV1 {
-	return &DiseaseV1{
+func (d Disease) ConvertToV1() *v1.Disease {
+	return &v1.Disease{
 		ID:         d.ID,
 		Name:       d.Name,
 		Tests:      d.Tests,
