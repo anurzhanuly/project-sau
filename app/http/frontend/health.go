@@ -12,7 +12,7 @@ import (
 
 //TODO: Надо бы вынести инициализацию сервиса модулей в middleware
 
-func HealthGetRecommendation(c *gin.Context, di *di.DI) {
+func GetRecommendationsForSurvey(c *gin.Context, di *di.DI) {
 	userAnswer := &answers.User{}
 	service := diseases.NewService(c, di)
 	answerService := answers.NewService(c, di)

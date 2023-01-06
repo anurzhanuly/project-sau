@@ -36,7 +36,7 @@ func ConfigureRoutes(router *gin.Engine, di di.DI) {
 	website := router.Group("")
 	{
 		website.GET("/_health", middleware.ProvideDependency(frontend.Health, di))
-		website.POST("/diseases/recommendations", middleware.ProvideDependency(frontend.HealthGetRecommendation, di))
+		website.POST("/diseases/recommendations", middleware.ProvideDependency(frontend.GetRecommendationsForSurvey, di))
 		website.GET("/userAnswers", middleware.ProvideDependency(frontend.GetAllUsersStatistics, di))
 		website.GET("/questionnaires/:name", middleware.ProvideDependency(backend.QuestionnaireByName, di))
 		website.GET("/questionnaires/id/:id", middleware.ProvideDependency(backend.QuestionnaireById, di))
