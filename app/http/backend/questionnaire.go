@@ -1,4 +1,4 @@
-package handlers
+package backend
 
 import (
 	"anurzhanuly/project-sau/app/di"

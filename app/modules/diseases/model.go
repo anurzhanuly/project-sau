@@ -4,6 +4,7 @@ import (
 	"anurzhanuly/project-sau/app/modules/answers"
 	"anurzhanuly/project-sau/app/modules/comparator/factory"
 	"anurzhanuly/project-sau/app/modules/data"
+	v1 "anurzhanuly/project-sau/app/modules/diseases/v1"
 	"strconv"
 )
 
@@ -14,8 +15,8 @@ type Disease struct {
 	Conditions []map[string]data.Condition `bson:"conditions" json:"conditions,omitempty"`
 }
 
-func (hd Disease) getRecommendations(answers *answers.User) ([]string, bool) {
-	for _, conditions := range hd.Conditions {
+func (d Disease) getRecommendations(answers *answers.User) ([]string, bool) {
+	for _, conditions := range d.Conditions {
 		conditionApplies := true
 		var testCase string
 
@@ -58,9 +59,18 @@ func (hd Disease) getRecommendations(answers *answers.User) ([]string, bool) {
 		}
 
 		if conditionApplies {
-			return hd.Tests[testCase], true
+			return d.Tests[testCase], true
 		}
 	}
 
 	return []string{}, false
+}
+
+func (d Disease) ConvertToV1() *v1.Disease {
+	return &v1.Disease{
+		ID:         d.ID,
+		Name:       d.Name,
+		Tests:      d.Tests,
+		Conditions: nil,
+	}
 }

@@ -2,7 +2,8 @@ package http
 
 import (
 	"anurzhanuly/project-sau/app/di"
-	"anurzhanuly/project-sau/app/http/handlers"
+	"anurzhanuly/project-sau/app/http/backend"
+	"anurzhanuly/project-sau/app/http/frontend"
 	"anurzhanuly/project-sau/app/http/middleware"
 	"github.com/gin-contrib/static"
 	"github.com/gin-gonic/gin"
@@ -30,15 +31,32 @@ func ConfigureRoutes(router *gin.Engine, di di.DI) {
 	}))
 
 	router.Use(static.Serve("/", static.LocalFile(di.Config.StaticPath, false)))
-	router.GET("/_health", middleware.ProvideDependency(handlers.Health, di))
-	router.POST("/diseases/recommendations", middleware.ProvideDependency(handlers.HealthGetRecommendation, di))
-	router.POST("/diseases/add", middleware.ProvideDependency(handlers.AddDisease, di))
-	router.POST("/diseases/delete", middleware.ProvideDependency(handlers.DeleteDisease, di))
-	router.GET("/recommendations", middleware.ProvideDependency(handlers.GetAllRecommendations, di))
-	router.GET("/userAnswers", middleware.ProvideDependency(handlers.GetAllUsersStatistics, di))
-	router.GET("/questionnaires/:name", middleware.ProvideDependency(handlers.QuestionnaireByName, di))
-	router.GET("/questionnaires/id/:id", middleware.ProvideDependency(handlers.QuestionnaireById, di))
-	router.POST("/questionnaires/add", middleware.ProvideDependency(handlers.QuestionnaireAdd, di))
-	router.PUT("/questionnaires/update", middleware.ProvideDependency(handlers.QuestionnaireUpdate, di))
-	router.POST("/notify", middleware.ProvideDependency(handlers.SendNotification, di))
+
+	// Frontend сам сайт
+	website := router.Group("")
+	{
+		website.GET("/_health", middleware.ProvideDependency(frontend.Health, di))
+		website.POST("/diseases/recommendations", middleware.ProvideDependency(frontend.HealthGetRecommendation, di))
+		website.GET("/userAnswers", middleware.ProvideDependency(frontend.GetAllUsersStatistics, di))
+		website.GET("/questionnaires/:name", middleware.ProvideDependency(backend.QuestionnaireByName, di))
+		website.GET("/questionnaires/id/:id", middleware.ProvideDependency(backend.QuestionnaireById, di))
+		website.PUT("/questionnaires/update", middleware.ProvideDependency(backend.QuestionnaireUpdate, di))
+		website.POST("/notify", middleware.ProvideDependency(frontend.SendNotification, di))
+		website.GET("/recommendations", middleware.ProvideDependency(backend.GetAllRecommendations, di))
+		website.GET("/v1/recommendations", middleware.ProvideDependency(backend.GetAllRecommendationsV1, di))
+		website.POST("/diseases/add", middleware.ProvideDependency(backend.AddDisease, di))
+		website.POST("/diseases/delete", middleware.ProvideDependency(backend.DeleteDisease, di))
+		website.POST("/questionnaires/add", middleware.ProvideDependency(backend.QuestionnaireAdd, di))
+	}
+
+	// Backend админка
+	admin := router.Group("/admin")
+	{
+		admin.GET("/recommendations", middleware.ProvideDependency(backend.GetAllRecommendations, di))
+		admin.GET("/v1/recommendations", middleware.ProvideDependency(backend.GetAllRecommendationsV1, di))
+		admin.POST("/diseases/add", middleware.ProvideDependency(backend.AddDisease, di))
+		admin.POST("/v1/diseases/add", middleware.ProvideDependency(backend.AddDiseaseV1, di))
+		admin.POST("/diseases/delete", middleware.ProvideDependency(backend.DeleteDisease, di))
+		admin.POST("/questionnaires/add", middleware.ProvideDependency(backend.QuestionnaireAdd, di))
+	}
 }

@@ -1,5 +1,6 @@
 package diseases
 
 type Options struct {
-	Name string
+	Name   string
+	NameV1 string
 }

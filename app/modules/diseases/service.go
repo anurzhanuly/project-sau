@@ -4,6 +4,7 @@ import (
 	"anurzhanuly/project-sau/app/di"
 	"anurzhanuly/project-sau/app/modules/answers"
 	"anurzhanuly/project-sau/app/modules/data"
+	v1 "anurzhanuly/project-sau/app/modules/diseases/v1"
 	"encoding/json"
 	"github.com/gin-gonic/gin"
 )
@@ -32,7 +33,7 @@ func (s Service) GetRecommendations(userAnswer *answers.User) ([]data.Recommenda
 	var err error
 	var result []data.Recommendation
 
-	diseases, err := s.repository.getAllDiseases()
+	diseases, err := s.repository.getAll()
 	if err != nil {
 		return result, err
 	}
@@ -58,7 +59,7 @@ func (s Service) AddDisease() error {
 		return err
 	}
 
-	err = s.repository.addDisease(*s.model)
+	err = s.repository.add(*s.model)
 	if err != nil {
 		return err
 	}
@@ -66,11 +67,11 @@ func (s Service) AddDisease() error {
 	return err
 }
 
-func (s Service) GetAllDiseases() (string, error) {
+func (s Service) FetchAllRecommendations() (string, error) {
 	var result []byte
 	var err error
 
-	recommendations, err := s.repository.getAllDiseases()
+	recommendations, err := s.repository.getAll()
 	if err != nil {
 		return "", err
 	}
@@ -80,7 +81,43 @@ func (s Service) GetAllDiseases() (string, error) {
 	return string(result), err
 }
 
-func (s Service) DeleteDisease() error {
+func (s Service) FetchAllRecommendationsV1() (string, error) {
+	var result []byte
+	var err error
+	var allDiseases []v1.Disease
+
+	recommendations, err := s.repository.getAll()
+	if err != nil {
+		return "", err
+	}
+
+	for _, disease := range recommendations {
+		diseaseV1 := disease.ConvertToV1()
+		var allConditionsV1 [][]data.ConditionV1
+
+		for _, conditions := range disease.Conditions {
+			var conditionsV1 []data.ConditionV1
+
+			for questionName, condition := range conditions {
+				conditionV1 := condition.ConvertToV1()
+				conditionV1.QuestionName = questionName
+
+				conditionsV1 = append(conditionsV1, *conditionV1)
+			}
+
+			allConditionsV1 = append(allConditionsV1, conditionsV1)
+		}
+
+		diseaseV1.Conditions = allConditionsV1
+		allDiseases = append(allDiseases, *diseaseV1)
+	}
+
+	result, err = json.Marshal(allDiseases)
+
+	return string(result), err
+}
+
+func (s Service) ExecuteDeletion() error {
 	var err error
 
 	err = s.Context.BindJSON(s.model)
@@ -88,7 +125,7 @@ func (s Service) DeleteDisease() error {
 		return err
 	}
 
-	err = s.repository.deleteDisease(*s.model)
+	err = s.repository.delete(*s.model)
 	if err != nil {
 		return err
 	}
