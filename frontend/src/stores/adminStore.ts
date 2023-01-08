@@ -38,13 +38,20 @@ export const useAdminStore = defineStore("admin", () => {
     {
       header: "Значение",
       field: "value",
+      hasDropdown: false,
+      options: [],
     },
     {
       header: "Номер рекомендации",
       field: "testCase",
+      hasDropdown: false,
+      options: [],
     },
     {
       header: "Удаление",
+      field: "",
+      hasDropdown: false,
+      options: [],
     },
   ];
 
@@ -92,7 +99,10 @@ export const useAdminStore = defineStore("admin", () => {
     return res;
   }
 
-  function editLocalRecommendationByIndex(tableIndex: number, updateTo: Condition) {
+  function editLocalRecommendationByIndex(
+    tableIndex: number,
+    updateTo: Condition,
+  ) {
     const rec = allRecommendations.value.filter(el => {
       return el.name === checkedRecommendationName.value;
     })[0];
@@ -128,15 +138,14 @@ export const useAdminStore = defineStore("admin", () => {
     ] = { ...updateTo };
   }
 
-  function createConditionInRec(newRecord: Condition, questionName: string) {
+  function createConditionInRec(newRecord: Condition) {
     const rec = allRecommendations.value.filter(el => {
       return el.name === checkedRecommendationName.value;
     })[0];
     const recIndex: number = allRecommendations.value.indexOf(rec);
-
-    allRecommendations.value[recIndex].conditions[conditionIndex.value][
-      questionName
-    ] = newRecord;
+    allRecommendations.value[recIndex].conditions[conditionIndex.value].push({
+      ...newRecord,
+    });
   }
 
   function deleteConditionByIndex(tableIndex: number) {

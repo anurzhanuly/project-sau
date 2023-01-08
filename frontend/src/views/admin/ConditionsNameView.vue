@@ -53,7 +53,7 @@ const adminStore = useAdminStore();
 const beforeQuestName = ref("");
 const afterQuestName = ref("");
 
-const recommendationsJSON = computed(() => adminStore.recommendations);
+const recommendationsJSON = computed(() => adminStore.allRecommendations);
 const questionNameOptions = computed(
   () => adminStore.conditionColumns[0].options,
 );

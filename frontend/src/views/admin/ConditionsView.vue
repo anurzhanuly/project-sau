@@ -177,6 +177,7 @@ const newRecommendationName = ref("");
 const recommendationsJSON = computed(() => adminStore.allRecommendations);
 const conditionColumns = computed(() => adminStore.conditionColumns);
 
+//здесь выбранный объект берёт ссылку и меняет сразу в сторе создание и удаление
 watch(checkedRecommendationName, newRecommendationName => {
   checkedRecommendationObj.value = recommendationsJSON.value.filter(
     el => el.name === newRecommendationName,
