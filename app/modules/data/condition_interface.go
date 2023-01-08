@@ -1,5 +1,11 @@
 package data
 
 type ConditionInterface interface {
-	Dummy()
+	IsMulti() bool
+	GetCompareType() string
+	GetValues() []string
+	GetType() string
+	GetTestCase() string
+	GetIntValues() []int
+	GetExcludedValues() []string
 }
