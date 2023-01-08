@@ -148,18 +148,27 @@ export const useAdminStore = defineStore("admin", () => {
     });
   }
 
-  function deleteConditionByIndex(tableIndex: number) {
+  function deleteConditionByIndex(condition: Condition) {
     const rec = allRecommendations.value.filter(el => {
       return el.name === checkedRecommendationName.value;
     })[0];
     const recIndex = allRecommendations.value.indexOf(rec);
+    const condIndex =
+      allRecommendations.value[recIndex].conditions[
+        conditionIndex.value
+      ].indexOf(condition);
+    console.log(condition, condIndex);
     console.log(
       allRecommendations.value[recIndex].conditions[conditionIndex.value],
     );
-    allRecommendations.value[recIndex].conditions[conditionIndex.value].splice(
-      tableIndex,
-      1,
-    );
+    allRecommendations.value[recIndex].conditions[conditionIndex.value] =
+      allRecommendations.value[recIndex].conditions[
+        conditionIndex.value
+      ].filter((el, index) => {
+        if (index !== condIndex) {
+          return el;
+        }
+      });
   }
 
   return {

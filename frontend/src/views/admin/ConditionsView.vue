@@ -42,6 +42,8 @@
           @click="createConditionItem(index)"
         />
         <data-table
+          v-model:selection="selectedCondition"
+          selection-mode="single"
           :value="arrCondition"
           responsive-layout="scroll"
           scrollable
@@ -92,7 +94,7 @@
                 v-else-if="column.header === 'Удаление'"
                 icon="pi pi-times"
                 class="p-button-rounded p-button-danger p-button-outlined"
-                @click="confirmDeleteConditionItem($event, index, idx)"
+                @click="confirmDeleteConditionItem($event, index)"
               />
               <dropdown
                 v-else-if="column.hasDropdown"
@@ -173,6 +175,7 @@ const checkedRecommendationName = ref("");
 const checkedRecommendationObj = ref({} as Recommendation);
 const conditionDeleteIndex = ref();
 const newRecommendationName = ref("");
+const selectedCondition = ref({} as Condition);
 
 const recommendationsJSON = computed(() => adminStore.allRecommendations);
 const conditionColumns = computed(() => adminStore.conditionColumns);
@@ -269,11 +272,7 @@ const confirmDeleteCondition = (event: any) => {
   });
 };
 
-const confirmDeleteConditionItem = (
-  event: any,
-  conditionIndex: number,
-  tableIndex: number,
-) => {
+const confirmDeleteConditionItem = (event: any, conditionIndex: number) => {
   confirm.require({
     target: event.currentTarget,
     message: "Вы уверены?",
@@ -284,7 +283,7 @@ const confirmDeleteConditionItem = (
     accept: () => {
       adminStore.checkedRecommendationName = checkedRecommendationName.value;
       adminStore.conditionIndex = conditionIndex;
-      adminStore.deleteConditionByIndex(tableIndex);
+      adminStore.deleteConditionByIndex(selectedCondition.value);
     },
   });
 };
