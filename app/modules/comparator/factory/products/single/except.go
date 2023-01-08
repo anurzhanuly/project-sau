@@ -4,12 +4,12 @@ import "anurzhanuly/project-sau/app/modules/data"
 
 type Except struct {
 	UserAnswer       []string
-	DiseaseCondition data.Condition
+	DiseaseCondition data.ConditionInterface
 	UserAnswerInt    []int
 }
 
-func (e Except) DoesMatch() bool {
-	for _, conditionValue := range e.DiseaseCondition.Values {
+func (e *Except) DoesMatch() bool {
+	for _, conditionValue := range e.DiseaseCondition.GetValues() {
 		for _, answer := range e.UserAnswer {
 			if answer == conditionValue {
 				return false
@@ -24,7 +24,7 @@ func (e *Except) SetUserAnswer(answer []string) {
 	e.UserAnswer = answer
 }
 
-func (e *Except) SetCondition(conditions data.Condition) {
+func (e *Except) SetCondition(conditions data.ConditionInterface) {
 	e.DiseaseCondition = conditions
 }
 

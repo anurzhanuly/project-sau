@@ -7,17 +7,17 @@ import (
 
 type Range struct {
 	UserAnswer       []string
-	DiseaseCondition data.Condition
+	DiseaseCondition data.ConditionInterface
 	UserAnswerInt    []int
 }
 
-func (r Range) DoesMatch() bool {
-	compareValue, err := strconv.Atoi(r.DiseaseCondition.Values[0])
+func (r *Range) DoesMatch() bool {
+	compareValue, err := strconv.Atoi(r.DiseaseCondition.GetValues()[0])
 	if err != nil {
 
 	}
 
-	compareValue2, err := strconv.Atoi(r.DiseaseCondition.Values[1])
+	compareValue2, err := strconv.Atoi(r.DiseaseCondition.GetValues()[1])
 	if err != nil {
 
 	}
@@ -34,7 +34,7 @@ func (r *Range) SetUserAnswer(answer []string) {
 	r.UserAnswer = answer
 }
 
-func (r *Range) SetCondition(conditions data.Condition) {
+func (r *Range) SetCondition(conditions data.ConditionInterface) {
 	r.DiseaseCondition = conditions
 }
 

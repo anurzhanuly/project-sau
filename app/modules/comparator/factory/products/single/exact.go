@@ -6,12 +6,12 @@ import (
 
 type Exact struct {
 	UserAnswer       []string
-	DiseaseCondition data.Condition
+	DiseaseCondition data.ConditionInterface
 	UserAnswerInt    []int
 }
 
-func (e Exact) DoesMatch() bool {
-	for _, conditionValue := range e.DiseaseCondition.Values {
+func (e *Exact) DoesMatch() bool {
+	for _, conditionValue := range e.DiseaseCondition.GetValues() {
 		for _, answer := range e.UserAnswer {
 			if answer == conditionValue {
 				return true
@@ -26,7 +26,7 @@ func (e *Exact) SetUserAnswer(answer []string) {
 	e.UserAnswer = answer
 }
 
-func (e *Exact) SetCondition(conditions data.Condition) {
+func (e *Exact) SetCondition(conditions data.ConditionInterface) {
 	e.DiseaseCondition = conditions
 }
 

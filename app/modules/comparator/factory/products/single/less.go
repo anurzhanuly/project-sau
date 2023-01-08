@@ -7,12 +7,12 @@ import (
 
 type Less struct {
 	UserAnswer       []string
-	DiseaseCondition data.Condition
+	DiseaseCondition data.ConditionInterface
 	UserAnswerInt    []int
 }
 
-func (l Less) DoesMatch() bool {
-	compareValue, err := strconv.Atoi(l.DiseaseCondition.Values[0])
+func (l *Less) DoesMatch() bool {
+	compareValue, err := strconv.Atoi(l.DiseaseCondition.GetValues()[0])
 	if err != nil {
 
 	}
@@ -29,7 +29,7 @@ func (l *Less) SetUserAnswer(answer []string) {
 	l.UserAnswer = answer
 }
 
-func (l *Less) SetCondition(conditions data.Condition) {
+func (l *Less) SetCondition(conditions data.ConditionInterface) {
 	l.DiseaseCondition = conditions
 }
 

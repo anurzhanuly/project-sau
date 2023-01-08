@@ -9,14 +9,14 @@ type ComparatorFactory interface {
 	GetComparator() products.Comparator
 }
 
-func GetAnswersComparator(condition data.Condition) products.Comparator {
-	if condition.Multiple {
-		multi := products.Multi{CompareType: condition.Compare}
+func GetAnswersComparator(condition data.ConditionInterface) products.Comparator {
+	if condition.IsMulti() {
+		multi := products.Multi{CompareType: condition.GetCompareType()}
 
 		return multi.GetComparator()
 	}
 
-	single := products.Single{CompareType: condition.Compare}
+	single := products.Single{CompareType: condition.GetCompareType()}
 
 	return single.GetComparator()
 }

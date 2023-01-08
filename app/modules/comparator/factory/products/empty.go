@@ -6,11 +6,11 @@ import (
 
 type Empty struct {
 	UserAnswer       []string
-	DiseaseCondition data.Condition
+	DiseaseCondition data.ConditionInterface
 	UserAnswerInt    []int
 }
 
-func (n Empty) DoesMatch() bool {
+func (n *Empty) DoesMatch() bool {
 	return false
 }
 
@@ -18,7 +18,7 @@ func (n *Empty) SetUserAnswer(answer []string) {
 	n.UserAnswer = answer
 }
 
-func (n *Empty) SetCondition(conditions data.Condition) {
+func (n *Empty) SetCondition(conditions data.ConditionInterface) {
 	n.DiseaseCondition = conditions
 }
 

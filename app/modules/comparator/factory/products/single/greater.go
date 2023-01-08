@@ -7,12 +7,12 @@ import (
 
 type Greater struct {
 	UserAnswer       []string
-	DiseaseCondition data.Condition
+	DiseaseCondition data.ConditionInterface
 	UserAnswerInt    []int
 }
 
-func (g Greater) DoesMatch() bool {
-	compareValue, err := strconv.Atoi(g.DiseaseCondition.Values[0])
+func (g *Greater) DoesMatch() bool {
+	compareValue, err := strconv.Atoi(g.DiseaseCondition.GetValues()[0])
 	if err != nil {
 
 	}
@@ -29,7 +29,7 @@ func (g *Greater) SetUserAnswer(answer []string) {
 	g.UserAnswer = answer
 }
 
-func (g *Greater) SetCondition(conditions data.Condition) {
+func (g *Greater) SetCondition(conditions data.ConditionInterface) {
 	g.DiseaseCondition = conditions
 }
 
