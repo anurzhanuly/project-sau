@@ -11,30 +11,30 @@ type Condition struct {
 	ExcludedValues []string `bson:"excludedValues,omitempty" json:"excludedValues,omitempty"`
 }
 
-func (c *Condition) IsMulti() bool {
+func (c Condition) IsMulti() bool {
 	return c.Multiple
 }
 
-func (c *Condition) GetCompareType() string {
+func (c Condition) GetCompareType() string {
 	return c.Compare
 }
 
-func (c *Condition) GetValues() []string {
+func (c Condition) GetValues() []string {
 	return c.Values
 }
 
-func (c *Condition) GetType() string {
+func (c Condition) GetType() string {
 	return c.Type
 }
 
-func (c *Condition) GetTestCase() string {
+func (c Condition) GetTestCase() string {
 	return c.TestCase
 }
 
-func (c *Condition) GetIntValues() []int {
+func (c Condition) GetIntValues() []int {
 	return c.IntValues
 }
 
-func (c *Condition) GetExcludedValues() []string {
+func (c Condition) GetExcludedValues() []string {
 	return c.ExcludedValues
 }
