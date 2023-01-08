@@ -2,6 +2,8 @@ package v1
 
 import (
 	"anurzhanuly/project-sau/app/di"
+	"anurzhanuly/project-sau/app/modules/answers"
+	"anurzhanuly/project-sau/app/modules/data"
 	"github.com/gin-gonic/gin"
 )
 
@@ -39,4 +41,26 @@ func (s Service) AddDisease() error {
 	}
 
 	return err
+}
+
+// GetRecommendations даёт рекомендации опираясь на ответы пользователя по заболеваниям
+func (s Service) GetRecommendations(userAnswer *answers.User) ([]data.Recommendation, error) {
+	var err error
+	var result []data.Recommendation
+
+	diseases, err := s.repository.getAll()
+	if err != nil {
+		return result, err
+	}
+
+	for _, disease := range diseases {
+		if recommendations, ok := disease.getRecommendations(userAnswer); ok {
+			result = append(result, data.Recommendation{
+				Name:            disease.Name,
+				Recommendations: recommendations,
+			})
+		}
+	}
+
+	return result, err
 }

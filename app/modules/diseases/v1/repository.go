@@ -28,3 +28,28 @@ func (r Repository) add(model Disease) error {
 
 	return err
 }
+
+func (r Repository) getAll() ([]Disease, error) {
+	var diseases []Disease
+	var err error
+
+	ctx, _ := context.WithTimeout(context.Background(), 10*time.Second)
+	cursor, err := r.collection.Find(ctx, bson.M{})
+	if err != nil {
+		return diseases, err
+	}
+	defer cursor.Close(ctx)
+
+	for cursor.Next(ctx) {
+		var disease Disease
+
+		err := cursor.Decode(&disease)
+		if err != nil {
+			return diseases, err
+		}
+
+		diseases = append(diseases, disease)
+	}
+
+	return diseases, err
+}
