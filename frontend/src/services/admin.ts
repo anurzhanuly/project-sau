@@ -67,7 +67,7 @@ export const getRecommendationsJson = async () => {
 export const putRecommendationsObj = async (newRec: Recommendation) => {
   try {
     const res = axios.post(
-      "https://project-sau.herokuapp.com/diseases/add",
+      "https://project-sau.herokuapp.com/admin/v1/diseases/add",
       newRec,
     );
 

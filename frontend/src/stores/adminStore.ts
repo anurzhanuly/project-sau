@@ -92,15 +92,15 @@ export const useAdminStore = defineStore("admin", () => {
     return res;
   }
 
-  function editLocalRecommendationsByIndex(
-    recName: string,
-    condIndex: number,
-    tableIndex: number,
-    updateTo: Recommendation,
-  ) {
-    if (allRecommendations.value[tableIndex]) {
-      accurClientsStoreData.value[tableIndex] = updateTo;
-    }
+  function editLocalRecommendationByIndex(tableIndex: number, updateTo: Condition) {
+    const rec = allRecommendations.value.filter(el => {
+      return el.name === checkedRecommendationName.value;
+    })[0];
+    const recIndex: number = allRecommendations.value.indexOf(rec);
+
+    allRecommendations.value[recIndex].conditions[conditionIndex.value][
+      tableIndex
+    ] = { ...updateTo };
   }
 
   async function saveConditionsData(conditionName: string) {
@@ -117,17 +117,6 @@ export const useAdminStore = defineStore("admin", () => {
     return res;
   }
 
-  function createConditionInRec(newRecord: Condition, questionName: string) {
-    const rec = allRecommendations.value.filter(el => {
-      return el.name === checkedRecommendationName.value;
-    })[0];
-    const recIndex: number = allRecommendations.value.indexOf(rec);
-
-    allRecommendations.value[recIndex].conditions[conditionIndex.value][
-      questionName
-    ] = newRecord;
-  }
-
   function editLocalConditionsByIndex(tableIndex: number, updateTo: Condition) {
     const rec = allRecommendations.value.filter(el => {
       return el.name === checkedRecommendationName.value;
@@ -139,20 +128,29 @@ export const useAdminStore = defineStore("admin", () => {
     ] = { ...updateTo };
   }
 
-  function deleteConditionByIndex(
-    recName: string,
-    conditionIndex: number,
-    tableIndex: number,
-  ) {
+  function createConditionInRec(newRecord: Condition, questionName: string) {
     const rec = allRecommendations.value.filter(el => {
-      return el.name === recName;
+      return el.name === checkedRecommendationName.value;
+    })[0];
+    const recIndex: number = allRecommendations.value.indexOf(rec);
+
+    allRecommendations.value[recIndex].conditions[conditionIndex.value][
+      questionName
+    ] = newRecord;
+  }
+
+  function deleteConditionByIndex(tableIndex: number) {
+    const rec = allRecommendations.value.filter(el => {
+      return el.name === checkedRecommendationName.value;
     })[0];
     const recIndex = allRecommendations.value.indexOf(rec);
-    console.log(allRecommendations.value[recIndex].conditions[conditionIndex]);
-    // allRecommendations.value[recIndex].conditions[conditionIndex].splice(
-    //   tableIndex,
-    //   1,
-    // );
+    console.log(
+      allRecommendations.value[recIndex].conditions[conditionIndex.value],
+    );
+    allRecommendations.value[recIndex].conditions[conditionIndex.value].splice(
+      tableIndex,
+      1,
+    );
   }
 
   return {
@@ -163,7 +161,6 @@ export const useAdminStore = defineStore("admin", () => {
     checkedRecommendationName,
     conditionIndex,
     editLocalConditionsByIndex,
-    editLocalRecommendationsByIndex,
     getRecommendationsData,
     getQuestionsData,
     deleteConditionByIndex,

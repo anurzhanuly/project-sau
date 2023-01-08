@@ -86,20 +86,13 @@
                   :empty-filter-message="'Ничего не найдено'"
                   :empty-message="'Ничего не найдено'"
                 />
-                <input-text v-else v-model="data[field]" style="width: 100%" />
+                <p-textarea v-else v-model="data[field]" style="width: 100%" />
               </div>
               <p-button
                 v-else-if="column.header === 'Удаление'"
                 icon="pi pi-times"
                 class="p-button-rounded p-button-danger p-button-outlined"
-                @click="
-                  confirmDeleteConditionItem(
-                    $event,
-                    checkedRecommendationName,
-                    index,
-                    idx,
-                  )
-                "
+                @click="confirmDeleteConditionItem($event, index, idx)"
               />
               <dropdown
                 v-else-if="column.hasDropdown"
@@ -114,7 +107,7 @@
                 filter
                 :empty-filter-message="'Ничего не найдено'"
                 :empty-message="'Ничего не найдено'"
-                @change="data.value = ''"
+                @change="field === 'questionName' ? (data.value = '') : null"
               />
               <input-text v-else v-model="data[field]" style="width: 100%" />
             </template>
@@ -159,6 +152,7 @@ import ConfirmPopup from "primevue/confirmpopup";
 import PMultiSelect from "primevue/multiselect";
 import InputNumber from "primevue/inputnumber";
 import InputText from "primevue/inputtext";
+import PTextarea from "primevue/textarea";
 import Dropdown from "primevue/dropdown";
 import { useConfirm } from "primevue/useconfirm";
 import { useAdminStore } from "../../stores/adminStore";
@@ -238,9 +232,12 @@ const onCellEdit = async (
   event: DataTableCellEditCompleteEvent,
   index: number,
 ) => {
-  const updated = event.newData;
+  const updated = { ...event.newData };
   adminStore.checkedRecommendationName = checkedRecommendationName.value;
   adminStore.conditionIndex = index;
+  if (typeof updated.value === "string") {
+    updated.value = updated.value.split(",");
+  }
 
   if (event.newValue && event.value !== event.newValue) {
     adminStore.editLocalConditionsByIndex(event.index, updated);
@@ -273,7 +270,6 @@ const confirmDeleteCondition = (event: any) => {
 
 const confirmDeleteConditionItem = (
   event: any,
-  recName: string,
   conditionIndex: number,
   tableIndex: number,
 ) => {
@@ -285,7 +281,9 @@ const confirmDeleteConditionItem = (
     icon: "pi pi-info-circle",
     acceptClass: "p-button-danger",
     accept: () => {
-      adminStore.deleteConditionByIndex(recName, conditionIndex, tableIndex);
+      adminStore.checkedRecommendationName = checkedRecommendationName.value;
+      adminStore.conditionIndex = conditionIndex;
+      adminStore.deleteConditionByIndex(tableIndex);
     },
   });
 };
