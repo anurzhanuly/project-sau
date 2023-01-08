@@ -244,6 +244,7 @@ const onCellEdit = async (
   }
 
   if (event.newValue && event.value !== event.newValue) {
+    selectedCondition.value = { ...updated };
     adminStore.editLocalConditionsByIndex(event.index, updated);
   }
 };
