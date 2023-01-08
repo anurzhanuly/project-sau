@@ -4,6 +4,7 @@ import (
 	"anurzhanuly/project-sau/app/di"
 	"anurzhanuly/project-sau/app/http/backend"
 	"anurzhanuly/project-sau/app/http/frontend"
+	frontendV1 "anurzhanuly/project-sau/app/http/frontend/v1"
 	"anurzhanuly/project-sau/app/http/middleware"
 	"github.com/gin-contrib/static"
 	"github.com/gin-gonic/gin"
@@ -37,6 +38,7 @@ func ConfigureRoutes(router *gin.Engine, di di.DI) {
 	{
 		website.GET("/_health", middleware.ProvideDependency(frontend.Health, di))
 		website.POST("/diseases/recommendations", middleware.ProvideDependency(frontend.GetRecommendationsForSurvey, di))
+		website.POST("/v1/diseases/recommendations", middleware.ProvideDependency(frontendV1.GetRecommendationsForSurvey, di))
 		website.GET("/userAnswers", middleware.ProvideDependency(frontend.GetAllUsersStatistics, di))
 		website.GET("/questionnaires/:name", middleware.ProvideDependency(backend.QuestionnaireByName, di))
 		website.GET("/questionnaires/id/:id", middleware.ProvideDependency(backend.QuestionnaireById, di))

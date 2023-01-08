@@ -3,7 +3,7 @@ package v1
 import (
 	"anurzhanuly/project-sau/app/di"
 	"anurzhanuly/project-sau/app/modules/answers"
-	"anurzhanuly/project-sau/app/modules/diseases"
+	v1 "anurzhanuly/project-sau/app/modules/diseases/v1"
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/sirupsen/logrus"
@@ -12,7 +12,7 @@ import (
 
 func GetRecommendationsForSurvey(c *gin.Context, di *di.DI) {
 	userAnswer := &answers.User{}
-	service := diseases.NewService(c, di)
+	service := v1.NewService(c, di)
 	answerService := answers.NewService(c, di)
 	err := c.BindJSON(userAnswer)
 	if err != nil {
