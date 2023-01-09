@@ -3,6 +3,7 @@ package http
 import (
 	"anurzhanuly/project-sau/app/di"
 	"anurzhanuly/project-sau/app/http/backend"
+	"anurzhanuly/project-sau/app/http/backend/v1"
 	"anurzhanuly/project-sau/app/http/frontend"
 	frontendV1 "anurzhanuly/project-sau/app/http/frontend/v1"
 	"anurzhanuly/project-sau/app/http/middleware"
@@ -45,7 +46,7 @@ func ConfigureRoutes(router *gin.Engine, di di.DI) {
 		website.PUT("/questionnaires/update", middleware.ProvideDependency(backend.QuestionnaireUpdate, di))
 		website.POST("/notify", middleware.ProvideDependency(frontend.SendNotification, di))
 		website.GET("/recommendations", middleware.ProvideDependency(backend.GetAllRecommendations, di))
-		website.GET("/v1/recommendations", middleware.ProvideDependency(backend.GetAllRecommendationsV1, di))
+		website.GET("/v1/recommendations", middleware.ProvideDependency(v1.GetAllRecommendationsV1, di))
 		website.POST("/diseases/add", middleware.ProvideDependency(backend.AddDisease, di))
 		website.POST("/diseases/delete", middleware.ProvideDependency(backend.DeleteDisease, di))
 		website.POST("/questionnaires/add", middleware.ProvideDependency(backend.QuestionnaireAdd, di))
@@ -55,9 +56,10 @@ func ConfigureRoutes(router *gin.Engine, di di.DI) {
 	admin := router.Group("/admin")
 	{
 		admin.GET("/recommendations", middleware.ProvideDependency(backend.GetAllRecommendations, di))
-		admin.GET("/v1/recommendations", middleware.ProvideDependency(backend.GetAllRecommendationsV1, di))
+		admin.GET("/v1/recommendations", middleware.ProvideDependency(v1.GetAllRecommendationsV1, di))
 		admin.POST("/diseases/add", middleware.ProvideDependency(backend.AddDisease, di))
-		admin.POST("/v1/diseases/add", middleware.ProvideDependency(backend.AddDiseaseV1, di))
+		admin.POST("/v1/diseases/add", middleware.ProvideDependency(v1.AddDisease, di))
+		admin.POST("/v1/diseases/delete", middleware.ProvideDependency(v1.DeleteDisease, di))
 		admin.POST("/diseases/delete", middleware.ProvideDependency(backend.DeleteDisease, di))
 		admin.POST("/questionnaires/add", middleware.ProvideDependency(backend.QuestionnaireAdd, di))
 	}

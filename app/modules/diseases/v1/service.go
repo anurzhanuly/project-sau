@@ -64,3 +64,19 @@ func (s Service) GetRecommendations(userAnswer *answers.User) ([]data.Recommenda
 
 	return result, err
 }
+
+func (s Service) ExecuteDeletion() error {
+	var err error
+
+	err = s.Context.BindJSON(s.model)
+	if err != nil {
+		return err
+	}
+
+	err = s.repository.delete(*s.model)
+	if err != nil {
+		return err
+	}
+
+	return err
+}

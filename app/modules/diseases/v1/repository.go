@@ -53,3 +53,19 @@ func (r Repository) getAll() ([]Disease, error) {
 
 	return diseases, err
 }
+
+func (r Repository) delete(model Disease) error {
+	var err error
+
+	cxt, _ := context.WithTimeout(context.Background(), 10*time.Second)
+	filter := bson.D{{"name", model.Name}}
+
+	result, err := r.collection.DeleteOne(cxt, filter)
+	if err != nil {
+		return err
+	}
+
+	result = result
+
+	return err
+}

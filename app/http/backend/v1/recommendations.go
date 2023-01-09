@@ -26,8 +26,8 @@ func GetAllRecommendationsV1(c *gin.Context, di *di.DI) {
 	})
 }
 
-// AddDiseaseV1 добавляет условие по заболеванию, или апдейтит существующий по новому формату
-func AddDiseaseV1(c *gin.Context, di *di.DI) {
+// AddDisease добавляет условие по заболеванию, или апдейтит существующий по новому формату
+func AddDisease(c *gin.Context, di *di.DI) {
 	service := v1.NewService(c, di)
 
 	err := service.AddDisease()
@@ -35,6 +35,27 @@ func AddDiseaseV1(c *gin.Context, di *di.DI) {
 		c.JSON(http.StatusInternalServerError, gin.H{
 			"status": http.StatusInternalServerError,
 			"result": fmt.Sprintf("произошла ошибка со стороны сервера: %s", err.Error()),
+		})
+
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"status": http.StatusOK,
+		"result": "success",
+	})
+}
+
+// DeleteDisease удаляет условие по заболеванию
+func DeleteDisease(c *gin.Context, di *di.DI) {
+	service := v1.NewService(c, di)
+
+	err := service.ExecuteDeletion()
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"status": http.StatusInternalServerError,
+			"result": fmt.Sprintf(
+				"произошла ошибка со стороны сервера, во время удаления рекомендации: %s", err.Error()),
 		})
 
 		return
