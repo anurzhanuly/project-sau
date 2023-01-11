@@ -9,6 +9,23 @@ import (
 	"net/http"
 )
 
+// SaveAll сохраняет массив с рекомендациями по заболеванию
+func SaveAll(c *gin.Context, di *di.DI) {
+	var result bool
+	var err error
+	service := diseases.NewService(c, di)
+
+	err = service.SaveAll()
+	if err != nil {
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"status": http.StatusOK,
+		"result": result,
+	})
+}
+
 // GetAllRecommendationsV1 возвращает все условия по заболеванию по новому формату
 func GetAllRecommendationsV1(c *gin.Context, di *di.DI) {
 	var result string

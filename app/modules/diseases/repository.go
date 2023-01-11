@@ -69,3 +69,20 @@ func (r Repository) delete(model Disease) error {
 
 	return err
 }
+
+func (r Repository) saveAll(diseases []Disease) error {
+	var err error
+
+	cxt, _ := context.WithTimeout(context.Background(), 10*time.Second)
+
+	for _, disease := range diseases {
+		filter := bson.D{{"name", disease.Name}}
+
+		_, err := r.collection.ReplaceOne(cxt, filter, disease)
+		if err != nil {
+			return err
+		}
+	}
+
+	return err
+}
