@@ -1,3 +1,219 @@
+### Save all recommendations
+POST http://{{host}}/admin/v1/diseases/saveAll
+Content-Type: application/json
+
+[{
+  "id": 1,
+  "name": "Cervical cancer",
+  "tests": {
+    "1": ["Мазок на цитологическое исследование шейки матки раз в три года,Рекомендуется получить три дозы вакцины от вируса папилломы человека до 26 лет."],
+    "2": ["Мазок на цитологическое исследование шейки матки раз в три года."],
+    "3": ["Рекомендуется получить три дозы вакцины от вируса папилломы человека до 26 лет."],
+    "4": ["Мазок на цитологическое исследование шейки матки раз в три года,Тест на вирус папилломы человека (ВПЧ) раз в пять лет. Или общее обследование раз в пять лет."],
+    "5": ["Регулярно посещайте гинеколога."],
+    "6": ["Вы указали, что болеете раком шейки матки менее двух лет. Каждые 3-6 месяцев посещайте гинеколога, делайте цитологию,Флюорография раз в год"],
+    "7": ["qweqweqwetest"]
+  },
+  "conditions": [
+    [{
+      "value": ["Женский"],
+      "type": "radiogroup",
+      "compare": "exact",
+      "multiple": false,
+      "questionName": "Ваш пол",
+      "testCase": "1"
+    }, {
+      "value": ["Нет"],
+      "type": "text",
+      "compare": "exact",
+      "multiple": false,
+      "questionName": "Делали ли Вы прививку от вируса папилломы человека?",
+      "testCase": "1"
+    }, {
+      "value": ["27"],
+      "type": "text",
+      "compare": "less",
+      "multiple": false,
+      "questionName": "Сколько Вам полных лет?",
+      "testCase": "1"
+    }],
+    [{
+      "value": ["Женский"],
+      "type": "text",
+      "compare": "exact",
+      "multiple": false,
+      "questionName": "Ваш пол",
+      "testCase": "2"
+    }, {
+      "value": ["Да"],
+      "type": "text",
+      "compare": "exact",
+      "multiple": false,
+      "questionName": "Делали ли Вы прививку от вируса папилломы человека?",
+      "testCase": "2"
+    }, {
+      "value": ["26"],
+      "type": "text",
+      "compare": "greater",
+      "multiple": false,
+      "questionName": "Сколько Вам полных лет?",
+      "testCase": "2"
+    }],
+    [{
+      "value": ["Женский"],
+      "type": "radiogroup",
+      "compare": "exact",
+      "multiple": false,
+      "questionName": "Ваш пол",
+      "testCase": "2"
+    }, {
+      "value": ["27", "29"],
+      "type": "number",
+      "compare": "range",
+      "multiple": false,
+      "questionName": "Сколько Вам полных лет?",
+      "testCase": "2"
+    }],
+    [{
+      "value": ["Женский"],
+      "type": "text",
+      "compare": "exact",
+      "multiple": false,
+      "questionName": "Ваш пол",
+      "testCase": "4"
+    }, {
+      "value": ["30", "64"],
+      "type": "number",
+      "compare": "range",
+      "multiple": false,
+      "questionName": "Сколько Вам полных лет?",
+      "testCase": "4"
+    }],
+    [{
+      "value": ["65", "80"],
+      "type": "number",
+      "compare": "range",
+      "multiple": false,
+      "questionName": "Сколько Вам полных лет?",
+      "testCase": "4"
+    }, {
+      "value": ["Был только один скрининг в жизни"],
+      "type": "text",
+      "compare": "exact",
+      "multiple": false,
+      "questionName": "Были ли последние два скрининга отрицательными?",
+      "testCase": "4"
+    }, {
+      "value": ["Женский"],
+      "type": "text",
+      "compare": "exact",
+      "multiple": false,
+      "questionName": "Ваш пол",
+      "testCase": "4"
+    }, {
+      "value": ["Да"],
+      "type": "text",
+      "compare": "exact",
+      "multiple": false,
+      "questionName": "Делали ли Вы ранее скрининг на рак шейки матки?",
+      "testCase": "4"
+    }],
+    [{
+      "value": ["Женский"],
+      "type": "text",
+      "compare": "exact",
+      "multiple": false,
+      "questionName": "Ваш пол",
+      "testCase": "4"
+    }, {
+      "value": ["Нет"],
+      "type": "text",
+      "compare": "exact",
+      "multiple": false,
+      "questionName": "Делали ли Вы ранее скрининг на рак шейки матки?",
+      "testCase": "4"
+    }, {
+      "value": ["65", "80"],
+      "type": "number",
+      "compare": "range",
+      "multiple": false,
+      "questionName": "Сколько Вам полных лет?",
+      "testCase": "4"
+    }],
+    [{
+      "value": ["Нет"],
+      "type": "text",
+      "compare": "exact",
+      "multiple": false,
+      "questionName": "Были ли последние два скрининга отрицательными?",
+      "testCase": "5"
+    }, {
+      "value": ["Женский"],
+      "type": "text",
+      "compare": "exact",
+      "multiple": false,
+      "questionName": "Ваш пол",
+      "testCase": "5"
+    }, {
+      "value": ["65", "80"],
+      "type": "number",
+      "compare": "range",
+      "multiple": false,
+      "questionName": "Сколько Вам полных лет?",
+      "testCase": "5"
+    }],
+    [{
+      "value": ["Да"],
+      "type": "text",
+      "compare": "exact",
+      "multiple": false,
+      "questionName": "Проходили ли Вы лечение рака шейки матки или предракового состояния?",
+      "testCase": "6"
+    }, {
+      "value": ["Меньше двух лет"],
+      "type": "text",
+      "compare": "exact",
+      "multiple": false,
+      "questionName": "Сколько лет прошло с момента лечения?",
+      "testCase": "6"
+    }, {
+      "value": ["Женский"],
+      "type": "text",
+      "compare": "exact",
+      "multiple": false,
+      "questionName": "Ваш пол",
+      "testCase": "6"
+    }],
+    [{
+      "value": ["Женский"],
+      "type": "radiogroup",
+      "compare": "exact",
+      "multiple": false,
+      "questionName": "Ваш пол",
+      "testCase": "2"
+    }, {
+      "value": ["СПИД"],
+      "type": "tagbox",
+      "compare": "exact",
+      "multiple": true,
+      "questionName": "Отметьте, какие хронические заболевания у вас есть или были",
+      "testCase": "2"
+    }, {
+      "value": ["31-64"],
+      "type": "text",
+      "compare": "range",
+      "multiple": false,
+      "questionName": "Сколько Вам полных лет?",
+      "testCase": "2"
+    }]
+  ]
+}]
+
+
+### Отправка уведомлении пользователю
+GET http://{{host}}/v1/recommendations
+Content-Type: application/json
+
 ### Отправка уведомлении пользователю
 POST http://{{host}}/notify
 Content-Type: application/json

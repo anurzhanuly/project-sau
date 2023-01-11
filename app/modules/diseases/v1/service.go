@@ -4,7 +4,9 @@ import (
 	"anurzhanuly/project-sau/app/di"
 	"anurzhanuly/project-sau/app/modules/answers"
 	"anurzhanuly/project-sau/app/modules/data"
+	"encoding/json"
 	"github.com/gin-gonic/gin"
+	"io"
 )
 
 type Service struct {
@@ -84,8 +86,12 @@ func (s Service) ExecuteDeletion() error {
 func (s Service) SaveAll() error {
 	var diseases []Disease
 	var err error
+	body, err := io.ReadAll(s.Context.Request.Body)
+	if err != nil {
+		return err
+	}
 
-	err = s.Context.Bind(diseases)
+	err = json.Unmarshal(body, &diseases)
 	if err != nil {
 		return err
 	}
