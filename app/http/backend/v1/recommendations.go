@@ -13,7 +13,7 @@ import (
 func SaveAll(c *gin.Context, di *di.DI) {
 	var result bool
 	var err error
-	service := diseases.NewService(c, di)
+	service := v1.NewService(c, di)
 
 	err = service.SaveAll()
 	if err != nil {

@@ -133,20 +133,3 @@ func (s Service) ExecuteDeletion() error {
 
 	return err
 }
-
-func (s Service) SaveAll() error {
-	var diseases []Disease
-	var err error
-
-	err = s.Context.Bind(diseases)
-	if err != nil {
-		return err
-	}
-
-	err = s.repository.saveAll(diseases)
-	if err != nil {
-		return err
-	}
-
-	return err
-}
