@@ -82,17 +82,11 @@ export const useAdminStore = defineStore("admin", () => {
     recName: string,
     recomm: Record<string, string[]>,
   ) {
-    const newRecommendation = JSON.parse(
-      JSON.stringify(
-        allRecommendations.value.filter(el => {
-          return el.name === recName;
-        })[0],
-      ),
-    );
-    const recIndex: number =
-      allRecommendations.value.indexOf(newRecommendation);
-    newRecommendation.tests = recomm;
-    allRecommendations.value[recIndex].tests = recomm;
+    const newRecommendation = allRecommendations.value.filter(el => {
+      return el.name === recName;
+    })[0];
+
+    newRecommendation.tests = recomm; // по ссылке изменяю так же allRecommendations
 
     const res = await putRecommendationsObj(newRecommendation);
 
