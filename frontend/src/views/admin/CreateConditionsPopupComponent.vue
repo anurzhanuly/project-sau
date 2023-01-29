@@ -9,10 +9,10 @@
   >
     <div class="popup">
       <div v-for="(column, idx) in conditionColumns" :key="idx">
-        <div v-if="column.field === 'name'">
+        <div v-if="column.field === 'questionName'">
           <h3>{{ column.header }}</h3>
           <dropdown
-            v-model="questionName"
+            v-model="newRecord[column.field]"
             :options="column?.options"
             option-value="value"
             option-label="value"
@@ -63,7 +63,7 @@
             :empty-message="'Ничего не найдено'"
           />
         </div>
-        <div v-else>
+        <div v-else-if="column.field === 'testCase'">
           <h3>{{ column.header }}</h3>
           <input-text v-model="newRecord[column.field]" style="width: 100%" />
         </div>
@@ -115,16 +115,19 @@ const popupStore = usePopupStore();
 const displayCreatePopup = computed(() => popupStore.isPopupVisible);
 const conditionColumns = computed(() => adminStore.conditionColumns);
 
-const newRecord = ref(popupStore.createPopupFields(conditionColumns.value));
+const newRecord = ref(
+  popupStore.createPopupFields(
+    conditionColumns.value.filter(el => el.header !== "Удаление"),
+  ),
+);
 const isRecordValidated = ref(false);
-const questionName = ref("");
 const conditionValue = ref("");
 const isValueHasChoices = ref(false);
 const valueOptions = ref([] as Record<string, string>[]);
 
 const checkConditionRecValidation = () => {
   isRecordValidated.value = false;
-  if (!questionName.value.length) {
+  if (!newRecord.value.questionName.length) {
     addToast(
       "error",
       "Ошибка",
@@ -156,16 +159,15 @@ const createRecCondition = () => {
   if (isRecordValidated.value) {
     const res = { ...newRecord.value } as unknown as Condition;
     const question = adminStore.questions.filter(
-      el => el.name === questionName.value,
+      el => el.name === newRecord.value.questionName,
     )[0];
     res.multiple = !!(question?.maxSelectedChoices > 1);
     res.type = question.type;
     res.value = isValueHasChoices.value
       ? res.value
       : conditionValue.value.split(",");
-    delete res.name;
 
-    adminStore.createConditionInRec(res, questionName.value);
+    adminStore.createConditionInRec(res);
     addToast("success", "Успешно", "Условие создано, не забудьте сохранить");
     hidePopup();
   }
@@ -173,7 +175,7 @@ const createRecCondition = () => {
 
 const addValueOptions = () => {
   const question = adminStore.questions.filter(
-    el => el.name === questionName.value,
+    el => el.name === newRecord.value.questionName,
   )[0];
 
   if (question?.choices) {
@@ -188,7 +190,6 @@ const addValueOptions = () => {
 
 const hidePopup = () => {
   newRecord.value = popupStore.createPopupFields(conditionColumns.value);
-  questionName.value = "";
   isValueHasChoices.value = false;
   popupStore.closePopup();
 };

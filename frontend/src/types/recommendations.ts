@@ -4,11 +4,11 @@ export interface Condition {
   compare: string;
   multiple: boolean;
   testCase: string;
-  name?: string;
+  questionName: string;
 }
 
 export interface Recommendation {
-  conditions: Record<string, Condition>[];
+  conditions: Array<Array<Condition>>;
   id: number;
   name: string;
   tests: Record<string, string[]>;

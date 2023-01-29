@@ -49,7 +49,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, watch, onMounted, computed } from "vue";
+import { ref, watch, computed } from "vue";
 import PPanel from "primevue/panel";
 import PButton from "primevue/button";
 import PToast from "primevue/toast";
@@ -65,7 +65,7 @@ const toast = useToast();
 const checkedRecommendationName = ref("");
 const copiedTests = ref({} as Record<string, string>);
 
-const recommendationsJSON = computed(() => adminStore.recommendations);
+const recommendationsJSON = computed(() => adminStore.allRecommendations);
 
 watch(checkedRecommendationName, newRecommendationName => {
   const testRecommendations: Record<string, string[]> =

@@ -1,3 +1,4 @@
+import type { Clinics } from "@/types/clinics";
 import type { ResQuestions } from "@/types/questions";
 import type {
   Recommendation,
@@ -50,10 +51,23 @@ export const changeQuestionsJson = async (questions: ResQuestions) => {
   }
 };
 
+export const getClinicsjson = async () => {
+  // TODO: wait Rest
+  try {
+    const res = axios.get<Clinics>("");
+
+    return res;
+  } catch (error) {
+    const err = error as AxiosError<Error>;
+    console.log(error);
+    return err;
+  }
+};
+
 export const getRecommendationsJson = async () => {
   try {
     const res = axios.get<ResRecommendation>(
-      "https://project-sau.herokuapp.com/recommendations",
+      "https://project-sau.herokuapp.com/admin/v1/recommendations",
     );
 
     return res;
@@ -66,7 +80,10 @@ export const getRecommendationsJson = async () => {
 
 export const putRecommendationsObj = async (newRec: Recommendation) => {
   try {
-    const res = axios.post("https://project-sau.herokuapp.com/diseases/add", newRec);
+    const res = axios.post(
+      "https://project-sau.herokuapp.com/admin/v1/diseases/add",
+      newRec,
+    );
 
     return res;
   } catch (error) {

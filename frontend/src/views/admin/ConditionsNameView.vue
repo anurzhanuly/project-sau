@@ -43,9 +43,7 @@ import ConfirmPopup from "primevue/confirmpopup";
 import { ref, computed } from "vue";
 import { useAdminStore } from "@/stores/adminStore";
 import { useConfirm } from "primevue/useconfirm";
-import { useToast } from "primevue/usetoast";
 
-const toast = useToast();
 const confirm = useConfirm();
 
 const adminStore = useAdminStore();
@@ -53,7 +51,7 @@ const adminStore = useAdminStore();
 const beforeQuestName = ref("");
 const afterQuestName = ref("");
 
-const recommendationsJSON = computed(() => adminStore.recommendations);
+const recommendationsJSON = computed(() => adminStore.allRecommendations);
 const questionNameOptions = computed(
   () => adminStore.conditionColumns[0].options,
 );

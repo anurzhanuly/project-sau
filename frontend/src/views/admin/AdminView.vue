@@ -11,12 +11,16 @@ import { onMounted, ref } from "vue";
 const adminStore = useAdminStore();
 
 onMounted(() => {
-  if (!adminStore.recommendations.length) {
+  if (!adminStore.allRecommendations.length) {
     adminStore.getRecommendationsData();
   }
 
   if (!adminStore.questions.length) {
     adminStore.getQuestionsData();
+  }
+
+  if (!adminStore.allClinics.length) {
+    adminStore.getClinicsData();
   }
 });
 
@@ -40,6 +44,11 @@ const adminPages = ref([
     label: "Изменить наименование",
     icon: "pi pi-fw pi-database",
     to: "/admin/magic",
+  },
+  {
+    label: "Список клиник",
+    icon: "pi pi-fw pi-book",
+    to: "/admin/clinics",
   },
 ]);
 </script>
