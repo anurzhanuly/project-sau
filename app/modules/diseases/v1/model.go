@@ -4,11 +4,12 @@ import (
 	"anurzhanuly/project-sau/app/modules/answers"
 	"anurzhanuly/project-sau/app/modules/comparator/factory"
 	"anurzhanuly/project-sau/app/modules/data/v1"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 	"strconv"
 )
 
 type Disease struct {
-	ID         int                 `bson:"id" json:"id,omitempty"`
+	ID         primitive.ObjectID  `bson:"_id" json:"id"`
 	Name       string              `bson:"name" json:"name"`
 	Tests      map[string][]string `bson:"tests" json:"tests,omitempty"`
 	Conditions [][]v1.Condition    `bson:"conditions" json:"conditions,omitempty"`

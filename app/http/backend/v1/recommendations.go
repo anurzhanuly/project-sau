@@ -43,8 +43,8 @@ func GetAllRecommendationsV1(c *gin.Context, di *di.DI) {
 	})
 }
 
-// AddDisease добавляет условие по заболеванию, или апдейтит существующий по новому формату
-func AddDisease(c *gin.Context, di *di.DI) {
+// SaveDisease добавляет условие по заболеванию, или апдейтит существующий по новому формату
+func SaveDisease(c *gin.Context, di *di.DI) {
 	service := v1.NewService(c, di)
 
 	err := service.AddDisease()

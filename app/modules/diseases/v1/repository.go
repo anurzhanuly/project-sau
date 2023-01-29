@@ -17,7 +17,7 @@ func (r Repository) add(model Disease) error {
 
 	cxt, _ := context.WithTimeout(context.Background(), 10*time.Second)
 	opts := options.Replace().SetUpsert(true)
-	filter := bson.D{{"name", model.Name}}
+	filter := bson.D{{"_id", model.ID}}
 
 	result, err := r.collection.ReplaceOne(cxt, filter, model, opts)
 	if err != nil {
@@ -58,7 +58,7 @@ func (r Repository) delete(model Disease) error {
 	var err error
 
 	cxt, _ := context.WithTimeout(context.Background(), 10*time.Second)
-	filter := bson.D{{"name", model.Name}}
+	filter := bson.D{{"_id", model.Name}}
 
 	result, err := r.collection.DeleteOne(cxt, filter)
 	if err != nil {
@@ -76,7 +76,7 @@ func (r Repository) saveAll(diseases []Disease) error {
 	cxt, _ := context.WithTimeout(context.Background(), 10*time.Second)
 
 	for _, disease := range diseases {
-		filter := bson.D{{"name", disease.Name}}
+		filter := bson.D{{"_id", disease.Name}}
 
 		_, err := r.collection.ReplaceOne(cxt, filter, disease)
 		if err != nil {

@@ -5,11 +5,13 @@ import (
 	"anurzhanuly/project-sau/app/modules/comparator/factory"
 	"anurzhanuly/project-sau/app/modules/data"
 	v1 "anurzhanuly/project-sau/app/modules/diseases/v1"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 	"strconv"
 )
 
 type Disease struct {
 	ID         int                         `bson:"id" json:"id,omitempty"`
+	MongoID    primitive.ObjectID          `bson:"_id"`
 	Name       string                      `bson:"name" json:"name"`
 	Tests      map[string][]string         `bson:"tests" json:"tests,omitempty"`
 	Conditions []map[string]data.Condition `bson:"conditions" json:"conditions,omitempty"`
@@ -68,7 +70,7 @@ func (d Disease) getRecommendations(answers *answers.User) ([]string, bool) {
 
 func (d Disease) ConvertToV1() *v1.Disease {
 	return &v1.Disease{
-		ID:         d.ID,
+		ID:         d.MongoID,
 		Name:       d.Name,
 		Tests:      d.Tests,
 		Conditions: nil,
