@@ -1,5 +1,6 @@
 <template>
   <p-toast />
+  <confirm-popup />
   <section class="section-recommendations-change">
     <div class="recommendation-nav">
       <label
@@ -38,6 +39,14 @@
           class="p-button-raised p-button-text"
           @click="createRecommendationTest"
         />
+        <div>
+          <input-number v-model="recommendationDeleteIndex"/>
+          <p-button
+            label="Удалить"
+            class="p-button-raised p-button-danger p-button-text"
+            @click="confirmDeleteRecommendation($event)"
+          />
+        </div>
         <p-button
           label="Сохранить"
           class="p-button-raised p-button-success p-button-text"
@@ -53,19 +62,24 @@ import { ref, watch, computed } from "vue";
 import PPanel from "primevue/panel";
 import PButton from "primevue/button";
 import PToast from "primevue/toast";
+import ConfirmPopup from "primevue/confirmpopup";
 import PTextarea from "primevue/textarea";
+import InputNumber from "primevue/inputnumber";
 import { useAdminStore } from "../../stores/adminStore";
+import { useConfirm } from "primevue/useconfirm";
 import { useToast } from "primevue/usetoast";
 import axios from "axios";
 import type { Error } from "@/types/response";
 
 const adminStore = useAdminStore();
+const confirm = useConfirm();
 const toast = useToast();
 
 const checkedRecommendationName = ref("");
 const copiedTests = ref({} as Record<string, string>);
 
 const recommendationsJSON = computed(() => adminStore.allRecommendations);
+const recommendationDeleteIndex = ref();
 
 watch(checkedRecommendationName, newRecommendationName => {
   const testRecommendations: Record<string, string[]> =
@@ -90,6 +104,27 @@ const createRecommendationTest = () => {
   const testKeys = Object.keys(copiedTests.value);
   const key = `${+testKeys[testKeys.length - 1] + 1}`;
   copiedTests.value[key] = "";
+};
+
+const deleteRecommendation = () => {
+  if (
+    copiedTests.value[recommendationDeleteIndex.value]
+  ) {
+    delete copiedTests.value[recommendationDeleteIndex.value];
+    recommendationDeleteIndex.value = null;
+  }
+}
+
+const confirmDeleteRecommendation = (event: any) => {
+  confirm.require({
+    target: event.currentTarget,
+    message: "Вы уверены?",
+    acceptLabel: "Да",
+    rejectLabel: "Нет",
+    icon: "pi pi-info-circle",
+    acceptClass: "p-button-danger",
+    accept: deleteRecommendation,
+  });
 };
 
 const saveRecommendationTests = async () => {
