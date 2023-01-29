@@ -45,6 +45,10 @@ const router = createRouter({
           path: "magic",
           component: () => import("@/views/admin/ConditionsNameView.vue"),
         },
+        {
+          path: "clinics",
+          component: () => import("@/views/admin/ClinicsView.vue"),
+        },
       ],
     },
   ],

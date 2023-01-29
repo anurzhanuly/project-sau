@@ -18,6 +18,10 @@ onMounted(() => {
   if (!adminStore.questions.length) {
     adminStore.getQuestionsData();
   }
+
+  if (!adminStore.allClinics.length) {
+    adminStore.getClinicsData();
+  }
 });
 
 const adminPages = ref([
@@ -40,6 +44,11 @@ const adminPages = ref([
     label: "Изменить наименование",
     icon: "pi pi-fw pi-database",
     to: "/admin/magic",
+  },
+  {
+    label: "Список клиник",
+    icon: "pi pi-fw pi-book",
+    to: "/admin/clinics",
   },
 ]);
 </script>
