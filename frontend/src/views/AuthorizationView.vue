@@ -34,7 +34,7 @@
       <div>
         <h4>Выберите врача</h4>
         <dropdown
-          v-model="сlinic"
+          v-model="doctor"
           :options="allDoctors"
           option-value="fullName"
           option-label="fullName"
@@ -85,6 +85,7 @@ const lastName = ref();
 const middleName = ref();
 const phone = ref();
 const сlinic = ref();
+const doctor = ref();
 
 const allClinics = computed(() => adminStore.allClinics);
 const allDoctors = computed(() => adminStore.allDoctors);

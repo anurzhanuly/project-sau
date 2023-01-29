@@ -40,7 +40,7 @@
           @click="createRecommendationTest"
         />
         <div>
-          <input-number v-model="recommendationDeleteIndex"/>
+          <input-number v-model="recommendationDeleteIndex" />
           <p-button
             label="Удалить"
             class="p-button-raised p-button-danger p-button-text"
@@ -107,13 +107,11 @@ const createRecommendationTest = () => {
 };
 
 const deleteRecommendation = () => {
-  if (
-    copiedTests.value[recommendationDeleteIndex.value]
-  ) {
+  if (copiedTests.value[recommendationDeleteIndex.value]) {
     delete copiedTests.value[recommendationDeleteIndex.value];
     recommendationDeleteIndex.value = null;
   }
-}
+};
 
 const confirmDeleteRecommendation = (event: any) => {
   confirm.require({
