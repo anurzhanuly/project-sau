@@ -9,7 +9,7 @@ export interface Condition {
 
 export interface Recommendation {
   conditions: Array<Array<Condition>>;
-  id: number;
+  id: string;
   name: string;
   tests: Record<string, string[]>;
 }
