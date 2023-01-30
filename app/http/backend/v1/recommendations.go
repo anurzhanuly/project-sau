@@ -2,7 +2,6 @@ package v1
 
 import (
 	"anurzhanuly/project-sau/app/di"
-	"anurzhanuly/project-sau/app/modules/diseases"
 	"anurzhanuly/project-sau/app/modules/diseases/v1"
 	"fmt"
 	"github.com/gin-gonic/gin"
@@ -30,9 +29,9 @@ func SaveAll(c *gin.Context, di *di.DI) {
 func GetAllRecommendationsV1(c *gin.Context, di *di.DI) {
 	var result string
 	var err error
-	service := diseases.NewService(c, di)
+	service := v1.NewService(c, di)
 
-	result, err = service.FetchAllRecommendationsV1()
+	result, err = service.FetchAllRecommendations()
 	if err != nil {
 		return
 	}

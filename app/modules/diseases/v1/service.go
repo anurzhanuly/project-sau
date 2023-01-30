@@ -67,6 +67,20 @@ func (s Service) GetRecommendations(userAnswer *answers.User) ([]data.Recommenda
 	return result, err
 }
 
+func (s Service) FetchAllRecommendations() (string, error) {
+	var result []byte
+	var err error
+
+	recommendations, err := s.repository.getAll()
+	if err != nil {
+		return "", err
+	}
+
+	result, err = json.Marshal(recommendations)
+
+	return string(result), err
+}
+
 func (s Service) ExecuteDeletion() error {
 	var err error
 
