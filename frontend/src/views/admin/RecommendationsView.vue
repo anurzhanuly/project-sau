@@ -116,7 +116,7 @@ const deleteRecommendation = () => {
       Object.keys(copiedTests.value)
         .filter(elementInd => +elementInd !== deleteInd)
         .forEach((key, index) => {
-          filteredTests[index + 1] = copiedTests.value[+key];
+          filteredTests[index++] = copiedTests.value[+key];
         });
       copiedTests.value = filteredTests;
       recommendationDeleteIndex.value = null;
