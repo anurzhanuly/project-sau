@@ -44,6 +44,7 @@
           <p-button
             label="Удалить"
             class="p-button-raised p-button-danger p-button-text"
+            :disabled = "!recommendationDeleteIndex"
             @click="confirmDeleteRecommendation($event)"
           />
         </div>
@@ -107,20 +108,14 @@ const createRecommendationTest = () => {
 };
 
 const deleteRecommendation = () => {
-  const deleteInd = recommendationDeleteIndex.value;
-  if (
-    deleteInd !== null && 
-    (copiedTests.value[deleteInd] || copiedTests.value[deleteInd] === '')
-    ) {
-      const filteredTests = {} as { [key: number]: string };
-      Object.keys(copiedTests.value)
-        .filter(elementInd => +elementInd !== deleteInd)
-        .forEach((key, index) => {
-          filteredTests[index++] = copiedTests.value[+key];
-        });
-      copiedTests.value = filteredTests;
-      recommendationDeleteIndex.value = null;
-  }
+  const filteredTests = {} as { [key: number]: string };
+  Object.keys(copiedTests.value)
+  .filter(elementInd => +elementInd !== recommendationDeleteIndex.value)
+  .forEach((key, index) => {
+    filteredTests[index + 1] = copiedTests.value[+key];
+  });
+  copiedTests.value = filteredTests;
+  recommendationDeleteIndex.value = null;
 };
 
 const confirmDeleteRecommendation = (event: any) => {
