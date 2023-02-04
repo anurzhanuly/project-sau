@@ -5,6 +5,7 @@ import {
   getRecommendationsJson,
   getQuestionsJson,
   putRecommendationsObj,
+  deleteDisease,
 } from "../services/admin.js";
 import type { Condition, Recommendation } from "@/types/recommendations.js";
 import type { Questions } from "@/types/questions.js";
@@ -260,6 +261,19 @@ export const useAdminStore = defineStore("admin", () => {
       });
   }
 
+  async function deleteDiseaseById(disease: string) {
+    const deleteRecommendationObj = JSON.parse(
+      JSON.stringify(
+        allRecommendations.value.filter(el => {
+          return el.name === disease;
+        })[0],
+      ),
+    );
+
+    const res = await deleteDisease(deleteRecommendationObj);
+    return res;
+  }
+
   return {
     allRecommendations,
     questions,
@@ -283,5 +297,6 @@ export const useAdminStore = defineStore("admin", () => {
     createConditionInRec,
     saveConditionsData,
     saveRecommendationsData,
+    deleteDiseaseById
   };
 });

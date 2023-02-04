@@ -27,6 +27,14 @@
           @click="createRecommendation"
         />
       </div>
+      <div class="rec-create">
+        <input-text v-model="diseaseDeleteName" />
+        <p-button
+          label="Удалить"
+          class="p-button-raised p-button-danger p-button-text"
+          @click="confirmDeleteDisease($event)"
+        />
+      </div>
     </div>
     <div v-if="checkedRecommendationName !== ''" class="recommendation-body">
       <p-panel
@@ -175,6 +183,7 @@ const checkedRecommendationName = ref("");
 const checkedRecommendationObj = ref({} as Recommendation);
 const conditionDeleteIndex = ref();
 const newRecommendationName = ref("");
+const diseaseDeleteName = ref("");
 const selectedCondition = ref({} as Condition);
 
 const recommendationsJSON = computed(() => adminStore.allRecommendations);
@@ -288,6 +297,20 @@ const confirmDeleteConditionItem = (event: any, conditionIndex: number) => {
     },
   });
 };
+
+const confirmDeleteDisease = (event: any) => {
+  confirm.require({
+    target: event.currentTarget,
+    message: "Вы уверены?",
+    acceptLabel: "Да",
+    rejectLabel: "Нет",
+    icon: "pi pi-info-circle",
+    acceptClass: "p-button-danger",
+    accept: () => {
+      adminStore.deleteDiseaseById(diseaseDeleteName.value);
+    },
+  });
+};
 </script>
 
 <style scoped>
@@ -376,8 +399,12 @@ const confirmDeleteConditionItem = (event: any, conditionIndex: number) => {
   margin-top: 20px;
 }
 
-.rec-create .p-inputtext {
+.rec-create {
   margin: 20px 0 10px;
+}
+
+.p-inputtext {
+  margin-right: 10px;
   width: 170px;
 }
 </style>
