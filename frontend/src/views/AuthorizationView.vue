@@ -86,6 +86,7 @@ const middleName = ref();
 const phone = ref();
 const сlinic = ref();
 const doctor = ref();
+const userData = ref();
 
 const allClinics = computed(() => adminStore.allClinics);
 const allDoctors = computed(() => adminStore.allDoctors);
@@ -145,6 +146,15 @@ const validateForm = () => {
     return;
   }
 
+  if (middleName.value) {
+    middleName.value = middleName.value
+      .split(" ")
+      .map(
+        (word: string) => word[0].toUpperCase() + word.slice(1).toLowerCase(),
+      )
+      .join(" ");
+  }
+
   firstName.value = firstName.value
     .split(" ")
     .map((word: string) => word[0].toUpperCase() + word.slice(1).toLowerCase())
@@ -155,10 +165,14 @@ const validateForm = () => {
     .map((word: string) => word[0].toUpperCase() + word.slice(1).toLowerCase())
     .join(" ");
 
-  middleName.value = middleName.value
-    .split(" ")
-    .map((word: string) => word[0].toUpperCase() + word.slice(1).toLowerCase())
-    .join(" ");
+  userData.value = {
+    firstName: firstName.value,
+    lastName: lastName.value,
+    middleName: middleName.value,
+    phone: phone.value,
+    сlinic: сlinic.value,
+    doctor: doctor.value,
+  };
 
   isValid = true;
   return isValid;
