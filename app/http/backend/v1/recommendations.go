@@ -1,18 +1,35 @@
-package backend
+package v1
 
 import (
 	"anurzhanuly/project-sau/app/di"
-	"anurzhanuly/project-sau/app/modules/diseases"
+	"anurzhanuly/project-sau/app/modules/diseases/v1"
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
 
-// GetAllRecommendations возвращает все условия по заболеванию
-func GetAllRecommendations(c *gin.Context, di *di.DI) {
+// SaveAll сохраняет массив с рекомендациями по заболеванию
+func SaveAll(c *gin.Context, di *di.DI) {
+	var result bool
+	var err error
+	service := v1.NewService(c, di)
+
+	err = service.SaveAll()
+	if err != nil {
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"status": http.StatusOK,
+		"result": result,
+	})
+}
+
+// GetAllRecommendationsV1 возвращает все условия по заболеванию по новому формату
+func GetAllRecommendationsV1(c *gin.Context, di *di.DI) {
 	var result string
 	var err error
-	service := diseases.NewService(c, di)
+	service := v1.NewService(c, di)
 
 	result, err = service.FetchAllRecommendations()
 	if err != nil {
@@ -25,9 +42,9 @@ func GetAllRecommendations(c *gin.Context, di *di.DI) {
 	})
 }
 
-// AddDisease добавляет условие по заболеванию, или апдейтит существующий
-func AddDisease(c *gin.Context, di *di.DI) {
-	service := diseases.NewService(c, di)
+// SaveDisease добавляет условие по заболеванию, или апдейтит существующий по новому формату
+func SaveDisease(c *gin.Context, di *di.DI) {
+	service := v1.NewService(c, di)
 
 	err := service.AddDisease()
 	if err != nil {
@@ -47,7 +64,7 @@ func AddDisease(c *gin.Context, di *di.DI) {
 
 // DeleteDisease удаляет условие по заболеванию
 func DeleteDisease(c *gin.Context, di *di.DI) {
-	service := diseases.NewService(c, di)
+	service := v1.NewService(c, di)
 
 	err := service.ExecuteDeletion()
 	if err != nil {

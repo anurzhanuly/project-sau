@@ -4,6 +4,7 @@ import (
 	"anurzhanuly/project-sau/app/di"
 	"anurzhanuly/project-sau/app/modules/answers"
 	"anurzhanuly/project-sau/app/modules/data"
+	v12 "anurzhanuly/project-sau/app/modules/data/v1"
 	v1 "anurzhanuly/project-sau/app/modules/diseases/v1"
 	"encoding/json"
 	"github.com/gin-gonic/gin"
@@ -93,10 +94,10 @@ func (s Service) FetchAllRecommendationsV1() (string, error) {
 
 	for _, disease := range recommendations {
 		diseaseV1 := disease.ConvertToV1()
-		var allConditionsV1 [][]data.ConditionV1
+		var allConditionsV1 [][]v12.Condition
 
 		for _, conditions := range disease.Conditions {
-			var conditionsV1 []data.ConditionV1
+			var conditionsV1 []v12.Condition
 
 			for questionName, condition := range conditions {
 				conditionV1 := condition.ConvertToV1()

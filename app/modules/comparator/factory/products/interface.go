@@ -7,6 +7,6 @@ import (
 type Comparator interface {
 	DoesMatch() bool
 	SetUserAnswer([]string)
-	SetCondition(conditions data.Condition)
+	SetCondition(conditions data.ConditionInterface)
 	SetCastedAnswer([]int)
 }

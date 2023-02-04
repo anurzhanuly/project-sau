@@ -3,7 +3,9 @@ package http
 import (
 	"anurzhanuly/project-sau/app/di"
 	"anurzhanuly/project-sau/app/http/backend"
+	"anurzhanuly/project-sau/app/http/backend/v1"
 	"anurzhanuly/project-sau/app/http/frontend"
+	frontendV1 "anurzhanuly/project-sau/app/http/frontend/v1"
 	"anurzhanuly/project-sau/app/http/middleware"
 	"github.com/gin-contrib/static"
 	"github.com/gin-gonic/gin"
@@ -36,14 +38,15 @@ func ConfigureRoutes(router *gin.Engine, di di.DI) {
 	website := router.Group("")
 	{
 		website.GET("/_health", middleware.ProvideDependency(frontend.Health, di))
-		website.POST("/diseases/recommendations", middleware.ProvideDependency(frontend.HealthGetRecommendation, di))
+		website.POST("/diseases/recommendations", middleware.ProvideDependency(frontend.GetRecommendationsForSurvey, di))
+		website.POST("/v1/diseases/recommendations", middleware.ProvideDependency(frontendV1.GetRecommendationsForSurvey, di))
 		website.GET("/userAnswers", middleware.ProvideDependency(frontend.GetAllUsersStatistics, di))
 		website.GET("/questionnaires/:name", middleware.ProvideDependency(backend.QuestionnaireByName, di))
 		website.GET("/questionnaires/id/:id", middleware.ProvideDependency(backend.QuestionnaireById, di))
 		website.PUT("/questionnaires/update", middleware.ProvideDependency(backend.QuestionnaireUpdate, di))
 		website.POST("/notify", middleware.ProvideDependency(frontend.SendNotification, di))
 		website.GET("/recommendations", middleware.ProvideDependency(backend.GetAllRecommendations, di))
-		website.GET("/v1/recommendations", middleware.ProvideDependency(backend.GetAllRecommendationsV1, di))
+		website.GET("/v1/recommendations", middleware.ProvideDependency(v1.GetAllRecommendationsV1, di))
 		website.POST("/diseases/add", middleware.ProvideDependency(backend.AddDisease, di))
 		website.POST("/diseases/delete", middleware.ProvideDependency(backend.DeleteDisease, di))
 		website.POST("/questionnaires/add", middleware.ProvideDependency(backend.QuestionnaireAdd, di))
@@ -53,9 +56,11 @@ func ConfigureRoutes(router *gin.Engine, di di.DI) {
 	admin := router.Group("/admin")
 	{
 		admin.GET("/recommendations", middleware.ProvideDependency(backend.GetAllRecommendations, di))
-		admin.GET("/v1/recommendations", middleware.ProvideDependency(backend.GetAllRecommendationsV1, di))
+		admin.GET("/v1/recommendations", middleware.ProvideDependency(v1.GetAllRecommendationsV1, di))
 		admin.POST("/diseases/add", middleware.ProvideDependency(backend.AddDisease, di))
-		admin.POST("/v1/diseases/add", middleware.ProvideDependency(backend.AddDiseaseV1, di))
+		admin.POST("/v1/diseases/add", middleware.ProvideDependency(v1.SaveDisease, di))
+		admin.POST("/v1/diseases/delete", middleware.ProvideDependency(v1.DeleteDisease, di))
+		admin.POST("/v1/diseases/saveAll", middleware.ProvideDependency(v1.SaveAll, di))
 		admin.POST("/diseases/delete", middleware.ProvideDependency(backend.DeleteDisease, di))
 		admin.POST("/questionnaires/add", middleware.ProvideDependency(backend.QuestionnaireAdd, di))
 	}
