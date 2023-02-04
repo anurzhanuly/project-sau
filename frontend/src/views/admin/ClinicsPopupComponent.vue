@@ -47,25 +47,14 @@ import PDialog from "primevue/dialog";
 import PButton from "primevue/button";
 import Dropdown from "primevue/dropdown";
 import InputText from "primevue/inputtext";
-import { useToast } from "primevue/usetoast";
 import { usePopupStore } from "@/stores/popupStore";
 import { useAdminStore } from "@/stores/adminStore";
 import { computed, ref } from "vue";
 import type { Clinics } from "@/types/clinics";
-
-const toast = useToast();
-const addToast = (severity: string, summary: string, message: string) => {
-  toast.add({
-    severity,
-    summary,
-    detail: message,
-    life: 3000,
-  });
-};
+import { error, success } from "@/utils/toast";
 
 const popupStore = usePopupStore();
 const adminStore = useAdminStore();
-
 const displayClinicsPopup = computed(() => popupStore.isPopupVisible);
 const clinicsColumns = computed(() => adminStore.clinicsColumns);
 
@@ -79,7 +68,7 @@ function createClinic() {
   if (checkClinicRecValidation()) {
     const res = { ...newRecord.value } as unknown as Clinics;
     adminStore.createClinicData(res);
-    addToast("success", "Успешно", "Клиника добавлена, не забудьте сохранить");
+    success("Успешно", "Клиника добавлена, не забудьте сохранить");
     popupStore.closePopup();
   }
 }
@@ -87,23 +76,17 @@ function createClinic() {
 function checkClinicRecValidation() {
   let isValidated = false;
   if (!newRecord.value.name.length) {
-    addToast(
-      "error",
-      "Ошибка",
-      "Поле 'Название клиники' должно быть заполнено",
-    );
-    return;
+    return error("Ошибка", "Поле 'Название клиники' должно быть заполнено");
   }
 
   if (!newRecord.value.city.length) {
-    addToast("error", "Ошибка", "Поле 'Город' должно быть заполнено");
-    return;
+    return error("Ошибка", "Поле 'Поле 'Город' должно быть заполнено");
   }
 
   if (!newRecord.value.place.length) {
-    addToast("error", "Ошибка", "Поле 'Адрес' должно быть заполнено");
-    return;
+    return error("Ошибка", "Поле 'Поле 'Адрес' должно быть заполнено");
   }
+
   isValidated = true;
   return isValidated;
 }

@@ -168,14 +168,12 @@ import { useConfirm } from "primevue/useconfirm";
 import { useAdminStore } from "../../stores/adminStore";
 import { usePopupStore } from "../../stores/popupStore";
 import CreateConditionsPopupComponent from "./CreateConditionsPopupComponent.vue";
-import { useToast } from "primevue/usetoast";
 import axios from "axios";
 import type { Condition, Recommendation } from "@/types/recommendations";
 import type { Error } from "@/types/response";
+import { error, success } from "@/utils/toast";
 
-const toast = useToast();
 const confirm = useConfirm();
-
 const adminStore = useAdminStore();
 const popupStore = usePopupStore();
 
@@ -195,15 +193,6 @@ watch(checkedRecommendationName, newRecommendationName => {
     el => el.name === newRecommendationName,
   )[0];
 });
-
-const addToast = (severity: string, summary: string, message: string) => {
-  toast.add({
-    severity,
-    summary,
-    detail: message,
-    life: 3000,
-  });
-};
 
 const createRecommendation = () => {
   const newRecommendation = {} as Recommendation;
@@ -232,11 +221,11 @@ const saveConditions = async () => {
   );
 
   if (res.status === 200) {
-    addToast("success", "Успешно", "Изменения внесены");
+    success("Успешно", "Изменения внесены");
   } else {
     if (axios.isAxiosError(res)) {
       const err = res.response?.data as Error;
-      addToast("error", "Ошибка", err.ERROR);
+      error("Ошибка", err.ERROR);
     }
   }
 };

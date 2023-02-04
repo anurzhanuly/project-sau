@@ -44,7 +44,7 @@
           <p-button
             label="Удалить"
             class="p-button-raised p-button-danger p-button-text"
-            :disabled = "!recommendationDeleteIndex"
+            :disabled="!recommendationDeleteIndex"
             @click="confirmDeleteRecommendation($event)"
           />
         </div>
@@ -68,13 +68,12 @@ import PTextarea from "primevue/textarea";
 import InputNumber from "primevue/inputnumber";
 import { useAdminStore } from "../../stores/adminStore";
 import { useConfirm } from "primevue/useconfirm";
-import { useToast } from "primevue/usetoast";
 import axios from "axios";
 import type { Error } from "@/types/response";
+import { error, success } from "@/utils/toast";
 
 const adminStore = useAdminStore();
 const confirm = useConfirm();
-const toast = useToast();
 
 const checkedRecommendationName = ref("");
 const copiedTests = ref({} as Record<string, string>);
@@ -92,15 +91,6 @@ watch(checkedRecommendationName, newRecommendationName => {
   }
 });
 
-const addToast = (severity: string, summary: string, message: string) => {
-  toast.add({
-    severity,
-    summary,
-    detail: message,
-    life: 3000,
-  });
-};
-
 const createRecommendationTest = () => {
   const testKeys = Object.keys(copiedTests.value);
   const key = `${+testKeys[testKeys.length - 1] + 1}`;
@@ -110,10 +100,10 @@ const createRecommendationTest = () => {
 const deleteRecommendation = () => {
   const filteredTests = {} as { [key: number]: string };
   Object.keys(copiedTests.value)
-  .filter(elementInd => +elementInd !== recommendationDeleteIndex.value)
-  .forEach((key, index) => {
-    filteredTests[index + 1] = copiedTests.value[+key];
-  });
+    .filter(elementInd => +elementInd !== recommendationDeleteIndex.value)
+    .forEach((key, index) => {
+      filteredTests[index + 1] = copiedTests.value[+key];
+    });
   copiedTests.value = filteredTests;
   recommendationDeleteIndex.value = null;
 };
@@ -141,11 +131,11 @@ const saveRecommendationTests = async () => {
   );
 
   if (res.status === 200) {
-    addToast("success", "Успешно", "Изменения внесены");
+    success("Успешно", "Изменения внесены");
   } else {
     if (axios.isAxiosError(res)) {
       const err = res.response?.data as Error;
-      addToast("error", "Ошибка", err.ERROR);
+      error("Ошибка", err.ERROR);
     }
   }
 };

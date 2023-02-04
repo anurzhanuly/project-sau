@@ -58,12 +58,12 @@
 import { useAdminStore } from "@/stores/adminStore";
 import { ref, computed, onMounted } from "vue";
 import { useRouter } from "vue-router";
-import { useToast } from "primevue/usetoast";
+import { warn } from "@/utils/toast";
+
 import PButton from "primevue/button";
 import InputText from "primevue/inputtext";
 import Dropdown from "primevue/dropdown";
 
-const toast = useToast();
 const router = useRouter();
 const adminStore = useAdminStore();
 
@@ -71,21 +71,13 @@ onMounted(() => {
   adminStore.getClinicsData();
 });
 
-const addToast = (severity: string, summary: string, message: string) => {
-  toast.add({
-    severity,
-    summary,
-    detail: message,
-    life: 3000,
-  });
-};
-
 const firstName = ref();
 const lastName = ref();
 const middleName = ref();
 const phone = ref();
 const сlinic = ref();
 const doctor = ref();
+const userData = ref();
 
 const allClinics = computed(() => adminStore.allClinics);
 const allDoctors = computed(() => adminStore.allDoctors);
@@ -104,45 +96,45 @@ const validateForm = () => {
   let isValid = false;
 
   if (!firstName.value) {
-    addToast("warn", "Внимание", "Поле 'Имя' должно быть заполнено");
-    return;
+    return warn("Внимание", "Поле 'Имя' должно быть заполнено");
   }
 
   if (firstName.value.length > 2 && !cyrillicPattern.test(firstName.value)) {
-    addToast(
-      "warn",
+    return warn(
       "Внимание",
       "Поле 'Имя' должно быть на кириллице и больше 2 символов",
     );
-    return;
   }
 
   if (!lastName.value) {
-    addToast("warn", "Внимание", "Поле 'Фамилия' должно быть заполнено");
-    return;
+    return warn("Внимание", "Поле 'Фамилия' должно быть заполнено");
   }
 
   if (lastName.value.length > 2 && !cyrillicPattern.test(lastName.value)) {
-    addToast(
-      "warn",
+    return warn(
       "Внимание",
       "Поле 'Фамилия' должно быть на кириллице и больше 2 символов",
     );
-    return;
   }
 
   if (middleName.value && !cyrillicPattern.test(middleName.value)) {
-    addToast("warn", "Внимание", "Поле 'Отчество' должно быть на кириллице");
-    return;
+    return warn("Внимание", "Поле 'Отчество' должно быть заполнено");
   }
 
   if (!phonePattern.test(phone.value)) {
-    addToast(
-      "warn",
+    return warn(
       "Внимание",
       "Номер телефона' должен начинаеться с 8 и иметь 11 символов",
     );
-    return;
+  }
+
+  if (middleName.value) {
+    middleName.value = middleName.value
+      .split(" ")
+      .map(
+        (word: string) => word[0].toUpperCase() + word.slice(1).toLowerCase(),
+      )
+      .join(" ");
   }
 
   firstName.value = firstName.value
@@ -155,10 +147,14 @@ const validateForm = () => {
     .map((word: string) => word[0].toUpperCase() + word.slice(1).toLowerCase())
     .join(" ");
 
-  middleName.value = middleName.value
-    .split(" ")
-    .map((word: string) => word[0].toUpperCase() + word.slice(1).toLowerCase())
-    .join(" ");
+  userData.value = {
+    firstName: firstName.value,
+    lastName: lastName.value,
+    middleName: middleName.value,
+    phone: phone.value,
+    сlinic: сlinic.value,
+    doctor: doctor.value,
+  };
 
   isValid = true;
   return isValid;
