@@ -96,18 +96,8 @@ import PMultiSelect from "primevue/multiselect";
 import PButton from "primevue/button";
 import Dropdown from "primevue/dropdown";
 import InputText from "primevue/inputtext";
-import { useToast } from "primevue/usetoast";
 import type { Condition } from "@/types/recommendations";
-
-const toast = useToast();
-const addToast = (severity: string, summary: string, message: string) => {
-  toast.add({
-    severity,
-    summary,
-    detail: message,
-    life: 3000,
-  });
-};
+import { error, success } from "@/utils/toast";
 
 const adminStore = useAdminStore();
 const popupStore = usePopupStore();
@@ -128,28 +118,23 @@ const valueOptions = ref([] as Record<string, string>[]);
 const checkConditionRecValidation = () => {
   isRecordValidated.value = false;
   if (!newRecord.value.questionName.length) {
-    addToast(
-      "error",
-      "Ошибка",
-      "Поле 'Наименование вопроса' должно быть заполнено",
-    );
-    return;
+    return error("Ошибка", "Поле 'Наименование вопроса' должно быть заполнено");
   }
+
   if (!newRecord.value.compare.length) {
-    addToast("error", "Ошибка", "Поле 'Условие' должно быть заполнено");
-    return;
+    return error("Ошибка", "Поле 'Условие' должно быть заполнено");
   }
+
   if (!newRecord.value.value.length && isValueHasChoices.value) {
-    addToast("error", "Ошибка", "Поле 'Значение1' должно быть заполнено");
-    return;
+    return error("Ошибка", "Поле 'Значение1' должно быть заполнено");
   }
+
   if (!conditionValue.value.length && !isValueHasChoices.value) {
-    addToast("error", "Ошибка", "Поле 'Значение' должно быть заполнено");
-    return;
+    return error("Ошибка", "Поле 'Значение' должно быть заполнено");
   }
+
   if (/\D/.test(newRecord.value.testCase) || !newRecord.value.testCase.length) {
-    addToast("error", "Ошибка", "Номер рекомендации должен состоять из цифр");
-    return;
+    return error("Ошибка", "Номер рекомендации должен состоять из цифр");
   }
   isRecordValidated.value = true;
 };
@@ -168,7 +153,7 @@ const createRecCondition = () => {
       : conditionValue.value.split(",");
 
     adminStore.createConditionInRec(res);
-    addToast("success", "Успешно", "Условие создано, не забудьте сохранить");
+    success("Успешно", "Условие создано, не забудьте сохранить");
     hidePopup();
   }
 };

@@ -47,21 +47,10 @@ import PDialog from "primevue/dialog";
 import PButton from "primevue/button";
 import PToast from "primevue/toast";
 import InputText from "primevue/inputtext";
-import { useToast } from "primevue/usetoast";
 import { useRouter } from "vue-router";
+import { error } from "@/utils/toast";
 
-const toast = useToast();
 const router = useRouter();
-
-const addToast = (severity: string, summary: string, message: string) => {
-  toast.add({
-    severity,
-    summary,
-    detail: message,
-    life: 3000,
-  });
-};
-
 const popupStore = usePopupStore();
 
 const displayAdminPopup = computed(() => popupStore.isPopupVisible);
@@ -72,12 +61,10 @@ const isRecordValidated = ref(false);
 const checkAdminValidation = () => {
   isRecordValidated.value = false;
   if (newRecord.value.login !== "symptom") {
-    addToast("error", "Ошибка", "Неверный логин или пароль");
-    return;
+    return error("Ошибка", "Неверный логин или пароль");
   }
   if (newRecord.value.password !== "adam") {
-    addToast("error", "Ошибка", "Неверный логин или пароль");
-    return;
+    return error("Ошибка", "Неверный логин или пароль");
   }
   isRecordValidated.value = true;
 };
