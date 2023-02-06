@@ -1,7 +1,4 @@
 <template>
-  <p-toast />
-  <confirm-popup />
-  <clinics-popup-component />
   <div>
     <data-table
       v-model:selection="selectedClinic"
@@ -27,7 +24,7 @@
             <p-button
               label="Добавить"
               class="p-button-success"
-              @click="popupStore.openPopup"
+              @click="openClinicsPopup"
             />
             <p-button label="Сохранить" />
           </div>
@@ -108,26 +105,26 @@
       </column>
     </data-table>
   </div>
+  <confirm-popup />
 </template>
 
 <script lang="ts" setup>
+import ClinicsPopup from "./ClinicsPopup.vue";
+import { ref, computed } from "vue";
+import { useAdminStore } from "@/stores/adminStore";
 import DataTable, {
   type DataTableCellEditCompleteEvent,
 } from "primevue/datatable";
-import pToast from "primevue/toast";
 import Column from "primevue/column";
 import PButton from "primevue/button";
 import Dropdown from "primevue/dropdown";
 import InputText from "primevue/inputtext";
 import ConfirmPopup from "primevue/confirmpopup";
-import ClinicsPopupComponent from "./ClinicsPopupComponent.vue";
 import { useConfirm } from "primevue/useconfirm";
-import { usePopupStore } from "@/stores/popupStore";
-import { useAdminStore } from "@/stores/adminStore";
-import { ref, computed } from "vue";
+import { useDialog } from "primevue/usedialog";
 
 const adminStore = useAdminStore();
-const popupStore = usePopupStore();
+const dialog = useDialog();
 const confirm = useConfirm();
 const selectedClinic = ref();
 
@@ -135,6 +132,18 @@ const clinicsColumns = computed(() => adminStore.clinicsColumns);
 const doctorsColumns = computed(() => adminStore.doctorsColumns);
 const allClinics = computed(() => adminStore.allClinics);
 const allDoctors = computed(() => adminStore.allDoctors);
+
+function openClinicsPopup() {
+  dialog.open(ClinicsPopup, {
+    props: {
+      header: "Добавление новой клиники",
+      style: {
+        width: "660px",
+      },
+      modal: true,
+    },
+  });
+}
 
 const onClinicCellEdit = async (event: DataTableCellEditCompleteEvent) => {
   const updated = { ...event.newData };

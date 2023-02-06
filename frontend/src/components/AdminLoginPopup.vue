@@ -1,87 +1,62 @@
 <template>
-  <p-toast />
-  <p-dialog
-    v-model:visible="displayAdminPopup"
-    modal
-    draggable
-    :closable="false"
-    header="Введите логин и пароль"
-    :style="{ width: '50vw' }"
-  >
-    <div class="popup">
-      <div>
-        <h3>Логин</h3>
-        <input-text v-model="newRecord.login" style="width: 100%" />
-      </div>
-      <div>
-        <h3>Пароль</h3>
-        <input-text
-          v-model="newRecord.password"
-          type="password"
-          style="width: 100%"
-        />
-      </div>
+  <div class="popup">
+    <div>
+      <h3>Логин</h3>
+      <input-text v-model="login" style="width: 100%" />
     </div>
-    <template #footer>
-      <p-button
-        label="Отменить"
-        icon="pi pi-times"
-        class="p-button-text"
-        @click="hidePopup()"
-      />
-      <p-button
-        label="Ввести"
-        icon="pi pi-check"
-        class="p-button-success"
-        autofocus
-        @click="checkAdmin()"
-      />
-    </template>
-  </p-dialog>
+    <div>
+      <h3>Пароль</h3>
+      <input-text v-model="password" type="password" style="width: 100%" />
+    </div>
+    <p-button
+      label="Ввести"
+      icon="pi pi-check"
+      class="p-button-success"
+      autofocus
+      style="margin-top: 20px; width: 100%"
+      @click="checkAdmin()"
+    />
+  </div>
 </template>
 
 <script lang="ts" setup>
-import { computed, ref } from "vue";
-import { usePopupStore } from "../stores/popupStore";
-import PDialog from "primevue/dialog";
-import PButton from "primevue/button";
-import PToast from "primevue/toast";
-import InputText from "primevue/inputtext";
 import { useRouter } from "vue-router";
 import { error } from "@/utils/toast";
+import { ref, inject } from "vue";
+
+import PButton from "primevue/button";
+
+import InputText from "primevue/inputtext";
 
 const router = useRouter();
-const popupStore = usePopupStore();
+const login = ref("");
+const password = ref("");
+const dialogRef = inject<any>("dialogRef");
 
-const displayAdminPopup = computed(() => popupStore.isPopupVisible);
+const checkAdminValidation = (): boolean => {
+  let isRecordValidated = false;
 
-const newRecord = ref({} as Record<string, string>);
-const isRecordValidated = ref(false);
-
-const checkAdminValidation = () => {
-  isRecordValidated.value = false;
-  if (newRecord.value.login !== "symptom") {
-    return error("Ошибка", "Неверный логин или пароль");
+  if (login.value !== "symptom") {
+    error("Ошибка", "Неверный логин или пароль");
+    return isRecordValidated;
   }
-  if (newRecord.value.password !== "adam") {
-    return error("Ошибка", "Неверный логин или пароль");
+
+  if (password.value !== "adam") {
+    error("Ошибка", "Неверный логин или пароль");
+    return isRecordValidated;
   }
-  isRecordValidated.value = true;
+
+  isRecordValidated = true;
+  return isRecordValidated;
 };
 
 const checkAdmin = () => {
-  checkAdminValidation();
-  if (isRecordValidated.value) {
+  if (checkAdminValidation()) {
     router.push({
       name: "admin",
     });
-    hidePopup();
+    dialogRef.value.close();
   }
-};
-
-const hidePopup = () => {
-  newRecord.value = {};
-  popupStore.closePopup();
 };
 </script>
 
@@ -92,6 +67,6 @@ const hidePopup = () => {
 }
 
 .popup h3 {
-  margin-bottom: 10px;
+  margin: 10px 0px;
 }
 </style>

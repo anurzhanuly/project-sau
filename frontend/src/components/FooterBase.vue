@@ -1,5 +1,4 @@
 <template>
-  <admin-login-popup />
   <footer class="footer">
     <div class="footer__logo" />
     <div>
@@ -8,16 +7,33 @@
       <p>
         Почта: <a href="mailto:symptom.kz@gmail.com">symptom.kz@gmail.com</a>
       </p>
-      <p @click="popupStore.openPopup">Админ</p>
+      <p @click="openAdminLoginPopup">Админ</p>
     </div>
   </footer>
+  <dynamic-dialog />
+  <p-toast />
 </template>
 
 <script lang="ts" setup>
-import { usePopupStore } from "../stores/popupStore";
 import AdminLoginPopup from "./AdminLoginPopup.vue";
 
-const popupStore = usePopupStore();
+import { useDialog } from "primevue/usedialog";
+import DynamicDialog from "primevue/dynamicdialog";
+import PToast from "primevue/toast";
+
+const dialog = useDialog();
+
+function openAdminLoginPopup() {
+  dialog.open(AdminLoginPopup, {
+    props: {
+      header: "Введите логин и пароль",
+      style: {
+        width: "500px",
+      },
+      modal: true,
+    },
+  });
+}
 </script>
 
 <style scoped>
