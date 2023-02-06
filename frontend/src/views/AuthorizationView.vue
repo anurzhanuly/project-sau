@@ -71,13 +71,13 @@ onMounted(() => {
   adminStore.getClinicsData();
 });
 
-const firstName = ref();
-const lastName = ref();
-const middleName = ref();
-const phone = ref();
-const сlinic = ref();
-const doctor = ref();
-const userData = ref();
+const firstName = ref("");
+const lastName = ref("");
+const middleName = ref("");
+const phone = ref("");
+const сlinic = ref("");
+const doctor = ref("");
+const userData = ref({});
 
 const allClinics = computed(() => adminStore.allClinics);
 const allDoctors = computed(() => adminStore.allDoctors);
