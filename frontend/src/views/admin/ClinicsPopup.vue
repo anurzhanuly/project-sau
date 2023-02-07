@@ -1,65 +1,47 @@
 <template>
-  <p-dialog
-    v-model:visible="displayClinicsPopup"
-    modal
-    draggable
-    :closable="false"
-    header="Добавление новой клиники"
-    :style="{ width: '50vw' }"
-  >
-    <div class="popup">
-      <div v-for="(column, idx) in clinicsColumns" :key="idx">
-        <div v-if="column.field === 'city'">
-          <h3>{{ column.header }}</h3>
-          <dropdown
-            v-model="newRecord[column.field]"
-            :options="column?.options"
-            option-value="value"
-            option-label="value"
-            placeholder="Выберите..."
-            filter-placeholder="Поиск"
-            filter
-            lazy
-            style="width: 250px"
-            :empty-filter-message="'Ничего не найдено'"
-            :empty-message="'Ничего не найдено'"
-          />
-        </div>
-        <div v-else-if="column.header !== 'Удаление'">
-          <h3>{{ column.header }}</h3>
-          <input-text v-model="newRecord[column.field]" style="width: 100%" />
-        </div>
+  <div class="popup">
+    <div v-for="(column, idx) in clinicsColumns" :key="idx">
+      <div v-if="column.field === 'city'">
+        <h3>{{ column.header }}</h3>
+        <dropdown
+          v-model="newRecord[column.field]"
+          :options="column?.options"
+          option-value="value"
+          option-label="value"
+          placeholder="Выберите..."
+          filter-placeholder="Поиск"
+          filter
+          lazy
+          style="width: 250px"
+          :empty-filter-message="'Ничего не найдено'"
+          :empty-message="'Ничего не найдено'"
+        />
+      </div>
+      <div v-else-if="column.header !== 'Удаление'">
+        <h3>{{ column.header }}</h3>
+        <input-text v-model="newRecord[column.field]" style="width: 100%" />
       </div>
     </div>
-    <template #footer>
-      <p-button
-        label="Создать"
-        class="p-button-success"
-        @click="createClinic"
-      />
-      <p-button label="Закрыть" @click="popupStore.closePopup()" />
-    </template>
-  </p-dialog>
+    <p-button label="Создать" class="p-button-success" @click="createClinic" />
+  </div>
 </template>
 
 <script lang="ts" setup>
-import PDialog from "primevue/dialog";
 import PButton from "primevue/button";
 import Dropdown from "primevue/dropdown";
 import InputText from "primevue/inputtext";
-import { usePopupStore } from "@/stores/popupStore";
+import { createPopupFields } from "@/utils/popUp";
 import { useAdminStore } from "@/stores/adminStore";
-import { computed, ref } from "vue";
+import { computed, ref, inject } from "vue";
 import type { Clinics } from "@/types/clinics";
 import { error, success } from "@/utils/toast";
 
-const popupStore = usePopupStore();
 const adminStore = useAdminStore();
-const displayClinicsPopup = computed(() => popupStore.isPopupVisible);
+const dialogRef = inject<any>("dialogRef");
 const clinicsColumns = computed(() => adminStore.clinicsColumns);
 
 const newRecord = ref(
-  popupStore.createPopupFields(
+  createPopupFields(
     clinicsColumns.value.filter(el => el.header !== "Удаление"),
   ),
 );
@@ -69,7 +51,7 @@ function createClinic() {
     const res = { ...newRecord.value } as unknown as Clinics;
     adminStore.createClinicData(res);
     success("Успешно", "Клиника добавлена, не забудьте сохранить");
-    popupStore.closePopup();
+    dialogRef.value.close();
   }
 }
 

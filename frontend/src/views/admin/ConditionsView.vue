@@ -146,7 +146,6 @@
       </div>
     </div>
   </section>
-  <create-conditions-popup-component />
 </template>
 
 <script lang="ts" setup>
@@ -166,16 +165,16 @@ import PTextarea from "primevue/textarea";
 import Dropdown from "primevue/dropdown";
 import { useConfirm } from "primevue/useconfirm";
 import { useAdminStore } from "../../stores/adminStore";
-import { usePopupStore } from "../../stores/popupStore";
-import CreateConditionsPopupComponent from "./CreateConditionsPopupComponent.vue";
+import CreateConditionsPopup from "./CreateConditionsPopup.vue";
 import axios from "axios";
 import type { Condition, Recommendation } from "@/types/recommendations";
 import type { Error } from "@/types/response";
+import { useDialog } from "primevue/usedialog";
 import { error, success } from "@/utils/toast";
 
 const confirm = useConfirm();
 const adminStore = useAdminStore();
-const popupStore = usePopupStore();
+const dialog = useDialog();
 
 const checkedRecommendationName = ref("");
 const checkedRecommendationObj = ref({} as Recommendation);
@@ -208,7 +207,15 @@ const createRecommendation = () => {
 const createConditionItem = (conditionIndex: number) => {
   adminStore.checkedRecommendationName = checkedRecommendationName.value;
   adminStore.conditionIndex = conditionIndex;
-  popupStore.openPopup();
+  dialog.open(CreateConditionsPopup, {
+    props: {
+      header: "Создание нового условия",
+      style: {
+        width: "50%",
+      },
+      modal: true,
+    },
+  });
 };
 
 const createCondition = () => {
