@@ -73,3 +73,19 @@ function checkClinicRecValidation() {
   return isValidated;
 }
 </script>
+
+<style scoped>
+.popup {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 30px;
+}
+
+.popup h3 {
+  margin-bottom: 10px;
+}
+
+.p-dropdown-items-wrapper {
+  max-width: 200px !important;
+}
+</style>

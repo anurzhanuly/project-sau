@@ -161,7 +161,7 @@ const hidePopup = () => {
 };
 </script>
 
-<style>
+<style scoped>
 .popup {
   display: grid;
   grid-template-columns: repeat(2, 1fr);

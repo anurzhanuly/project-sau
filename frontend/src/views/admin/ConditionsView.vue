@@ -211,7 +211,7 @@ const createConditionItem = (conditionIndex: number) => {
     props: {
       header: "Создание нового условия",
       style: {
-        width: "1000px",
+        width: "50%",
       },
       modal: true,
     },

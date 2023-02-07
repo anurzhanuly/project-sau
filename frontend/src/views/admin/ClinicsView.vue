@@ -138,7 +138,7 @@ function openClinicsPopup() {
     props: {
       header: "Добавление новой клиники",
       style: {
-        width: "660px",
+        width: "30%",
       },
       modal: true,
     },

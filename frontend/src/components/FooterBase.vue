@@ -28,7 +28,7 @@ function openAdminLoginPopup() {
     props: {
       header: "Введите логин и пароль",
       style: {
-        width: "500px",
+        width: "25%",
       },
       modal: true,
     },
