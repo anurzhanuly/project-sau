@@ -1,13 +1,11 @@
-import axios, { AxiosError } from "axios";
+import { useApi } from "@/services/api";
+import type { AxiosError } from "axios";
 
 export const postAnswers = async (answers: {
   answers: Record<string, string[]>;
 }) => {
   try {
-    const res = axios.post(
-      "https://project-sau.herokuapp.com/diseases/recommendations",
-      answers,
-    );
+    const res = useApi.post("/diseases/recommendations", answers);
 
     return res;
   } catch (error) {
