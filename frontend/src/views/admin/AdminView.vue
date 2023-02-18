@@ -5,8 +5,8 @@
 
 <script lang="ts" setup>
 import { useAdminStore } from "@/stores/adminStore";
-import TabMenu from "primevue/tabmenu";
 import { onMounted, ref } from "vue";
+import TabMenu from "primevue/tabmenu";
 
 const adminStore = useAdminStore();
 

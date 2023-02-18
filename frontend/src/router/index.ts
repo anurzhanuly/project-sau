@@ -30,6 +30,21 @@ const router = createRouter({
       component: () => import("@/views/SurveyLibView.vue"),
     },
     {
+      path: "/patientcab",
+      name: "patientcab",
+      component: () => import("@/views/PatientCabView.vue"),
+      children: [
+        {
+          path: "main",
+          component: () => import("@/views/PatientCabMainView.vue"),
+        },
+        {
+          path: "settings",
+          component: () => import("@/views/PatientCabSettingsView.vue"),
+        },
+      ],
+    },
+    {
       path: "/admin",
       name: "admin",
       component: () => import("@/views/admin/AdminView.vue"),
@@ -53,6 +68,25 @@ const router = createRouter({
         {
           path: "clinics",
           component: () => import("@/views/admin/ClinicsView.vue"),
+        },
+      ],
+    },
+    {
+      path: "/cabinet",
+      name: "cabinet",
+      component: () => import("@/views/cabinet/CabinetView.vue"),
+      children: [
+        {
+          path: "main",
+          component: () => import("@/views/cabinet/CabinetMain.vue"),
+        },
+        {
+          path: "patients",
+          component: () => import("@/views/cabinet/CabinetPatients.vue"),
+        },
+        {
+          path: "settings",
+          component: () => import("@/views/cabinet/CabinetSettings.vue"),
         },
       ],
     },

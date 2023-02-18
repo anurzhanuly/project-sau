@@ -297,6 +297,6 @@ export const useAdminStore = defineStore("admin", () => {
     createConditionInRec,
     saveConditionsData,
     saveRecommendationsData,
-    deleteDiseaseById
+    deleteDiseaseById,
   };
 });

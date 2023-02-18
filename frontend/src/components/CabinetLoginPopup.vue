@@ -14,7 +14,7 @@
       class="p-button-success"
       autofocus
       style="margin-top: 20px; width: 100%"
-      @click="checkAdmin()"
+      @click="check()"
     />
   </div>
 </template>
@@ -33,7 +33,7 @@ const login = ref("");
 const password = ref("");
 const dialogRef = inject<any>("dialogRef");
 
-const checkAdminValidation = (): boolean => {
+const validation = (): boolean => {
   if (login.value !== "symptom") {
     error("Ошибка", "Неверный логин или пароль");
     return false;
@@ -47,10 +47,10 @@ const checkAdminValidation = (): boolean => {
   return true;
 };
 
-const checkAdmin = () => {
-  if (checkAdminValidation()) {
+const check = () => {
+  if (validation()) {
     router.push({
-      name: "admin",
+      name: "cabinet",
     });
     dialogRef.value.close();
   }
