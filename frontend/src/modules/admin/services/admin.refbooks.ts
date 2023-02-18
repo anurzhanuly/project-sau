@@ -4,14 +4,12 @@ import type {
   ResRecommendation,
 } from "@/modules/admin/types/recommendations";
 import type { Error } from "@/types/response";
-import axios, { AxiosError } from "axios";
+import type { AxiosError } from "axios";
+import { useApi } from "@/services/api";
 
 export const getQuestionsJson = async () => {
   try {
-    const res = axios.get<ResQuestions>(
-      "https://project-sau.herokuapp.com/questionnaires/id/114",
-    );
-
+    const res = useApi.get<ResQuestions>("/questionnaires/id/114");
     return res;
   } catch (error) {
     const err = error as AxiosError<Error>;
@@ -22,10 +20,7 @@ export const getQuestionsJson = async () => {
 
 export const postQuestionsJson = async (questions: ResQuestions) => {
   try {
-    const res = axios.post(
-      "https://project-sau.herokuapp.com/questionnaires/add",
-      questions,
-    );
+    const res = useApi.post("/questionnaires/add", questions);
 
     return res;
   } catch (error) {
@@ -37,9 +32,7 @@ export const postQuestionsJson = async (questions: ResQuestions) => {
 
 export const getRecommendationsJson = async () => {
   try {
-    const res = axios.get<ResRecommendation>(
-      "https://project-sau.herokuapp.com/admin/v1/recommendations",
-    );
+    const res = useApi.get<ResRecommendation>("/admin/v1/recommendations");
 
     return res;
   } catch (error) {
@@ -51,10 +44,7 @@ export const getRecommendationsJson = async () => {
 
 export const putRecommendationsObj = async (newRec: Recommendation) => {
   try {
-    const res = axios.post(
-      "https://project-sau.herokuapp.com/admin/v1/diseases/add",
-      newRec,
-    );
+    const res = useApi.post("/admin/v1/diseases/add", newRec);
 
     return res;
   } catch (error) {
@@ -66,8 +56,8 @@ export const putRecommendationsObj = async (newRec: Recommendation) => {
 
 export const deleteDisease = async (deleteRec: Recommendation) => {
   try {
-    const res = axios.post<ResRecommendation>(
-      "https://project-sau.herokuapp.com/admin/v1/diseases/delete",
+    const res = useApi.post<ResRecommendation>(
+      "/admin/v1/diseases/delete",
       deleteRec,
     );
     return res;

@@ -1,15 +1,12 @@
 import type { ResQuestions } from "@/modules/admin/types/questions";
+import { useApi } from "@/services/api";
 import type { AxiosError, AxiosResponse } from "axios";
-import axios from "axios";
 
 export const changeQuestionsJson = async (
   questions: ResQuestions,
 ): Promise<AxiosError | AxiosResponse> => {
   try {
-    const res = axios.put(
-      "https://project-sau.herokuapp.com/questionnaires/update",
-      questions,
-    );
+    const res = useApi.put("/questionnaires/update", questions);
 
     return res;
   } catch (error) {

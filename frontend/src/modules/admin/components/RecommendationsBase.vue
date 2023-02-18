@@ -48,15 +48,15 @@ const { allRecommendations, checkedRecommendationName } =
 .label {
   display: block;
   border: 1px solid #879aac;
-  border-radius: 10px;
-  margin-top: 10px;
+  margin-top: 5px;
   padding: 20px;
   font-weight: 400;
   cursor: pointer;
+  background-color: #ffffff;
 }
 
 .checked {
-  background: #689be7;
-  color: #fff;
+  background: #eef5fb;
+  border-right: 3px solid #276ef1;
 }
 </style>
