@@ -41,8 +41,8 @@ const router = createRouter({
         {
           path: "settings",
           component: () => import("@/views/PatientCabSettingsView.vue"),
-        }
-      ]
+        },
+      ],
     },
     {
       path: "/admin",
