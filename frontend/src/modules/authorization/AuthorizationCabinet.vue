@@ -85,7 +85,7 @@ const allDoctors = computed(() => adminStore.allDoctors);
 const goToSurvey = () => {
   if (validateForm()) {
     router.push({
-      path: "/surveylib",
+      path: "/survey",
     });
   }
 };

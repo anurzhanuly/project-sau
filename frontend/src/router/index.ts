@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
-import HomeView from "@/views/HomeView.vue";
+import MainBar from "@/modules/main/components/MainBar.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -7,17 +7,13 @@ const router = createRouter({
     {
       path: "/",
       name: "home",
-      component: HomeView,
+      component: MainBar,
     },
     {
       path: "/authorization",
       name: "authorization",
-      component: () => import("@/views/AuthorizationView.vue"),
-    },
-    {
-      path: "/survey",
-      name: "survey",
-      component: () => import("@/views/SurveyView.vue"),
+      component: () =>
+        import("@/modules/authorization/AuthorizationCabinet.vue"),
     },
     {
       path: "/result",
@@ -25,9 +21,9 @@ const router = createRouter({
       component: () => import("@/views/ResultView.vue"),
     },
     {
-      path: "/surveylib",
-      name: "surveylib",
-      component: () => import("@/views/SurveyLibView.vue"),
+      path: "/survey",
+      name: "survey",
+      component: () => import("@/modules/survey/SurveyLibrary.vue"),
     },
     {
       path: "/patientcab",
@@ -74,19 +70,22 @@ const router = createRouter({
     {
       path: "/cabinet",
       name: "cabinet",
-      component: () => import("@/views/cabinet/CabinetView.vue"),
+      component: () => import("@/modules/doctorCabinet/DoctorCabinet.vue"),
       children: [
         {
           path: "main",
-          component: () => import("@/views/cabinet/CabinetMain.vue"),
+          component: () =>
+            import("@/modules/doctorCabinet/views/DoctorCabinetMain.vue"),
         },
         {
           path: "patients",
-          component: () => import("@/views/cabinet/CabinetPatients.vue"),
+          component: () =>
+            import("@/modules/doctorCabinet/views/DoctorCabinetPatients.vue"),
         },
         {
           path: "settings",
-          component: () => import("@/views/cabinet/CabinetSettings.vue"),
+          component: () =>
+            import("@/modules/doctorCabinet/views/DoctorCabinetSettings.vue"),
         },
       ],
     },

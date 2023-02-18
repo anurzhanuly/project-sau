@@ -16,8 +16,8 @@
 </template>
 
 <script lang="ts" setup>
-import AdminLoginPopup from "./AdminLoginPopup.vue";
-import CabinetLoginPopup from "./CabinetLoginPopup.vue";
+import AdminLogin from "../popup/AdminLogin.vue";
+import CabinetLogin from "../popup/CabinetLogin.vue";
 
 import { useDialog } from "primevue/usedialog";
 import DynamicDialog from "primevue/dynamicdialog";
@@ -26,7 +26,7 @@ import PToast from "primevue/toast";
 const dialog = useDialog();
 
 function openAdminLoginPopup() {
-  dialog.open(AdminLoginPopup, {
+  dialog.open(AdminLogin, {
     props: {
       header: "Введите логин и пароль",
       style: {
@@ -38,7 +38,7 @@ function openAdminLoginPopup() {
 }
 
 function openCabinetLoginPopup() {
-  dialog.open(CabinetLoginPopup, {
+  dialog.open(CabinetLogin, {
     props: {
       header: "Введите логин и пароль",
       style: {
@@ -60,7 +60,7 @@ function openCabinetLoginPopup() {
 }
 
 .footer__logo {
-  background-image: url("../assets/symptom.png");
+  background-image: url("@/assets/symptom.png");
   background-position: 50%;
   background-repeat: no-repeat;
   background-size: contain;

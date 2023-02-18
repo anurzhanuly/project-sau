@@ -10,7 +10,7 @@ import { computed } from "vue";
 import "survey-core/survey.i18n";
 import { onMounted } from "vue";
 import { useRouter } from "vue-router";
-import { useSurveyStore } from "../stores/surveyStore.js";
+import { useSurveyStore } from "./store/survey.store.js";
 
 const router = useRouter();
 const surveyStore = useSurveyStore();

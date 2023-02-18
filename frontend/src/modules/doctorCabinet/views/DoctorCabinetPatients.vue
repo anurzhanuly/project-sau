@@ -29,7 +29,7 @@
 </template>
 
 <script setup lang="ts">
-import { useCabinetStore } from "@/stores/cabinetStore";
+import { useCabinetStore } from "@/modules/doctorCabinet/store/cabinet.store";
 import { computed } from "vue";
 
 import DataTable from "primevue/datatable";

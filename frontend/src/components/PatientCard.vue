@@ -627,7 +627,7 @@
 
 <script lang="ts" setup>
 import { computed, ref } from "vue";
-import { useSurveyStore } from "../stores/surveyStore";
+import { useSurveyStore } from "../modules/survey/store/survey.store";
 
 const surveyStore = useSurveyStore();
 

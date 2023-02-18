@@ -2,7 +2,7 @@
   <div class="pages-main">
     <div class="pages-nav">
       <label
-        v-for="(page, index) in cabinetPages"
+        v-for="(page, index) in cabinetViews"
         :key="index"
         :for="`${index}`"
         class="label"
@@ -36,8 +36,8 @@ onMounted(() => {
 });
 
 const router = useRouter();
-const selectedPage = ref("Главная");
-const cabinetPages = ref([
+const selectedPage = ref<any>("Главная");
+const cabinetViews = ref([
   {
     label: "Главная",
     icon: "pi pi-fw pi-book",

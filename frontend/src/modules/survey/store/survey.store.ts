@@ -1,16 +1,16 @@
 import { defineStore } from "pinia";
+import { postAnswers } from "../services/survey.refbooks";
+import { getQuestionsJson } from "../../../services/admin.js";
+import type { QuestionsContent } from "../types/survey";
 import axios from "axios";
 import { ref } from "vue";
-import { postAnswers } from "../services/survey.js";
-import { getQuestionsJson } from "../services/admin.js";
-import type { QuestionsContent } from "@/types/questions.js";
 
 export const useSurveyStore = defineStore("survey", () => {
-  const resultAnswers = ref({} as Record<string, string[]>);
-  const questions = ref({} as QuestionsContent);
+  const resultAnswers = ref<Record<string, string[]>>();
+  const questions = ref<QuestionsContent>();
   const recommendations = ref([
     {
-      name: "Короче,нет ничего",
+      name: "Короче, нет ничего",
       tests: ["Вы здоровы"],
       recommendations: ["Вы здоровы"],
       importance: "",

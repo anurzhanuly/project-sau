@@ -30,7 +30,7 @@
 
 <script lang="ts" setup>
 import { onMounted } from "vue";
-import { useSurveyStore } from "../stores/surveyStore.js";
+import { useSurveyStore } from "../../survey/store/survey.store.js";
 import { useRouter } from "vue-router";
 
 const router = useRouter();
@@ -60,7 +60,7 @@ const goToAuthorization = () => {
 }
 
 .image-book {
-  background-image: url("../assets/info-icon.svg");
+  background-image: url("@/assets/info-icon.svg");
   background-position: 50%;
   background-repeat: no-repeat;
   background-size: contain;
@@ -136,7 +136,7 @@ const goToAuthorization = () => {
 
 .section-welcome .image-welcome {
   z-index: 1;
-  background-image: url("../assets/welcome-small.svg");
+  background-image: url("@/assets/welcome-small.svg");
   height: 212px;
   width: 304px;
   background-position: 50%;

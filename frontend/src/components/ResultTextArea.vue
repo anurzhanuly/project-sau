@@ -35,7 +35,7 @@
 </template>
 
 <script lang="ts" setup>
-import { useSurveyStore } from "../stores/surveyStore";
+import { useSurveyStore } from "../modules/survey/store/survey.store";
 import { ref, computed } from "vue";
 import PTextarea from "primevue/textarea";
 import PButton from "primevue/button";

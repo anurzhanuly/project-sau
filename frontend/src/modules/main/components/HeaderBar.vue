@@ -1,7 +1,7 @@
 <template>
   <header class="header">
     <RouterLink to="/">
-      <img src="../assets/logo.png" alt="logo" height="30" width="160" />
+      <img src="@/assets/logo.png" alt="logo" height="30" width="160" />
     </RouterLink>
   </header>
 </template>

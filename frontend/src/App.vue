@@ -1,14 +1,11 @@
 <template>
   <div class="wrapper">
-    <toolbar-base />
-    <main class="main"><router-view /></main>
-    <footer-base />
+    <main-screen />
   </div>
 </template>
 
 <script lang="ts" setup>
-import ToolbarBase from "@/components/ToolbarBase.vue";
-import FooterBase from "@/components/FooterBase.vue";
+import MainScreen from "./modules/main/MainScreen.vue";
 </script>
 
 <style>
@@ -40,16 +37,12 @@ li {
 }
 
 .wrapper {
-  /* max-width: 1200px; */
+  max-width: 1500px;
   padding: 0 30px;
   margin: 0 auto;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-}
-
-.main {
-  flex: 1 1 auto;
 }
 
 @media (max-width: 580px) {
