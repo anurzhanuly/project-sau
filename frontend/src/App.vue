@@ -40,7 +40,7 @@ li {
 }
 
 .wrapper {
-  max-width: 1200px;
+  /* max-width: 1200px; */
   padding: 0 30px;
   margin: 0 auto;
   min-height: 100vh;

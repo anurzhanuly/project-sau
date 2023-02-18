@@ -30,6 +30,21 @@ const router = createRouter({
       component: () => import("@/views/SurveyLibView.vue"),
     },
     {
+      path: "/patientcab",
+      name: "patientcab",
+      component: () => import("@/views/PatientCabView.vue"),
+      children: [
+        {
+          path: "main",
+          component: () => import("@/views/PatientCabMainView.vue"),
+        },
+        {
+          path: "settings",
+          component: () => import("@/views/PatientCabSettingsView.vue"),
+        }
+      ]
+    },
+    {
       path: "/admin",
       name: "admin",
       component: () => import("@/views/admin/AdminView.vue"),
