@@ -1,92 +1,104 @@
 import { createRouter, createWebHistory } from "vue-router";
-import HomeView from "@/views/HomeView.vue";
+import MainBar from "@/modules/main/components/MainBar.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: "/",
-      name: "home",
-      component: HomeView,
+      name: "main",
+      component: MainBar,
     },
     {
       path: "/authorization",
       name: "authorization",
-      component: () => import("@/views/AuthorizationView.vue"),
-    },
-    {
-      path: "/survey",
-      name: "survey",
-      component: () => import("@/views/SurveyView.vue"),
+      component: () =>
+        import("@/modules/authorization/AuthorizationCabinet.vue"),
     },
     {
       path: "/result",
       name: "result",
-      component: () => import("@/views/ResultView.vue"),
+      component: () => import("@/modules/result/ResultCabinet.vue"),
     },
     {
-      path: "/surveylib",
-      name: "surveylib",
-      component: () => import("@/views/SurveyLibView.vue"),
+      path: "/survey",
+      name: "survey",
+      component: () => import("@/modules/survey/SurveyLibrary.vue"),
     },
     {
       path: "/patientcab",
       name: "patientcab",
-      component: () => import("@/views/PatientCabView.vue"),
+      component: () => import("@/modules/patientsCabinet/PatientCabinet.vue"),
       children: [
         {
           path: "main",
-          component: () => import("@/views/PatientCabMainView.vue"),
+          component: () =>
+            import("@/modules/patientsCabinet/views/PatientCabinetMain.vue"),
         },
         {
           path: "settings",
-          component: () => import("@/views/PatientCabSettingsView.vue"),
+          component: () =>
+            import(
+              "@/modules/patientsCabinet/views/PatientCabinetSettings.vue"
+            ),
         },
       ],
     },
     {
       path: "/admin",
       name: "admin",
-      component: () => import("@/views/admin/AdminView.vue"),
+      component: () => import("@/modules/admin/AdminCabinet.vue"),
       children: [
         {
           path: "quest",
-          component: () => import("@/views/admin/QuestionsView.vue"),
+          component: () =>
+            import("@/modules/admin/views/changeQuestions/ChangeQuestions.vue"),
         },
         {
           path: "cond",
-          component: () => import("@/views/admin/ConditionsView.vue"),
+          component: () =>
+            import("@/modules/admin/views/conditions/AdminConditions.vue"),
         },
         {
           path: "recom",
-          component: () => import("@/views/admin/RecommendationsView.vue"),
+          component: () =>
+            import(
+              "@/modules/admin/views/recomindations/ChangeRecommendations.vue"
+            ),
         },
         {
           path: "magic",
-          component: () => import("@/views/admin/ConditionsNameView.vue"),
+          component: () =>
+            import(
+              "@/modules/admin/views/changeQuestionsName/ChangeConditionsName.vue"
+            ),
         },
         {
           path: "clinics",
-          component: () => import("@/views/admin/ClinicsView.vue"),
+          component: () =>
+            import("@/modules/admin/views/clinics/ClinicsLists.vue"),
         },
       ],
     },
     {
       path: "/cabinet",
       name: "cabinet",
-      component: () => import("@/views/cabinet/CabinetView.vue"),
+      component: () => import("@/modules/doctorCabinet/DoctorCabinet.vue"),
       children: [
         {
           path: "main",
-          component: () => import("@/views/cabinet/CabinetMain.vue"),
+          component: () =>
+            import("@/modules/doctorCabinet/views/DoctorCabinetMain.vue"),
         },
         {
           path: "patients",
-          component: () => import("@/views/cabinet/CabinetPatients.vue"),
+          component: () =>
+            import("@/modules/doctorCabinet/views/DoctorCabinetPatients.vue"),
         },
         {
           path: "settings",
-          component: () => import("@/views/cabinet/CabinetSettings.vue"),
+          component: () =>
+            import("@/modules/doctorCabinet/views/DoctorCabinetSettings.vue"),
         },
       ],
     },
