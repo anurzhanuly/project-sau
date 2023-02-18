@@ -8,6 +8,7 @@
         Почта: <a href="mailto:symptom.kz@gmail.com">symptom.kz@gmail.com</a>
       </p>
       <p @click="openAdminLoginPopup">Админ</p>
+      <p @click="openCabinetLoginPopup">Кабинет врача</p>
     </div>
   </footer>
   <dynamic-dialog />
@@ -16,6 +17,7 @@
 
 <script lang="ts" setup>
 import AdminLoginPopup from "./AdminLoginPopup.vue";
+import CabinetLoginPopup from "./CabinetLoginPopup.vue";
 
 import { useDialog } from "primevue/usedialog";
 import DynamicDialog from "primevue/dynamicdialog";
@@ -25,6 +27,18 @@ const dialog = useDialog();
 
 function openAdminLoginPopup() {
   dialog.open(AdminLoginPopup, {
+    props: {
+      header: "Введите логин и пароль",
+      style: {
+        width: "25%",
+      },
+      modal: true,
+    },
+  });
+}
+
+function openCabinetLoginPopup() {
+  dialog.open(CabinetLoginPopup, {
     props: {
       header: "Введите логин и пароль",
       style: {

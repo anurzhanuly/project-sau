@@ -97,7 +97,7 @@ export const deleteDisease = async (deleteRec: Recommendation) => {
   try {
     const res = axios.post<ResRecommendation>(
       "https://project-sau.herokuapp.com/admin/v1/diseases/delete",
-      deleteRec
+      deleteRec,
     );
     return res;
   } catch (error) {
@@ -105,4 +105,4 @@ export const deleteDisease = async (deleteRec: Recommendation) => {
     console.log(error);
     return err;
   }
-}
+};

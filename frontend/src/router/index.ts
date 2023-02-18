@@ -56,6 +56,25 @@ const router = createRouter({
         },
       ],
     },
+    {
+      path: "/cabinet",
+      name: "cabinet",
+      component: () => import("@/views/cabinet/CabinetView.vue"),
+      children: [
+        {
+          path: "main",
+          component: () => import("@/views/cabinet/CabinetMain.vue"),
+        },
+        {
+          path: "patients",
+          component: () => import("@/views/cabinet/CabinetPatients.vue"),
+        },
+        {
+          path: "settings",
+          component: () => import("@/views/cabinet/CabinetSettings.vue"),
+        },
+      ],
+    },
   ],
 });
 
