@@ -7,15 +7,18 @@ import {
   putRecommendationsObj,
   deleteDisease,
 } from "../../../services/admin.js";
-import type { Condition, Recommendation } from "@/types/recommendations.js";
-import type { Questions } from "@/types/questions.js";
+import type {
+  Condition,
+  Recommendation,
+} from "@/modules/admin/types/recommendations.js";
+import type { Questions } from "@/modules/admin/types/questions.js";
 
 export const useAdminStore = defineStore("admin", () => {
-  const allRecommendations = ref([] as Recommendation[]);
+  const allRecommendations = ref<Recommendation[]>([]);
+  const checkedRecommendationName = ref<any>();
 
   const questions = ref([] as Questions[]);
   const questionsNames = ref([] as { value: string }[]);
-  const checkedRecommendationName = ref("");
   const conditionIndex = ref(0);
   const conditionColumns = [
     {

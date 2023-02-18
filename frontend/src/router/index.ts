@@ -52,7 +52,7 @@ const router = createRouter({
         {
           path: "quest",
           component: () =>
-            import("@/modules/admin/views/questions/ChangeQuestions.vue"),
+            import("@/modules/admin/views/changeQuestions/ChangeQuestions.vue"),
         },
         {
           path: "cond",
@@ -61,16 +61,22 @@ const router = createRouter({
         },
         {
           path: "recom",
-          component: () => import("@/views/admin/RecommendationsView.vue"),
+          component: () =>
+            import(
+              "@/modules/admin/views/recomindations/ChangeRecommendations.vue"
+            ),
         },
         {
           path: "magic",
-          component: () => import("@/views/admin/ConditionsNameView.vue"),
+          component: () =>
+            import(
+              "@/modules/admin/views/changeQuestionsName/ChangeConditionsName.vue"
+            ),
         },
         {
           path: "clinics",
           component: () =>
-            import("@/modules/admin/views/clinics/AdminClinics.vue"),
+            import("@/modules/admin/views/clinics/ClinicsLists.vue"),
         },
       ],
     },

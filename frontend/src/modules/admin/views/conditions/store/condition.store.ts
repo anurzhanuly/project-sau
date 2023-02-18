@@ -1,5 +1,5 @@
 import { getQuestionsJson } from "../services/condition.refbooks";
-import type { Questions } from "@/types/questions";
+import type { Questions } from "@/modules/admin/types/questions";
 import { defineStore } from "pinia";
 import axios from "axios";
 import { computed, ref } from "vue";

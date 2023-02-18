@@ -1,8 +1,8 @@
-import type { ResQuestions } from "@/types/questions";
+import type { ResQuestions } from "@/modules/admin/types/questions";
 import type {
   Recommendation,
   ResRecommendation,
-} from "@/types/recommendations";
+} from "@/modules/admin/types/recommendations";
 import type { Error } from "@/types/response";
 import axios, { AxiosError } from "axios";
 

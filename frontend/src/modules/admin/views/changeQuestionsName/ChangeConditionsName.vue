@@ -45,7 +45,6 @@ import { useAdminStore } from "@/modules/admin/stores/admin.store";
 import { useConfirm } from "primevue/useconfirm";
 
 const confirm = useConfirm();
-
 const adminStore = useAdminStore();
 
 const beforeQuestName = ref("");

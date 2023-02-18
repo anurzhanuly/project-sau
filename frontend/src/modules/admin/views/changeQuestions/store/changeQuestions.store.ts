@@ -1,5 +1,5 @@
-import { changeQuestionsJson } from "../services/questitons.refbooks";
-import type { ResQuestions } from "@/types/questions";
+import { changeQuestionsJson } from "../services/changeQuestions.refbooks";
+import type { ResQuestions } from "@/modules/admin/types/questions";
 import { defineStore } from "pinia";
 
 export const useQuestionsStore = defineStore("questions", () => {

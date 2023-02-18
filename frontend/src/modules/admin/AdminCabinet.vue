@@ -4,11 +4,13 @@
 </template>
 
 <script lang="ts" setup>
+import { useClinicsStore } from "@/modules/admin/views/clinics/store/clinics.store";
 import { useAdminStore } from "@/modules/admin/stores/admin.store";
 import { onMounted, ref } from "vue";
 import TabMenu from "primevue/tabmenu";
 
 const adminStore = useAdminStore();
+const clinicsStore = useClinicsStore();
 
 onMounted(() => {
   if (!adminStore.allRecommendations.length) {
@@ -17,6 +19,10 @@ onMounted(() => {
 
   if (!adminStore.questions.length) {
     adminStore.getQuestionsData();
+  }
+
+  if (!clinicsStore.allClinics.length) {
+    clinicsStore.getClinicsData();
   }
 });
 

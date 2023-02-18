@@ -71,18 +71,22 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, ref, inject } from "vue";
+import type { Condition } from "@/modules/admin/types/recommendations";
 import { useAdminStore } from "@/modules/admin/stores/admin.store";
+import { createPopupFields } from "@/utils/popUp";
+import { error, success } from "@/utils/toast";
+import { computed, ref, inject } from "vue";
+
 import PMultiSelect from "primevue/multiselect";
 import PButton from "primevue/button";
 import Dropdown from "primevue/dropdown";
 import InputText from "primevue/inputtext";
-import type { Condition } from "@/types/recommendations";
-import { error, success } from "@/utils/toast";
-import { createPopupFields } from "@/utils/popUp";
 
 const adminStore = useAdminStore();
 const dialogRef = inject<any>("dialogRef");
+const conditionValue = ref<string>("");
+const isValueHasChoices = ref<boolean>(false);
+const valueOptions = ref<Record<string, string>[]>([]);
 
 const conditionColumns = computed(() => adminStore.conditionColumns);
 
@@ -91,10 +95,6 @@ const newRecord = ref(
     conditionColumns.value.filter(el => el.header !== "Удаление"),
   ),
 );
-
-const conditionValue = ref("");
-const isValueHasChoices = ref(false);
-const valueOptions = ref([] as Record<string, string>[]);
 
 const checkConditionRecValidation = () => {
   let isValidated = false;

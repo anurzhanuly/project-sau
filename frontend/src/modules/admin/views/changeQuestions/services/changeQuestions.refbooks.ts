@@ -1,4 +1,4 @@
-import type { ResQuestions } from "@/types/questions";
+import type { ResQuestions } from "@/modules/admin/types/questions";
 import type { AxiosError, AxiosResponse } from "axios";
 import axios from "axios";
 

@@ -11,8 +11,8 @@
 </template>
 
 <script lang="ts" setup>
-import type { QuestionsContent } from "@/types/questions";
-import { useQuestionsStore } from "./store/question.store";
+import type { QuestionsContent } from "@/modules/admin/types/questions";
+import { useQuestionsStore } from "./store/changeQuestions.store";
 import { ref } from "vue";
 
 import PTextarea from "primevue/textarea";

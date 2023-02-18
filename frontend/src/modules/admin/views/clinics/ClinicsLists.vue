@@ -111,7 +111,7 @@
 <script lang="ts" setup>
 import CreateClinic from "./popup/CreateClinic.vue";
 import { useClinicsStore } from "./store/clinics.store";
-import { ref, computed, onMounted } from "vue";
+import { ref, computed } from "vue";
 
 import DataTable, {
   type DataTableCellEditCompleteEvent,
@@ -124,21 +124,15 @@ import ConfirmPopup from "primevue/confirmpopup";
 import { useConfirm } from "primevue/useconfirm";
 import { useDialog } from "primevue/usedialog";
 
-const clinicStore = useClinicsStore();
+const clinicsStore = useClinicsStore();
 const dialog = useDialog();
 const confirm = useConfirm();
 const selectedClinic = ref();
 
-const clinicsColumns = computed(() => clinicStore.clinicsColumns);
-const doctorsColumns = computed(() => clinicStore.doctorsColumns);
-const allClinics = computed(() => clinicStore.allClinics);
-const allDoctors = computed(() => clinicStore.allDoctors);
-
-onMounted(() => {
-  if (!clinicStore.allClinics.length) {
-    clinicStore.getClinicsData();
-  }
-});
+const clinicsColumns = computed(() => clinicsStore.clinicsColumns);
+const doctorsColumns = computed(() => clinicsStore.doctorsColumns);
+const allClinics = computed(() => clinicsStore.allClinics);
+const allDoctors = computed(() => clinicsStore.allDoctors);
 
 function openClinicsPopup() {
   dialog.open(CreateClinic, {
@@ -155,14 +149,14 @@ function openClinicsPopup() {
 const onClinicCellEdit = async (event: DataTableCellEditCompleteEvent) => {
   const updated = { ...event.newData };
   if (event.newValue && event.value !== event.newValue) {
-    clinicStore.editLocalClinicsByIndex(event.index, updated);
+    clinicsStore.editLocalClinicsByIndex(event.index, updated);
   }
 };
 
 const onDoctorCellEdit = async (event: DataTableCellEditCompleteEvent) => {
   const updated = { ...event.newData };
   if (event.newValue && event.value !== event.newValue) {
-    clinicStore.editLocalDoctorByIndex(event.index, updated);
+    clinicsStore.editLocalDoctorByIndex(event.index, updated);
   }
 };
 
@@ -175,7 +169,7 @@ function confirmDeleteClinic(event: any) {
     icon: "pi pi-info-circle",
     acceptClass: "p-button-danger",
     accept: () => {
-      clinicStore.deleteClinicByIndex(selectedClinic.value);
+      clinicsStore.deleteClinicByIndex(selectedClinic.value);
     },
   });
 }
