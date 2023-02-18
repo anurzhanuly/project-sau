@@ -131,8 +131,16 @@
 </template>
 
 <script lang="ts" setup>
+import type { Condition, Recommendation } from "../../types/recommendations";
+import type { Error } from "@/types/response";
+import { useAdminStore } from "@/modules/admin/stores/admin.store";
 import RecommendationsBase from "../../components/RecommendationsBase.vue";
+import { error, success } from "@/utils/toast";
+import CreateConditions from "./popup/CreateConditions.vue";
+import { storeToRefs } from "pinia";
 import { ref, watch, computed } from "vue";
+import axios from "axios";
+
 import DataTable, {
   type DataTableCellEditCompleteEvent,
 } from "primevue/datatable";
@@ -147,14 +155,7 @@ import InputText from "primevue/inputtext";
 import PTextarea from "primevue/textarea";
 import Dropdown from "primevue/dropdown";
 import { useConfirm } from "primevue/useconfirm";
-import { useAdminStore } from "@/modules/admin/stores/admin.store";
-import CreateConditions from "./popup/CreateConditions.vue";
-import axios from "axios";
-import type { Condition, Recommendation } from "../../types/recommendations";
-import type { Error } from "@/types/response";
 import { useDialog } from "primevue/usedialog";
-import { error, success } from "@/utils/toast";
-import { storeToRefs } from "pinia";
 
 const confirm = useConfirm();
 const adminStore = useAdminStore();
@@ -181,12 +182,13 @@ watch(checkedRecommendationName, newRecommendationName => {
 });
 
 const createRecommendation = () => {
-  const newRecommendation = {} as Recommendation;
-  newRecommendation.id =
-    allRecommendations.value[allRecommendations.value.length - 1].id + 1;
-  newRecommendation.name = newRecommendationName.value;
-  newRecommendation.conditions = [];
-  newRecommendation.tests = { 1: [""] };
+  const newRecommendation: Recommendation = {
+    id: allRecommendations.value[allRecommendations.value.length - 1].id + 1,
+    name: newRecommendationName.value,
+    conditions: [],
+    tests: { 1: [""] },
+  };
+
   adminStore.allRecommendations.push(newRecommendation);
   newRecommendationName.value = "";
 };

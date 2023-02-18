@@ -96,29 +96,33 @@ const newRecord = ref(
   ),
 );
 
-const checkConditionRecValidation = () => {
-  let isValidated = false;
+const checkConditionRecValidation = (): boolean => {
   if (!newRecord.value.questionName.length) {
-    return error("Ошибка", "Поле 'Наименование вопроса' должно быть заполнено");
+    error("Ошибка", "Поле 'Наименование вопроса' должно быть заполнено");
+    return false;
   }
 
   if (!newRecord.value.compare.length) {
-    return error("Ошибка", "Поле 'Условие' должно быть заполнено");
+    error("Ошибка", "Поле 'Условие' должно быть заполнено");
+    return false;
   }
 
   if (!newRecord.value.value.length && isValueHasChoices.value) {
-    return error("Ошибка", "Поле 'Значение1' должно быть заполнено");
+    error("Ошибка", "Поле 'Значение1' должно быть заполнено");
+    return false;
   }
 
   if (!conditionValue.value.length && !isValueHasChoices.value) {
-    return error("Ошибка", "Поле 'Значение' должно быть заполнено");
+    error("Ошибка", "Поле 'Значение' должно быть заполнено");
+    return false;
   }
 
   if (/\D/.test(newRecord.value.testCase) || !newRecord.value.testCase.length) {
-    return error("Ошибка", "Номер рекомендации должен состоять из цифр");
+    error("Ошибка", "Номер рекомендации должен состоять из цифр");
+    return false;
   }
-  isValidated = true;
-  return isValidated;
+
+  return true;
 };
 
 const createRecCondition = () => {

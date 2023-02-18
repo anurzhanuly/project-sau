@@ -1,5 +1,5 @@
-import { getQuestionsJson } from "@/modules/admin/views/conditions/services/condition.refbooks";
-import type { QuestionsContent } from "@/modules/admin/views/conditions/types/condition";
+import { getQuestionsJson } from "@/modules/admin/services/admin.refbooks";
+import type { QuestionsContent } from "@/modules/admin/types/questions";
 import { postAnswers } from "../services/survey.refbooks";
 import { defineStore } from "pinia";
 import axios from "axios";

@@ -6,7 +6,7 @@ import {
   getQuestionsJson,
   putRecommendationsObj,
   deleteDisease,
-} from "../../../services/admin.js";
+} from "../services/admin.refbooks.js";
 import type {
   Condition,
   Recommendation,
@@ -15,11 +15,11 @@ import type { Questions } from "@/modules/admin/types/questions.js";
 
 export const useAdminStore = defineStore("admin", () => {
   const allRecommendations = ref<Recommendation[]>([]);
+  const questions = ref<Questions[]>([]);
+  const questionsNames = ref<{ value: string }[]>([]);
+  const conditionIndex = ref<number>(0);
   const checkedRecommendationName = ref<any>();
 
-  const questions = ref([] as Questions[]);
-  const questionsNames = ref([] as { value: string }[]);
-  const conditionIndex = ref(0);
   const conditionColumns = [
     {
       header: "Наименование вопроса",
@@ -49,32 +49,6 @@ export const useAdminStore = defineStore("admin", () => {
     {
       header: "Номер рекомендации",
       field: "testCase",
-      hasDropdown: false,
-      options: [],
-    },
-    {
-      header: "Удаление",
-      field: "",
-      hasDropdown: false,
-      options: [],
-    },
-  ];
-  const clinicsColumns = [
-    {
-      header: "Название клиники",
-      field: "name",
-      hasDropdown: false,
-      options: [],
-    },
-    {
-      header: "Город",
-      field: "city",
-      hasDropdown: true,
-      options: [{ value: "Астана" }, { value: "Алматы" }],
-    },
-    {
-      header: "Адрес",
-      field: "place",
       hasDropdown: false,
       options: [],
     },
@@ -198,7 +172,6 @@ export const useAdminStore = defineStore("admin", () => {
     conditionColumns,
     checkedRecommendationName,
     conditionIndex,
-    clinicsColumns,
     editLocalConditionsByIndex,
     getRecommendationsData,
     getQuestionsData,
