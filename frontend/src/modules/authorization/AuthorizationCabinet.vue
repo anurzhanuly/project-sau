@@ -56,13 +56,14 @@
 
 <script setup lang="ts">
 import { useClinicsStore } from "@/modules/admin/views/clinics/store/clinics.store";
-import { ref, computed, onMounted } from "vue";
+import { ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import { warn } from "@/utils/toast";
 
 import PButton from "primevue/button";
 import InputText from "primevue/inputtext";
 import Dropdown from "primevue/dropdown";
+import { storeToRefs } from "pinia";
 
 const router = useRouter();
 const clinicStore = useClinicsStore();
@@ -71,18 +72,17 @@ onMounted(() => {
   clinicStore.getClinicsData();
 });
 
-const firstName = ref("");
-const lastName = ref("");
-const middleName = ref("");
-const phone = ref("");
-const сlinic = ref("");
-const doctor = ref("");
-const userData = ref({});
+const { allClinics, allDoctors } = storeToRefs(clinicStore);
 
-const allClinics = computed(() => clinicStore.allClinics);
-const allDoctors = computed(() => clinicStore.allDoctors);
+const firstName = ref<string>("");
+const lastName = ref<string>("");
+const middleName = ref<string>("");
+const phone = ref<string>("");
+const сlinic = ref<string>("");
+const doctor = ref<string>("");
+const userData = ref<any>({});
 
-const goToSurvey = () => {
+const goToSurvey = (): void => {
   if (validateForm()) {
     router.push({
       path: "/survey",
@@ -90,42 +90,44 @@ const goToSurvey = () => {
   }
 };
 
-const validateForm = () => {
+const validateForm = (): boolean => {
   const cyrillicPattern = /^[\u0400-\u04FF]+$/;
   const phonePattern = /^8[0-9]{10}$/;
-  let isValid = false;
 
   if (!firstName.value) {
-    return warn("Внимание", "Поле 'Имя' должно быть заполнено");
+    warn("Внимание", "Поле 'Имя' должно быть заполнено");
+    return false;
   }
 
   if (firstName.value.length > 2 && !cyrillicPattern.test(firstName.value)) {
-    return warn(
-      "Внимание",
-      "Поле 'Имя' должно быть на кириллице и больше 2 символов",
-    );
+    warn("Внимание", "Поле 'Имя' должно быть на кириллице и больше 2 символов");
+    return false;
   }
 
   if (!lastName.value) {
-    return warn("Внимание", "Поле 'Фамилия' должно быть заполнено");
+    warn("Внимание", "Поле 'Фамилия' должно быть заполнено");
+    return false;
   }
 
   if (lastName.value.length > 2 && !cyrillicPattern.test(lastName.value)) {
-    return warn(
+    warn(
       "Внимание",
       "Поле 'Фамилия' должно быть на кириллице и больше 2 символов",
     );
+    return false;
   }
 
   if (middleName.value && !cyrillicPattern.test(middleName.value)) {
-    return warn("Внимание", "Поле 'Отчество' должно быть заполнено");
+    warn("Внимание", "Поле 'Отчество' должно быть заполнено");
+    return false;
   }
 
   if (!phonePattern.test(phone.value)) {
-    return warn(
+    warn(
       "Внимание",
       "Номер телефона' должен начинаеться с 8 и иметь 11 символов",
     );
+    return false;
   }
 
   if (middleName.value) {
@@ -156,8 +158,7 @@ const validateForm = () => {
     doctor: doctor.value,
   };
 
-  isValid = true;
-  return isValid;
+  return true;
 };
 </script>
 

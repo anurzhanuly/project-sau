@@ -632,7 +632,7 @@ import { useSurveyStore } from "../modules/survey/store/survey.store";
 const surveyStore = useSurveyStore();
 
 const answers = computed(() => surveyStore.resultAnswers || {});
-const date = ref(new Date());
+const date = ref<Date>(new Date());
 </script>
 
 <style scoped>

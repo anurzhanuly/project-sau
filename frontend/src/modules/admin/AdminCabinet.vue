@@ -54,15 +54,3 @@ const adminPages = ref([
   },
 ]);
 </script>
-
-<style scoped>
-.section-admin {
-  display: flex;
-  flex-direction: column;
-  margin: 0 auto;
-}
-
-.p-button-lg {
-  margin-top: 20px;
-}
-</style>

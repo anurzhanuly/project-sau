@@ -165,10 +165,10 @@ const { allRecommendations, checkedRecommendationName } =
   storeToRefs(adminStore);
 
 const checkedRecommendationObj = ref({} as Recommendation);
-const conditionDeleteIndex = ref();
-const newRecommendationName = ref("");
-const diseaseDeleteName = ref("");
 const selectedCondition = ref({} as Condition);
+const newRecommendationName = ref<string>("");
+const diseaseDeleteName = ref<string>("");
+const conditionDeleteIndex = ref();
 
 const conditionColumns = computed(() => adminStore.conditionColumns);
 

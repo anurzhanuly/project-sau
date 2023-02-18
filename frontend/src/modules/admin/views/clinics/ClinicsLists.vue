@@ -123,16 +123,17 @@ import InputText from "primevue/inputtext";
 import ConfirmPopup from "primevue/confirmpopup";
 import { useConfirm } from "primevue/useconfirm";
 import { useDialog } from "primevue/usedialog";
+import { storeToRefs } from "pinia";
 
 const clinicsStore = useClinicsStore();
 const dialog = useDialog();
 const confirm = useConfirm();
 const selectedClinic = ref();
 
+const { allClinics, allDoctors } = storeToRefs(clinicsStore);
+
 const clinicsColumns = computed(() => clinicsStore.clinicsColumns);
 const doctorsColumns = computed(() => clinicsStore.doctorsColumns);
-const allClinics = computed(() => clinicsStore.allClinics);
-const allDoctors = computed(() => clinicsStore.allDoctors);
 
 function openClinicsPopup() {
   dialog.open(CreateClinic, {

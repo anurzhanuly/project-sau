@@ -47,8 +47,8 @@ import { useConfirm } from "primevue/useconfirm";
 const confirm = useConfirm();
 const adminStore = useAdminStore();
 
-const beforeQuestName = ref("");
-const afterQuestName = ref("");
+const beforeQuestName = ref<string>("");
+const afterQuestName = ref<string>("");
 
 const recommendationsJSON = computed(() => adminStore.allRecommendations);
 const questionNameOptions = computed(

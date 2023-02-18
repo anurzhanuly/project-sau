@@ -44,8 +44,8 @@ import PButton from "primevue/button";
 const surveyStore = useSurveyStore();
 const result = computed(() => surveyStore.recommendations || []);
 
-const isButtonsVisible = ref(true);
-const isResultVisible = ref(true);
+const isButtonsVisible = ref<boolean>(true);
+const isResultVisible = ref<boolean>(true);
 
 const makeResultPdf = () => {
   isButtonsVisible.value = false;
