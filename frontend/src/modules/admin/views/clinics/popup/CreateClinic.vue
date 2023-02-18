@@ -27,18 +27,19 @@
 </template>
 
 <script lang="ts" setup>
+import type { Clinics } from "@/modules/admin/views/clinics/types/clinics";
+import { useClinicsStore } from "../store/clinics.store";
+import { createPopupFields } from "@/utils/popUp";
+import { error, success } from "@/utils/toast";
+import { computed, ref, inject } from "vue";
+
 import PButton from "primevue/button";
 import Dropdown from "primevue/dropdown";
 import InputText from "primevue/inputtext";
-import { createPopupFields } from "@/utils/popUp";
-import { useAdminStore } from "@/stores/adminStore";
-import { computed, ref, inject } from "vue";
-import type { Clinics } from "@/types/clinics";
-import { error, success } from "@/utils/toast";
 
-const adminStore = useAdminStore();
+const clinicStore = useClinicsStore();
 const dialogRef = inject<any>("dialogRef");
-const clinicsColumns = computed(() => adminStore.clinicsColumns);
+const clinicsColumns = computed(() => clinicStore.clinicsColumns);
 
 const newRecord = ref(
   createPopupFields(
@@ -49,28 +50,29 @@ const newRecord = ref(
 function createClinic() {
   if (checkClinicRecValidation()) {
     const res = { ...newRecord.value } as unknown as Clinics;
-    adminStore.createClinicData(res);
+    clinicStore.createClinicData(res);
     success("Успешно", "Клиника добавлена, не забудьте сохранить");
     dialogRef.value.close();
   }
 }
 
 function checkClinicRecValidation() {
-  let isValidated = false;
   if (!newRecord.value.name.length) {
-    return error("Ошибка", "Поле 'Название клиники' должно быть заполнено");
+    error("Ошибка", "Поле 'Название клиники' должно быть заполнено");
+    return false;
   }
 
   if (!newRecord.value.city.length) {
-    return error("Ошибка", "Поле 'Поле 'Город' должно быть заполнено");
+    error("Ошибка", "Поле 'Поле 'Город' должно быть заполнено");
+    return false;
   }
 
   if (!newRecord.value.place.length) {
-    return error("Ошибка", "Поле 'Поле 'Адрес' должно быть заполнено");
+    error("Ошибка", "Поле 'Поле 'Адрес' должно быть заполнено");
+    return false;
   }
 
-  isValidated = true;
-  return isValidated;
+  return true;
 }
 </script>
 

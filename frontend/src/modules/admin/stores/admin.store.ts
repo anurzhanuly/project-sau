@@ -6,15 +6,13 @@ import {
   getQuestionsJson,
   putRecommendationsObj,
   deleteDisease,
-} from "../services/admin.js";
+} from "../../../services/admin.js";
 import type { Condition, Recommendation } from "@/types/recommendations.js";
 import type { Questions } from "@/types/questions.js";
-import type { Clinics, Doctors } from "@/types/clinics.js";
 
 export const useAdminStore = defineStore("admin", () => {
   const allRecommendations = ref([] as Recommendation[]);
-  const allClinics = ref([] as Clinics[]);
-  const allDoctors = ref([] as Doctors[]);
+
   const questions = ref([] as Questions[]);
   const questionsNames = ref([] as { value: string }[]);
   const checkedRecommendationName = ref("");
@@ -85,55 +83,6 @@ export const useAdminStore = defineStore("admin", () => {
     },
   ];
 
-  const doctorsColumns = ref([
-    {
-      header: "Фио",
-      field: "fullName",
-      hasDropdown: false,
-      options: [],
-    },
-    {
-      header: "Cпециальность",
-      field: "spec",
-      hasDropdown: false,
-      options: [],
-    },
-    {
-      header: "Опыт",
-      field: "exp",
-      hasDropdown: false,
-      options: [],
-    },
-    {
-      header: "Удаление",
-      field: "",
-      hasDropdown: false,
-      options: [],
-    },
-  ]);
-
-  // Удалить потом
-  const clinics = ref([
-    {
-      name: "Damumed",
-      city: "Астана",
-      place: "Центральная ул., Астана 020000",
-    },
-    {
-      name: "Almuker",
-      city: "Алматы",
-      place: "Центральный стадион",
-    },
-  ]);
-
-  const doctors = ref([
-    {
-      fullName: "Казыбек Алмас Кудайбергенулы",
-      spec: "Нейрохирург",
-      exp: "8 лет",
-    },
-  ]);
-
   async function getQuestionsData() {
     const res = await getQuestionsJson();
 
@@ -145,41 +94,6 @@ export const useAdminStore = defineStore("admin", () => {
     }
 
     return res;
-  }
-
-  async function getClinicsData() {
-    // const res = await getClinicsjson();
-
-    // if (!axios.isAxiosError(res)) {
-    //   allClinics.value = JSON.parse(res.data.result);
-    // }
-
-    // TODO: wait REST
-    allClinics.value = clinics.value;
-    allDoctors.value = doctors.value;
-
-    const res = clinics.value;
-
-    return res;
-  }
-
-  function editLocalClinicsByIndex(index: number, updateTo: Clinics) {
-    allClinics.value[index] = { ...updateTo };
-  }
-
-  function editLocalDoctorByIndex(index: number, updateTo: Doctors) {
-    allDoctors.value[index] = { ...updateTo };
-  }
-
-  function createClinicData(newRecord: Clinics) {
-    allClinics.value.push(newRecord);
-  }
-
-  function deleteClinicByIndex(clinic: Clinics) {
-    const foundedIndex = allClinics.value.indexOf(clinic);
-    allClinics.value = allClinics.value.filter(
-      (_, index) => index !== foundedIndex,
-    );
   }
 
   async function getRecommendationsData() {
@@ -282,14 +196,6 @@ export const useAdminStore = defineStore("admin", () => {
     checkedRecommendationName,
     conditionIndex,
     clinicsColumns,
-    allClinics,
-    allDoctors,
-    doctorsColumns,
-    deleteClinicByIndex,
-    createClinicData,
-    editLocalDoctorByIndex,
-    getClinicsData,
-    editLocalClinicsByIndex,
     editLocalConditionsByIndex,
     getRecommendationsData,
     getQuestionsData,

@@ -41,7 +41,7 @@ import pToast from "primevue/toast";
 import Dropdown from "primevue/dropdown";
 import ConfirmPopup from "primevue/confirmpopup";
 import { ref, computed } from "vue";
-import { useAdminStore } from "@/stores/adminStore";
+import { useAdminStore } from "@/modules/admin/stores/admin.store";
 import { useConfirm } from "primevue/useconfirm";
 
 const confirm = useConfirm();

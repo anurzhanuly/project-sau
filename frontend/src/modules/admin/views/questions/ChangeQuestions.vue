@@ -1,6 +1,6 @@
 <template>
   <section class="section-questions__add">
-    <h2>Вставьте сюда json с вопросами из survey</h2>
+    <h2 style="margin: 8px 0">Вставьте сюда json с вопросами из survey</h2>
     <p-textarea v-model="surveyStr" rows="25" />
     <p-button
       label="Сохранить"
@@ -11,28 +11,31 @@
 </template>
 
 <script lang="ts" setup>
+import type { QuestionsContent } from "@/types/questions";
+import { useQuestionsStore } from "./store/question.store";
+import { ref } from "vue";
+
 import PTextarea from "primevue/textarea";
 import PButton from "primevue/button";
-import { ref } from "vue";
-import { changeQuestionsJson } from "../../services/admin";
-import type { QuestionsContent } from "@/types/questions";
 
-const surveyStr = ref("");
+const questionStore = useQuestionsStore();
+const surveyStr = ref<string>("");
 
-const changeSurveyQuestions = async () => {
+const changeSurveyQuestions = async (): Promise<void> => {
   const surveyJSON: QuestionsContent = JSON.parse(
     surveyStr.value.split("\n").join(""),
   );
+
   const questionsJson = surveyJSON.pages.filter(el => {
     return el.elements[0].type !== "expression";
   });
 
   const questions = {
     id: "114",
-    content: { pages: questionsJson } as QuestionsContent,
+    content: { pages: questionsJson },
   };
 
-  await changeQuestionsJson(questions);
+  await questionStore.changeQuestionsData(questions);
 };
 </script>
 

@@ -72,7 +72,7 @@
 
 <script lang="ts" setup>
 import { computed, ref, inject } from "vue";
-import { useAdminStore } from "../../stores/adminStore";
+import { useAdminStore } from "@/modules/admin/stores/admin.store";
 import PMultiSelect from "primevue/multiselect";
 import PButton from "primevue/button";
 import Dropdown from "primevue/dropdown";

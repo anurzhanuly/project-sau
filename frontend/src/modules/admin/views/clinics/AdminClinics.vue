@@ -109,9 +109,10 @@
 </template>
 
 <script lang="ts" setup>
-import ClinicsPopup from "./ClinicsPopup.vue";
-import { ref, computed } from "vue";
-import { useAdminStore } from "@/stores/adminStore";
+import CreateClinic from "./popup/CreateClinic.vue";
+import { useClinicsStore } from "./store/clinics.store";
+import { ref, computed, onMounted } from "vue";
+
 import DataTable, {
   type DataTableCellEditCompleteEvent,
 } from "primevue/datatable";
@@ -123,18 +124,24 @@ import ConfirmPopup from "primevue/confirmpopup";
 import { useConfirm } from "primevue/useconfirm";
 import { useDialog } from "primevue/usedialog";
 
-const adminStore = useAdminStore();
+const clinicStore = useClinicsStore();
 const dialog = useDialog();
 const confirm = useConfirm();
 const selectedClinic = ref();
 
-const clinicsColumns = computed(() => adminStore.clinicsColumns);
-const doctorsColumns = computed(() => adminStore.doctorsColumns);
-const allClinics = computed(() => adminStore.allClinics);
-const allDoctors = computed(() => adminStore.allDoctors);
+const clinicsColumns = computed(() => clinicStore.clinicsColumns);
+const doctorsColumns = computed(() => clinicStore.doctorsColumns);
+const allClinics = computed(() => clinicStore.allClinics);
+const allDoctors = computed(() => clinicStore.allDoctors);
+
+onMounted(() => {
+  if (!clinicStore.allClinics.length) {
+    clinicStore.getClinicsData();
+  }
+});
 
 function openClinicsPopup() {
-  dialog.open(ClinicsPopup, {
+  dialog.open(CreateClinic, {
     props: {
       header: "Добавление новой клиники",
       style: {
@@ -148,14 +155,14 @@ function openClinicsPopup() {
 const onClinicCellEdit = async (event: DataTableCellEditCompleteEvent) => {
   const updated = { ...event.newData };
   if (event.newValue && event.value !== event.newValue) {
-    adminStore.editLocalClinicsByIndex(event.index, updated);
+    clinicStore.editLocalClinicsByIndex(event.index, updated);
   }
 };
 
 const onDoctorCellEdit = async (event: DataTableCellEditCompleteEvent) => {
   const updated = { ...event.newData };
   if (event.newValue && event.value !== event.newValue) {
-    adminStore.editLocalDoctorByIndex(event.index, updated);
+    clinicStore.editLocalDoctorByIndex(event.index, updated);
   }
 };
 
@@ -168,7 +175,7 @@ function confirmDeleteClinic(event: any) {
     icon: "pi pi-info-circle",
     acceptClass: "p-button-danger",
     accept: () => {
-      adminStore.deleteClinicByIndex(selectedClinic.value);
+      clinicStore.deleteClinicByIndex(selectedClinic.value);
     },
   });
 }

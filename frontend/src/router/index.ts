@@ -6,7 +6,7 @@ const router = createRouter({
   routes: [
     {
       path: "/",
-      name: "home",
+      name: "main",
       component: MainBar,
     },
     {
@@ -18,7 +18,7 @@ const router = createRouter({
     {
       path: "/result",
       name: "result",
-      component: () => import("@/views/ResultView.vue"),
+      component: () => import("@/modules/result/ResultCabinet.vue"),
     },
     {
       path: "/survey",
@@ -28,30 +28,36 @@ const router = createRouter({
     {
       path: "/patientcab",
       name: "patientcab",
-      component: () => import("@/views/PatientCabView.vue"),
+      component: () => import("@/modules/patientsCabinet/PatientCabinet.vue"),
       children: [
         {
           path: "main",
-          component: () => import("@/views/PatientCabMainView.vue"),
+          component: () =>
+            import("@/modules/patientsCabinet/views/PatientCabinetMain.vue"),
         },
         {
           path: "settings",
-          component: () => import("@/views/PatientCabSettingsView.vue"),
+          component: () =>
+            import(
+              "@/modules/patientsCabinet/views/PatientCabinetSettings.vue"
+            ),
         },
       ],
     },
     {
       path: "/admin",
       name: "admin",
-      component: () => import("@/views/admin/AdminView.vue"),
+      component: () => import("@/modules/admin/AdminCabinet.vue"),
       children: [
         {
           path: "quest",
-          component: () => import("@/views/admin/QuestionsView.vue"),
+          component: () =>
+            import("@/modules/admin/views/questions/ChangeQuestions.vue"),
         },
         {
           path: "cond",
-          component: () => import("@/views/admin/ConditionsView.vue"),
+          component: () =>
+            import("@/modules/admin/views/conditions/AdminConditions.vue"),
         },
         {
           path: "recom",
@@ -63,7 +69,8 @@ const router = createRouter({
         },
         {
           path: "clinics",
-          component: () => import("@/views/admin/ClinicsView.vue"),
+          component: () =>
+            import("@/modules/admin/views/clinics/AdminClinics.vue"),
         },
       ],
     },

@@ -34,11 +34,12 @@
 </template>
 
 <script lang="ts" setup>
-import { useSurveyStore } from "../modules/survey/store/survey.store";
+import ResultTextArea from "@/modules/result/components/ResultTextArea.vue";
+import { useSurveyStore } from "../survey/store/survey.store";
 import { ref, computed } from "vue";
+
 import PPanel from "primevue/panel";
 import PButton from "primevue/button";
-import ResultTextArea from "@/components/ResultTextArea.vue";
 
 const surveyStore = useSurveyStore();
 const result = computed(() => surveyStore.recommendations || []);

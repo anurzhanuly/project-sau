@@ -66,7 +66,7 @@ import PToast from "primevue/toast";
 import ConfirmPopup from "primevue/confirmpopup";
 import PTextarea from "primevue/textarea";
 import InputNumber from "primevue/inputnumber";
-import { useAdminStore } from "../../stores/adminStore";
+import { useAdminStore } from "@/modules/admin/stores/admin.store";
 import { useConfirm } from "primevue/useconfirm";
 import axios from "axios";
 import type { Error } from "@/types/response";
@@ -75,7 +75,7 @@ import { error, success } from "@/utils/toast";
 const adminStore = useAdminStore();
 const confirm = useConfirm();
 
-const checkedRecommendationName = ref("");
+const checkedRecommendationName = ref<any>();
 const copiedTests = ref({} as Record<string, string>);
 
 const recommendationsJSON = computed(() => adminStore.allRecommendations);

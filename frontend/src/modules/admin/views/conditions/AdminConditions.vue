@@ -164,8 +164,8 @@ import InputText from "primevue/inputtext";
 import PTextarea from "primevue/textarea";
 import Dropdown from "primevue/dropdown";
 import { useConfirm } from "primevue/useconfirm";
-import { useAdminStore } from "../../stores/adminStore";
-import CreateConditionsPopup from "./CreateConditionsPopup.vue";
+import { useAdminStore } from "@/modules/admin/stores/admin.store";
+import CreateConditionsPopup from "../../../../views/admin/CreateConditionsPopup.vue";
 import axios from "axios";
 import type { Condition, Recommendation } from "@/types/recommendations";
 import type { Error } from "@/types/response";
@@ -176,7 +176,7 @@ const confirm = useConfirm();
 const adminStore = useAdminStore();
 const dialog = useDialog();
 
-const checkedRecommendationName = ref("");
+const checkedRecommendationName = ref<any>();
 const checkedRecommendationObj = ref({} as Recommendation);
 const conditionDeleteIndex = ref();
 const newRecommendationName = ref("");
@@ -186,7 +186,9 @@ const selectedCondition = ref({} as Condition);
 const recommendationsJSON = computed(() => adminStore.allRecommendations);
 const conditionColumns = computed(() => adminStore.conditionColumns);
 
-//здесь выбранный объект берёт ссылку и меняет сразу в сторе создание и удаление
+/**
+ * Здесь выбранный объект берёт ссылку и меняет сразу в сторе создание и удаление
+ */
 watch(checkedRecommendationName, newRecommendationName => {
   checkedRecommendationObj.value = recommendationsJSON.value.filter(
     el => el.name === newRecommendationName,

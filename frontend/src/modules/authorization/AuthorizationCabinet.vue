@@ -55,7 +55,7 @@
 </template>
 
 <script setup lang="ts">
-import { useAdminStore } from "@/stores/adminStore";
+import { useClinicsStore } from "@/modules/admin/views/clinics/store/clinics.store";
 import { ref, computed, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import { warn } from "@/utils/toast";
@@ -65,10 +65,10 @@ import InputText from "primevue/inputtext";
 import Dropdown from "primevue/dropdown";
 
 const router = useRouter();
-const adminStore = useAdminStore();
+const clinicStore = useClinicsStore();
 
 onMounted(() => {
-  adminStore.getClinicsData();
+  clinicStore.getClinicsData();
 });
 
 const firstName = ref("");
@@ -79,8 +79,8 @@ const сlinic = ref("");
 const doctor = ref("");
 const userData = ref({});
 
-const allClinics = computed(() => adminStore.allClinics);
-const allDoctors = computed(() => adminStore.allDoctors);
+const allClinics = computed(() => clinicStore.allClinics);
+const allDoctors = computed(() => clinicStore.allDoctors);
 
 const goToSurvey = () => {
   if (validateForm()) {

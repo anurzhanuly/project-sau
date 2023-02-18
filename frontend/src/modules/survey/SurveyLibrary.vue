@@ -20,17 +20,15 @@ StylesManager.applyTheme("defaultV2");
 
 onMounted(() => {
   const survey = new Survey(surveyJson.value);
-
   survey.locale = "ru";
 
   const surveyComplete = (sender: { data: Record<string, string[]> }) => {
-    const newData = {} as Record<string, string[]>;
+    const newData: Record<string, string[]> = {};
     for (let key in sender.data) {
-      if (Array.isArray(sender.data[key])) {
-        newData[key] = sender.data[key];
-      } else {
-        newData[key] = [`${sender.data[key]}`];
-      }
+      Array.isArray(sender.data[key])
+        ? (newData[key] = sender.data[key])
+        : (newData[key] = [`${sender.data[key]}`]);
+
       newData[key] = newData[key].includes("none")
         ? ["Без особенностей"]
         : newData[key];

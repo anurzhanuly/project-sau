@@ -35,7 +35,7 @@
 </template>
 
 <script lang="ts" setup>
-import { useSurveyStore } from "../modules/survey/store/survey.store";
+import { useSurveyStore } from "../../survey/store/survey.store";
 import { ref, computed } from "vue";
 import PTextarea from "primevue/textarea";
 import PButton from "primevue/button";
@@ -43,15 +43,15 @@ import PButton from "primevue/button";
 const surveyStore = useSurveyStore();
 const answers = computed(() => surveyStore.resultAnswers || {});
 
-const complaints = ref("");
-const complaintsAnamnesis = ref("");
-const lifeAnamnesis = ref("");
-const alergicAnamnesis = ref("");
-const objectiveData = ref("");
-const objectiveExamination = ref("");
+const objectiveExamination = ref<string>("");
+const complaintsAnamnesis = ref<string>("");
+const alergicAnamnesis = ref<string>("");
+const lifeAnamnesis = ref<string>("");
+const objectiveData = ref<string>("");
+const complaints = ref<string>("");
 
 const postPatientResultData = () => {
-  const patientData = {} as Record<string, string>;
+  const patientData: Record<string, string> = {};
   patientData.complaints = complaints.value;
   patientData.complaintsAnamnesis = complaintsAnamnesis.value;
   patientData.lifeAnamnesis = lifeAnamnesis.value;

@@ -4,7 +4,7 @@
 </template>
 
 <script lang="ts" setup>
-import { useAdminStore } from "@/stores/adminStore";
+import { useAdminStore } from "@/modules/admin/stores/admin.store";
 import { onMounted, ref } from "vue";
 import TabMenu from "primevue/tabmenu";
 
@@ -17,10 +17,6 @@ onMounted(() => {
 
   if (!adminStore.questions.length) {
     adminStore.getQuestionsData();
-  }
-
-  if (!adminStore.allClinics.length) {
-    adminStore.getClinicsData();
   }
 });
 

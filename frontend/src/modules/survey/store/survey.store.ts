@@ -1,7 +1,7 @@
-import { defineStore } from "pinia";
+import { getQuestionsJson } from "@/modules/admin/views/conditions/services/condition.refbooks";
+import type { QuestionsContent } from "@/modules/admin/views/conditions/types/condition";
 import { postAnswers } from "../services/survey.refbooks";
-import { getQuestionsJson } from "../../../services/admin.js";
-import type { QuestionsContent } from "../types/survey";
+import { defineStore } from "pinia";
 import axios from "axios";
 import { ref } from "vue";
 

@@ -1,4 +1,4 @@
-const partners = [
+export const partners = [
   {
     name: "Лабор. анализы",
     company: "Invitro",
@@ -25,5 +25,3 @@ const partners = [
     address: "Тараз, Айтиева 6/13",
   },
 ];
-
-export default partners;
