@@ -1,7 +1,7 @@
 <template>
-  <header-bar />
-  <main class="main"><router-view /></main>
-  <footer-bar />
+  <!-- <header-bar /> -->
+  <router-view />
+  <!-- <footer-bar /> -->
 </template>
 
 <script setup lang="ts">
@@ -10,7 +10,4 @@ import FooterBar from "./components/FooterBar.vue";
 </script>
 
 <style>
-.main {
-  flex: 1 1 auto;
-}
 </style>
