@@ -9,7 +9,7 @@
       </div>
       <div class="authorization-wrapper p-fluid">
         <form class="authorization-form">
-          <img src="src/assets/logo-auth.png" alt="Logo">
+          <img :src="`src/assets/${logo}`" alt="Logo">
           <div>
             <h4>Имя <span>*</span></h4>
             <input-text v-model="firstName" />
@@ -86,6 +86,7 @@ onMounted(() => {
 
 const { allClinics, allDoctors } = storeToRefs(clinicStore);
 
+const logo = 'logo-auth.png';
 const firstName = ref<string>("");
 const lastName = ref<string>("");
 const middleName = ref<string>("");
