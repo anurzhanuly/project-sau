@@ -1,56 +1,67 @@
 <template>
-  <div class="authorization-main p-fluid">
-    <form class="authorization-form">
-      <div>
-        <h4>Имя <span>*</span></h4>
-        <input-text v-model="firstName" />
+  <div class="authorization-section">
+    <div class="onboarding-main">
+      <OnboardingSwiper />
+    </div>
+    <div class="authorization-main">
+      <div class="link-back">
+        <span>&lt;</span><a href="/">Назад</a>
       </div>
-      <div>
-        <h4>Фамилия <span>*</span></h4>
-        <input-text v-model="lastName" />
+      <div class="authorization-wrapper p-fluid">
+        <form class="authorization-form">
+          <img :src="`src/assets/${logo}`" alt="Logo">
+          <div>
+            <h4>Имя <span>*</span></h4>
+            <input-text v-model="firstName" />
+          </div>
+          <div>
+            <h4>Фамилия <span>*</span></h4>
+            <input-text v-model="lastName" />
+          </div>
+          <div>
+            <h4>Отчество</h4>
+            <input-text v-model="middleName" />
+          </div>
+          <div>
+            <h4>Номер телефона <span>*</span></h4>
+            <input-text v-model="phone" />
+          </div>
+          <div>
+            <h4>Выберите клинику</h4>
+            <dropdown
+              v-model="сlinic"
+              :options="allClinics"
+              option-value="name"
+              option-label="name"
+              filter-placeholder="Поиск"
+              filter
+              lazy
+              :empty-filter-message="'Ничего не найдено'"
+              :empty-message="'Ничего не найдено'"
+            />
+          </div>
+          <div>
+            <h4>Выберите врача</h4>
+            <dropdown
+              v-model="doctor"
+              :options="allDoctors"
+              option-value="fullName"
+              option-label="fullName"
+              filter-placeholder="Поиск"
+              filter
+              lazy
+              :empty-filter-message="'Ничего не найдено'"
+              :empty-message="'Ничего не найдено'"
+            />
+          </div>
+          <p-button
+            label="Пройти тест"
+            class="p-button"
+            @click="goToSurvey"
+          />
+        </form>
       </div>
-      <div>
-        <h4>Отчество</h4>
-        <input-text v-model="middleName" />
-      </div>
-      <div>
-        <h4>Номер телефона <span>*</span></h4>
-        <input-text v-model="phone" />
-      </div>
-      <div>
-        <h4>Выберите клинику</h4>
-        <dropdown
-          v-model="сlinic"
-          :options="allClinics"
-          option-value="name"
-          option-label="name"
-          filter-placeholder="Поиск"
-          filter
-          lazy
-          :empty-filter-message="'Ничего не найдено'"
-          :empty-message="'Ничего не найдено'"
-        />
-      </div>
-      <div>
-        <h4>Выберите врача</h4>
-        <dropdown
-          v-model="doctor"
-          :options="allDoctors"
-          option-value="fullName"
-          option-label="fullName"
-          filter-placeholder="Поиск"
-          filter
-          lazy
-          :empty-filter-message="'Ничего не найдено'"
-          :empty-message="'Ничего не найдено'"
-        />
-      </div>
-      <p-button
-        label="Начать тест"
-        class="p-button-success"
-        @click="goToSurvey"
-      />
-    </form>
+    </div>
   </div>
 </template>
 
@@ -64,6 +75,7 @@ import PButton from "primevue/button";
 import InputText from "primevue/inputtext";
 import Dropdown from "primevue/dropdown";
 import { storeToRefs } from "pinia";
+import OnboardingSwiper from "@/modules/authorization/components/OnboardingSwiper.vue";
 
 const router = useRouter();
 const clinicStore = useClinicsStore();
@@ -74,6 +86,7 @@ onMounted(() => {
 
 const { allClinics, allDoctors } = storeToRefs(clinicStore);
 
+const logo = 'logo-auth.png';
 const firstName = ref<string>("");
 const lastName = ref<string>("");
 const middleName = ref<string>("");
@@ -163,27 +176,100 @@ const validateForm = (): boolean => {
 </script>
 
 <style scoped>
+.authorization-section {
+  display: flex;
+  min-height: 100vh;
+}
+.onboarding-main {
+  width: 40%;
+  background-color: #AACCEB;
+}
+.link-back {
+  position: absolute;
+  top: 33px;
+  margin-left: 33px;
+}
+.link-back span {
+  color: #276EF1;
+  font-weight: 600;
+}
+.link-back a {
+  margin-left: 3px;
+  color: #276EF1;
+  text-decoration: underline;
+}
 .authorization-main {
+  width: 60%;
+  margin: auto;
+}
+.authorization-wrapper {
   display: flex;
   justify-content: center;
-  padding: 35px 25px;
-  background-color: #ffffff;
-  border-radius: 5px;
 }
-.authorization-main h4 {
+.authorization-wrapper h4 {
+  color: #3F3F3F;
+  font-weight: 400;
   margin-top: 15px;
   margin-bottom: 5px;
 }
 
-.authorization-main span {
+.authorization-wrapper span {
   color: #d0312d;
 }
 
 .authorization-form {
-  width: 300px;
+  width: 50%;
+}
+
+.authorization-form img {
+  margin-bottom: 20px;
 }
 
 .p-button {
   margin: 20px 0;
+  height: 56px;
+  font-weight: 600;
+  border-radius: 10px;
+}
+
+@media only screen and (max-width: 375px) {
+  .authorization-section {
+    min-height: 120vh;
+  }
+  .onboarding-main {
+    display: none;
+  }
+
+  .link-back {
+    top: 20px;
+    left: 20px;
+    margin: 0;
+  }
+  .authorization-main, .authorization-form {
+    width: 100%;
+  }
+}
+
+@media (min-width: 376px) and (max-width: 600px) {
+  .authorization-section {
+    min-height: 100vh;
+  }
+  .onboarding-main {
+    display: none;
+  }
+
+  .link-back {
+    top: 20px;
+    left: 20px;
+    margin: 0;
+  }
+  .authorization-main, .authorization-form {
+    width: 100%;
+  }
+}
+@media (min-width: 601px) and (max-width: 1024px) {
+  .authorization-main {
+    margin: 50px 0;
+  }
 }
 </style>

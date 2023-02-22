@@ -9,6 +9,8 @@ import MainScreen from "./modules/main/MainScreen.vue";
 </script>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
+
 * {
   margin: 0;
   padding: 0;
@@ -16,7 +18,7 @@ import MainScreen from "./modules/main/MainScreen.vue";
 }
 html,
 body {
-  background-color: #f5f7f9;
+  /* background-color: #f5f7f9; */
   height: 100%;
 }
 
@@ -30,17 +32,16 @@ li {
 }
 
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Montserrat';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
 }
 
 .wrapper {
-  max-width: 1500px;
-  padding: 0 30px;
+  /* max-width: 1500px;
+  padding: 0 30px; */
   margin: 0 auto;
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
 }
