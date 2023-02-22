@@ -25,12 +25,11 @@ import { error } from "@/utils/toast";
 import { ref, inject } from "vue";
 
 import PButton from "primevue/button";
-
 import InputText from "primevue/inputtext";
 
 const router = useRouter();
-const login = ref("");
-const password = ref("");
+const login = ref<string>("");
+const password = ref<string>("");
 const dialogRef = inject<any>("dialogRef");
 
 const validation = (): boolean => {

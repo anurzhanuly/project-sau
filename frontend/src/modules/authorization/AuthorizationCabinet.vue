@@ -1,15 +1,13 @@
 <template>
   <div class="authorization-section">
     <div class="onboarding-main">
-      <OnboardingSwiper />
+      <onboarding-swiper />
     </div>
     <div class="authorization-main">
-      <div class="link-back">
-        <span>&lt;</span><a href="/">Назад</a>
-      </div>
+      <div class="link-back"><span>&lt;</span><a href="/">Назад</a></div>
       <div class="authorization-wrapper p-fluid">
         <form class="authorization-form">
-          <img :src="`src/assets/${logo}`" alt="Logo">
+          <img :src="`src/assets/${logo}`" alt="Logo" />
           <div>
             <h4>Имя <span>*</span></h4>
             <input-text v-model="firstName" />
@@ -54,11 +52,7 @@
               :empty-message="'Ничего не найдено'"
             />
           </div>
-          <p-button
-            label="Пройти тест"
-            class="p-button"
-            @click="goToSurvey"
-          />
+          <p-button label="Пройти тест" class="p-button" @click="goToSurvey" />
         </form>
       </div>
     </div>
@@ -86,7 +80,7 @@ onMounted(() => {
 
 const { allClinics, allDoctors } = storeToRefs(clinicStore);
 
-const logo = 'logo-auth.png';
+const logo = "logo-auth.png"; // TODO: это надо убрать
 const firstName = ref<string>("");
 const lastName = ref<string>("");
 const middleName = ref<string>("");
@@ -182,7 +176,7 @@ const validateForm = (): boolean => {
 }
 .onboarding-main {
   width: 40%;
-  background-color: #AACCEB;
+  background-color: #aacceb;
 }
 .link-back {
   position: absolute;
@@ -190,12 +184,12 @@ const validateForm = (): boolean => {
   margin-left: 33px;
 }
 .link-back span {
-  color: #276EF1;
+  color: #276ef1;
   font-weight: 600;
 }
 .link-back a {
   margin-left: 3px;
-  color: #276EF1;
+  color: #276ef1;
   text-decoration: underline;
 }
 .authorization-main {
@@ -207,7 +201,7 @@ const validateForm = (): boolean => {
   justify-content: center;
 }
 .authorization-wrapper h4 {
-  color: #3F3F3F;
+  color: #3f3f3f;
   font-weight: 400;
   margin-top: 15px;
   margin-bottom: 5px;
@@ -245,7 +239,8 @@ const validateForm = (): boolean => {
     left: 20px;
     margin: 0;
   }
-  .authorization-main, .authorization-form {
+  .authorization-main,
+  .authorization-form {
     width: 100%;
   }
 }
@@ -263,7 +258,8 @@ const validateForm = (): boolean => {
     left: 20px;
     margin: 0;
   }
-  .authorization-main, .authorization-form {
+  .authorization-main,
+  .authorization-form {
     width: 100%;
   }
 }

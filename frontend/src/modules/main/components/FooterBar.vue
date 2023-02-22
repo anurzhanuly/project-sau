@@ -1,27 +1,26 @@
 <template>
   <footer class="footer">
-    <div class="footer__logo" />
-    <div>
-      <p>Контакты для связи:</p>
-      <p>Телефон: <a href="tel:+77773771515">+7 (777) 377-15-15</a></p>
+    <div class="footer-content">
       <p>
-        Почта: <a href="mailto:symptom.kz@gmail.com">symptom.kz@gmail.com</a>
+        <i class="pi pi-phone" style="margin-right: 5px" />
+        <a href="tel:+77773771515">+7 (777) 377-15-15</a>
+      </p>
+      <p>
+        <i class="pi pi-at" style="margin-right: 5px" />
+        <a href="mailto:symptom.kz@gmail.com">symptom.kz@gmail.com</a>
+      </p>
+      <p>
+        <i class="pi pi-instagram" style="margin-right: 5px" />
+        <a href="">symptom.kz</a>
       </p>
       <p @click="openAdminLoginPopup">Админ</p>
-      <p @click="openCabinetLoginPopup">Кабинет врача</p>
     </div>
   </footer>
-  <dynamic-dialog />
-  <p-toast />
 </template>
 
 <script lang="ts" setup>
 import AdminLogin from "../popup/AdminLogin.vue";
-import CabinetLogin from "../popup/CabinetLogin.vue";
-
 import { useDialog } from "primevue/usedialog";
-import DynamicDialog from "primevue/dynamicdialog";
-import PToast from "primevue/toast";
 
 const dialog = useDialog();
 
@@ -36,48 +35,30 @@ function openAdminLoginPopup() {
     },
   });
 }
-
-function openCabinetLoginPopup() {
-  dialog.open(CabinetLogin, {
-    props: {
-      header: "Введите логин и пароль",
-      style: {
-        width: "25%",
-      },
-      modal: true,
-    },
-  });
-}
 </script>
 
-<style scoped>
+<style>
 .footer {
-  border-top: 1px solid #dee3e8;
-  padding: 30px 0;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  margin: 0 180px;
 }
 
-.footer__logo {
-  background-image: url("@/assets/symptom.png");
-  background-position: 50%;
-  background-repeat: no-repeat;
-  background-size: contain;
-  height: 40px;
-  width: 100px;
+.footer-content {
+  padding-top: 15px;
 }
 
-@media (max-width: 480px) {
-  .footer__logo {
-    display: none;
+.footer-content p {
+  margin-top: 5px;
+}
+
+@media (max-width: 770px) {
+  .footer {
+    margin: 0 60px;
   }
 }
 
-@media (min-width: 992px) {
+@media (max-width: 480px) {
   .footer {
-    border-top: 1px solid #dee3e8;
-    padding: 50px 0 40px;
+    margin: 0 15px;
   }
 }
 </style>
