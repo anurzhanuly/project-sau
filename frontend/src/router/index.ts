@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
-import MainBar from "@/modules/main/components/MainBar.vue";
+import MainScreenVue from "@/modules/main/MainScreen.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -7,7 +7,7 @@ const router = createRouter({
     {
       path: "/",
       name: "main",
-      component: MainBar,
+      component: MainScreenVue,
     },
     {
       path: "/authorization",

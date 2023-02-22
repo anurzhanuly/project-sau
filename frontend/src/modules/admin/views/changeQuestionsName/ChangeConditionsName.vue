@@ -55,7 +55,7 @@ const questionNameOptions = computed(
   () => adminStore.conditionColumns[0].options,
 );
 
-const changeQuestName = () => {
+const changeQuestName = (): void => {
   const recommendationStr = JSON.stringify(recommendationsJSON.value);
   const newRecommendation = recommendationStr
     .split(beforeQuestName.value)

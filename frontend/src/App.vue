@@ -1,12 +1,8 @@
 <template>
   <div class="wrapper">
-    <main-screen />
+    <router-view />
   </div>
 </template>
-
-<script lang="ts" setup>
-import MainScreen from "./modules/main/MainScreen.vue";
-</script>
 
 <style>
 * {
@@ -14,6 +10,7 @@ import MainScreen from "./modules/main/MainScreen.vue";
   padding: 0;
   box-sizing: border-box;
 }
+
 html,
 body {
   background-color: #f5f7f9;
@@ -30,24 +27,13 @@ li {
 }
 
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: Montserrat;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
 }
 
 .wrapper {
-  max-width: 1500px;
-  padding: 0 30px;
-  margin: 0 auto;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
-
-@media (max-width: 580px) {
-  .wrapper {
-    padding: 0 15px;
-  }
+  height: 88vh;
 }
 </style>

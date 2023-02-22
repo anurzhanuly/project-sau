@@ -169,6 +169,7 @@ const validateForm = (): boolean => {
   padding: 35px 25px;
   background-color: #ffffff;
   border-radius: 5px;
+  min-height: 100vh;
 }
 .authorization-main h4 {
   margin-top: 15px;
