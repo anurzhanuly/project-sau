@@ -7,7 +7,7 @@
       <div class="link-back"><span>&lt;</span><a href="/">Назад</a></div>
       <div class="authorization-wrapper p-fluid">
         <form class="authorization-form">
-          <img :src="`src/assets/${logo}`" alt="Logo" />
+          <img :src="`@/assets/${logo}`" alt="Logo" />
           <div>
             <h4>Имя <span>*</span></h4>
             <input-text v-model="firstName" />
