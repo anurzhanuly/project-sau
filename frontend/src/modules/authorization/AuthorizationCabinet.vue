@@ -241,7 +241,7 @@ const validateForm = (): boolean => {
   }
   .authorization-main,
   .authorization-form {
-    width: 100%;
+    width: 95%;
   }
 }
 
@@ -260,7 +260,7 @@ const validateForm = (): boolean => {
   }
   .authorization-main,
   .authorization-form {
-    width: 100%;
+    width: 95%;
   }
 }
 @media (min-width: 601px) and (max-width: 1024px) {

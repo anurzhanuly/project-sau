@@ -1,8 +1,15 @@
 <template>
   <div class="wrapper">
     <router-view />
+    <dynamic-dialog />
+    <p-toast />
   </div>
 </template>
+
+<script setup lang="ts">
+import DynamicDialog from "primevue/dynamicdialog";
+import PToast from "primevue/toast";
+</script>
 
 <style>
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap");
