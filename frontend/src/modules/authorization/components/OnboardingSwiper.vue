@@ -2,7 +2,7 @@
     <main class="container">
         <Swiper :modules="[Pagination, Autoplay]" 
         :pagination="true" :autoplay='{
-            delay: 3000,
+            delay: 2500,
             disableOnInteraction: false
             }'>
             <SwiperSlide v-for="item in items">
@@ -50,7 +50,7 @@ const items = [
 <style>
 .swiper {
     width: 100%;
-    height: 100vh;
+    min-height: 100vh;
 }
 .swiper-img {
     margin-top: 124px;
@@ -86,5 +86,17 @@ const items = [
 }
 .swiper-pagination-bullet-active {
     opacity: 1;
+}
+
+@media (min-width: 601px) and (max-width: 1024px) {
+    .swiper {
+        min-height: 120vh;
+    }
+    .swiper-heading {
+        font-size: 1.5rem;
+    }
+    .swiper-inner-text {
+        font-size: 1rem;
+    }
 }
 </style>

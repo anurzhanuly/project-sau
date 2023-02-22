@@ -218,7 +218,7 @@ const validateForm = (): boolean => {
 }
 
 .authorization-form {
-  width: 350px;
+  width: 50%;
 }
 
 .authorization-form img {
@@ -230,5 +230,46 @@ const validateForm = (): boolean => {
   height: 56px;
   font-weight: 600;
   border-radius: 10px;
+}
+
+@media only screen and (max-width: 375px) {
+  .authorization-section {
+    min-height: 120vh;
+  }
+  .onboarding-main {
+    display: none;
+  }
+
+  .link-back {
+    top: 20px;
+    left: 20px;
+    margin: 0;
+  }
+  .authorization-main, .authorization-form {
+    width: 100%;
+  }
+}
+
+@media (min-width: 376px) and (max-width: 600px) {
+  .authorization-section {
+    min-height: 100vh;
+  }
+  .onboarding-main {
+    display: none;
+  }
+
+  .link-back {
+    top: 20px;
+    left: 20px;
+    margin: 0;
+  }
+  .authorization-main, .authorization-form {
+    width: 100%;
+  }
+}
+@media (min-width: 601px) and (max-width: 1024px) {
+  .authorization-main {
+    margin: 50px 0;
+  }
 }
 </style>
