@@ -26,6 +26,13 @@ function openCabinetLoginPopup() {
 </script>
 
 <style>
+.header {
+  display: flex;
+  justify-content: space-between;
+  height: 80px;
+  align-items: center;
+}
+
 .header-button {
   float: right;
   font-style: normal;
@@ -35,12 +42,6 @@ function openCabinetLoginPopup() {
   color: #276ef1;
   border-bottom: 1px solid #276ef1;
   cursor: pointer;
-}
-.header {
-  display: flex;
-  justify-content: space-between;
-  height: 80px;
-  align-items: center;
 }
 
 .header-image {
@@ -53,9 +54,13 @@ function openCabinetLoginPopup() {
     width: 150px;
     height: 30px;
   }
+
+  .header-button {
+    font-size: 15px;
+  }
 }
 
-@media (max-width: 330px) {
+@media (max-width: 350px) {
   .header-image {
     width: 120px;
     height: 30px;

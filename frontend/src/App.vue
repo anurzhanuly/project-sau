@@ -5,6 +5,8 @@
 </template>
 
 <style>
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap");
+
 * {
   margin: 0;
   padding: 0;
@@ -13,7 +15,6 @@
 
 html,
 body {
-  background-color: #f5f7f9;
   height: 100%;
 }
 
@@ -27,7 +28,7 @@ li {
 }
 
 #app {
-  font-family: Montserrat;
+  font-family: "Montserrat";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;

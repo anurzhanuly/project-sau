@@ -18,6 +18,7 @@
     "primeicons": "^5.0.0",
     "primevue": "^3.23.0",
     "survey-knockout-ui": "latest",
+    "swiper": "^9.0.5",
     "vue": "^3.2.40",
     "vue-router": "^4.1.5"
   },

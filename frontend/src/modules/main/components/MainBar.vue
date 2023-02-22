@@ -60,7 +60,7 @@ const goToAuthorization = () => {
 }
 
 .main-content-buttons .p-button {
-  width: 430px;
+  width: 520px;
   font-size: 22px;
   background: #276ef1;
   border-radius: 10px;
@@ -71,7 +71,7 @@ const goToAuthorization = () => {
   background-color: #ffffff;
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 1100px) {
   .main-content h1 {
     font-size: 60px;
   }
@@ -101,18 +101,18 @@ const goToAuthorization = () => {
 
 @media (max-width: 480px) {
   .main-content h1 {
-    font-size: 32px;
+    font-size: 25px;
     line-height: 17px;
   }
 
   .main-content h3 {
-    font-size: 23px;
+    font-size: 20px;
     line-height: 17px;
   }
 
   .main-content-buttons .p-button {
     width: 100%;
-    margin-top: 15px;
+    margin-top: 7px;
   }
 
   .main-content {
