@@ -1,13 +1,13 @@
 <template>
   <div class="authorization-section">
     <div class="onboarding-main">
-      <onboarding-swiper />
+      <base-swiper />
     </div>
     <div class="authorization-main">
       <div class="link-back"><span>&lt;</span><a href="/">Назад</a></div>
       <div class="authorization-wrapper p-fluid">
-        <form class="authorization-form">
-          <img src="@/assets/main/logo-auth.png" alt="Logo" />
+        <form v-if="isSignupRoute" class="authorization-form">
+          <logo-image /> 
           <div>
             <h4>Имя <span>*</span></h4>
             <input-text v-model="firstName" />
@@ -54,6 +54,18 @@
           </div>
           <p-button label="Пройти тест" class="p-button" @click="goToSurvey" />
         </form>
+        <form v-if="!isSignupRoute" class="authorization-form">
+          <logo-image /> 
+          <div>
+            <h4>Номер телефона <span>*</span></h4>
+            <input-text v-model="loginPhone" />
+          </div>
+          <div>
+            <h4>Пароль <span>*</span></h4>
+            <input-text type="password" v-model="password" />
+          </div>
+          <p-button label="Вход" class="p-button" @click="goToPatientCab" />
+        </form>
       </div>
     </div>
   </div>
@@ -61,22 +73,26 @@
 
 <script setup lang="ts">
 import { useClinicsStore } from "@/modules/admin/views/clinics/store/clinics.store";
-import { ref, onMounted } from "vue";
-import { useRouter } from "vue-router";
+import { ref, onMounted, computed } from "vue";
+import { useRouter, useRoute } from "vue-router";
 import { warn } from "@/utils/toast";
 
 import PButton from "primevue/button";
 import InputText from "primevue/inputtext";
 import Dropdown from "primevue/dropdown";
 import { storeToRefs } from "pinia";
-import OnboardingSwiper from "@/modules/authorization/components/OnboardingSwiper.vue";
+import BaseSwiper from "@/components/BaseSwiper.vue";
+import LogoImage from "@/components/LogoImage.vue";
 
 const router = useRouter();
+const route = useRoute();
 const clinicStore = useClinicsStore();
 
 onMounted(() => {
   clinicStore.getClinicsData();
 });
+
+const isSignupRoute = computed(() => route.path === '/signup');
 
 const { allClinics, allDoctors } = storeToRefs(clinicStore);
 
@@ -86,17 +102,28 @@ const middleName = ref<string>("");
 const phone = ref<string>("");
 const сlinic = ref<string>("");
 const doctor = ref<string>("");
-const userData = ref<any>({});
+const loginPhone = ref<string>("");
+const password = ref<string>("");
+const userRegisterData = ref<any>({});
+const userLoginData = ref<any>({});
 
 const goToSurvey = (): void => {
-  if (validateForm()) {
+  if (validateRegisterForm()) {
     router.push({
       path: "/survey",
     });
   }
 };
 
-const validateForm = (): boolean => {
+const goToPatientCab = (): void => {
+  if (validateLoginForm()) {
+    router.push({
+      path: "/patientcab/main",
+    });
+  }
+};
+
+const validateRegisterForm = (): boolean => {
   const cyrillicPattern = /^[\u0400-\u04FF]+$/;
   const phonePattern = /^8[0-9]{10}$/;
 
@@ -155,7 +182,7 @@ const validateForm = (): boolean => {
     .map((word: string) => word[0].toUpperCase() + word.slice(1).toLowerCase())
     .join(" ");
 
-  userData.value = {
+  userRegisterData.value = {
     firstName: firstName.value,
     lastName: lastName.value,
     middleName: middleName.value,
@@ -163,6 +190,25 @@ const validateForm = (): boolean => {
     сlinic: сlinic.value,
     doctor: doctor.value,
   };
+
+  return true;
+};
+
+const validateLoginForm = (): boolean => {
+  const phonePattern = /^8[0-9]{10}$/;
+
+  if (!phonePattern.test(phone.value)) {
+    warn(
+      "Внимание",
+      "Номер телефона' должен начинаеться с 8 и иметь 11 символов",
+    );
+    return false;
+  }
+
+  userLoginData.value = {
+    loginPhone: loginPhone.value,
+    password: password.value
+  }
 
   return true;
 };
@@ -175,7 +221,7 @@ const validateForm = (): boolean => {
 }
 .onboarding-main {
   width: 40%;
-  background-color: #aacceb;
+  background-color: rgba(170, 204, 235, 0.4);
 }
 .link-back {
   position: absolute;

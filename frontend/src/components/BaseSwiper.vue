@@ -94,6 +94,24 @@ const items = [
   opacity: 1;
 }
 
+@media only screen and (max-width: 600px) {
+  .swiper {
+    min-height: 80vh;
+  }
+  .swiper-text {
+    max-width: 350px;
+  }
+  .swiper-heading {
+    font-size: 1.5rem;
+  }
+  .swiper-inner-text {
+    font-size: 1rem;
+  }
+  .swiper-pagination-bullets {
+    margin: 0;
+  }
+}
+
 @media (min-width: 601px) and (max-width: 1024px) {
   .swiper {
     min-height: 120vh;
