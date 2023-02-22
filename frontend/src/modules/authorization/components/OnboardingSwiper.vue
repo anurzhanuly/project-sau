@@ -10,7 +10,7 @@
     >
       <swiper-slide v-for="(item, index) in items" :key="index">
         <div class="swiper-img">
-          <img :src="`@/assets/${item.photo}`" alt="logo" />
+          <img :src="`./src/assets/main/${item.photo}`" alt="logo" />
         </div>
         <div class="swiper-text">
           <div>

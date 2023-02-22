@@ -7,7 +7,7 @@
       <div class="link-back"><span>&lt;</span><a href="/">Назад</a></div>
       <div class="authorization-wrapper p-fluid">
         <form class="authorization-form">
-          <img :src="`@/assets/${logo}`" alt="Logo" />
+          <img src="@/assets/main/logo-auth.png" alt="Logo" />
           <div>
             <h4>Имя <span>*</span></h4>
             <input-text v-model="firstName" />
@@ -80,7 +80,6 @@ onMounted(() => {
 
 const { allClinics, allDoctors } = storeToRefs(clinicStore);
 
-const logo = "logo-auth.png"; // TODO: это надо убрать
 const firstName = ref<string>("");
 const lastName = ref<string>("");
 const middleName = ref<string>("");
