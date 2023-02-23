@@ -57,40 +57,48 @@ const items = [
 .swiper {
   min-height: 100vh;
 }
+
 .swiper-img {
   margin-top: 116px;
 }
+
 .swiper-slide img {
   width: 95%;
   height: 100%;
 }
+
 .swiper-text {
   max-width: 500px;
   margin: auto;
   margin-top: 24px;
 }
+
 .swiper-heading {
   font-weight: 600;
   font-size: 26px;
   line-height: 32px;
   text-align: center;
 }
+
 .swiper-inner-text {
   text-align: center;
   font-size: 18px;
   margin-top: 23px;
 }
+
 .swiper-pagination-bullets {
   position: relative;
   margin-top: 56px;
   margin-bottom: 88px;
 }
+
 .swiper-pagination-bullet {
   width: 12px;
   height: 12px;
   background-color: #276ef1;
   opacity: 30%;
 }
+
 .swiper-pagination-bullet-active {
   opacity: 1;
 }
@@ -100,20 +108,25 @@ const items = [
     min-height: 80vh;
     width: 80%;
   }
+
   .swiper-img {
     margin-top: 80px;
   }
+
   .swiper-text {
     max-width: 380px;
     margin-top: 0;
   }
+
   .swiper-pagination-bullets {
     margin-top: 24px;
     margin-bottom: 0;
-}
+  }
+
   .swiper-heading {
     font-size: 1.5rem;
   }
+
   .swiper-inner-text {
     font-size: 1rem;
   }
@@ -123,16 +136,20 @@ const items = [
   .swiper {
     min-height: 80vh;
   }
+
   .swiper-text {
     max-width: 350px;
   }
+
   .swiper-pagination-bullets {
     margin-top: 24px;
     margin-bottom: 0;
-}
+  }
+
   .swiper-heading {
     font-size: 1.5rem;
   }
+
   .swiper-inner-text {
     font-size: 1rem;
   }
@@ -142,9 +159,11 @@ const items = [
   .swiper {
     min-height: 120vh;
   }
+
   .swiper-heading {
     font-size: 1.5rem;
   }
+
   .swiper-inner-text {
     font-size: 1rem;
   }

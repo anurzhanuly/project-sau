@@ -8,7 +8,11 @@
 
     <div class="main-content-buttons">
       <p-button label="Пройти тест" @click="goToAuthorization" />
-      <p-button label="Войти в личный кабинет" class="p-button-outlined" @click="goToSignin" />
+      <p-button
+        label="Войти в личный кабинет"
+        class="p-button-outlined"
+        @click="goToSignin"
+      />
     </div>
   </div>
 </template>
@@ -27,17 +31,19 @@ onMounted(() => {
   surveyStore.getQuestionsData();
 });
 
-const isMobileDevice = computed(() => /Mobi/.test(navigator.userAgent) && !/iPad/.test(navigator.userAgent));
+const isMobileDevice = computed(
+  () => /Mobi/.test(navigator.userAgent) && !/iPad/.test(navigator.userAgent),
+);
 console.log(isMobileDevice.value);
 
 const goToAuthorization = () => {
-  isMobileDevice.value ? 
-  router.push({
-    path: "/onboarding",
-  }) :
-  router.push({
-    path: "/signup",
-  });
+  isMobileDevice.value
+    ? router.push({
+        path: "/onboarding",
+      })
+    : router.push({
+        path: "/signup",
+      });
 };
 
 const goToSignin = () => {
