@@ -27,7 +27,8 @@ onMounted(() => {
   surveyStore.getQuestionsData();
 });
 
-const isMobileDevice = computed(() => /Mobi/.test(navigator.userAgent));
+const isMobileDevice = computed(() => /Mobi/.test(navigator.userAgent) && !/iPad/.test(navigator.userAgent));
+console.log(isMobileDevice.value);
 
 const goToAuthorization = () => {
   isMobileDevice.value ? 

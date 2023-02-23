@@ -27,7 +27,7 @@ const goToSignup = (): void => {
 @media only screen and (max-width: 600px) {
   .onboarding-section {
     background-color: rgba(170, 204, 235, 0.4);
-    min-height: 100vh;
+    min-height: 120vh;
   }
   .onboarding-buttons {
     padding: 0 16px;
