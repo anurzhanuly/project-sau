@@ -55,14 +55,14 @@
           <p-button label="Пройти тест" class="p-button" @click="goToSurvey" />
         </form>
         <form v-if="!isSignupRoute" class="authorization-form">
-          <logo-image />
+          <base-logo-image />
           <div>
             <h4>Номер телефона <span>*</span></h4>
             <input-text v-model="loginPhone" />
           </div>
           <div>
             <h4>Пароль <span>*</span></h4>
-            <input-text type="password" v-model="password" />
+            <input-text v-model="password" type="password" />
           </div>
           <p-button label="Вход" class="p-button" @click="goToPatientCab" />
         </form>
@@ -82,7 +82,7 @@ import InputText from "primevue/inputtext";
 import Dropdown from "primevue/dropdown";
 import { storeToRefs } from "pinia";
 import BaseSwiper from "@/components/BaseSwiper.vue";
-import LogoImage from "@/components/LogoImage.vue";
+import BaseLogoImage from "@/components/BaseLogoImage.vue";
 
 const router = useRouter();
 const route = useRoute();

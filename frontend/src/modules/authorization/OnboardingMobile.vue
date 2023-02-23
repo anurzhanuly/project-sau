@@ -1,11 +1,15 @@
 <template>
-    <div class="onboarding-section">
-        <base-swiper />
-        <div class="onboarding-buttons">
-            <!-- <p-button label="Далее" /> -->
-            <p-button label="Пропустить" class="p-button-outlined" @click="goToSignup" />
-        </div>
+  <div class="onboarding-section">
+    <base-swiper />
+    <div class="onboarding-buttons">
+      <!-- <p-button label="Далее" /> -->
+      <p-button
+        label="Пропустить"
+        class="p-button-outlined"
+        @click="goToSignup"
+      />
     </div>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -15,11 +19,10 @@ import PButton from "primevue/button";
 
 const router = useRouter();
 
-
 const goToSignup = (): void => {
-    router.push({
-        path: "/signup",
-    });
+  router.push({
+    path: "/signup",
+  });
 };
 </script>
 
@@ -41,6 +44,6 @@ const goToSignup = (): void => {
   }
   .onboarding-buttons .p-button:last-child {
     background-color: #ffffff;
-}
+  }
 }
 </style>
