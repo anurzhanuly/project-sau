@@ -55,7 +55,6 @@ const items = [
 
 <style>
 .swiper {
-  width: 100%;
   min-height: 100vh;
 }
 .swiper-img {
@@ -82,7 +81,9 @@ const items = [
   margin-top: 23px;
 }
 .swiper-pagination-bullets {
-  margin-bottom: 60px;
+  position: relative;
+  margin-top: 56px;
+  margin-bottom: 88px;
 }
 .swiper-pagination-bullet {
   width: 12px;
@@ -106,14 +107,15 @@ const items = [
     max-width: 380px;
     margin-top: 0;
   }
+  .swiper-pagination-bullets {
+    margin-top: 24px;
+    margin-bottom: 0;
+}
   .swiper-heading {
     font-size: 1.5rem;
   }
   .swiper-inner-text {
     font-size: 1rem;
-  }
-  .swiper-pagination-bullets {
-    margin: 0;
   }
 }
 
@@ -124,14 +126,15 @@ const items = [
   .swiper-text {
     max-width: 350px;
   }
+  .swiper-pagination-bullets {
+    margin-top: 24px;
+    margin-bottom: 0;
+}
   .swiper-heading {
     font-size: 1.5rem;
   }
   .swiper-inner-text {
     font-size: 1rem;
-  }
-  .swiper-pagination-bullets {
-    margin: 0;
   }
 }
 
