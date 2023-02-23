@@ -8,13 +8,13 @@
 
     <div class="main-content-buttons">
       <p-button label="Пройти тест" @click="goToAuthorization" />
-      <p-button label="Войти в личный кабинет" class="p-button-outlined" />
+      <p-button label="Войти в личный кабинет" class="p-button-outlined" @click="goToSignin" />
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { onMounted } from "vue";
+import { onMounted, computed } from "vue";
 import { useSurveyStore } from "../../survey/store/survey.store.js";
 import { useRouter } from "vue-router";
 
@@ -27,9 +27,21 @@ onMounted(() => {
   surveyStore.getQuestionsData();
 });
 
+const isMobileDevice = computed(() => /Mobi/.test(navigator.userAgent));
+
 const goToAuthorization = () => {
+  isMobileDevice.value ? 
   router.push({
-    path: "/authorization",
+    path: "/onboarding",
+  }) :
+  router.push({
+    path: "/signup",
+  });
+};
+
+const goToSignin = () => {
+  router.push({
+    path: "/signin",
   });
 };
 </script>
