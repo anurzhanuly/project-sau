@@ -1,27 +1,27 @@
 import {
-  e as Z,
-  V as u4,
-  d as e4,
+  d as Z,
+  W as u4,
+  b as e4,
   r as B,
-  f as E,
-  g as c,
-  l as e,
-  i as o,
+  o as E,
+  c as d,
+  e,
+  f as o,
   u as t,
-  q as l4,
+  i as l4,
   F as j,
-  v as s4,
-  x as t4,
+  p as s4,
+  j as t4,
   _ as o4,
-  W as a4,
-  j as O,
-  E as Q,
-  k as X,
-  t as n4,
-} from "./index.c7985898.js";
-import { s as C } from "./textarea.esm.b897a2ed.js";
-import { s as Y } from "./panel.esm.e8a2c3ee.js";
-const _ = a => (s4("data-v-dfb7c77b"), (a = a()), t4(), a),
+  X as a4,
+  G as M,
+  g as O,
+  x as Q,
+  H as n4,
+} from "./index.5bf35bb2.js";
+import { s as C } from "./textarea.esm.d8886f2e.js";
+import { s as Y } from "./panel.esm.d69952b8.js";
+const _ = a => (s4("data-v-1c963712"), (a = a()), t4(), a),
   i4 = { class: "result-wrapper" },
   E4 = { class: "result-item" },
   B4 = _(() =>
@@ -32,8 +32,8 @@ const _ = a => (s4("data-v-dfb7c77b"), (a = a()), t4(), a),
       -1,
     ),
   ),
-  r4 = { class: "result-item" },
-  d4 = _(() =>
+  c4 = { class: "result-item" },
+  r4 = _(() =>
     e(
       "h3",
       null,
@@ -41,7 +41,7 @@ const _ = a => (s4("data-v-dfb7c77b"), (a = a()), t4(), a),
       -1,
     ),
   ),
-  c4 = { class: "result-item" },
+  d4 = { class: "result-item" },
   v4 = _(() =>
     e(
       "h3",
@@ -83,10 +83,10 @@ const _ = a => (s4("data-v-dfb7c77b"), (a = a()), t4(), a),
     setup(a) {
       var m,
         p,
-        b,
-        V,
         f,
+        V,
         h,
+        b,
         w,
         x,
         g,
@@ -99,38 +99,38 @@ const _ = a => (s4("data-v-dfb7c77b"), (a = a()), t4(), a),
         T,
         N,
         P,
-        q,
-        L,
-        W,
-        z,
         G,
         H,
+        L,
+        W,
+        X,
+        q,
+        z,
         J,
-        K,
-        M;
+        K;
       const F = u4(),
         u = e4(() => F.resultAnswers || {}),
-        r = B(""),
+        c = B(""),
         n = B(""),
         v = B(""),
         D = B(""),
         A = B(""),
-        d = B(""),
+        r = B(""),
         $ = () => {
           const i = {};
-          (i.complaints = d.value),
+          (i.complaints = r.value),
             (i.complaintsAnamnesis = n.value),
             (i.lifeAnamnesis = D.value),
             (i.alergicAnamnesis = v.value),
             (i.objectiveData = A.value),
-            (i.objectiveExamination = r.value),
+            (i.objectiveExamination = c.value),
             console.log(i);
         };
       return (
         u.value[
           "\u0415\u0441\u0442\u044C \u043B\u0438 \u0443 \u0432\u0430\u0441 \u0441\u0435\u0439\u0447\u0430\u0441 \u0436\u0430\u043B\u043E\u0431\u044B?"
         ].includes("\u0414\u0430")
-          ? ((d.value = `${
+          ? ((r.value = `${
               ((m =
                 u.value[
                   "\u041A\u0430\u043A\u0438\u0435 \u0443 \u0412\u0430\u0441 \u043E\u0441\u043D\u043E\u0432\u043D\u044B\u0435 \u0436\u0430\u043B\u043E\u0431\u044B?"
@@ -146,14 +146,14 @@ const _ = a => (s4("data-v-dfb7c77b"), (a = a()), t4(), a),
                 ? void 0
                 : p.join(",")) || ""
             } \u0441\u0442\u0430\u043D\u043E\u0432\u0438\u0442\u0441\u044F ${
-              ((b =
+              ((f =
                 u.value[
                   "\u0421\u0442\u0430\u043D\u043E\u0432\u0438\u0442\u0441\u044F \u043B\u0438 \u0412\u0430\u043C \u043B\u0443\u0447\u0448\u0435?"
                 ]) == null
                 ? void 0
-                : b.join(",")) || ""
+                : f.join(",")) || ""
             }`))
-          : (d.value =
+          : (r.value =
               "\u0416\u0430\u043B\u043E\u0431\u044B \u043D\u0435 \u0443\u043A\u0430\u0437\u0430\u043B"),
         (D.value = `\u0425\u0440\u043E\u043D\u0438\u0447\u0435\u0441\u043A\u0438\u0435 \u0437\u0430\u0431\u043E\u043B\u0435\u0432\u0430\u043D\u0438\u044F: ${
           ((V =
@@ -163,19 +163,19 @@ const _ = a => (s4("data-v-dfb7c77b"), (a = a()), t4(), a),
             ? void 0
             : V.join(",")) || ""
         } ${
-          ((f =
+          ((h =
             u.value[
               "\u041E\u0442\u043C\u0435\u0442\u044C\u0442\u0435 \u043A\u0430\u043A\u0438\u0435 \u0437\u0430\u0431\u043E\u043B\u0435\u0432\u0430\u043D\u0438\u044F \u043F\u0435\u0447\u0435\u043D\u0438 \u0443 \u0412\u0430\u0441 \u0435\u0441\u0442\u044C/\u0431\u044B\u043B\u0438?"
             ]) == null
             ? void 0
-            : f.join(",")) || ""
+            : h.join(",")) || ""
         } ${
-          ((h =
+          ((b =
             u.value[
               "\u041E\u0442\u043C\u0435\u0442\u044C\u0442\u0435 \u043A\u0430\u043A\u0438\u0435 \u043E\u043D\u043A\u043E\u043B\u043E\u0433\u0438\u0447\u0435\u0441\u043A\u0438\u0435 \u0437\u0430\u0431\u043E\u043B\u0435\u0432\u0430\u043D\u0438\u044F \u0443 \u0412\u0430\u0441 \u0435\u0441\u0442\u044C/\u0431\u044B\u043B\u0438?"
             ]) == null
             ? void 0
-            : h.join(",")) || ""
+            : b.join(",")) || ""
         } ${
           ((w =
             u.value[
@@ -267,80 +267,80 @@ const _ = a => (s4("data-v-dfb7c77b"), (a = a()), t4(), a),
             : P.join(",")) || ""
         }
 \u041A\u043E\u0436\u043D\u0430\u044F \u0441\u0438\u0441\u0442\u0435\u043C\u0430: ${
-          ((q =
+          ((G =
             u.value[
               "\u041E\u0442\u043C\u0435\u0442\u044C\u0442\u0435 \u0436\u0430\u043B\u043E\u0431\u044B \u0441 \u043A\u043E\u0436\u0435\u0439"
             ]) == null
             ? void 0
-            : q.join(",")) || ""
+            : G.join(",")) || ""
         }
 \u041D\u0435\u0440\u0432\u043D\u0430\u044F \u0441\u0438\u0441\u0442\u0435\u043C\u0430: ${
-          ((L =
+          ((H =
             u.value[
               "\u041E\u0442\u043C\u0435\u0442\u044C\u0442\u0435 \u0436\u0430\u043B\u043E\u0431\u044B \u0432 \u043E\u0431\u043B\u0430\u0441\u0442\u0438 \u0433\u043E\u043B\u043E\u0432\u044B"
             ]) == null
             ? void 0
-            : L.join(",")) || ""
+            : H.join(",")) || ""
         }
 \u0414\u044B\u0445\u0430\u0442\u0435\u043B\u044C\u043D\u0430\u044F \u0441\u0438\u0441\u0442\u0435\u043C\u0430: ${
-          ((W =
+          ((L =
             u.value[
               "\u041E\u0442\u043C\u0435\u0442\u044C\u0442\u0435 \u0436\u0430\u043B\u043E\u0431\u044B \u0441 \u0434\u044B\u0445\u0430\u043D\u0438\u0435\u043C"
             ]) == null
             ? void 0
-            : W.join(",")) || ""
+            : L.join(",")) || ""
         }
 \u0421\u0435\u0440\u0434\u0435\u0447\u043D\u043E-\u0441\u043E\u0441\u0443\u0434\u0438\u0441\u0442\u0430\u044F \u0441\u0438\u0441\u0442\u0435\u043C\u0430: ${
-          ((z =
+          ((W =
             u.value[
               "\u041E\u0442\u043C\u0435\u0442\u044C\u0442\u0435 \u0436\u0430\u043B\u043E\u0431\u044B \u0441 \u0441\u0435\u0440\u0434\u0446\u0435\u043C"
             ]) == null
             ? void 0
-            : z.join(",")) || ""
+            : W.join(",")) || ""
         }
 \u0416\u0435\u043B\u0443\u0434\u043E\u0447\u043D\u043E-\u043A\u0438\u0448\u0435\u0447\u043D\u044B\u0439 \u0442\u0440\u0430\u043A\u0442: ${
-          ((G =
+          ((X =
             u.value[
               "\u041E\u0442\u043C\u0435\u0442\u044C\u0442\u0435 \u0436\u0430\u043B\u043E\u0431\u044B \u0441 \u0436\u0438\u0432\u043E\u0442\u043E\u043C"
             ]) == null
             ? void 0
-            : G.join(",")) || ""
+            : X.join(",")) || ""
         }
 \u041C\u043E\u0447\u0435\u043F\u043E\u043B\u043E\u0432\u0430\u044F \u0441\u0438\u0441\u0442\u0435\u043C\u0430: ${
-          ((H =
+          ((q =
             u.value[
               "\u041E\u0442\u043C\u0435\u0442\u044C\u0442\u0435 \u0436\u0430\u043B\u043E\u0431\u044B \u0441 \u043F\u043E\u043B\u043E\u0432\u043E\u0439 \u0441\u0438\u0441\u0442\u0435\u043C\u043E\u0439"
             ]) == null
             ? void 0
-            : H.join(",")) || ""
+            : q.join(",")) || ""
         }
 \u041E\u043F\u043E\u0440\u043D\u043E-\u0434\u0432\u0438\u0433\u0430\u0442\u0435\u043B\u044C\u043D\u0430\u044F \u0441\u0438\u0441\u0442\u0435\u043C\u0430: ${
-          ((J =
+          ((z =
             u.value[
               "\u041E\u0442\u043C\u0435\u0442\u044C\u0442\u0435 \u0436\u0430\u043B\u043E\u0431\u044B \u0441 \u043C\u044B\u0448\u0446\u0430\u043C\u0438"
             ]) == null
             ? void 0
-            : J.join(",")) || ""
+            : z.join(",")) || ""
         }
 \u041A\u0440\u043E\u0432\u0435\u043D\u043E\u0441\u043D\u0430\u044F \u0441\u0438\u0441\u0442\u0435\u043C\u0430: ${
-          ((K =
+          ((J =
             u.value[
               "\u041E\u0442\u043C\u0435\u0442\u044C\u0442\u0435 \u0436\u0430\u043B\u043E\u0431\u044B \u0441 \u043A\u0440\u043E\u0432\u044C\u044E"
             ]) == null
             ? void 0
-            : K.join(",")) || ""
+            : J.join(",")) || ""
         }
 \u042D\u043D\u0434\u043E\u043A\u0440\u0438\u043D\u043D\u0430\u044F \u0441\u0438\u0441\u0442\u0435\u043C\u0430: ${
-          ((M =
+          ((K =
             u.value[
               "\u041E\u0442\u043C\u0435\u0442\u044C\u0442\u0435 \u0436\u0430\u043B\u043E\u0431\u044B \u0441 \u0449\u0438\u0442\u043E\u0432\u0438\u0434\u043A\u043E\u0439"
             ]) == null
             ? void 0
-            : M.join(",")) || ""
+            : K.join(",")) || ""
         }`),
         (i, l) => (
           E(),
-          c(
+          d(
             j,
             null,
             [
@@ -350,9 +350,9 @@ const _ = a => (s4("data-v-dfb7c77b"), (a = a()), t4(), a),
                   o(
                     t(C),
                     {
-                      modelValue: d.value,
+                      modelValue: r.value,
                       "onUpdate:modelValue":
-                        l[0] || (l[0] = s => (d.value = s)),
+                        l[0] || (l[0] = s => (r.value = s)),
                       cols: "60",
                       rows: "5",
                     },
@@ -361,8 +361,8 @@ const _ = a => (s4("data-v-dfb7c77b"), (a = a()), t4(), a),
                     ["modelValue"],
                   ),
                 ]),
-                e("div", r4, [
-                  d4,
+                e("div", c4, [
+                  r4,
                   o(
                     t(C),
                     {
@@ -377,7 +377,7 @@ const _ = a => (s4("data-v-dfb7c77b"), (a = a()), t4(), a),
                     ["modelValue"],
                   ),
                 ]),
-                e("div", c4, [
+                e("div", d4, [
                   v4,
                   o(
                     t(C),
@@ -430,9 +430,9 @@ const _ = a => (s4("data-v-dfb7c77b"), (a = a()), t4(), a),
                   o(
                     t(C),
                     {
-                      modelValue: r.value,
+                      modelValue: c.value,
                       "onUpdate:modelValue":
-                        l[5] || (l[5] = s => (r.value = s)),
+                        l[5] || (l[5] = s => (c.value = s)),
                       cols: "60",
                       rows: "10",
                     },
@@ -457,10 +457,10 @@ const _ = a => (s4("data-v-dfb7c77b"), (a = a()), t4(), a),
       );
     },
   });
-const j4 = o4($4, [["__scopeId", "data-v-dfb7c77b"]]),
-  b4 = a => (s4("data-v-37013935"), (a = a()), t4(), a),
+const j4 = o4($4, [["__scopeId", "data-v-1c963712"]]),
+  f4 = a => (s4("data-v-9ff83cc7"), (a = a()), t4(), a),
   V4 = { class: "section-result" },
-  f4 = b4(() =>
+  h4 = f4(() =>
     e(
       "h2",
       { class: "result-header" },
@@ -468,28 +468,28 @@ const j4 = o4($4, [["__scopeId", "data-v-dfb7c77b"]]),
       -1,
     ),
   ),
-  h4 = { key: 0, class: "btn-wrapper" },
+  b4 = { key: 0, class: "btn-wrapper" },
   w4 = Z({
     __name: "ResultCabinet",
     setup(a) {
       const F = u4(),
         u = e4(() => F.recommendations || []),
-        r = B(!0),
+        c = B(!0),
         n = B(!0),
         v = () => {
-          (r.value = !1),
+          (c.value = !1),
             (n.value = !1),
             setTimeout(() => {
               window.print();
             }),
             setTimeout(() => {
-              (r.value = !0), (n.value = !0);
+              (c.value = !0), (n.value = !0);
             }, 2e3);
         };
       return (D, A) => (
         E(),
-        c("section", V4, [
-          f4,
+        d("section", V4, [
+          h4,
           n.value
             ? (E(),
               a4(
@@ -500,9 +500,9 @@ const j4 = o4($4, [["__scopeId", "data-v-dfb7c77b"]]),
                     "\u041A\u0430\u0440\u0442\u043E\u0447\u043A\u0430 \u043F\u0430\u0446\u0438\u0435\u043D\u0442\u0430:",
                   toggleable: !0,
                 },
-                { default: O(() => [o(j4)]), _: 1 },
+                { default: M(() => [o(j4)]), _: 1 },
               ))
-            : Q("", !0),
+            : O("", !0),
           o(
             t(Y),
             {
@@ -511,25 +511,25 @@ const j4 = o4($4, [["__scopeId", "data-v-dfb7c77b"]]),
               toggleable: !0,
             },
             {
-              default: O(() => [
+              default: M(() => [
                 (E(!0),
-                c(
+                d(
                   j,
                   null,
-                  X(
+                  Q(
                     t(u),
-                    (d, $) => (
+                    (r, $) => (
                       E(),
-                      c("ul", { key: $, class: "result-list" }, [
+                      d("ul", { key: $, class: "result-list" }, [
                         (E(!0),
-                        c(
+                        d(
                           j,
                           null,
-                          X(
-                            d.recommendations,
+                          Q(
+                            r.recommendations,
                             (m, p) => (
                               E(),
-                              c(
+                              d(
                                 "li",
                                 { key: p, class: "result-list__item" },
                                 " - " + n4(m),
@@ -544,9 +544,9 @@ const j4 = o4($4, [["__scopeId", "data-v-dfb7c77b"]]),
                   ),
                   128,
                 )),
-                r.value
+                c.value
                   ? (E(),
-                    c("div", h4, [
+                    d("div", b4, [
                       o(t(l4), {
                         label:
                           "\u041E\u0442\u043A\u0440\u044B\u0442\u044C \u0432 pdf",
@@ -554,7 +554,7 @@ const j4 = o4($4, [["__scopeId", "data-v-dfb7c77b"]]),
                         onClick: v,
                       }),
                     ]))
-                  : Q("", !0),
+                  : O("", !0),
               ]),
               _: 1,
             },
@@ -563,5 +563,5 @@ const j4 = o4($4, [["__scopeId", "data-v-dfb7c77b"]]),
       );
     },
   });
-const k4 = o4(w4, [["__scopeId", "data-v-37013935"]]);
+const k4 = o4(w4, [["__scopeId", "data-v-9ff83cc7"]]);
 export { k4 as default };

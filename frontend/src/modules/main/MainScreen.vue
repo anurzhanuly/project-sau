@@ -10,17 +10,12 @@
   <div class="main-screen-footer">
     <footer-bar />
   </div>
-  <dynamic-dialog />
-  <p-toast />
 </template>
 
 <script setup lang="ts">
 import HeaderBar from "./components/HeaderBar.vue";
 import FooterBar from "./components/FooterBar.vue";
 import MainBar from "./components/MainBar.vue";
-
-import DynamicDialog from "primevue/dynamicdialog";
-import PToast from "primevue/toast";
 </script>
 
 <style>

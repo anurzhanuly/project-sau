@@ -1,17 +1,17 @@
 import {
-  H as w,
-  m as S,
-  q as B,
-  L as I,
-  f as g,
-  g as _,
-  i as x,
-  N as m,
-  al as b,
-  E as y,
-  W as D,
-  G as V,
-} from "./index.c7985898.js";
+  D as w,
+  h as S,
+  i as B,
+  A as I,
+  o as g,
+  c as _,
+  f as x,
+  E as m,
+  am as b,
+  g as y,
+  X as D,
+  v as V,
+} from "./index.5bf35bb2.js";
 var k = {
   name: "InputNumber",
   emits: ["update:modelValue", "input", "focus", "blur"],
@@ -935,7 +935,7 @@ function $(e, t, i, n, s, r) {
     )
   );
 }
-function N(e, t) {
+function F(e, t) {
   t === void 0 && (t = {});
   var i = t.insertAt;
   if (!(!e || typeof document > "u")) {
@@ -950,7 +950,7 @@ function N(e, t) {
         : s.appendChild(document.createTextNode(e));
   }
 }
-var F = `
+var N = `
 .p-inputnumber {
     display: inline-flex;
 }
@@ -1034,6 +1034,6 @@ var F = `
     width: 100%;
 }
 `;
-N(F);
+F(N);
 k.render = $;
 export { k as s };

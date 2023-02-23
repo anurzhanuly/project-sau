@@ -10,10 +10,22 @@ const router = createRouter({
       component: MainScreenVue,
     },
     {
-      path: "/authorization",
-      name: "authorization",
+      path: "/signup",
+      name: "signup",
       component: () =>
         import("@/modules/authorization/AuthorizationCabinet.vue"),
+    },
+    {
+      path: "/signin",
+      name: "signin",
+      component: () =>
+        import("@/modules/authorization/AuthorizationCabinet.vue"),
+    },
+    {
+      path: "/onboarding",
+      name: "onboarding",
+      component: () =>
+        import("@/modules/authorization/OnboardingMobile.vue"),
     },
     {
       path: "/result",

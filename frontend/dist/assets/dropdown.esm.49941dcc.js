@@ -1,33 +1,33 @@
 import {
-  f as p,
-  g as f,
-  C as I,
-  D as k,
-  E as z,
-  G as F,
+  o as p,
+  c as f,
+  q as I,
+  t as k,
+  g as z,
+  v as F,
   F as K,
-  k as A,
-  l as v,
+  x as A,
+  e as v,
   U as R,
   Z as P,
   O,
-  H as w,
-  I as U,
-  J as W,
+  D as w,
+  C as U,
+  y as W,
   R as _,
-  K as j,
-  L as N,
-  M as q,
-  N as M,
-  i as H,
-  j as B,
+  z as j,
+  A as N,
+  B as q,
+  E as M,
+  f as H,
+  G as E,
   T as Z,
-  t as C,
-  P as J,
-  Q,
-  y as D,
-} from "./index.c7985898.js";
-import { O as X } from "./overlayeventbus.esm.8d04a854.js";
+  H as L,
+  I as J,
+  J as Q,
+  k as D,
+} from "./index.5bf35bb2.js";
+import { O as X } from "./overlayeventbus.esm.e01cac82.js";
 var G = {
   name: "VirtualScroller",
   emits: [
@@ -309,19 +309,19 @@ var G = {
         i = (h, u) => (h ? (h > u ? h - u : h) : 0),
         o = (h, u) => Math.floor(h / (u || h)),
         a = (h, u, g, S, x, T) => (h <= x ? x : T ? g - S - x : u + x - 1),
-        c = (h, u, g, S, x, T, E) =>
+        c = (h, u, g, S, x, T, B) =>
           h <= T
             ? 0
-            : Math.max(0, E ? (h < u ? g : h - T) : h > u ? g : h - 2 * T),
+            : Math.max(0, B ? (h < u ? g : h - T) : h > u ? g : h - 2 * T),
         r = (h, u, g, S, x, T) => {
-          let E = u + S + 2 * x;
-          return h >= x && (E += x + 1), this.getLast(E, T);
+          let B = u + S + 2 * x;
+          return h >= x && (B += x + 1), this.getLast(B, T);
         },
         d = i(t.scrollTop, l.top),
         m = i(t.scrollLeft, l.left);
       let y = s ? { rows: 0, cols: 0 } : 0,
         V = this.last,
-        L = !1,
+        C = !1,
         b = this.lastScrollPos;
       if (s) {
         const h = this.lastScrollPos.top <= d,
@@ -382,7 +382,7 @@ var G = {
               !0,
             ),
           }),
-          (L =
+          (C =
             y.rows !== this.first.rows ||
             V.rows !== this.last.rows ||
             y.cols !== this.first.cols ||
@@ -416,10 +416,10 @@ var G = {
             this.numItemsInViewport,
             this.d_numToleratedItems,
           )),
-          (L = y !== this.first || V !== this.last),
+          (C = y !== this.first || V !== this.last),
           (b = h);
       }
-      return { first: y, last: V, isRangeChanged: L, scrollPos: b };
+      return { first: y, last: V, isRangeChanged: C, scrollPos: b };
     },
     onScrollChange(e) {
       const {
@@ -1658,7 +1658,7 @@ function we(e, t, s, n, l, i) {
                   { value: s.modelValue, placeholder: s.placeholder },
                   () => [
                     D(
-                      C(
+                      L(
                         i.label === "p-emptylabel"
                           ? "\xA0"
                           : i.label || "empty",
@@ -1703,7 +1703,7 @@ function we(e, t, s, n, l, i) {
           a,
           { appendTo: s.appendTo },
           {
-            default: B(() => [
+            default: E(() => [
               H(
                 Z,
                 {
@@ -1714,7 +1714,7 @@ function we(e, t, s, n, l, i) {
                   onAfterLeave: i.onOverlayAfterLeave,
                 },
                 {
-                  default: B(() => [
+                  default: E(() => [
                     l.overlayVisible
                       ? (p(),
                         f(
@@ -1820,7 +1820,7 @@ function we(e, t, s, n, l, i) {
                                   v(
                                     "span",
                                     ce,
-                                    C(i.filterResultMessageText),
+                                    L(i.filterResultMessageText),
                                     1,
                                   ),
                                 ]))
@@ -1850,14 +1850,14 @@ function we(e, t, s, n, l, i) {
                                   ),
                                   J(
                                     {
-                                      content: B(
+                                      content: E(
                                         ({
                                           styleClass: r,
                                           contentRef: d,
                                           items: m,
                                           getItemOptions: y,
                                           contentStyle: V,
-                                          itemSize: L,
+                                          itemSize: C,
                                         }) => [
                                           v(
                                             "ul",
@@ -1903,8 +1903,8 @@ function we(e, t, s, n, l, i) {
                                                                     y,
                                                                   ),
                                                                 style: k({
-                                                                  height: L
-                                                                    ? L + "px"
+                                                                  height: C
+                                                                    ? C + "px"
                                                                     : void 0,
                                                                 }),
                                                                 class:
@@ -1926,7 +1926,7 @@ function we(e, t, s, n, l, i) {
                                                                   },
                                                                   () => [
                                                                     D(
-                                                                      C(
+                                                                      L(
                                                                         i.getOptionGroupLabel(
                                                                           b.optionGroup,
                                                                         ),
@@ -1953,8 +1953,8 @@ function we(e, t, s, n, l, i) {
                                                                       y,
                                                                     ),
                                                                   style: k({
-                                                                    height: L
-                                                                      ? L + "px"
+                                                                    height: C
+                                                                      ? C + "px"
                                                                       : void 0,
                                                                   }),
                                                                   class: F([
@@ -2027,7 +2027,7 @@ function we(e, t, s, n, l, i) {
                                                                     },
                                                                     () => [
                                                                       D(
-                                                                        C(
+                                                                        L(
                                                                           i.getOptionLabel(
                                                                             b,
                                                                           ),
@@ -2059,7 +2059,7 @@ function we(e, t, s, n, l, i) {
                                                       {},
                                                       () => [
                                                         D(
-                                                          C(
+                                                          L(
                                                             i.emptyFilterMessageText,
                                                           ),
                                                           1,
@@ -2078,7 +2078,7 @@ function we(e, t, s, n, l, i) {
                                                       {},
                                                       () => [
                                                         D(
-                                                          C(i.emptyMessageText),
+                                                          L(i.emptyMessageText),
                                                           1,
                                                         ),
                                                       ],
@@ -2097,7 +2097,7 @@ function we(e, t, s, n, l, i) {
                                       e.$slots.loader
                                         ? {
                                             name: "loader",
-                                            fn: B(({ options: r }) => [
+                                            fn: E(({ options: r }) => [
                                               I(e.$slots, "loader", {
                                                 options: r,
                                               }),
@@ -2118,9 +2118,9 @@ function we(e, t, s, n, l, i) {
                               options: i.visibleOptions,
                             }),
                             !s.options || (s.options && s.options.length === 0)
-                              ? (p(), f("span", be, C(i.emptyMessageText), 1))
+                              ? (p(), f("span", be, L(i.emptyMessageText), 1))
                               : z("", !0),
-                            v("span", ge, C(i.selectedMessageText), 1),
+                            v("span", ge, L(i.selectedMessageText), 1),
                             v(
                               "span",
                               {

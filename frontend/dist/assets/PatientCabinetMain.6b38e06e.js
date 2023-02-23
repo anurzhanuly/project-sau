@@ -1,22 +1,22 @@
 import {
-  f as c,
-  g as p,
-  C as m,
-  E as f,
-  G as b,
-  e as _,
-  l as e,
-  i as n,
+  o as c,
+  c as p,
+  q as h,
+  g as m,
+  v as _,
+  d as b,
+  e,
+  f as n,
   u as a,
-  j as s,
+  G as s,
   F as g,
-  a0 as y,
-  q as B,
-  v as C,
-  x,
+  a1 as y,
+  i as B,
+  p as C,
+  j as x,
   _ as E,
-} from "./index.c7985898.js";
-import { s as r } from "./panel.esm.e8a2c3ee.js";
+} from "./index.5bf35bb2.js";
+import { s as r } from "./panel.esm.d69952b8.js";
 var v = {
   name: "Divider",
   props: {
@@ -59,20 +59,20 @@ var v = {
 };
 const F = ["aria-orientation"],
   D = { key: 0, class: "p-divider-content" };
-function q(t, d, l, u, i, h) {
+function q(t, d, l, u, i, f) {
   return (
     c(),
     p(
       "div",
       {
-        class: b(h.containerClass),
+        class: _(f.containerClass),
         role: "separator",
         "aria-orientation": l.layout,
       },
       [
         t.$slots.default
-          ? (c(), p("div", D, [m(t.$slots, "default")]))
-          : f("", !0),
+          ? (c(), p("div", D, [h(t.$slots, "default")]))
+          : m("", !0),
       ],
       10,
       F,
@@ -166,10 +166,10 @@ var S = `
 `;
 z(S);
 v.render = q;
-const o = t => (C("data-v-908b9191"), (t = t()), x(), t),
+const o = t => (C("data-v-1fca5e4c"), (t = t()), x(), t),
   A = { class: "patient-card-section" },
   $ = y(
-    '<div class="patient-card" data-v-908b9191><h3 data-v-908b9191>\u0418\u043C\u044F \u0424\u0430\u043C\u0438\u043B\u0438\u044F \u043F\u0430\u0446\u0438\u0435\u043D\u0442\u0430</h3><div class="patient-info" data-v-908b9191><div class="patient-info-inner" data-v-908b9191><label data-v-908b9191>\u041F\u043E\u043B</label><p data-v-908b9191>\u0416\u0435\u043D\u0441\u043A\u0438\u0439</p></div><div class="patient-info-inner" data-v-908b9191><label data-v-908b9191>\u0414\u0430\u0442\u0430 \u0440\u043E\u0436\u0434\u0435\u043D\u0438\u044F</label><p data-v-908b9191>22/03/1995</p></div><div class="patient-info-inner" data-v-908b9191><label data-v-908b9191>\u0412\u043E\u0437\u0440\u0430\u0441\u0442</label><p data-v-908b9191>28 \u043B\u0435\u0442</p></div><div class="patient-info-inner" data-v-908b9191><label data-v-908b9191>\u0422\u0435\u043B\u0435\u0444\u043E\u043D</label><p data-v-908b9191>+7 705 777 88 98</p></div></div></div>',
+    '<div class="patient-card" data-v-1fca5e4c><h3 data-v-1fca5e4c>\u0418\u043C\u044F \u0424\u0430\u043C\u0438\u043B\u0438\u044F \u043F\u0430\u0446\u0438\u0435\u043D\u0442\u0430</h3><div class="patient-info" data-v-1fca5e4c><div class="patient-info-inner" data-v-1fca5e4c><label data-v-1fca5e4c>\u041F\u043E\u043B</label><p data-v-1fca5e4c>\u0416\u0435\u043D\u0441\u043A\u0438\u0439</p></div><div class="patient-info-inner" data-v-1fca5e4c><label data-v-1fca5e4c>\u0414\u0430\u0442\u0430 \u0440\u043E\u0436\u0434\u0435\u043D\u0438\u044F</label><p data-v-1fca5e4c>22/03/1995</p></div><div class="patient-info-inner" data-v-1fca5e4c><label data-v-1fca5e4c>\u0412\u043E\u0437\u0440\u0430\u0441\u0442</label><p data-v-1fca5e4c>28 \u043B\u0435\u0442</p></div><div class="patient-info-inner" data-v-1fca5e4c><label data-v-1fca5e4c>\u0422\u0435\u043B\u0435\u0444\u043E\u043D</label><p data-v-1fca5e4c>+7 705 777 88 98</p></div></div></div>',
     1,
   ),
   j = { class: "patient-download-btn" },
@@ -263,7 +263,7 @@ const o = t => (C("data-v-908b9191"), (t = t()), x(), t),
       -1,
     ),
   ),
-  H = _({
+  H = b({
     __name: "PatientCabinetMain",
     setup(t) {
       return (d, l) => (
@@ -342,5 +342,5 @@ const o = t => (C("data-v-908b9191"), (t = t()), x(), t),
       );
     },
   });
-const O = E(H, [["__scopeId", "data-v-908b9191"]]);
+const O = E(H, [["__scopeId", "data-v-1fca5e4c"]]);
 export { O as default };
