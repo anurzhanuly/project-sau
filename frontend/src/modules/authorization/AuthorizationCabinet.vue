@@ -7,7 +7,7 @@
       <div class="link-back"><span>&lt;</span><a href="/">Назад</a></div>
       <div class="authorization-wrapper p-fluid">
         <form v-if="isSignupRoute" class="authorization-form">
-          <logo-image />
+          <base-logo-image />
           <div>
             <h4>Имя <span>*</span></h4>
             <input-text v-model="firstName" />
