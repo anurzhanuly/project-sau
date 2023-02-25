@@ -90,13 +90,31 @@ const goToSignin = () => {
   background-color: #ffffff;
 }
 
-@media (max-width: 1100px) {
+@media (max-width: 1500px) {
   .main-content h1 {
-    font-size: 60px;
+    font-size: 40px;
   }
 
   .main-content h3 {
-    font-size: 30px;
+    font-size: 25px;
+  }
+
+  .main-content {
+    padding-top: 250px;
+  }
+
+  .main-content-buttons .p-button {
+    width: 329px;
+  }
+}
+
+@media (max-width: 1100px) {
+  .main-content h1 {
+    font-size: 40px;
+  }
+
+  .main-content h3 {
+    font-size: 25px;
   }
 
   .main-content {
@@ -112,30 +130,26 @@ const goToSignin = () => {
   .main-content h3 {
     font-size: 30px;
   }
-
-  .main-content-buttons .p-button {
-    width: 329px;
-  }
 }
 
 @media (max-width: 480px) {
   .main-content h1 {
-    font-size: 25px;
-    line-height: 17px;
+    font-size: 32px;
+    line-height: 15px;
   }
 
   .main-content h3 {
     font-size: 20px;
-    line-height: 17px;
+    line-height: 25px;
   }
 
   .main-content-buttons .p-button {
     width: 100%;
-    margin-top: 7px;
+    margin-top: 20px;
   }
 
   .main-content {
-    padding-top: 390px;
+    padding-top: 320px;
   }
 
   .main-content-buttons {
