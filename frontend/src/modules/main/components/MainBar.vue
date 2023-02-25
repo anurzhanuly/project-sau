@@ -159,4 +159,14 @@ const goToSignin = () => {
     align-items: center;
   }
 }
+
+@media (max-width: 350px) {
+  .main-content h1 {
+    font-size: 25px;
+  }
+
+  .main-content h3 {
+    font-size: 18px;
+  }
+}
 </style>
