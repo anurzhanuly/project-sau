@@ -3,104 +3,86 @@
     <data-table
       v-model:selection="selectedClinic"
       selection-mode="single"
-      :value="allClinics"
-      responsive-layout="scroll"
-      scrollable
+      :value="clinics"
       class="p-datatable-sm"
       striped-rows
       reorderable-columns
       resizable-columns
-      column-resize-mode="expand"
       show-gridlines
       edit-mode="cell"
-      @cell-edit-complete="onClinicCellEdit($event)"
     >
       <template #header>
         <div class="clinics-table-header">
           <div>
-            <h2>Клиники</h2>
+            <h2>Все клиники</h2>
           </div>
           <div>
             <p-button
-              label="Добавить"
+              label="Добавить клинику"
               class="p-button-success"
-              @click="openClinicsPopup"
+              @click="openCreateClinic"
             />
-            <p-button label="Сохранить" />
           </div>
         </div>
       </template>
-      <column
-        v-for="(column, idx) in clinicsColumns"
-        :key="idx"
-        :header="column.header"
-        :field="column.field"
-      >
-        <template #editor="{ data, field }">
-          <p-button
-            v-if="column.header === 'Удаление'"
-            icon="pi pi-times"
-            class="p-button-rounded p-button-danger p-button-outlined"
-            @click="confirmDeleteClinic($event)"
-          />
-          <dropdown
-            v-else-if="column.hasDropdown"
-            v-model="data[field]"
-            :options="column?.options"
-            option-value="value"
-            option-label="value"
-            placeholder="Выберите..."
-            style="width: 250px"
-            filter-placeholder="Поиск"
-            lazy
-            filter
-            :empty-filter-message="'Ничего не найдено'"
-            :empty-message="'Ничего не найдено'"
-            @change="field === 'city' ? (data.value = '') : null"
-          />
-          <input-text v-else v-model="data[field]" style="width: 100%" />
+      <column header="Id" field="id" header-style="width: 2%" />
+      <column header="Название" field="attributes.name" />
+      <column header="Город" field="attributes.city" />
+      <column header="Адрес" field="attributes.address" />
+      <column header-style="width: 6%">
+        <template #body>
+          <p-button label="Изменить" @click="changeClinic" />
+        </template>
+      </column>
+      <column header-style="width: 6%">
+        <template #body>
+          <p-button label="Удалить" class="p-button-danger" :disabled="true" />
         </template>
       </column>
     </data-table>
 
     <data-table
+      :value="doctors"
       selection-mode="single"
-      :value="allDoctors"
-      responsive-layout="scroll"
-      scrollable
       class="p-datatable-sm"
       striped-rows
       reorderable-columns
       resizable-columns
-      column-resize-mode="expand"
       show-gridlines
       edit-mode="cell"
-      @cell-edit-complete="onDoctorCellEdit($event)"
     >
       <template #header>
         <div class="clinics-table-header">
           <div>
-            <h2>Врачи в клинике</h2>
+            <h2>Все врачи</h2>
           </div>
           <div>
-            <p-button label="Добавить" class="p-button-success" />
-            <p-button label="Сохранить" />
+            <p-button
+              label="Добавить врача"
+              class="p-button-success"
+              @click="openCreateDoctor"
+            />
           </div>
         </div>
       </template>
-      <column
-        v-for="(column, idx) in doctorsColumns"
-        :key="idx"
-        :header="column.header"
-        :field="column.field"
-      >
-        <template #editor="{ data, field }">
-          <p-button
-            v-if="column.header === 'Удаление'"
-            icon="pi pi-times"
-            class="p-button-rounded p-button-danger p-button-outlined"
-          />
-          <input-text v-else v-model="data[field]" style="width: 100%" />
+      <column header="Id" field="id" header-style="width: 2%" />
+      <column header="ФИО">
+        <template #body="slotProps">
+          {{ slotProps.data.attributes.firstName }}
+          {{ slotProps.data.attributes.lastName }}
+          {{ slotProps.data.attributes.midName }}
+        </template>
+      </column>
+      <column header="Специализация" field="attributes.specialization" />
+      <column header="Опыт" field="attributes.experience" />
+      <column header-style="width: 6%">
+        <template #body>
+          <p-button label="Изменить" @click="changeDoctor" />
+        </template>
+      </column>
+      <column header-style="width: 6%">
+        <template #body>
+          <p-button label="Удалить" class="p-button-danger" :disabled="true" />
         </template>
       </column>
     </data-table>
@@ -110,32 +92,32 @@
 
 <script lang="ts" setup>
 import CreateClinic from "./popup/CreateClinic.vue";
+import CreateDoctor from "./popup/CreateDoctor.vue";
 import { useClinicsStore } from "./store/clinics.store";
-import { ref, computed } from "vue";
+import { onMounted } from "vue";
 
-import DataTable, {
-  type DataTableCellEditCompleteEvent,
-} from "primevue/datatable";
+import DataTable from "primevue/datatable";
 import Column from "primevue/column";
 import PButton from "primevue/button";
-import Dropdown from "primevue/dropdown";
-import InputText from "primevue/inputtext";
+// import Dropdown from "primevue/dropdown";
+// import InputText from "primevue/inputtext";
 import ConfirmPopup from "primevue/confirmpopup";
-import { useConfirm } from "primevue/useconfirm";
+// import { useConfirm } from "primevue/useconfirm";
 import { useDialog } from "primevue/usedialog";
 import { storeToRefs } from "pinia";
 
 const clinicsStore = useClinicsStore();
 const dialog = useDialog();
-const confirm = useConfirm();
-const selectedClinic = ref();
+// const confirm = useConfirm();
 
-const { allClinics, allDoctors } = storeToRefs(clinicsStore);
+const { clinics, doctors, selectedClinic } = storeToRefs(clinicsStore);
 
-const clinicsColumns = computed(() => clinicsStore.clinicsColumns);
-const doctorsColumns = computed(() => clinicsStore.doctorsColumns);
+onMounted(() => {
+  clinicsStore.getCitiesData();
+  clinicsStore.getSpecializationsData();
+});
 
-function openClinicsPopup() {
+function openCreateClinic(): void {
   dialog.open(CreateClinic, {
     props: {
       header: "Добавление новой клиники",
@@ -147,33 +129,57 @@ function openClinicsPopup() {
   });
 }
 
-const onClinicCellEdit = async (event: DataTableCellEditCompleteEvent) => {
-  const updated = { ...event.newData };
-  if (event.newValue && event.value !== event.newValue) {
-    clinicsStore.editLocalClinicsByIndex(event.index, updated);
-  }
-};
-
-const onDoctorCellEdit = async (event: DataTableCellEditCompleteEvent) => {
-  const updated = { ...event.newData };
-  if (event.newValue && event.value !== event.newValue) {
-    clinicsStore.editLocalDoctorByIndex(event.index, updated);
-  }
-};
-
-function confirmDeleteClinic(event: any) {
-  confirm.require({
-    target: event.currentTarget,
-    message: "Вы уверены?",
-    acceptLabel: "Да",
-    rejectLabel: "Нет",
-    icon: "pi pi-info-circle",
-    acceptClass: "p-button-danger",
-    accept: () => {
-      clinicsStore.deleteClinicByIndex(selectedClinic.value);
+function openCreateDoctor(): void {
+  dialog.open(CreateDoctor, {
+    props: {
+      header: "Добавление нового врача",
+      style: {
+        width: "30%",
+      },
+      modal: true,
     },
   });
 }
+
+function changeClinic(): void {
+  console.log("selectedClinic", selectedClinic.value);
+}
+
+function changeDoctor(): void {
+  console.log("selectedClinic", selectedClinic.value);
+}
+
+// const onClinicCellEdit = async (
+//   event: DataTableCellEditCompleteEvent,
+// ): Promise<void> => {
+//   const updated = { ...event.newData };
+//   if (event.newValue && event.value !== event.newValue) {
+//     clinicsStore.editLocalClinicsByIndex(event.index, updated);
+//   }
+// };
+
+// const onDoctorCellEdit = async (
+//   event: DataTableCellEditCompleteEvent,
+// ): Promise<void> => {
+//   const updated = { ...event.newData };
+//   if (event.newValue && event.value !== event.newValue) {
+//     clinicsStore.editLocalDoctorByIndex(event.index, updated);
+//   }
+// };
+
+// function confirmDeleteClinic(event: any): void {
+//   confirm.require({
+//     target: event.currentTarget,
+//     message: "Вы уверены?",
+//     acceptLabel: "Да",
+//     rejectLabel: "Нет",
+//     icon: "pi pi-info-circle",
+//     acceptClass: "p-button-danger",
+//     accept: () => {
+//       clinicsStore.deleteClinicByIndex(selectedClinic.value);
+//     },
+//   });
+// }
 </script>
 
 <style scoped>

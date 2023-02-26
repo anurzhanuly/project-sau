@@ -21,8 +21,9 @@ onMounted(() => {
     adminStore.getQuestionsData();
   }
 
-  if (!clinicsStore.allClinics.length) {
+  if (!clinicsStore.clinics.length) {
     clinicsStore.getClinicsData();
+    clinicsStore.getDoctorsData();
   }
 });
 

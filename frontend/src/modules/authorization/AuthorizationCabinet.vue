@@ -28,7 +28,7 @@
             <h4>Выберите клинику</h4>
             <dropdown
               v-model="сlinic"
-              :options="allClinics"
+              :options="clinics"
               option-value="name"
               option-label="name"
               filter-placeholder="Поиск"
@@ -42,7 +42,7 @@
             <h4>Выберите врача</h4>
             <dropdown
               v-model="doctor"
-              :options="allDoctors"
+              :options="doctors"
               option-value="fullName"
               option-label="fullName"
               filter-placeholder="Поиск"
@@ -94,7 +94,7 @@ onMounted(() => {
 
 const isSignupRoute = computed(() => route.path === "/signup");
 
-const { allClinics, allDoctors } = storeToRefs(clinicStore);
+const { clinics, doctors } = storeToRefs(clinicStore);
 
 const firstName = ref<string>("");
 const lastName = ref<string>("");

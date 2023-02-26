@@ -1,73 +1,84 @@
 <template>
-  <div class="popup">
-    <div v-for="(column, idx) in clinicsColumns" :key="idx">
-      <div v-if="column.field === 'city'">
-        <h3>{{ column.header }}</h3>
-        <dropdown
-          v-model="newRecord[column.field]"
-          :options="column?.options"
-          option-value="value"
-          option-label="value"
-          placeholder="Выберите..."
-          filter-placeholder="Поиск"
-          filter
-          lazy
-          style="width: 250px"
-          :empty-filter-message="'Ничего не найдено'"
-          :empty-message="'Ничего не найдено'"
-        />
-      </div>
-      <div v-else-if="column.header !== 'Удаление'">
-        <h3>{{ column.header }}</h3>
-        <input-text v-model="newRecord[column.field]" style="width: 100%" />
-      </div>
+  <div>
+    <div class="create-clinic-block p-fluid">
+      <form class="create-clinic-form">
+        <div>
+          <h3>Название клиники</h3>
+          <input-text v-model="newClinicName" />
+        </div>
+        <div>
+          <h3>Город</h3>
+          <dropdown
+            v-model="newClinicCityId"
+            :options="cities"
+            option-label="attributes.city"
+            option-value="id"
+            placeholder="Выберите город"
+          />
+        </div>
+        <div>
+          <h3>Адрес</h3>
+          <input-text v-model="newClinicAddress" />
+        </div>
+      </form>
     </div>
-    <p-button label="Создать" class="p-button-success" @click="createClinic" />
+
+    <div class="create-clinic-action">
+      <p-button
+        label="Сохранить"
+        class="p-button-success"
+        @click="createClinic"
+      />
+    </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import type { Clinics } from "@/modules/admin/views/clinics/types/clinics";
 import { useClinicsStore } from "../store/clinics.store";
-import { createPopupFields } from "@/utils/popUp";
 import { error, success } from "@/utils/toast";
-import { computed, ref, inject } from "vue";
+import { ref, inject } from "vue";
 
 import PButton from "primevue/button";
 import Dropdown from "primevue/dropdown";
 import InputText from "primevue/inputtext";
+import { storeToRefs } from "pinia";
 
 const clinicStore = useClinicsStore();
 const dialogRef = inject<any>("dialogRef");
-const clinicsColumns = computed(() => clinicStore.clinicsColumns);
 
-const newRecord = ref(
-  createPopupFields(
-    clinicsColumns.value.filter(el => el.header !== "Удаление"),
-  ),
-);
+const newClinicName = ref<string>("");
+const newClinicCityId = ref<string>("");
+const newClinicAddress = ref<string>("");
 
-function createClinic() {
-  if (checkClinicRecValidation()) {
-    const res = { ...newRecord.value } as unknown as Clinics;
-    clinicStore.createClinicData(res);
-    success("Успешно", "Клиника добавлена, не забудьте сохранить");
-    dialogRef.value.close();
+const { cities } = storeToRefs(clinicStore);
+
+async function createClinic(): Promise<void> {
+  if (validateClinic()) {
+    const res = await clinicStore.createClinicData({
+      name: newClinicName.value,
+      address: newClinicAddress.value,
+      city_id: newClinicCityId.value,
+    });
+
+    if (res === 200) {
+      success("Успешно", `Клиника добавлена`);
+      dialogRef.value.close();
+    }
   }
 }
 
-function checkClinicRecValidation() {
-  if (!newRecord.value.name.length) {
+function validateClinic(): boolean {
+  if (!newClinicName.value) {
     error("Ошибка", "Поле 'Название клиники' должно быть заполнено");
     return false;
   }
 
-  if (!newRecord.value.city.length) {
+  if (!newClinicCityId.value) {
     error("Ошибка", "Поле 'Поле 'Город' должно быть заполнено");
     return false;
   }
 
-  if (!newRecord.value.place.length) {
+  if (!newClinicAddress.value) {
     error("Ошибка", "Поле 'Поле 'Адрес' должно быть заполнено");
     return false;
   }
@@ -76,18 +87,27 @@ function checkClinicRecValidation() {
 }
 </script>
 
-<style scoped>
-.popup {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-gap: 30px;
+<style>
+.create-clinic-block {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 25px;
 }
 
-.popup h3 {
-  margin-bottom: 10px;
+.create-clinic-form {
+  width: 60%;
 }
 
-.p-dropdown-items-wrapper {
-  max-width: 200px !important;
+.create-clinic-form > div {
+  margin: 15px 0;
+}
+
+.create-clinic-action {
+  display: flex;
+  justify-content: center;
+}
+
+.create-clinic-action .p-button {
+  width: 315px;
 }
 </style>

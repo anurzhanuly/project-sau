@@ -1,129 +1,109 @@
-import type { Clinics, Doctors } from "../types/clinics";
+import type {
+  Clinics,
+  Doctors,
+  City,
+  NewClinic,
+  Specialization,
+  NewDoctor,
+} from "../types/clinics";
+
+import {
+  getCities,
+  getClinics,
+  postNewClinic,
+  getDoctors,
+  getSpecializations,
+  postNewDoctor,
+} from "../services/clinics.refbooks";
+
 import { defineStore } from "pinia";
 import { ref } from "vue";
+import axios from "axios";
 
 export const useClinicsStore = defineStore("clinics", () => {
-  const allClinics = ref<Clinics[]>([]);
-  const allDoctors = ref<Doctors[]>([]);
+  const clinics = ref<Clinics[]>([]);
+  const doctors = ref<Doctors[]>([]);
+  const cities = ref<City[]>([]);
+  const specializations = ref<Specialization[]>([]);
+  const selectedClinic = ref<Clinics>();
 
-  async function getClinicsData() {
-    // const res = await getClinicsjson();
-
-    // if (!axios.isAxiosError(res)) {
-    //   allClinics.value = JSON.parse(res.data.result);
-    // }
-
-    // TODO: wait REST
-    allClinics.value = clinics.value;
-    allDoctors.value = doctors.value;
-
-    const res = clinics.value;
-
-    return res;
+  async function getClinicsData(): Promise<void> {
+    const res = await getClinics();
+    if (!axios.isAxiosError(res)) {
+      clinics.value = res.data.data;
+    }
   }
 
-  // Удалить потом
-  const clinics = ref([
-    {
-      name: "Damumed",
-      city: "Астана",
-      place: "Центральная ул., Астана 020000",
-    },
-    {
-      name: "Almuker",
-      city: "Алматы",
-      place: "Центральный стадион",
-    },
-  ]);
+  async function createClinicData(newClinic: NewClinic): Promise<number> {
+    const res = await postNewClinic(newClinic);
+    console.log("createClinicData  res:", res);
+    if (!axios.isAxiosError(res)) {
+      clinics.value.push(res.data.data);
+      return res.status;
+    }
 
-  const doctors = ref([
-    {
-      fullName: "Казыбек Алмас Кудайбергенулы",
-      spec: "Нейрохирург",
-      exp: "8 лет",
-    },
-  ]);
-
-  const clinicsColumns = [
-    {
-      header: "Название клиники",
-      field: "name",
-      hasDropdown: false,
-      options: [],
-    },
-    {
-      header: "Город",
-      field: "city",
-      hasDropdown: true,
-      options: [{ value: "Астана" }, { value: "Алматы" }],
-    },
-    {
-      header: "Адрес",
-      field: "place",
-      hasDropdown: false,
-      options: [],
-    },
-    {
-      header: "Удаление",
-      field: "",
-      hasDropdown: false,
-      options: [],
-    },
-  ];
-
-  const doctorsColumns = ref([
-    {
-      header: "Фио",
-      field: "fullName",
-      hasDropdown: false,
-      options: [],
-    },
-    {
-      header: "Cпециальность",
-      field: "spec",
-      hasDropdown: false,
-      options: [],
-    },
-    {
-      header: "Опыт",
-      field: "exp",
-      hasDropdown: false,
-      options: [],
-    },
-    {
-      header: "Удаление",
-      field: "",
-      hasDropdown: false,
-      options: [],
-    },
-  ]);
-
-  function editLocalClinicsByIndex(index: number, updateTo: Clinics) {
-    allClinics.value[index] = { ...updateTo };
+    return 0;
   }
 
-  function editLocalDoctorByIndex(index: number, updateTo: Doctors) {
-    allDoctors.value[index] = { ...updateTo };
+  async function getDoctorsData(): Promise<void> {
+    const res = await getDoctors();
+    console.log("getClinicsData  res:", res);
+    if (!axios.isAxiosError(res)) {
+      doctors.value = res.data.data;
+      console.log("getDoctorsData  doctors.value:", doctors.value);
+    }
   }
 
-  function createClinicData(newRecord: Clinics) {
-    allClinics.value.push(newRecord);
+  async function createDoctorData(newDoctor: NewDoctor): Promise<number> {
+    const res = await postNewDoctor(newDoctor);
+    console.log("createDoctorData  res:", res);
+    if (!axios.isAxiosError(res)) {
+      doctors.value.push(res.data.data);
+      return res.status;
+    }
+
+    return 0;
   }
 
-  function deleteClinicByIndex(clinic: Clinics) {
-    const foundedIndex = allClinics.value.indexOf(clinic);
-    allClinics.value = allClinics.value.filter(
-      (_, index) => index !== foundedIndex,
-    );
+  async function getCitiesData(): Promise<void> {
+    const res = await getCities();
+    if (!axios.isAxiosError(res)) {
+      cities.value = res.data.data;
+    }
+  }
+
+  async function getSpecializationsData(): Promise<void> {
+    const res = await getSpecializations();
+    if (!axios.isAxiosError(res)) {
+      specializations.value = res.data.data;
+    }
+  }
+
+  function editLocalClinicsByIndex(index: number, updateTo: Clinics): void {
+    clinics.value[index] = { ...updateTo };
+  }
+
+  function editLocalDoctorByIndex(index: number, updateTo: Doctors): void {
+    doctors.value[index] = { ...updateTo };
+  }
+
+  function deleteClinicByIndex(clinic: Clinics): void {
+    const foundedIndex = clinics.value.indexOf(clinic);
+    clinics.value = clinics.value.filter((_, index) => index !== foundedIndex);
   }
 
   return {
-    allClinics,
-    allDoctors,
-    clinicsColumns,
-    doctorsColumns,
+    cities,
+    clinics,
+    doctors,
+    selectedClinic,
+    specializations,
+    getCitiesData,
+    createDoctorData,
+    getSpecializationsData,
     deleteClinicByIndex,
     createClinicData,
+    getDoctorsData,
     editLocalDoctorByIndex,
     getClinicsData,
     editLocalClinicsByIndex,
