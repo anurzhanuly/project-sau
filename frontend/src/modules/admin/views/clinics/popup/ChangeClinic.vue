@@ -4,12 +4,12 @@
       <form class="clinic-list-popup-form">
         <div>
           <h3>Название клиники</h3>
-          <input-text v-model="newClinicName" />
+          <input-text v-model="changeClinicName" />
         </div>
         <div>
           <h3>Город</h3>
           <dropdown
-            v-model="newClinicCityId"
+            v-model="changeClinicCityId"
             :options="cities"
             option-label="attributes.city"
             option-value="id"
@@ -18,16 +18,16 @@
         </div>
         <div>
           <h3>Адрес</h3>
-          <input-text v-model="newClinicAddress" />
+          <input-text v-model="changeClinicAddress" />
         </div>
       </form>
     </div>
 
     <div class="clinic-list-popup-action">
       <p-button
-        label="Сохранить"
+        label="Изменить"
         class="p-button-success"
-        @click="createClinic"
+        @click="changeClinic"
       />
     </div>
   </div>
@@ -47,28 +47,30 @@ import { storeToRefs } from "pinia";
 const clinicStore = useClinicsStore();
 const dialogRef = inject<any>("dialogRef");
 
-const newClinicName = ref<string>("");
-const newClinicCityId = ref<string>("");
-const newClinicAddress = ref<string>("");
+const { cities, selectedClinic } = storeToRefs(clinicStore);
 
-const { cities } = storeToRefs(clinicStore);
+const changeClinicName = ref<string>(selectedClinic.value?.attributes.name!);
+const changeClinicCityId = ref<string>("");
+const changeClinicAddress = ref<string>(
+  selectedClinic.value?.attributes.address!,
+);
 
-async function createClinic(): Promise<void> {
+async function changeClinic(): Promise<void> {
   if (
     validateClinic(
-      newClinicName.value,
-      newClinicCityId.value,
-      newClinicAddress.value,
+      changeClinicName.value,
+      changeClinicCityId.value,
+      changeClinicAddress.value,
     )
   ) {
-    const res = await clinicStore.createClinicData({
-      name: newClinicName.value,
-      address: newClinicAddress.value,
-      city_id: newClinicCityId.value,
+    const res = await clinicStore.changeClinicData(selectedClinic.value?.id!, {
+      name: changeClinicName.value,
+      address: changeClinicAddress.value,
+      city_id: changeClinicCityId.value,
     });
 
     if (res === 200) {
-      success("Успешно", `Клиника добавлена`);
+      success("Успешно", `Клиника изменена`);
       dialogRef.value.close();
     }
   }
