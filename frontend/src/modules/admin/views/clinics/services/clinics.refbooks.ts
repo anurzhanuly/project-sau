@@ -22,6 +22,30 @@ export const postNewClinic = async (
   }
 };
 
+export const postChangeClinic = async (
+  id: string,
+  newClinic: NewClinic,
+): Promise<AxiosResponse | AxiosError> => {
+  try {
+    return await useSymptomApi.post(`/clinics/${id}/update`, newClinic);
+  } catch (error) {
+    console.log(error);
+    return error as AxiosError<Error>;
+  }
+};
+
+export const postChangeDoctor = async (
+  id: string,
+  newDoctor: NewDoctor,
+): Promise<AxiosResponse | AxiosError> => {
+  try {
+    return await useSymptomApi.post(`/doctors/${id}/update`, newDoctor);
+  } catch (error) {
+    console.log(error);
+    return error as AxiosError<Error>;
+  }
+};
+
 export const postNewDoctor = async (
   newDoctor: NewDoctor,
 ): Promise<AxiosResponse | AxiosError> => {

@@ -1,7 +1,6 @@
 <template>
-  <div>
+  <div class="clinic-list">
     <data-table
-      v-model:selection="selectedClinic"
       selection-mode="single"
       :value="clinics"
       class="p-datatable-sm"
@@ -12,7 +11,7 @@
       edit-mode="cell"
     >
       <template #header>
-        <div class="clinics-table-header">
+        <div class="clinics-list-table-header">
           <div>
             <h2>Все клиники</h2>
           </div>
@@ -20,7 +19,7 @@
             <p-button
               label="Добавить клинику"
               class="p-button-success"
-              @click="openCreateClinic"
+              @click="createClinic"
             />
           </div>
         </div>
@@ -30,8 +29,8 @@
       <column header="Город" field="attributes.city" />
       <column header="Адрес" field="attributes.address" />
       <column header-style="width: 6%">
-        <template #body>
-          <p-button label="Изменить" @click="changeClinic" />
+        <template #body="slotProps">
+          <p-button label="Изменить" @click="changeClinic(slotProps.data)" />
         </template>
       </column>
       <column header-style="width: 6%">
@@ -42,8 +41,8 @@
     </data-table>
 
     <data-table
-      :value="doctors"
       selection-mode="single"
+      :value="doctors"
       class="p-datatable-sm"
       striped-rows
       reorderable-columns
@@ -52,7 +51,7 @@
       edit-mode="cell"
     >
       <template #header>
-        <div class="clinics-table-header">
+        <div class="clinics-list-table-header">
           <div>
             <h2>Все врачи</h2>
           </div>
@@ -60,7 +59,7 @@
             <p-button
               label="Добавить врача"
               class="p-button-success"
-              @click="openCreateDoctor"
+              @click="createDoctor"
             />
           </div>
         </div>
@@ -76,8 +75,8 @@
       <column header="Специализация" field="attributes.specialization" />
       <column header="Опыт" field="attributes.experience" />
       <column header-style="width: 6%">
-        <template #body>
-          <p-button label="Изменить" @click="changeDoctor" />
+        <template #body="slotProps">
+          <p-button label="Изменить" @click="changeDoctor(slotProps.data)" />
         </template>
       </column>
       <column header-style="width: 6%">
@@ -92,32 +91,34 @@
 
 <script lang="ts" setup>
 import CreateClinic from "./popup/CreateClinic.vue";
+import ChangeClinic from "./popup/ChangeClinic.vue";
 import CreateDoctor from "./popup/CreateDoctor.vue";
+import ChangeDoctor from "./popup/ChangeDoctor.vue";
+import type { Clinics, Doctors } from "./types/clinics";
 import { useClinicsStore } from "./store/clinics.store";
+import { storeToRefs } from "pinia";
 import { onMounted } from "vue";
 
 import DataTable from "primevue/datatable";
 import Column from "primevue/column";
 import PButton from "primevue/button";
-// import Dropdown from "primevue/dropdown";
-// import InputText from "primevue/inputtext";
 import ConfirmPopup from "primevue/confirmpopup";
 // import { useConfirm } from "primevue/useconfirm";
 import { useDialog } from "primevue/usedialog";
-import { storeToRefs } from "pinia";
 
 const clinicsStore = useClinicsStore();
 const dialog = useDialog();
 // const confirm = useConfirm();
 
-const { clinics, doctors, selectedClinic } = storeToRefs(clinicsStore);
+const { clinics, doctors, selectedClinic, selectedDoctor } =
+  storeToRefs(clinicsStore);
 
 onMounted(() => {
   clinicsStore.getCitiesData();
   clinicsStore.getSpecializationsData();
 });
 
-function openCreateClinic(): void {
+function createClinic(): void {
   dialog.open(CreateClinic, {
     props: {
       header: "Добавление новой клиники",
@@ -129,7 +130,7 @@ function openCreateClinic(): void {
   });
 }
 
-function openCreateDoctor(): void {
+function createDoctor(): void {
   dialog.open(CreateDoctor, {
     props: {
       header: "Добавление нового врача",
@@ -141,58 +142,68 @@ function openCreateDoctor(): void {
   });
 }
 
-function changeClinic(): void {
-  console.log("selectedClinic", selectedClinic.value);
+function changeClinic(data: Clinics): void {
+  selectedClinic.value = data;
+  dialog.open(ChangeClinic, {
+    props: {
+      header: "Изменение клинки",
+      style: {
+        width: "30%",
+      },
+      modal: true,
+    },
+  });
 }
 
-function changeDoctor(): void {
-  console.log("selectedClinic", selectedClinic.value);
+function changeDoctor(data: Doctors): void {
+  selectedDoctor.value = data;
+  dialog.open(ChangeDoctor, {
+    props: {
+      header: "Изменение врача",
+      style: {
+        width: "30%",
+      },
+      modal: true,
+    },
+  });
 }
-
-// const onClinicCellEdit = async (
-//   event: DataTableCellEditCompleteEvent,
-// ): Promise<void> => {
-//   const updated = { ...event.newData };
-//   if (event.newValue && event.value !== event.newValue) {
-//     clinicsStore.editLocalClinicsByIndex(event.index, updated);
-//   }
-// };
-
-// const onDoctorCellEdit = async (
-//   event: DataTableCellEditCompleteEvent,
-// ): Promise<void> => {
-//   const updated = { ...event.newData };
-//   if (event.newValue && event.value !== event.newValue) {
-//     clinicsStore.editLocalDoctorByIndex(event.index, updated);
-//   }
-// };
-
-// function confirmDeleteClinic(event: any): void {
-//   confirm.require({
-//     target: event.currentTarget,
-//     message: "Вы уверены?",
-//     acceptLabel: "Да",
-//     rejectLabel: "Нет",
-//     icon: "pi pi-info-circle",
-//     acceptClass: "p-button-danger",
-//     accept: () => {
-//       clinicsStore.deleteClinicByIndex(selectedClinic.value);
-//     },
-//   });
-// }
 </script>
 
-<style scoped>
-.p-datatable {
+<style>
+.clinic-list .p-datatable {
   margin-top: 20px;
 }
 
-.clinics-table-header {
+.clinics-list-table-header {
   display: flex;
   justify-content: space-between;
 }
 
-.clinics-table-header .p-button {
+.clinics-list-table-header .p-button {
   margin-left: 5px;
+}
+
+/* popup */
+.clinic-list-popup {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 25px;
+}
+
+.clinic-list-popup-form {
+  width: 60%;
+}
+
+.clinic-list-popup-form > div {
+  margin: 15px 0;
+}
+
+.clinic-list-popup-action {
+  display: flex;
+  justify-content: center;
+}
+
+.clinic-list-popup-action .p-button {
+  width: 315px;
 }
 </style>

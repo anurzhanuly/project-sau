@@ -14,6 +14,8 @@ import {
   getDoctors,
   getSpecializations,
   postNewDoctor,
+  postChangeClinic,
+  postChangeDoctor,
 } from "../services/clinics.refbooks";
 
 import { defineStore } from "pinia";
@@ -23,9 +25,11 @@ import axios from "axios";
 export const useClinicsStore = defineStore("clinics", () => {
   const clinics = ref<Clinics[]>([]);
   const doctors = ref<Doctors[]>([]);
+  const doctorsFIO = ref<any>([]);
   const cities = ref<City[]>([]);
   const specializations = ref<Specialization[]>([]);
   const selectedClinic = ref<Clinics>();
+  const selectedDoctor = ref<Doctors>();
 
   async function getClinicsData(): Promise<void> {
     const res = await getClinics();
@@ -45,12 +49,45 @@ export const useClinicsStore = defineStore("clinics", () => {
     return 0;
   }
 
+  async function changeClinicData(
+    id: string,
+    newClinic: NewClinic,
+  ): Promise<number> {
+    const res = await postChangeClinic(id, newClinic);
+    console.log("changeClinicData  res:", res);
+    if (!axios.isAxiosError(res)) {
+      const index = clinics.value.findIndex(elem => elem.id === id);
+      clinics.value[index] = res.data;
+      return res.status;
+    }
+
+    return 0;
+  }
+
+  async function changeDoctorData(
+    id: string,
+    newClinic: NewDoctor,
+  ): Promise<number> {
+    const res = await postChangeDoctor(id, newClinic);
+    console.log("changeDoctorData  res:", res);
+    if (!axios.isAxiosError(res)) {
+      const index = clinics.value.findIndex(elem => elem.id === id);
+      doctors.value[index] = res.data;
+      return res.status;
+    }
+
+    return 0;
+  }
+
   async function getDoctorsData(): Promise<void> {
     const res = await getDoctors();
-    console.log("getClinicsData  res:", res);
     if (!axios.isAxiosError(res)) {
       doctors.value = res.data.data;
-      console.log("getDoctorsData  doctors.value:", doctors.value);
+
+      doctorsFIO.value = doctors.value.map(doctor => ({
+        id: doctor.id,
+        name: `${doctor.attributes.firstName} ${doctor.attributes.lastName} ${doctor.attributes.midName}`,
+      }));
     }
   }
 
@@ -79,33 +116,21 @@ export const useClinicsStore = defineStore("clinics", () => {
     }
   }
 
-  function editLocalClinicsByIndex(index: number, updateTo: Clinics): void {
-    clinics.value[index] = { ...updateTo };
-  }
-
-  function editLocalDoctorByIndex(index: number, updateTo: Doctors): void {
-    doctors.value[index] = { ...updateTo };
-  }
-
-  function deleteClinicByIndex(clinic: Clinics): void {
-    const foundedIndex = clinics.value.indexOf(clinic);
-    clinics.value = clinics.value.filter((_, index) => index !== foundedIndex);
-  }
-
   return {
     cities,
     clinics,
     doctors,
+    doctorsFIO,
     selectedClinic,
+    selectedDoctor,
     specializations,
+    changeClinicData,
+    changeDoctorData,
     getCitiesData,
     createDoctorData,
     getSpecializationsData,
-    deleteClinicByIndex,
     createClinicData,
     getDoctorsData,
-    editLocalDoctorByIndex,
     getClinicsData,
-    editLocalClinicsByIndex,
   };
 });

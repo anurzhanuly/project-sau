@@ -4,24 +4,24 @@
       <form class="clinic-list-popup-form">
         <div>
           <h3>Фамилия</h3>
-          <input-text v-model="newDoctorFirstName" />
+          <input-text v-model="changeDoctorFirstName" />
         </div>
         <div>
           <h3>Имя</h3>
-          <input-text v-model="newDoctorLastName" />
+          <input-text v-model="changeDoctorLastName" />
         </div>
         <div>
           <h3>Отчество</h3>
-          <input-text v-model="newDoctorMidName" />
+          <input-text v-model="changeDoctorMidName" />
         </div>
         <div>
           <h3>Опыт (число)</h3>
-          <input-text v-model="newDoctorExp" type="number" />
+          <input-text v-model="changeDoctorExp" type="number" />
         </div>
         <div>
           <h3>Специализация</h3>
           <dropdown
-            v-model="newDoctorspecId"
+            v-model="changeDoctorspecId"
             :options="specializations"
             option-label="attributes.name"
             option-value="id"
@@ -35,7 +35,7 @@
       <p-button
         label="Сохранить"
         class="p-button-success"
-        @click="createDoctor"
+        @click="changeDoctor"
       />
     </div>
   </div>
@@ -55,33 +55,39 @@ import { storeToRefs } from "pinia";
 const clinicStore = useClinicsStore();
 const dialogRef = inject<any>("dialogRef");
 
-const newDoctorFirstName = ref<string>("");
-const newDoctorspecId = ref<string>("");
-const newDoctorExp = ref<string>("");
-const newDoctorLastName = ref<string>("");
-const newDoctorMidName = ref<string>("");
+const { specializations, selectedDoctor } = storeToRefs(clinicStore);
 
-const { specializations } = storeToRefs(clinicStore);
+const changeDoctorFirstName = ref<string>(
+  selectedDoctor.value?.attributes.firstName!,
+);
+const changeDoctorLastName = ref<string>(
+  selectedDoctor.value?.attributes.firstName!,
+);
+const changeDoctorMidName = ref<string>(
+  selectedDoctor.value?.attributes.midName!,
+);
+const changeDoctorspecId = ref<string>("");
+const changeDoctorExp = ref<string>("");
 
-async function createDoctor(): Promise<void> {
+async function changeDoctor(): Promise<void> {
   if (
     validateDoctor(
-      newDoctorFirstName.value,
-      newDoctorLastName.value,
-      newDoctorExp.value,
-      newDoctorspecId.value,
+      changeDoctorFirstName.value,
+      changeDoctorLastName.value,
+      changeDoctorExp.value,
+      changeDoctorspecId.value,
     )
   ) {
-    const res = await clinicStore.createDoctorData({
-      first_name: newDoctorFirstName.value,
-      last_name: newDoctorLastName.value,
-      middle_name: newDoctorMidName.value,
-      experience: newDoctorExp.value,
-      specialization_id: newDoctorspecId.value,
+    const res = await clinicStore.changeDoctorData(selectedDoctor.value?.id!, {
+      first_name: changeDoctorFirstName.value,
+      last_name: changeDoctorLastName.value,
+      middle_name: changeDoctorMidName.value,
+      experience: changeDoctorExp.value,
+      specialization_id: changeDoctorspecId.value,
     });
 
     if (res === 200) {
-      success("Успешно", `Врач добавлен`);
+      success("Успешно", `Врач изменен`);
       dialogRef.value.close();
     }
   }

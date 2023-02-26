@@ -29,8 +29,8 @@
             <dropdown
               v-model="сlinic"
               :options="clinics"
-              option-value="name"
-              option-label="name"
+              option-value="attributes.name"
+              option-label="attributes.name"
               filter-placeholder="Поиск"
               filter
               lazy
@@ -42,9 +42,9 @@
             <h4>Выберите врача</h4>
             <dropdown
               v-model="doctor"
-              :options="doctors"
-              option-value="fullName"
-              option-label="fullName"
+              :options="doctorsFIO"
+              option-value="id"
+              option-label="name"
               filter-placeholder="Поиск"
               filter
               lazy
@@ -90,11 +90,12 @@ const clinicStore = useClinicsStore();
 
 onMounted(() => {
   clinicStore.getClinicsData();
+  clinicStore.getDoctorsData();
 });
 
 const isSignupRoute = computed(() => route.path === "/signup");
 
-const { clinics, doctors } = storeToRefs(clinicStore);
+const { clinics, doctorsFIO } = storeToRefs(clinicStore);
 
 const firstName = ref<string>("");
 const lastName = ref<string>("");
