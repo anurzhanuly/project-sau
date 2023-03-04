@@ -20,11 +20,6 @@ import PToast from "primevue/toast";
   box-sizing: border-box;
 }
 
-html,
-body {
-  height: 100%;
-}
-
 a {
   text-decoration: none;
   color: #2c3e50;

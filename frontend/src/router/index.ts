@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import MainScreenVue from "@/modules/main/MainScreen.vue";
+import type { Component } from "vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -10,46 +11,53 @@ const router = createRouter({
       component: MainScreenVue,
     },
     {
-      path: "/signup",
-      name: "signup",
-      component: () =>
+      path: "/clientSignup",
+      name: "clientSignup",
+      component: (): Component =>
         import("@/modules/authorization/AuthorizationCabinet.vue"),
     },
     {
-      path: "/signin",
-      name: "signin",
-      component: () =>
+      path: "/clientSignin",
+      name: "clientSignin",
+      component: (): Component =>
         import("@/modules/authorization/AuthorizationCabinet.vue"),
+    },
+    {
+      path: "/doctorSignin",
+      name: "doctorSignin",
+      component: (): Component =>
+        import("@/modules/authorization/AuthorizationDoctor.vue"),
     },
     {
       path: "/onboarding",
       name: "onboarding",
-      component: () =>
+      component: (): Component =>
         import("@/modules/authorization/OnboardingMobile.vue"),
     },
     {
       path: "/result",
       name: "result",
-      component: () => import("@/modules/result/ResultCabinet.vue"),
+      component: (): Component => import("@/modules/result/ResultCabinet.vue"),
     },
     {
       path: "/survey",
       name: "survey",
-      component: () => import("@/modules/survey/SurveyLibrary.vue"),
+      component: (): Component => import("@/modules/survey/SurveyLibrary.vue"),
     },
     {
       path: "/patientcab",
       name: "patientcab",
-      component: () => import("@/modules/patientsCabinet/PatientCabinet.vue"),
+      component: (): Component =>
+        import("@/modules/patientsCabinet/PatientCabinet.vue"),
       children: [
         {
           path: "main",
-          component: () =>
+          component: (): Component =>
             import("@/modules/patientsCabinet/views/PatientCabinetMain.vue"),
         },
         {
           path: "settings",
-          component: () =>
+          component: (): Component =>
             import(
               "@/modules/patientsCabinet/views/PatientCabinetSettings.vue"
             ),
@@ -59,35 +67,35 @@ const router = createRouter({
     {
       path: "/admin",
       name: "admin",
-      component: () => import("@/modules/admin/AdminCabinet.vue"),
+      component: (): Component => import("@/modules/admin/AdminCabinet.vue"),
       children: [
         {
           path: "quest",
-          component: () =>
+          component: (): Component =>
             import("@/modules/admin/views/changeQuestions/ChangeQuestions.vue"),
         },
         {
           path: "cond",
-          component: () =>
+          component: (): Component =>
             import("@/modules/admin/views/conditions/AdminConditions.vue"),
         },
         {
           path: "recom",
-          component: () =>
+          component: (): Component =>
             import(
               "@/modules/admin/views/recomindations/ChangeRecommendations.vue"
             ),
         },
         {
           path: "magic",
-          component: () =>
+          component: (): Component =>
             import(
               "@/modules/admin/views/changeQuestionsName/ChangeConditionsName.vue"
             ),
         },
         {
           path: "clinics",
-          component: () =>
+          component: (): Component =>
             import("@/modules/admin/views/clinics/ClinicsLists.vue"),
         },
       ],
@@ -95,21 +103,22 @@ const router = createRouter({
     {
       path: "/cabinet",
       name: "cabinet",
-      component: () => import("@/modules/doctorCabinet/DoctorCabinet.vue"),
+      component: (): Component =>
+        import("@/modules/doctorCabinet/DoctorCabinet.vue"),
       children: [
         {
           path: "main",
-          component: () =>
+          component: (): Component =>
             import("@/modules/doctorCabinet/views/DoctorCabinetMain.vue"),
         },
         {
           path: "patients",
-          component: () =>
+          component: (): Component =>
             import("@/modules/doctorCabinet/views/DoctorCabinetPatients.vue"),
         },
         {
           path: "settings",
-          component: () =>
+          component: (): Component =>
             import("@/modules/doctorCabinet/views/DoctorCabinetSettings.vue"),
         },
       ],

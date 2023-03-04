@@ -59,7 +59,7 @@ const items = [
 }
 
 .swiper-img {
-  margin-top: 116px;
+  margin-top: 45px;
 }
 
 .swiper-slide img {

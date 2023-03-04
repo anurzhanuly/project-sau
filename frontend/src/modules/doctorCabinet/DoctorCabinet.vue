@@ -1,4 +1,5 @@
 <template>
+  <base-header />
   <div class="pages-main">
     <div class="pages-nav">
       <label
@@ -27,6 +28,7 @@
 </template>
 
 <script setup lang="ts">
+import BaseHeader from "@/components/BaseHeader.vue";
 import { RouterView } from "vue-router";
 import { useRouter } from "vue-router";
 import { ref, onMounted } from "vue";
@@ -62,7 +64,7 @@ const cabinetViews = ref([
 }
 .pages-nav {
   height: max-content;
-  width: 260px;
+  width: 280px;
   display: flex;
   flex-direction: column;
   margin-right: 15px;

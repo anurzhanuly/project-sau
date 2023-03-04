@@ -8,7 +8,8 @@ export const useApi = axios.create({
 
 export const useSymptomApi = axios.create({
   baseURL: "http://symptom.kz",
-  headers: {
-    "Content-Type": "application/json",
-  },
+  // headers: {
+  //   "Content-Type": "text/plain",
+  //   "Access-Control-Allow-Origin": "*",
+  // },
 });

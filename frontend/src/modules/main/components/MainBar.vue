@@ -5,13 +5,12 @@
       Пройдите опрос, узнайте <br />о состоянии вашего здоровья<br />
       и начните приём с нами
     </h3>
-
     <div class="main-content-buttons">
       <p-button label="Пройти тест" @click="goToAuthorization" />
       <p-button
         label="Войти в личный кабинет"
         class="p-button-outlined"
-        @click="goToSignin"
+        @click="$router.push('/clientSignin')"
       />
     </div>
   </div>
@@ -36,20 +35,14 @@ const isMobileDevice = computed(
 );
 console.log(isMobileDevice.value);
 
-const goToAuthorization = () => {
+const goToAuthorization = (): void => {
   isMobileDevice.value
     ? router.push({
         path: "/onboarding",
       })
     : router.push({
-        path: "/signup",
+        path: "/clientSignup",
       });
-};
-
-const goToSignin = () => {
-  router.push({
-    path: "/signin",
-  });
 };
 </script>
 
@@ -83,7 +76,7 @@ const goToSignin = () => {
   font-size: 22px;
   background: #276ef1;
   border-radius: 10px;
-  margin-top: 25px;
+  margin-top: 15px;
 }
 
 .main-content-buttons .p-button:last-child {
