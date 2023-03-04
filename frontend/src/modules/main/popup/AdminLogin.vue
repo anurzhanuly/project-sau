@@ -47,7 +47,7 @@ const checkAdminValidation = (): boolean => {
   return true;
 };
 
-const checkAdmin = () => {
+const checkAdmin = (): void => {
   if (checkAdminValidation()) {
     router.push({
       name: "admin",

@@ -3,27 +3,13 @@
     <RouterLink to="/">
       <img src="@/assets/logo.png" class="header-image" alt="logo" />
     </RouterLink>
-    <p class="header-button" @click="openCabinetLoginPopup">Кабинет врача</p>
+    <p class="header-button" @click="$router.push('/doctorSignin')">
+      Кабинет врача
+    </p>
   </header>
 </template>
 
-<script setup lang="ts">
-import CabinetLogin from "../popup/CabinetLogin.vue";
-import { useDialog } from "primevue/usedialog";
-const dialog = useDialog();
-
-function openCabinetLoginPopup() {
-  dialog.open(CabinetLogin, {
-    props: {
-      header: "Введите логин и пароль",
-      style: {
-        width: "25%",
-      },
-      modal: true,
-    },
-  });
-}
-</script>
+<script setup lang="ts"></script>
 
 <style>
 .header {

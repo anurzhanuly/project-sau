@@ -4,10 +4,12 @@
       <base-swiper />
     </div>
     <div class="authorization-main">
-      <div class="link-back"><span>&lt;</span><a href="/">Назад</a></div>
+      <div class="link-back" @click="$router.push('/')">
+        <span>&lt; Назад</span>
+      </div>
       <div class="authorization-wrapper p-fluid">
         <form v-if="isSignupRoute" class="authorization-form">
-          <base-logo-image />
+          <img src="@/assets/main/logo-auth.png" alt="Symptom logo" />
           <div>
             <h4>Имя <span>*</span></h4>
             <input-text v-model="firstName" />
@@ -52,10 +54,10 @@
               :empty-message="'Ничего не найдено'"
             />
           </div>
-          <p-button label="Пройти тест" class="p-button" @click="goToSurvey" />
+          <p-button label="Пройти тест" @click="goToSurvey" />
         </form>
         <form v-if="!isSignupRoute" class="authorization-form">
-          <base-logo-image />
+          <img src="@/assets/main/logo-auth.png" alt="Symptom logo" />
           <div>
             <h4>Номер телефона <span>*</span></h4>
             <input-text v-model="loginPhone" />
@@ -64,7 +66,7 @@
             <h4>Пароль <span>*</span></h4>
             <input-text v-model="password" type="password" />
           </div>
-          <p-button label="Вход" class="p-button" @click="goToPatientCab" />
+          <p-button label="Вход" @click="goToPatientCab" />
         </form>
       </div>
     </div>
@@ -82,7 +84,6 @@ import InputText from "primevue/inputtext";
 import Dropdown from "primevue/dropdown";
 import { storeToRefs } from "pinia";
 import BaseSwiper from "@/components/BaseSwiper.vue";
-import BaseLogoImage from "@/components/BaseLogoImage.vue";
 
 const router = useRouter();
 const route = useRoute();
@@ -93,7 +94,7 @@ onMounted(() => {
   clinicStore.getDoctorsData();
 });
 
-const isSignupRoute = computed(() => route.path === "/signup");
+const isSignupRoute = computed(() => route.path === "/clientSignup");
 
 const { clinics, doctorsFIO } = storeToRefs(clinicStore);
 
@@ -215,103 +216,6 @@ const validateLoginForm = (): boolean => {
 };
 </script>
 
-<style scoped>
-.authorization-section {
-  display: flex;
-  min-height: 100vh;
-}
-.onboarding-main {
-  width: 40%;
-  background-color: rgba(170, 204, 235, 0.4);
-}
-.link-back {
-  position: absolute;
-  top: 33px;
-  margin-left: 33px;
-}
-.link-back span {
-  color: #276ef1;
-  font-weight: 600;
-}
-.link-back a {
-  margin-left: 3px;
-  color: #276ef1;
-  text-decoration: underline;
-}
-.authorization-main {
-  width: 60%;
-  margin: auto;
-}
-.authorization-wrapper {
-  display: flex;
-  justify-content: center;
-}
-.authorization-wrapper h4 {
-  color: #3f3f3f;
-  font-weight: 400;
-  margin-top: 15px;
-  margin-bottom: 5px;
-}
-
-.authorization-wrapper span {
-  color: #d0312d;
-}
-
-.authorization-form {
-  width: 50%;
-}
-
-.authorization-form img {
-  margin-bottom: 20px;
-}
-
-.p-button {
-  margin: 20px 0;
-  height: 56px;
-  font-weight: 600;
-  border-radius: 10px;
-}
-
-@media only screen and (max-width: 375px) {
-  .authorization-section {
-    min-height: 120vh;
-  }
-  .onboarding-main {
-    display: none;
-  }
-
-  .link-back {
-    top: 20px;
-    left: 20px;
-    margin: 0;
-  }
-  .authorization-main,
-  .authorization-form {
-    width: 95%;
-  }
-}
-
-@media (min-width: 376px) and (max-width: 600px) {
-  .authorization-section {
-    min-height: 100vh;
-  }
-  .onboarding-main {
-    display: none;
-  }
-
-  .link-back {
-    top: 20px;
-    left: 20px;
-    margin: 0;
-  }
-  .authorization-main,
-  .authorization-form {
-    width: 95%;
-  }
-}
-@media (min-width: 601px) and (max-width: 1024px) {
-  .authorization-main {
-    margin: 50px 0;
-  }
-}
+<style>
+@import "./styles/authorization.css";
 </style>
