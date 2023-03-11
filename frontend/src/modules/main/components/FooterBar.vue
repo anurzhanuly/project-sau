@@ -24,7 +24,7 @@ import { useDialog } from "primevue/usedialog";
 
 const dialog = useDialog();
 
-function openAdminLoginPopup() {
+function openAdminLoginPopup(): void {
   dialog.open(AdminLogin, {
     props: {
       header: "Введите логин и пароль",

@@ -36,13 +36,17 @@ const isMobileDevice = computed(
 console.log(isMobileDevice.value);
 
 const goToAuthorization = (): void => {
-  isMobileDevice.value
-    ? router.push({
-        path: "/onboarding",
-      })
-    : router.push({
-        path: "/clientSignup",
-      });
+  // isMobileDevice.value
+  //   ? router.push({
+  //       path: "/onboarding",
+  //     })
+  //   : router.push({
+  //       path: "/clientSignup",
+  //     });
+
+  router.push({
+    path: "/agreement",
+  });
 };
 </script>
 
