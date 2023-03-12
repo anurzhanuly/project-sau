@@ -29,6 +29,12 @@ const router = createRouter({
         import("@/modules/authorization/AuthorizationDoctor.vue"),
     },
     {
+      path: "/agreement",
+      name: "agreement",
+      component: (): Component =>
+        import("@/modules/authorization/AuthorizationAgreement.vue"),
+    },
+    {
       path: "/onboarding",
       name: "onboarding",
       component: (): Component =>
