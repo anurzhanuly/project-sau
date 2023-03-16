@@ -161,9 +161,11 @@ const goToAuthorization = (): void => {
   .main-content h1 {
     font-size: 30px;
   }
+}
 
-  .main-content h3 {
-    font-size: 18px;
+@media (max-width: 342px) {
+  .main-content h1 {
+    font-size: 25px;
   }
 }
 </style>

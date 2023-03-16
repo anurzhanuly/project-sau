@@ -22,7 +22,7 @@ onMounted(() => {
   const survey = new Survey(surveyJson.value);
   survey.locale = "ru";
 
-  const surveyComplete = (sender: { data: Record<string, string[]> }) => {
+  const surveyComplete = (sender: { data: Record<string, string[]> }): void => {
     const newData: Record<string, string[]> = {};
     for (let key in sender.data) {
       Array.isArray(sender.data[key])
