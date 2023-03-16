@@ -157,9 +157,9 @@ const goToAuthorization = (): void => {
   }
 }
 
-@media (max-width: 350px) {
+@media (max-width: 365px) {
   .main-content h1 {
-    font-size: 25px;
+    font-size: 30px;
   }
 
   .main-content h3 {
